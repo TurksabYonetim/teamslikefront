@@ -58,7 +58,7 @@ function Toggle({
 }
 
 const selectCls =
-  "h-9 rounded-md border border-line bg-surface px-2 text-sm text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand";
+  "h-11 rounded-lg border border-gray-300 bg-surface-2 px-2 text-sm text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus-visible:outline-none";
 
 export function MeetGmPanel() {
   const { t } = useTranslation("meetings");
@@ -89,7 +89,7 @@ export function MeetGmPanel() {
     <div className="space-y-4">
       {/* Granular moderation */}
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-ink-2">{t("gm.title")}</h3>
+        <h3 className="text-sm font-semibold text-ink">{t("gm.title")}</h3>
         <Toggle
           label={t("gm.audioLock")}
           on={audioLock}
@@ -127,7 +127,7 @@ export function MeetGmPanel() {
       {/* Per-participant: pin / viewer / waiting */}
       {others.length > 0 ? (
         <section className="space-y-1">
-          <h3 className="text-sm font-semibold text-ink-2">{t("gm.participants")}</h3>
+          <h3 className="text-sm font-semibold text-ink">{t("gm.participants")}</h3>
           {others.map((p) => {
             const pinned = pinnedIds.includes(p.id);
             return (
@@ -314,7 +314,7 @@ export function MeetGmPanel() {
       <section className="space-y-2">
         <div className="flex items-center gap-2">
           <HiOutlineCog6Tooth className="h-[18px] w-[18px] text-ink-2" aria-hidden />
-          <h3 className="text-sm font-semibold text-ink-2">{t("gm.quality")}</h3>
+          <h3 className="text-sm font-semibold text-ink">{t("gm.quality")}</h3>
         </div>
         <label className="flex items-center gap-2 text-sm text-ink">
           <span className="flex-1">{t("gm.sendRes")}</span>

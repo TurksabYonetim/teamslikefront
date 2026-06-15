@@ -12,7 +12,7 @@ export function MailInbox() {
   return (
     <>
 
-      <div className="flex items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+      <div className="flex items-center justify-between border-b border-line bg-surface p-4 dark:border-gray-700 dark:bg-gray-800">
         <div className="flex items-center">
           <div className="pe-4">
             <input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox" className="focus:ring-3 h-4 w-4 rounded-sm border-gray-300 bg-gray-50 focus:ring-primary-300 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
@@ -146,7 +146,7 @@ export function MailInbox() {
                 </li>
               </ul>
             </div>
-            <button type="button" id="composeButton" data-modal-target="composeModal" data-modal-toggle="composeModal" className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white transition-[transform,background-color] hover:bg-primary-800 motion-safe:active:scale-[0.97] focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:w-auto">
+            <button type="button" id="composeButton" data-modal-target="composeModal" data-modal-toggle="composeModal" className="flex w-full items-center justify-center rounded-lg bg-brand px-3 py-2 text-sm font-medium text-white transition-[transform,background-color] hover:bg-primary-800 motion-safe:active:scale-[0.97] focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:w-auto">
               <svg className="-ms-0.5 me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h14m-7 7V5"></path>
               </svg>
@@ -182,8 +182,8 @@ export function MailInbox() {
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">
             <div className="overflow-hidden shadow-sm">
-              <table className="min-w-full table-fixed divide-y divide-gray-200">
-                <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+              <table className="min-w-full table-fixed divide-y divide-line">
+                <tbody className="divide-y divide-line bg-surface dark:divide-gray-700 dark:bg-gray-800">
                   {inboxMessages.map((m) => (
                     <tr key={m.id} className="tl-stagger cursor-pointer transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 motion-safe:active:scale-[0.99]">
                       <td className="w-4 p-4">
@@ -205,12 +205,12 @@ export function MailInbox() {
                         </div>
                       </td>
                       <td className="flex items-center space-x-4 whitespace-nowrap p-4">
-                        <div className={`${m.read ? "font-normal text-gray-700 dark:text-gray-400" : "font-semibold text-gray-900 dark:text-white"} text-base`}>{m.name}</div>
+                        <div className={`${m.read ? "font-normal text-gray-700 dark:text-gray-400" : "font-semibold text-gray-900 dark:text-white"} text-sm`}>{m.name}</div>
                       </td>
-                      <td className={`${m.read ? " font-normal text-gray-500 dark:text-gray-400 " : " font-semibold text-gray-900 dark:text-white "} max-w-sm overflow-hidden truncate p-4 text-base xl:max-w-screen-md 2xl:max-w-screen-lg`}>
+                      <td className={`${m.read ? " font-normal text-gray-500 dark:text-gray-400 " : " font-semibold text-gray-900 dark:text-white "} max-w-sm overflow-hidden truncate p-4 text-sm xl:max-w-screen-md 2xl:max-w-screen-lg`}>
                         {m.text}
                       </td>
-                      <td className={`${m.read ? "font-normal text-gray-500 dark:text-gray-400" : "font-medium text-gray-900 dark:text-white"} whitespace-nowrap p-4 text-sm`}>{m.time}</td>
+                      <td className={`${m.read ? "font-normal text-muted dark:text-gray-400" : "font-medium text-gray-900 dark:text-white"} whitespace-nowrap p-4 text-sm`}>{m.time}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -219,7 +219,7 @@ export function MailInbox() {
           </div>
         </div>
       </div>
-      <div className="border-t border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+      <div className="border-t border-line bg-surface p-4 dark:border-gray-700 dark:bg-gray-800">
         <div className="flex flex-col justify-between lg:flex-row lg:items-center xl:mb-0">
           <div className="order-1 mb-4 w-full sm:w-96 lg:mb-0">
             <div className="mb-1 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
@@ -242,7 +242,7 @@ export function MailInbox() {
           <div className="relative rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800 sm:p-5 motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]">
             {/* Modal header */}
             <div className="mb-4 flex items-center justify-between dark:border-gray-600 sm:mb-5">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Compose an email</h3>
+              <h3 className="text-base font-semibold text-gray-900 dark:text-white">Compose an email</h3>
               <button type="button" className="inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-500 transition-[transform,background-color] hover:bg-gray-100 hover:text-gray-900 motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="composeModal">
                 <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 17.94 6M18 18 6.06 6" />
@@ -256,11 +256,11 @@ export function MailInbox() {
               <div className="mb-4 space-y-4">
                 <div>
                   <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">To</label>
-                  <input type="email" name="name" id="name" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-600 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Add recipients" required />
+                  <input type="email" name="name" id="name" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Add recipients" required />
                 </div>
                 <div>
                   <label htmlFor="subject" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Subject</label>
-                  <input type="text" name="subject" id="subject" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-600 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Type your subject here" required />
+                  <input type="text" name="subject" id="subject" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Type your subject here" required />
                 </div>
                 <div>
                   <label htmlFor="message" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Message</label>
@@ -690,7 +690,7 @@ export function MailInbox() {
                 </div>
               </div>
               <div className="flex items-center space-x-4">
-                <button type="submit" className="inline-flex items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white transition-[transform,background-color] hover:bg-primary-800 motion-safe:active:scale-[0.97] focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                <button type="submit" className="inline-flex items-center justify-center rounded-lg bg-brand px-5 py-2.5 text-center text-sm font-medium text-white transition-[transform,background-color] hover:bg-primary-800 motion-safe:active:scale-[0.97] focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                   Send message
                   <span className="sr-only">Add event</span>
                 </button>

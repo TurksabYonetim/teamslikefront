@@ -49,7 +49,7 @@ export function ChannelsPanel() {
           const live = c === "connected";
           return (
             <li key={ib.id} className="rounded-lg border border-line px-3 py-2">
-              <div className="flex flex-wrap items-center gap-2 text-base">
+              <div className="flex flex-wrap items-center gap-2 text-sm">
                 <Icon name={CHANNEL_ICON[ib.channelType]} className="h-4 w-4 text-muted" aria-hidden />
                 <span className="min-w-0 flex-1 truncate text-ink">{ib.name}</span>
                 {canEnableCoexistence(withConn(ib)) ? <Badge tone="accent">{t("channels.coexistence")}</Badge> : null}

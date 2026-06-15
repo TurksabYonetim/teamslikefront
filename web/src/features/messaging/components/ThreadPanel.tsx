@@ -70,7 +70,7 @@ export function ThreadPanel() {
                 }
               }}
               placeholder={t("thread.reply")}
-              className="min-h-[2.75rem] flex-1 resize-none rounded-md border border-line bg-surface-2 p-2 text-sm text-ink outline-none placeholder:text-muted dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+              className="min-h-[2.75rem] flex-1 resize-none rounded-lg border border-gray-300 bg-surface-2 p-2.5 text-sm text-ink placeholder:text-muted focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
             />
             <IconButton label={t("send")} variant="primary" onClick={submit} disabled={!text.trim()}>
               <HiOutlinePaperAirplane className="h-4 w-4" aria-hidden />

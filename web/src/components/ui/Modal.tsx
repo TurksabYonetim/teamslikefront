@@ -27,21 +27,26 @@ export function Modal({ open, onClose, title, children, footer }: ModalProps) {
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md bg-white rounded-lg shadow-xl origin-center motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        className="w-full max-w-md bg-surface rounded-lg shadow-xl origin-center motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+        <div className="flex items-center justify-between p-4 border-b border-line">
+          <h3 id="modal-title" className="text-base font-semibold text-ink">{title}</h3>
           <button
+            type="button"
+            aria-label="Close"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)]"
+            className="p-2.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)]"
           >
             <Icon name="close" className="w-5 h-5" />
           </button>
         </div>
         <div className="p-5">{children}</div>
         {footer && (
-          <div className="flex items-center justify-end gap-2 p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+          <div className="flex items-center justify-end gap-2 p-4 border-t border-line bg-surface-2 rounded-b-lg">
             {footer}
           </div>
         )}

@@ -53,7 +53,7 @@ export function DetailsPanel() {
               <Avatar name={channel.name} size="lg" />
               {contact ? <PresenceDot presence={contact.presence} className="absolute bottom-0.5 end-0.5" /> : null}
             </span>
-            <div className="mt-2 text-lg font-semibold text-ink dark:text-white">{channel.name}</div>
+            <div className="mt-2 text-base font-semibold text-ink dark:text-white">{channel.name}</div>
             <div className="flex flex-wrap items-center justify-center gap-1 text-sm text-muted">
               {isDm ? t("directMessage") : t("channels")}
               {channel.e2ee ? (

@@ -37,15 +37,15 @@ export function NewDmDialog({ open, onClose }: { open: boolean; onClose: () => v
                     "flex w-full items-center gap-2 rounded-md border px-2 py-2 text-start text-sm",
                     on
                       ? "border-brand bg-surface-2"
-                      : "border-transparent hover:bg-surface-2 dark:hover:bg-gray-700",
+                      : "border-transparent hover:bg-surface-2",
                   )}
                 >
                   <span className="relative inline-block">
                     <Avatar name={m.name} size="sm" />
                     <PresenceDot presence={m.presence} className="absolute -bottom-0.5 -right-0.5" />
                   </span>
-                  <span className="flex-1 truncate text-ink dark:text-white">{m.name}</span>
-                  {on ? <HiOutlineCheck className="h-[18px] w-[18px] text-brand" aria-hidden /> : null}
+                  <span className="flex-1 truncate text-ink">{m.name}</span>
+                  {on ? <HiOutlineCheck className="h-4 w-4 text-brand" aria-hidden /> : null}
                 </button>
               </li>
             );

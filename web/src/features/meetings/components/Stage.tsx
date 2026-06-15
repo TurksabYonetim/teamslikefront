@@ -40,7 +40,7 @@ function Tile({
 
       {p.quality ? (
         <span
-          className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-md bg-black/60 px-1.5 py-0.5 text-base text-white"
+          className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-md bg-black/60 px-1.5 py-0.5 text-xs text-white"
           title={t(`quality.${p.quality}`)}
         >
           <span className={clsx("inline-block h-2 w-2 rounded-full", qualityTone[p.quality])} aria-hidden />
@@ -52,7 +52,7 @@ function Tile({
         </span>
       ) : null}
 
-      <div className="absolute bottom-2 left-2 flex items-center gap-1 rounded-md bg-black/60 px-2 py-0.5 text-base text-white">
+      <div className="absolute bottom-2 left-2 flex items-center gap-1 rounded-md bg-black/60 px-2 py-0.5 text-xs text-white">
         {!p.micOn ? <MdMicOff className="h-3.5 w-3.5" aria-label={t("muted")} /> : null}
         <span className="max-w-[12rem] truncate">{p.isSelf ? t("you") : p.name}</span>
       </div>
@@ -81,9 +81,8 @@ function Filmstrip({ items }: { items: Participant[] }) {
 function ScreenShareView({ presenter }: { presenter: Participant }) {
   const { t } = useTranslation("meetings");
   return (
-    <div className="relative flex h-full items-center justify-center overflow-hidden rounded-lg border border-gray-800 bg-[#0f1320]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(127,178,255,0.18),transparent_60%)]" aria-hidden />
-      <div className="flex items-center gap-2 rounded-md bg-black/60 px-3 py-2 text-base text-white">
+    <div className="relative flex h-full items-center justify-center overflow-hidden rounded-lg border border-line bg-gray-900">
+      <div className="flex items-center gap-2 rounded-md bg-black/60 px-3 py-2 text-sm text-white">
         <HiOutlineComputerDesktop className="h-5 w-5" aria-hidden />
         {t("sharingScreen", { name: presenter.isSelf ? t("you") : presenter.name })}
       </div>

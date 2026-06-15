@@ -34,11 +34,11 @@ export function ConversationList() {
           onChange={(e) => inboxStore.getState().setQuery(e.target.value)}
           placeholder={t("list.search")}
           aria-label={t("list.search")}
-          className="h-10 w-full rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+          className="block w-full rounded-lg border border-gray-300 bg-surface-2 p-2.5 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
         />
       </div>
       {list.length === 0 ? (
-        <div className="flex flex-1 items-center justify-center p-6 text-center text-base text-muted">{t("list.empty")}</div>
+        <div className="flex flex-1 items-center justify-center p-6 text-center text-sm text-muted">{t("list.empty")}</div>
       ) : (
         <ul className="min-h-0 flex-1 divide-y divide-line overflow-y-auto" aria-label={t("contact.conversations")}>
           {list.map((c) => {
@@ -55,11 +55,11 @@ export function ConversationList() {
                 >
                   <div className="flex items-center gap-2">
                     <Icon name={channelIcon} className="h-4 w-4 text-muted" />
-                    <span className="min-w-0 flex-1 truncate text-base font-medium text-ink">{contactName(c.contactId)}</span>
+                    <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink">{contactName(c.contactId)}</span>
                     {c.unread > 0 ? <Badge tone="accent">{c.unread}</Badge> : null}
                   </div>
-                  {last ? <div className="truncate text-base text-muted">{last.body}</div> : null}
-                  <div className="flex flex-wrap items-center gap-1.5 text-base">
+                  {last ? <div className="truncate text-sm text-muted">{last.body}</div> : null}
+                  <div className="flex flex-wrap items-center gap-1.5 text-xs">
                     <Badge tone={PRIORITY_TONE[c.priority]}>{t(`priority.${c.priority}`)}</Badge>
                     <Badge tone="neutral">{t(`status.${c.status}`)}</Badge>
                     {sla === "breached" ? (

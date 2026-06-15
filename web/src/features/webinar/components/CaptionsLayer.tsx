@@ -28,14 +28,14 @@ export function CaptionsLayer() {
         onClick={() => setOn((v) => !v)}
         aria-pressed={on}
         className={clsx(
-          "inline-flex items-center gap-1 rounded-md border px-2 py-1 text-base",
+          "inline-flex items-center gap-1 rounded-md border px-2 py-1 text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand",
           on ? "border-brand text-brand" : "border-slate-600 text-slate-400",
         )}
       >
         <Icon name="captions" className="h-4 w-4" /> {t("captions")}
       </button>
       {on ? (
-        <span className="flex-1 truncate text-base text-white" aria-live="polite">{LINES[i]}</span>
+        <span className="flex-1 truncate text-sm text-white" aria-live="polite">{LINES[i]}</span>
       ) : null}
     </div>
   );

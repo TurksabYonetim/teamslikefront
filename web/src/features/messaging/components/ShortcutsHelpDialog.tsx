@@ -24,7 +24,7 @@ export function ShortcutsHelpDialog({ open, onClose }: { open: boolean; onClose:
 
   const Group = ({ title, rows }: { title: string; rows: Row[] }) => (
     <div>
-      <h4 className="mb-2 text-sm font-semibold text-muted">{title}</h4>
+      <h3 className="mb-2 text-sm font-semibold text-muted">{title}</h3>
       <ul className="space-y-1">
         {rows.map((r) => (
           <li key={r.keys} className="flex items-center justify-between gap-4 text-sm">

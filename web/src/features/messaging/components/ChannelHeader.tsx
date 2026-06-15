@@ -117,7 +117,7 @@ export function ChannelHeader() {
       ) : null}
       <header className="flex items-center gap-3 border-b border-line bg-surface-2 px-4 py-3 dark:border-gray-700 dark:bg-gray-700">
         <div className="min-w-0">
-          <div className="flex items-center gap-1 text-lg font-semibold text-ink dark:text-white">
+          <div className="flex items-center gap-1 text-xl font-semibold text-ink dark:text-white">
             {channel ? <KindGlyph kind={channel.kind} /> : null}
             <span className="truncate">{channel?.name}</span>
             {channel?.e2ee ? (
@@ -167,7 +167,7 @@ export function ChannelHeader() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("search")}
               aria-label={t("search")}
-              className="h-9 w-40 rounded-md border border-line bg-white pl-8 pr-3 text-sm text-ink outline-none placeholder:text-muted dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+              className="h-9 w-40 rounded-md border border-line bg-surface-2 pl-8 pr-3 text-sm text-ink placeholder:text-muted focus-visible:ring-2 focus-visible:ring-brand dark:border-gray-700 dark:bg-gray-800 dark:text-white"
             />
           </div>
           <IconButton
@@ -222,7 +222,7 @@ export function ChannelHeader() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("search")}
               aria-label={t("search")}
-              className="h-9 w-full rounded-md border border-line bg-white pl-8 pr-3 text-sm text-ink outline-none placeholder:text-muted focus-visible:ring-2 focus-visible:ring-brand dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+              className="h-9 w-full rounded-md border border-line bg-surface-2 pl-8 pr-3 text-sm text-ink placeholder:text-muted focus-visible:ring-2 focus-visible:ring-brand dark:border-gray-700 dark:bg-gray-800 dark:text-white"
             />
           </div>
           <IconButton

@@ -40,7 +40,7 @@ export function RegistrationBuilder() {
     }
   };
 
-  const inputCls = "h-11 w-full rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
+  const inputCls = "block w-full rounded-lg border border-gray-300 bg-surface-2 p-2.5 text-sm text-ink placeholder-gray-400 focus:border-brand focus:ring-1 focus:ring-brand";
 
   return (
     <div className="space-y-4">
@@ -51,7 +51,7 @@ export function RegistrationBuilder() {
           <h3 className="mb-2 text-base font-semibold text-ink">{t("regFields")}</h3>
           <ul className="mb-3 space-y-1.5">
             {fields.map((f) => (
-              <li key={f.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-base">
+              <li key={f.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm">
                 <span className="flex-1 text-ink">{f.label}</span>
                 <Badge tone="neutral">{t(`fieldType.${f.type}`)}</Badge>
                 {f.required ? <Badge tone="accent">{t("required")}</Badge> : null}
@@ -62,13 +62,13 @@ export function RegistrationBuilder() {
             ))}
           </ul>
           <div className="flex flex-wrap items-end gap-2 border-t border-line pt-3">
-            <label className="flex flex-1 flex-col gap-1 text-base text-muted">
+            <label className="flex flex-1 flex-col gap-1 text-sm text-muted">
               {t("fieldLabel")}
               <input value={label} onChange={(e) => setLabel(e.target.value)} className={inputCls} />
             </label>
-            <label className="flex flex-col gap-1 text-base text-muted">
+            <label className="flex flex-col gap-1 text-sm text-muted">
               {t("fieldTypeLabel")}
-              <select value={type} onChange={(e) => setType(e.target.value as RegFieldType)} className="h-11 rounded-md border border-line bg-surface px-2 text-base text-ink">
+              <select value={type} onChange={(e) => setType(e.target.value as RegFieldType)} className={inputCls}>
                 {TYPES.map((ty) => <option key={ty} value={ty}>{t(`fieldType.${ty}`)}</option>)}
               </select>
             </label>
@@ -86,7 +86,7 @@ export function RegistrationBuilder() {
           <div className="space-y-2">
             {fields.map((f) => (
               <label key={f.id} className="block">
-                <span className="text-base text-ink">
+                <span className="text-sm text-ink">
                   {f.label}{f.required ? <span className="text-danger"> *</span> : null}
                 </span>
                 {f.type === "select" ? (
@@ -105,7 +105,7 @@ export function RegistrationBuilder() {
                     className={`mt-1 ${inputCls}`}
                   />
                 )}
-                {errors[f.id] ? <span className="text-base text-danger">{t(`regError.${errors[f.id]}`)}</span> : null}
+                {errors[f.id] ? <span className="mt-1 block text-sm text-danger">{t(`regError.${errors[f.id]}`)}</span> : null}
               </label>
             ))}
             <Button className="w-full" onClick={submit}>{t("register")}</Button>

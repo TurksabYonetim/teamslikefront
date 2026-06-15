@@ -38,7 +38,7 @@ export function CanvasEditor() {
           value={doc.id}
           onChange={(e) => setActiveDoc(e.target.value)}
           aria-label={t("canvas.selectDoc")}
-          className="h-9 rounded-lg border border-line bg-surface px-2 text-lg font-bold text-ink"
+          className="h-10 rounded-lg border border-gray-300 bg-surface-2 px-2 text-xl font-semibold text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
         >
           {docs.map((d) => (
             <option key={d.id} value={d.id}>
@@ -49,7 +49,13 @@ export function CanvasEditor() {
         {prog.total > 0 ? (
           <span className="ml-auto inline-flex items-center gap-2 text-sm text-muted">
             {t("canvas.progress", { done: prog.done, total: prog.total })}
-            <span className="h-2 w-24 overflow-hidden rounded-full bg-surface-3">
+            <span
+              className="h-2 w-24 overflow-hidden rounded-full bg-surface-3"
+              role="progressbar"
+              aria-valuenow={prog.pct}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            >
               <span
                 className="block h-full rounded-full bg-ok transition-[width] duration-200 ease-[var(--ease-out)] motion-reduce:transition-none"
                 style={{ width: `${prog.pct}%` }}
@@ -70,7 +76,7 @@ export function CanvasEditor() {
                 value={b.content}
                 onChange={(e) => editBlock(doc.id, b.id, e.target.value)}
                 aria-label={t("canvas.editBlock")}
-                className="w-full rounded-md bg-transparent px-1 text-lg font-semibold text-ink outline-none transition-colors duration-[140ms] ease-[var(--ease-out)] focus:bg-surface-2 motion-reduce:transition-none"
+                className="w-full rounded-md bg-transparent px-1 text-base font-semibold text-ink outline-none transition-colors duration-[140ms] ease-[var(--ease-out)] focus:bg-surface-2 motion-reduce:transition-none"
               />
             );
           if (b.type === "divider") return <hr key={b.id} className="border-line" />;
@@ -108,7 +114,7 @@ export function CanvasEditor() {
           value={type}
           onChange={(e) => setType(e.target.value as BlockType)}
           aria-label={t("canvas.blockTypeLabel")}
-          className="h-10 rounded-lg border border-line bg-surface px-2 text-sm text-ink"
+          className="h-10 rounded-lg border border-gray-300 bg-surface-2 px-2 text-sm text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
         >
           {TYPES.map((ty) => (
             <option key={ty} value={ty}>

@@ -54,15 +54,15 @@ export function EventTypeList() {
                 activeId === et.id ? "border-brand bg-surface-2" : "border-line hover:bg-surface-2",
               )}
             >
-              <span className="text-base font-medium text-ink">{et.title}</span>
-              <span className="flex flex-wrap items-center gap-2 text-base text-muted">
+              <span className="text-sm font-semibold text-ink">{et.title}</span>
+              <span className="flex flex-wrap items-center gap-2 text-xs text-muted">
                 <Icon name="clock" className="h-3.5 w-3.5" /> {t("minutes", { n: et.durationMin })}
                 <Badge tone="neutral">
                   <Icon name={et.assignment === "roundrobin" ? "users" : "userCircle"} className="h-3 w-3" />
                   {t(`assignment.${et.assignment}`)}
                 </Badge>
               </span>
-              <span className="truncate text-base text-muted">aura.dev/{et.slug}</span>
+              <span className="truncate text-xs text-muted">aura.dev/{et.slug}</span>
             </button>
             <IconButton
               label={t("removeEventType")}
@@ -82,7 +82,7 @@ export function EventTypeList() {
           onChange={(e) => setTitle(e.target.value)}
           placeholder={t("titlePh")}
           aria-label={t("titlePh")}
-          className="h-11 flex-1 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+          className="h-11 flex-1 rounded-lg border border-gray-300 bg-surface-2 px-2.5 text-sm text-ink placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
         />
         <input
           type="number"
@@ -90,7 +90,7 @@ export function EventTypeList() {
           value={duration}
           onChange={(e) => setDuration(Number(e.target.value))}
           aria-label={t("duration")}
-          className="h-11 w-20 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+          className="h-11 w-20 rounded-lg border border-gray-300 bg-surface-2 px-2.5 text-sm text-ink placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
         />
         <Button onClick={add} leftIcon={<Icon name="plus" className="h-4 w-4" />}>{t("addEventType")}</Button>
       </div>

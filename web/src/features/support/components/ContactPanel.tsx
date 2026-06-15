@@ -37,8 +37,8 @@ export function ContactPanel() {
     <div className="hidden min-h-0 shrink-0 space-y-3 overflow-y-auto rounded-xl border border-line bg-surface-2 p-3 xl:block">
       {/* Identity */}
       <Card className="p-3">
-        <h3 className="mb-2 text-base font-semibold text-ink">{contact.name}</h3>
-        <ul className="space-y-1 text-base text-muted">
+        <h3 className="mb-2 text-sm font-semibold text-ink">{contact.name}</h3>
+        <ul className="space-y-1 text-sm text-muted">
           {contact.identifiers.email ? (
             <li className="flex items-center gap-2">
               <Icon name="envelope" className="h-3.5 w-3.5 shrink-0" aria-hidden /> <span className="truncate">{contact.identifiers.email}</span>
@@ -60,8 +60,8 @@ export function ContactPanel() {
       {/* Attributes */}
       {Object.keys(contact.attributes).length > 0 ? (
         <Card className="p-3">
-          <h3 className="mb-2 text-base font-semibold text-ink">{t("contact.attributes")}</h3>
-          <dl className="space-y-1 text-base">
+          <h3 className="mb-2 text-sm font-semibold text-ink">{t("contact.attributes")}</h3>
+          <dl className="space-y-1 text-sm">
             {Object.entries(contact.attributes).map(([k, v]) => (
               <div key={k} className="flex justify-between gap-2">
                 <dt className="text-muted">{k}</dt>
@@ -74,13 +74,13 @@ export function ContactPanel() {
 
       {/* Labels */}
       <Card className="p-3">
-        <h3 className="mb-2 flex items-center gap-1.5 text-base font-semibold text-ink">
+        <h3 className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-ink">
           <Icon name="tag" className="h-4 w-4" aria-hidden /> {t("contact.labels")}
         </h3>
         <div className="mb-2 flex flex-wrap gap-1">
-          {conv.labels.length === 0 ? <span className="text-base text-muted">{t("contact.noLabels")}</span> : null}
+          {conv.labels.length === 0 ? <span className="text-sm text-muted">{t("contact.noLabels")}</span> : null}
           {conv.labels.map((l) => (
-            <span key={l} className="inline-flex items-center gap-1 rounded-full border border-line bg-surface px-2 py-0.5 text-base text-ink">
+            <span key={l} className="inline-flex items-center gap-1 rounded-full border border-line bg-surface px-2 py-0.5 text-xs text-ink">
               {l}
               <button
                 onClick={() => conversationStore.getState().removeLabel(conv.id, l)}
@@ -101,7 +101,7 @@ export function ContactPanel() {
             }}
             placeholder={t("contact.addLabel")}
             aria-label={t("contact.addLabel")}
-            className="h-9 flex-1 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none placeholder:text-muted focus-visible:ring-2 focus-visible:ring-brand"
+            className="h-9 flex-1 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none placeholder:text-muted focus-visible:ring-2 focus-visible:ring-brand"
           />
           <IconButton label={t("contact.addLabel")} onClick={submitLabel}>
             <Icon name="plus" className="h-4 w-4" aria-hidden />
@@ -112,7 +112,7 @@ export function ContactPanel() {
       {/* CSAT */}
       <Card className="p-3">
         <div className="mb-2 flex items-center justify-between">
-          <h3 className="text-base font-semibold text-ink">{t("conversation.csat")}</h3>
+          <h3 className="text-sm font-semibold text-ink">{t("conversation.csat")}</h3>
           {teamCsat > 0 ? <Badge tone="accent">{t("contact.csatAvg", { n: teamCsat.toFixed(1) })}</Badge> : null}
         </div>
         <div className="flex items-center gap-1" role="group" aria-label={t("conversation.csat")}>

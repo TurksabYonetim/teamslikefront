@@ -172,7 +172,7 @@ export function MailReply() {
       <div className="p-4 xl:p-8">
         <div className="mb-4 items-center justify-between border-b border-gray-200 pb-4 dark:border-gray-800">
           <div className="mb-4 flex items-center justify-between gap-4 border-b border-gray-200 pb-4 dark:border-gray-800">
-            <h2 className="text-base font-medium text-gray-900 dark:text-white sm:mb-1.5 sm:flex sm:text-xl sm:leading-none">
+            <h2 className="text-base font-semibold text-ink dark:text-white sm:mb-1.5 sm:flex sm:text-xl sm:leading-none">
               RE: Inquiry about design services <span className="me-2 ms-3 hidden rounded-sm bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300 sm:flex">External</span>
             </h2>
             <div className="flex items-center space-x-1">
@@ -262,17 +262,17 @@ export function MailReply() {
           </div>
         </div>
         <article>
-          <p className="mt-6 text-gray-500 dark:text-gray-400">Dear Flowbite team,</p>
-          <p className="mt-6 text-gray-500 dark:text-gray-400">
+          <p className="mt-6 text-sm text-ink-2 dark:text-gray-400">Dear Flowbite team,</p>
+          <p className="mt-6 text-sm text-ink-2 dark:text-gray-400">
             I hope this email finds you well. My name is Jospeh McFallen, and I am reaching out to inquire about the design services offered by your esteemed company. I came across your portfolio and was truly impressed by the innovative and
             captivating designs showcased.
           </p>
-          <p className="mt-6 text-gray-500 dark:text-gray-400">
+          <p className="mt-6 text-sm text-ink-2 dark:text-gray-400">
             I am currently in the process of launching a Flowbite APP and believe that a distinctive and creative design is essential for setting the right tone and establishing a strong brand presence. Your expertise in this field caught my
             attention, and I am keen to explore the possibility of collaborating with your talented team.
           </p>
-          <p className="mb-4 mt-6 text-gray-500 dark:text-gray-400">Here are some specific points I would like to discuss:</p>
-          <ol className="list-inside list-decimal space-y-4 text-gray-500 dark:text-gray-400">
+          <p className="mb-4 mt-6 text-sm text-ink-2 dark:text-gray-400">Here are some specific points I would like to discuss:</p>
+          <ol className="list-inside list-decimal space-y-4 text-sm text-ink-2 dark:text-gray-400">
             <li>
               <span className="font-medium text-gray-900 dark:text-white">Brand Identity:</span> I am interested in creating a unique brand identity that resonates with our target audience. This includes logo design, color palette selection, and
               other visual elements that can effectively communicate our mission and values.
@@ -298,16 +298,16 @@ export function MailReply() {
               into your typical project timelines and your pricing structure.
             </li>
           </ol>
-          <p className="mt-6 text-gray-500 dark:text-gray-400">
+          <p className="mt-6 text-sm text-ink-2 dark:text-gray-400">
             I am eager to explore the potential of working together and believe that your creative vision aligns perfectly with our project goals. Your portfolio speaks volumes about your talent, and I am excited about the prospect of bringing
             fresh, imaginative ideas to life with your team.
           </p>
-          <p className="mt-6 text-gray-500 dark:text-gray-400">
+          <p className="mt-6 text-sm text-ink-2 dark:text-gray-400">
             Please let me know if you would be available for a brief call or meeting to further discuss our requirements and explore the possibilities of collaboration. I am confident that together, we can create something exceptional that leaves
             a lasting impression on our audience.
           </p>
-          <p className="mt-6 text-gray-500 dark:text-gray-400">Looking forward to your positive response.</p>
-          <p className="mt-6 text-gray-500 dark:text-gray-400">
+          <p className="mt-6 text-sm text-ink-2 dark:text-gray-400">Looking forward to your positive response.</p>
+          <p className="mt-6 text-sm text-ink-2 dark:text-gray-400">
             Best regards,<br />
             Joseph McFall, CEO & Founder Digital Things LLC
           </p>
@@ -354,7 +354,7 @@ export function MailReply() {
             </div>
             <div className="rounded-b-lg bg-white px-4 py-2 dark:bg-gray-800">
               <label htmlFor="editor" className="sr-only">Publish post</label>
-              <textarea id="editor" rows={8} autoFocus className="block w-full border-0 bg-white px-0 text-sm text-gray-800 focus:ring-0 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400" placeholder="" required></textarea>
+              <textarea id="editor" rows={8} autoFocus className="block w-full border-0 bg-white px-0 text-sm text-gray-800 focus:ring-0 focus-visible:ring-2 focus-visible:ring-blue-500 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400" placeholder="Write your reply…" required></textarea>
             </div>
           </div>
           <div className="flex flex-wrap items-center divide-gray-200 rounded-b-lg border-t border-gray-200 px-4 py-3 dark:divide-gray-700 dark:border-gray-700 sm:divide-x sm:rtl:divide-x-reverse">
@@ -533,7 +533,7 @@ export function MailReply() {
             </div>
           </div>
           <div className="items-center space-x-0.5 rounded-b-lg border-t border-gray-200 px-4 py-3 dark:border-gray-700 sm:flex">
-            <button type="button" className="mb-4 me-2 inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-3 py-2 text-center text-sm font-medium text-white transition-transform ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:mb-0 sm:w-auto">
+            <button type="button" className="mb-4 me-2 inline-flex w-full items-center justify-center rounded-lg bg-brand px-3 py-2 text-center text-sm font-medium text-white transition-transform ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-brand-600 focus:outline-none focus:ring-4 focus:ring-brand/40 dark:bg-brand dark:hover:bg-brand-600 dark:focus:ring-brand/40 sm:mb-0 sm:w-auto">
               <svg className="-ms-0.5 me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                 <path fillRule="evenodd" d="M12 2c.4 0 .8.3 1 .6l7 18a1 1 0 0 1-1.4 1.3L13 19.5V13a1 1 0 1 0-2 0v6.5L5.4 22A1 1 0 0 1 4 20.6l7-18a1 1 0 0 1 1-.6Z" clipRule="evenodd" />
               </svg>

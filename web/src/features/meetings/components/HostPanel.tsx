@@ -86,9 +86,9 @@ export function HostPanel() {
             onToggle={() => act().toggleLock()}
             icon={
               locked ? (
-                <HiOutlineLockClosed className="h-[18px] w-[18px]" aria-hidden />
+                <HiOutlineLockClosed className="h-5 w-5" aria-hidden />
               ) : (
-                <HiOutlineLockOpen className="h-[18px] w-[18px]" aria-hidden />
+                <HiOutlineLockOpen className="h-5 w-5" aria-hidden />
               )
             }
           />
@@ -96,19 +96,19 @@ export function HostPanel() {
             label={t("waitingRoom")}
             on={waitingRoom}
             onToggle={() => act().toggleWaitingRoom()}
-            icon={<HiOutlineUsers className="h-[18px] w-[18px]" aria-hidden />}
+            icon={<HiOutlineUsers className="h-5 w-5" aria-hidden />}
           />
           <SettingRow
             label={t("allowShare")}
             on={allowAttendeeShare}
             onToggle={() => act().toggleAttendeeShare()}
-            icon={<HiOutlineComputerDesktop className="h-[18px] w-[18px]" aria-hidden />}
+            icon={<HiOutlineComputerDesktop className="h-5 w-5" aria-hidden />}
           />
           <SettingRow
             label={t("allowChat")}
             on={allowAttendeeChat}
             onToggle={() => act().toggleAttendeeChat()}
-            icon={<HiOutlineChatBubbleOvalLeft className="h-[18px] w-[18px]" aria-hidden />}
+            icon={<HiOutlineChatBubbleOvalLeft className="h-5 w-5" aria-hidden />}
           />
         </section>
 
@@ -121,7 +121,7 @@ export function HostPanel() {
           <Button
             variant="secondary"
             className="w-full"
-            leftIcon={<MdMicOff className="h-[18px] w-[18px]" aria-hidden />}
+            leftIcon={<MdMicOff className="h-5 w-5" aria-hidden />}
             onClick={() => {
               act().muteAll();
               toast?.show({ message: t("mutedAll") });
@@ -132,7 +132,7 @@ export function HostPanel() {
           <Button
             variant="secondary"
             className="w-full"
-            leftIcon={<HiOutlineHandRaised className="h-[18px] w-[18px]" aria-hidden />}
+            leftIcon={<HiOutlineHandRaised className="h-5 w-5" aria-hidden />}
             onClick={() => act().lowerAllHands()}
           >
             {t("lowerAllHands")}
@@ -144,7 +144,7 @@ export function HostPanel() {
           <Button
             variant="danger"
             className="w-full"
-            leftIcon={<HiOutlinePhoneXMark className="h-[18px] w-[18px]" aria-hidden />}
+            leftIcon={<HiOutlinePhoneXMark className="h-5 w-5" aria-hidden />}
             onClick={() => {
               act().endForAll();
               toast?.show({ message: t("endedForAll") });

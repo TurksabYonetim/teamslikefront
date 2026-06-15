@@ -27,14 +27,14 @@ export function PollMessage({ message }: { message: Message }) {
       : t("poll.public");
 
   return (
-    <div className="max-w-md rounded-lg border border-line bg-white p-3 dark:border-gray-700 dark:bg-gray-800">
+    <div className="max-w-md rounded-lg border border-line bg-surface p-3 dark:border-gray-700 dark:bg-gray-800">
       <div className="mb-2 flex items-center gap-2 text-sm text-muted">
         <HiOutlineChartBar className="h-4 w-4" aria-hidden />
         {typeLabel}
         {poll.multi ? ` · ${t("poll.multi")}` : ""}
         {poll.closed ? ` · ${t("poll.closed")}` : ""}
       </div>
-      <div className="mb-2 text-sm font-semibold text-ink dark:text-white">{poll.question}</div>
+      <div className="mb-2 text-sm font-semibold text-ink">{poll.question}</div>
 
       <ul className="space-y-1.5">
         {poll.options.map((o) => {
@@ -61,7 +61,7 @@ export function PollMessage({ message }: { message: Message }) {
                 />
                 <span className="relative flex items-center gap-2">
                   {mine ? <HiOutlineCheck className="h-4 w-4 text-brand" aria-hidden /> : null}
-                  <span className="flex-1 text-ink dark:text-white">{o.text}</span>
+                  <span className="flex-1 text-ink">{o.text}</span>
                   <span className="text-muted">{pct}%</span>
                   <span className="w-8 text-right text-muted">{o.votes.length}</span>
                 </span>

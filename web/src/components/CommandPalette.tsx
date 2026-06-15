@@ -93,10 +93,10 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Sayfalarda ara…"
-            className="h-12 w-full bg-transparent text-sm text-ink outline-none placeholder:text-muted"
+            className="h-12 w-full bg-transparent text-sm text-ink outline-none placeholder:text-gray-400"
             aria-label="Sayfa ara"
           />
-          <kbd className="hidden shrink-0 rounded border border-line px-1.5 py-0.5 text-[10px] text-muted sm:inline">
+          <kbd className="hidden shrink-0 rounded border border-line px-1.5 py-0.5 text-xs text-muted sm:inline">
             ESC
           </kbd>
         </div>

@@ -25,7 +25,7 @@ interface Draft {
 type NumField = "durationMin" | "bufferBefore" | "bufferAfter" | "minNoticeMin";
 
 const fieldCls =
-  "h-11 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
+  "block w-full rounded-lg border border-gray-300 bg-surface-2 p-2.5 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500";
 
 export function EventTypeEditor() {
   const { t } = useTranslation("appointments");
@@ -56,7 +56,7 @@ export function EventTypeEditor() {
     setDraft((d) => (d ? { ...d, [key]: value } : d));
 
   const num = (label: string, key: NumField) => (
-    <label className="flex flex-col gap-1 text-base text-muted">
+    <label className="flex flex-col gap-1 text-sm font-medium text-muted">
       {label}
       <input
         type="number"
@@ -81,9 +81,9 @@ export function EventTypeEditor() {
       </div>
 
       <div className="space-y-3">
-        <label className="flex flex-col gap-1 text-base text-muted">
+        <label className="flex flex-col gap-1 text-sm font-medium text-muted">
           {t("titlePh")}
-          <input value={draft.title} onChange={(e) => setField("title", e.target.value)} className={fieldCls} />
+          <input value={draft.title} onChange={(e) => setField("title", e.target.value)} placeholder={t("titlePh")} className={fieldCls} />
         </label>
 
         <div className="flex flex-wrap gap-3">
@@ -94,7 +94,7 @@ export function EventTypeEditor() {
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <label className="flex flex-col gap-1 text-base text-muted">
+          <label className="flex flex-col gap-1 text-sm font-medium text-muted">
             {t("locationLabel")}
             <select
               value={draft.location}
@@ -106,7 +106,7 @@ export function EventTypeEditor() {
               ))}
             </select>
           </label>
-          <label className="flex flex-col gap-1 text-base text-muted">
+          <label className="flex flex-col gap-1 text-sm font-medium text-muted">
             {t("assignmentLabel")}
             <select
               value={draft.assignment}
@@ -120,7 +120,7 @@ export function EventTypeEditor() {
           </label>
         </div>
 
-        <div className="text-base text-muted">
+        <div className="text-sm text-muted">
           {t("hosts")}: {et.hostIds.map((h) => HOST_NAMES[h] ?? h).join(", ")}
         </div>
 

@@ -157,7 +157,7 @@ export function ClipsPage() {
         }
       />
 
-      <div className="flex-1 overflow-y-auto bg-gray-50 p-4 md:p-6">
+      <div className="flex-1 overflow-y-auto bg-surface-2 p-4 md:p-6">
         {/* Araç çubuğu: arama + sıralama (yalnızca klip varken) */}
         {hasClips && (
           <div className="flex flex-col sm:flex-row gap-2 mb-4">
@@ -169,15 +169,15 @@ export function ClipsPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={t("toolbar.searchPlaceholder")}
-                className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-9 pr-3 text-sm bg-surface-2 border border-gray-300 rounded-lg p-2.5 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               />
             </div>
             <label className="inline-flex items-center gap-2 text-sm">
-              <span className="text-gray-500">{t("toolbar.sortLabel")}</span>
+              <span className="text-muted">{t("toolbar.sortLabel")}</span>
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as ClipSort)}
-                className="px-3 py-2 text-sm border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2.5 text-sm border border-gray-300 rounded-lg bg-surface-2 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               >
                 {CLIP_SORTS.map((s) => (
                   <option key={s} value={s}>

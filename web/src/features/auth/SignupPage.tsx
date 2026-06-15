@@ -103,7 +103,7 @@ export function SignupPage() {
   return (
     <AuthShell>
       <header className="space-y-1">
-        <h1 className="text-xl font-bold leading-tight tracking-tight text-ink sm:text-2xl dark:text-white">
+        <h1 className="text-xl font-semibold leading-tight tracking-tight text-ink sm:text-2xl dark:text-white">
           {t("signup.title")}
         </h1>
         <p className="text-sm text-muted">{t("signup.subtitle")}</p>
@@ -163,7 +163,7 @@ export function SignupPage() {
         />
 
         <div>
-          <label className="flex items-start gap-3 text-sm font-light text-muted">
+          <label className="flex items-start gap-3 text-sm font-normal text-muted">
             <input
               type="checkbox"
               checked={agree}
@@ -207,7 +207,7 @@ export function SignupPage() {
           {signup.isPending ? t("signup.submitting") : t("signup.submit")}
         </Button>
 
-        <p className="text-sm font-light text-muted">
+        <p className="text-sm font-normal text-muted">
           {t("signup.haveAccount")}{" "}
           <Link
             to="/login"

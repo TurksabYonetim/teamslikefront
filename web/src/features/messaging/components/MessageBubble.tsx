@@ -89,7 +89,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
     const title = channel ? (channel.kind === "dm" ? channel.name : `#${channel.name}`) : "";
     return (
       <div className="my-2 flex items-center justify-center px-4">
-        <div className="flex items-center gap-3 rounded-lg border border-line bg-surface-2 px-4 py-2 dark:border-gray-700">
+        <div className="flex items-center gap-3 rounded-lg border border-line bg-surface-2 px-4 py-2 dark:border-line">
           <HiOutlineVideoCamera className="h-5 w-5 text-brand" aria-hidden />
           <span className="text-sm text-ink dark:text-white">{title}</span>
           <button
@@ -112,7 +112,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
         value={draft}
         onChange={(e) => setDraft(e.target.value)}
         aria-label={t("edit")}
-        className="w-full resize-none rounded-md border border-line bg-white p-2 text-sm text-ink outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+        className="w-full resize-none rounded-md border border-line bg-white p-2 text-sm text-ink outline-none dark:border-line dark:bg-surface-2 dark:text-white"
       />
       <div className="mt-1 flex gap-2">
         <button
@@ -125,7 +125,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
         <button
           type="button"
           onClick={() => { setDraft(message.body); setEditing(false); }}
-          className="rounded-md px-3 py-1 text-sm text-muted hover:bg-surface-2 dark:hover:bg-gray-700"
+          className="rounded-md px-3 py-1 text-sm text-muted hover:bg-surface-2 dark:hover:bg-surface-2"
         >
           {t("cancel")}
         </button>
@@ -138,14 +138,14 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
   ) : message.kind === "file" ? (
     <FileMessage file={message.file!} />
   ) : message.kind === "sticker" ? (
-    <div className="motion-safe:tl-pop-in text-5xl leading-none" role="img" aria-label="sticker">{message.sticker}</div>
+    <div className="motion-safe:tl-pop-in text-4xl leading-none" role="img" aria-label="sticker">{message.sticker}</div>
   ) : (
     <div className="space-y-1">
       <RichText text={message.body} className="text-sm text-ink dark:text-white" />
       {message.translating ? (
-        <div className="text-xs italic text-muted">…</div>
+        <div className="text-xs italic text-muted" role="status" aria-label={t("translate")}>…</div>
       ) : message.translated && message.bodyAlt ? (
-        <div className="rounded-md border-s-2 border-brand bg-surface-2 px-2 py-1 text-sm text-ink dark:text-white">
+        <div className="rounded-md border border-line bg-surface-2 px-2 py-1 text-sm text-ink dark:text-white">
           <span className="block text-xs font-medium text-muted">{t("translatedLabel")}</span>
           {message.bodyAlt}
         </div>
@@ -173,7 +173,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
                 "inline-flex h-7 items-center gap-1 rounded-full border px-2 text-sm transition-transform motion-safe:active:scale-[0.97]",
                 mine
                   ? "border-brand bg-brand/10 text-brand"
-                  : "border-line bg-surface-2 text-ink dark:border-gray-700 dark:text-white",
+                  : "border-line bg-surface-2 text-ink dark:border-line dark:text-white",
               )}
             >
               <span aria-hidden>{r.emoji}</span>
@@ -207,14 +207,14 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
   // ── Hover/focus toolbar ───────────────────────────────────────────────
   const toolbar = (
     <>
-    <div className="absolute -top-3 end-2 z-10 flex items-center gap-0.5 rounded-md border border-line bg-white p-0.5 opacity-0 shadow-sm transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100 dark:border-gray-700 dark:bg-gray-800 [@media(pointer:coarse)]:pointer-events-auto [@media(pointer:coarse)]:opacity-100">
+    <div className="absolute -top-3 end-2 z-10 flex items-center gap-0.5 rounded-md border border-line bg-white p-0.5 opacity-0 shadow-sm transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100 dark:border-line dark:bg-surface-2 [@media(pointer:coarse)]:pointer-events-auto [@media(pointer:coarse)]:opacity-100">
       {QUICK_REACTIONS.slice(0, 6).map((emoji) => (
         <button
           key={emoji}
           type="button"
           aria-label={emoji}
           onClick={() => toggleReaction(message.id, emoji, ME_ID)}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-base transition-transform motion-safe:active:scale-[0.97] hover:bg-surface-2 dark:hover:bg-gray-700"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-base transition-transform motion-safe:active:scale-[0.97] hover:bg-surface-2 dark:hover:bg-surface-2"
         >
           <span aria-hidden>{emoji}</span>
         </button>
@@ -224,7 +224,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
         type="button"
         onClick={() => setReplyTarget(message.id)}
         aria-label={t("reply")}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted transition-transform motion-safe:active:scale-[0.97] hover:bg-surface-2 hover:text-ink dark:hover:bg-gray-700"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted transition-transform motion-safe:active:scale-[0.97] hover:bg-surface-2 hover:text-ink dark:hover:bg-surface-2"
       >
         <HiOutlineArrowUturnLeft className="h-4 w-4" aria-hidden />
       </button>
@@ -232,7 +232,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
         type="button"
         onClick={() => openThread(message.id)}
         aria-label={t("replyInThread")}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted transition-transform motion-safe:active:scale-[0.97] hover:bg-surface-2 hover:text-ink dark:hover:bg-gray-700"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted transition-transform motion-safe:active:scale-[0.97] hover:bg-surface-2 hover:text-ink dark:hover:bg-surface-2"
       >
         <HiOutlineChatBubbleLeftRight className="h-4 w-4" aria-hidden />
       </button>
@@ -240,14 +240,14 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
         type="button"
         onClick={() => messagingStore.getState().translate(message.id)}
         aria-label={t("translate")}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted transition-transform motion-safe:active:scale-[0.97] hover:bg-surface-2 hover:text-ink dark:hover:bg-gray-700"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted transition-transform motion-safe:active:scale-[0.97] hover:bg-surface-2 hover:text-ink dark:hover:bg-surface-2"
       >
         <HiOutlineLanguage className="h-4 w-4" aria-hidden />
       </button>
       <Dropdown
         label={t("more")}
         align="end"
-        triggerClassName="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted hover:bg-surface-2 hover:text-ink dark:hover:bg-gray-700"
+        triggerClassName="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted hover:bg-surface-2 hover:text-ink dark:hover:bg-surface-2"
         trigger={<HiOutlineEllipsisHorizontal className="h-4 w-4" aria-hidden />}
       >
         <DropdownItem onSelect={() => { void navigator.clipboard?.writeText(message.body); }}>
@@ -278,7 +278,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
         </DropdownItem>
         {own ? (
           <DropdownItem onSelect={() => deleteForEveryone(message.id)}>
-            <HiOutlineTrash className="h-4 w-4 text-red-600" aria-hidden /> {t("deleteForEveryone")}
+            <HiOutlineTrash className="h-4 w-4 text-danger" aria-hidden /> {t("deleteForEveryone")}
           </DropdownItem>
         ) : null}
       </Dropdown>
@@ -305,7 +305,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
           <div className={clsx("rounded-2xl px-3 py-2", own ? "bg-brand text-white" : "bg-surface-2 text-ink dark:text-white")}>
             {forwardedRow}
             {quoted ? (
-              <div className={clsx("mb-1 rounded-md border-l-2 px-2 py-1 text-xs", own ? "border-white/60 bg-white/10" : "border-brand bg-white dark:bg-gray-800")}>
+              <div className={clsx("mb-1 rounded-md border px-2 py-1 text-xs", own ? "border-white/60 bg-white/10" : "border-brand bg-white dark:bg-surface-2")}>
                 <span className="font-medium">{quoted.authorName ?? memberName(quoted.authorId)}</span>
                 <span className="ml-2 opacity-80">{(quoted.body || "").slice(0, 80)}</span>
               </div>
@@ -333,8 +333,8 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
       onKeyDown={onArticleKeyDown}
       aria-keyshortcuts={ARTICLE_KEY_SHORTCUTS}
       className={clsx(
-        "group relative flex gap-3 px-4 py-1.5 hover:bg-surface-2 focus-within:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand dark:hover:bg-gray-700/40",
-        message.important && "border-l-2 border-red-500 bg-surface-2",
+        "group relative flex gap-3 px-4 py-1.5 hover:bg-surface-2 focus-within:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand dark:hover:bg-surface-2",
+        message.important && "border border-red-200 bg-red-50 dark:border-red-900/40 dark:bg-red-950/20",
       )}
     >
       <div className="w-9 shrink-0">
@@ -361,7 +361,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
         ) : null}
         {forwardedRow}
         {quoted ? (
-          <div className="mb-1 border-l-2 border-line bg-surface-2 px-2 py-1 text-xs">
+          <div className="mb-1 rounded-md border border-line bg-surface-2 px-2 py-1 text-xs">
             <span className="font-medium text-brand">{quoted.authorName ?? memberName(quoted.authorId)}</span>
             <span className="ml-2 text-muted">{(quoted.body || "").slice(0, 90)}</span>
           </div>

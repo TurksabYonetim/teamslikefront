@@ -27,7 +27,7 @@ function Stat({
       </span>
       <div className="min-w-0">
         <div className="truncate text-xs text-muted dark:text-gray-400">{label}</div>
-        <div className="text-lg font-semibold text-ink dark:text-white">{children}</div>
+        <div className="text-base font-semibold text-ink dark:text-white">{children}</div>
       </div>
     </div>
   );
@@ -60,7 +60,7 @@ export function IntelKpis() {
             {[1, 2, 3, 4, 5].map((n) => (
               <HiOutlineStar
                 key={n}
-                className={"h-4 w-4 " + (n <= (sc.csat ?? 0) ? "text-amber-400" : "text-gray-300 dark:text-gray-600")}
+                className={"h-4 w-4 " + (n <= (sc.csat ?? 0) ? "text-amber-400" : "text-line dark:text-gray-600")}
                 aria-hidden
               />
             ))}

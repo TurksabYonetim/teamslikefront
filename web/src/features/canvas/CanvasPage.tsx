@@ -489,7 +489,7 @@ export function CanvasPage() {
               onChange={(e) => setDraftContent(e.target.value)}
               placeholder={t("editModal.contentPlaceholder")}
               rows={8}
-              className="input w-full resize-y font-mono text-[13px]"
+              className="input w-full resize-y font-mono text-sm"
             />
           </div>
         </div>

@@ -67,7 +67,7 @@ export function StoriesBar() {
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && submit()}
             aria-label={t("stories.add")}
-            className="h-10 flex-1 rounded-md border border-line bg-white px-2 text-sm text-ink outline-none placeholder:text-muted dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+            className="block h-10 flex-1 rounded-lg border border-gray-300 bg-surface-2 px-2.5 text-sm text-ink placeholder:text-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
           />
           <Button onClick={submit} disabled={!draft.trim()}>
             {t("stories.add")}

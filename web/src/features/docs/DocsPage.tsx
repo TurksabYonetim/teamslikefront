@@ -80,7 +80,7 @@ export function DocsPage() {
                   (tab === id ? "border-brand text-brand" : "border-transparent text-muted hover:text-ink")
                 }
               >
-                <Icon name={icon} className="h-[18px] w-[18px]" /> {t(`tabs.${id}`)}
+                <Icon name={icon} className="h-4 w-4" /> {t(`tabs.${id}`)}
               </button>
             ))}
           </div>

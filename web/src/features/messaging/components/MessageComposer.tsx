@@ -163,7 +163,7 @@ export function MessageComposer() {
       ) : null}
 
       {replyTarget ? (
-        <div className="mb-2 flex items-center gap-2 rounded-md border-l-2 border-brand bg-white px-2 py-1 text-sm dark:bg-gray-800">
+        <div className="mb-2 flex items-center gap-2 rounded-md border border-line bg-brand/5 px-2 py-1 text-sm dark:border-gray-700 dark:bg-gray-800">
           <span className="min-w-0 flex-1 truncate">
             <span className="font-medium text-brand">
               {t("replyingTo", { name: replyTarget.authorName ?? memberName(replyTarget.authorId) })}
@@ -185,7 +185,7 @@ export function MessageComposer() {
             aria-selected={mode === m}
             onClick={() => setMode(m)}
             className={clsx(
-              "h-8 px-3 text-sm transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
+              "h-8 px-3 text-sm transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97]",
               mode === m
                 ? m === "note"
                   ? "bg-amber-500 text-white"
@@ -238,7 +238,7 @@ export function MessageComposer() {
             onChange={(e) => setText(e.target.value)}
             onKeyDown={onKeyDown}
             placeholder={placeholder}
-            className="w-full resize-none bg-transparent text-sm text-ink outline-none placeholder:text-muted dark:text-white"
+            className="w-full resize-none bg-transparent text-sm text-ink outline-none placeholder:text-gray-400 dark:text-white"
           />
 
           {mentionMatches.length > 0 ? (

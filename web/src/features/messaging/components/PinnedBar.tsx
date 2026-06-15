@@ -20,13 +20,13 @@ export function PinnedBar() {
         <span className="font-semibold text-ink dark:text-white">
           {t("pinnedMessage")} ({pinned.length})
         </span>
-        <span className="ml-2 truncate text-muted">{first.body}</span>
+        <span className="ml-2 inline-block max-w-full truncate align-bottom text-muted">{first.body}</span>
       </div>
       <button
         type="button"
         onClick={() => togglePin(first.id)}
         aria-label={t("unpin")}
-        className="rounded-md p-1 text-muted hover:bg-surface-3 dark:hover:bg-gray-700"
+        className="rounded-md p-1.5 text-muted hover:bg-surface-3 focus-visible:ring-2 focus-visible:ring-brand focus-visible:outline-none dark:hover:bg-gray-700"
       >
         <HiOutlineXMark className="h-4 w-4" aria-hidden />
       </button>

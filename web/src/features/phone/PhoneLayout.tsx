@@ -88,8 +88,8 @@ export function PhoneLayout() {
   return (
     <div className="mx-auto flex h-full max-w-6xl flex-col gap-4 p-6">
       <div>
-        <h1 className="text-3xl font-bold text-ink">{t("dialer.title")}</h1>
-        <p className="mt-1 text-base text-muted">{t("subtitle")}</p>
+        <h1 className="text-xl font-semibold text-ink">{t("dialer.title")}</h1>
+        <p className="mt-1 text-sm text-muted">{t("subtitle")}</p>
       </div>
 
       <div role="tablist" aria-label={t("dialer.title")} className="flex flex-wrap gap-1 border-b border-line">

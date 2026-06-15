@@ -206,7 +206,7 @@ export function UsersPage() {
           {showList && filtered.length > 0 && (
             <div className="hidden md:block overflow-x-auto">
               <table className="w-full text-sm text-left text-ink-2">
-                <thead className="text-xs text-muted uppercase bg-surface-2">
+                <thead className="text-xs text-muted bg-surface-2">
                   <tr>
                     <th scope="col" className="px-6 py-3 font-medium">{t("table.user")}</th>
                     <th scope="col" className="px-6 py-3 font-medium">{t("table.role")}</th>
@@ -279,7 +279,7 @@ export function UsersPage() {
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2">
                           <span className="font-medium text-ink truncate">{u.full_name}</span>
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium shrink-0 ${ROLE_BADGE[r]}`}>
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium shrink-0 ${ROLE_BADGE[r]}`}>
                             {roleName(u.role)}
                           </span>
                         </div>

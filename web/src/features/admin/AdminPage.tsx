@@ -44,7 +44,7 @@ function shortId(id: string | null): string {
 
 /* Ortak input sınıfı (custom ease-out, transition:all yok). */
 const INPUT_CLASS =
-  "h-10 rounded-lg border border-line bg-surface px-3 text-sm text-ink transition-colors duration-150 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-brand";
+  "h-10 rounded-lg border border-line bg-surface px-3 text-sm text-ink placeholder-muted transition-colors duration-150 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-brand";
 
 /** İndirme (download) inline SVG — Icon setinde yok, dokunmamak için inline. */
 function DownloadIcon({ className }: { className?: string }) {
@@ -127,11 +127,11 @@ function OverviewSection() {
             key={c.label}
             className="rounded-xl border border-line bg-surface p-4"
           >
-            <div className="flex items-center gap-2 text-[12.5px] text-muted">
+            <div className="flex items-center gap-2 text-xs text-muted">
               <Icon name={c.icon} className="w-4 h-4" />
               {c.label}
             </div>
-            <div className="mt-1 text-lg font-semibold text-ink">{c.value}</div>
+            <div className="mt-1 text-base font-semibold text-ink">{c.value}</div>
           </div>
         ))}
       </div>
@@ -225,7 +225,7 @@ function AuditLogSection() {
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-end gap-3">
         <label className="flex flex-col gap-1">
-          <span className="text-[11.5px] text-muted">{t("audit.from")}</span>
+          <span className="text-xs text-muted">{t("audit.from")}</span>
           <input
             type="date"
             value={from}
@@ -235,7 +235,7 @@ function AuditLogSection() {
           />
         </label>
         <label className="flex flex-col gap-1">
-          <span className="text-[11.5px] text-muted">{t("audit.to")}</span>
+          <span className="text-xs text-muted">{t("audit.to")}</span>
           <input
             type="date"
             value={to}
@@ -248,12 +248,14 @@ function AuditLogSection() {
           value={action}
           onChange={(e) => setAction(e.target.value)}
           placeholder={t("audit.actionFilter")}
+          aria-label={t("audit.actionFilter")}
           className={`${INPUT_CLASS} min-w-[160px]`}
         />
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={t("audit.searchPlaceholder")}
+          aria-label={t("audit.searchPlaceholder")}
           className={`${INPUT_CLASS} flex-1 min-w-[180px]`}
         />
         {hasFilters && (
@@ -273,7 +275,7 @@ function AuditLogSection() {
       </div>
 
       {!isLoading && !isError && (
-        <div className="text-[12.5px] text-muted">
+        <div className="text-xs text-muted">
           {t("audit.resultCount", { count: rows.length })}
         </div>
       )}
@@ -307,7 +309,7 @@ function AuditLogSection() {
         <div className="overflow-x-auto rounded-xl border border-line">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-line bg-surface-2 text-left text-[12.5px] text-muted">
+              <tr className="border-b border-line bg-surface-2 text-left text-xs text-muted">
                 <th className="px-3 py-2 font-medium">{t("audit.col.createdAt")}</th>
                 <th className="px-3 py-2 font-medium">{t("audit.col.action")}</th>
                 <th className="px-3 py-2 font-medium">{t("audit.col.target")}</th>
@@ -319,6 +321,8 @@ function AuditLogSection() {
               {rows.map((r) => (
                 <tr
                   key={r.id}
+                  role="button"
+                  aria-label={`${r.action} — ${r.target || "—"}`}
                   onClick={() => setSelected(r)}
                   tabIndex={0}
                   onKeyDown={(e) => {
@@ -334,10 +338,10 @@ function AuditLogSection() {
                   </td>
                   <td className="px-3 py-2 font-medium text-ink">{r.action}</td>
                   <td className="px-3 py-2 text-ink-2">{r.target || "—"}</td>
-                  <td className="px-3 py-2 font-mono text-[12px] text-muted">
+                  <td className="px-3 py-2 font-mono text-xs text-muted">
                     {shortId(r.actor_user_id)}
                   </td>
-                  <td className="px-3 py-2 font-mono text-[12px] text-muted">
+                  <td className="px-3 py-2 font-mono text-xs text-muted">
                     {r.ip || "—"}
                   </td>
                 </tr>
@@ -383,9 +387,9 @@ function PolicyRow({ policy }: { policy: Policy }) {
   return (
     <div className="flex flex-wrap items-center gap-3 rounded-xl border border-line bg-surface p-3 transition-colors duration-150 ease-out hover:border-ink-3/30">
       <div className="min-w-[160px]">
-        <div className="text-[12.5px] text-muted">{t("policies.key")}</div>
+        <div className="text-xs text-muted">{t("policies.key")}</div>
         <div className="font-mono text-sm font-medium text-ink">{policy.key}</div>
-        <div className="mt-0.5 text-[11px] text-muted">
+        <div className="mt-0.5 text-xs text-muted">
           {t("policies.updatedAt", { date: fmtDate(policy.updated_at) })}
         </div>
       </div>
@@ -468,12 +472,14 @@ function NewPolicyForm() {
         value={key}
         onChange={(e) => setKey(e.target.value)}
         placeholder={t("policies.keyPlaceholder")}
+        aria-label={t("policies.keyPlaceholder")}
         className={`${INPUT_CLASS} min-w-[160px]`}
       />
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={t("policies.valuePlaceholder")}
+        aria-label={t("policies.valuePlaceholder")}
         onKeyDown={(e) => {
           if (e.key === "Enter" && key.trim()) add();
         }}

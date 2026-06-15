@@ -18,9 +18,9 @@ export function SentimentTimeline() {
 
   return (
     <div className="rounded-card border border-line bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-      <h3 className="mb-2 text-base font-semibold text-fg">{t("sentimentTimeline")}</h3>
+      <h3 className="mb-2 text-sm font-semibold text-ink">{t("sentimentTimeline")}</h3>
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label={t("sentimentTimeline")}>
-        <line x1={PAD} x2={W - PAD} y1={H / 2} y2={H / 2} stroke="#e5e7eb" strokeWidth={1} />
+        <line x1={PAD} x2={W - PAD} y1={H / 2} y2={H / 2} className="stroke-line dark:stroke-gray-600" strokeWidth={1} />
         <polyline points={points} fill="none" stroke="#1d4ed8" strokeWidth={2} />
         {sentiment.map((p, i) => {
           const s = sentimentFromValue(p.value);

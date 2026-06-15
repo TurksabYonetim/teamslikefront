@@ -41,9 +41,9 @@ export function VoicemailInbox() {
   return (
     <div className="mx-auto flex h-full w-full max-w-3xl flex-col gap-6 overflow-y-auto p-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{t("voicemail.title")}</h2>
+        <h2 className="text-xl font-semibold text-ink">{t("voicemail.title")}</h2>
         {unheard > 0 && (
-          <span className="rounded-full bg-primary-100 px-2.5 py-0.5 text-sm font-medium text-primary-700 dark:bg-primary-900 dark:text-primary-200">
+          <span className="rounded-full bg-brand-subtle px-2.5 py-0.5 text-sm font-medium text-brand">
             {t("voicemail.unheard", { count: unheard })}
           </span>
         )}
@@ -56,25 +56,25 @@ export function VoicemailInbox() {
           {sorted.map((vm) => (
             <li
               key={vm.id}
-              className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+              className="rounded-lg border border-line bg-surface p-4"
             >
               <div className="flex items-start gap-3">
-                <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-100 text-primary-600 dark:bg-primary-900 dark:text-primary-300">
+                <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-subtle text-brand">
                   <HiOutlineMicrophone size={18} aria-hidden />
                 </span>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <p className={"truncate font-medium " + (vm.heard ? "text-gray-600 dark:text-gray-300" : "text-gray-900 dark:text-white")}>
+                    <p className={"truncate font-medium " + (vm.heard ? "text-muted" : "text-ink")}>
                       {callerLabel(vm.from)}
                     </p>
-                    {!vm.heard && <span className="h-2 w-2 shrink-0 rounded-full bg-primary-600" aria-hidden />}
+                    {!vm.heard && <span className="h-2 w-2 shrink-0 rounded-full bg-brand" aria-hidden />}
                   </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-xs text-muted">
                     {dateFmt.format(new Date(vm.receivedAt))} · {formatDuration(vm.durationSec)}
                   </p>
-                  <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
+                  <p className="mt-2 text-sm text-ink-2">
                     <span className="font-medium">{t("voicemail.transcript")}: </span>
-                    {vm.transcript || <span className="italic text-gray-400">{t("voicemail.noTranscript")}</span>}
+                    {vm.transcript || <span className="italic text-muted">{t("voicemail.noTranscript")}</span>}
                   </p>
                 </div>
                 {vm.heard ? (
@@ -85,7 +85,7 @@ export function VoicemailInbox() {
                   <button
                     type="button"
                     onClick={() => voicemailStore.getState().markHeard(vm.id)}
-                    className="shrink-0 rounded-lg px-2.5 py-1.5 text-xs font-medium text-primary-600 hover:bg-primary-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 dark:text-primary-400 dark:hover:bg-gray-700"
+                    className="shrink-0 rounded-lg px-2.5 py-1.5 text-xs font-medium text-brand hover:bg-brand-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
                   >
                     {t("voicemail.markHeard")}
                   </button>
@@ -96,8 +96,8 @@ export function VoicemailInbox() {
         </ul>
       )}
 
-      <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-        <h3 className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">{t("voicemail.greetingTitle")}</h3>
+      <div className="rounded-lg border border-line bg-surface p-4">
+        <h3 className="mb-2 text-sm font-semibold text-ink">{t("voicemail.greetingTitle")}</h3>
         <label htmlFor="vm-greeting" className="sr-only">{t("voicemail.greetingLabel")}</label>
         <textarea
           id="vm-greeting"

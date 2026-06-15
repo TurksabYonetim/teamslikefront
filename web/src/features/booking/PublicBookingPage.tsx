@@ -192,7 +192,7 @@ export function PublicBookingPage() {
         {/* 1 — etkinlik seç */}
         {!isLoading && !isError && data && step === "pick" && (
           <>
-            <h1 className="text-2xl font-bold text-gray-900 mb-1">
+            <h1 className="text-xl font-semibold text-ink mb-1">
               {t("pub.pickTitle")}
             </h1>
             <p className="text-gray-500 mb-6">
@@ -214,7 +214,6 @@ export function PublicBookingPage() {
                     }}
                     className="card p-5 text-left flex items-start gap-4 hover:shadow-md motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.99] transition-[transform,box-shadow,colors] duration-[var(--dur-press)] ease-[var(--ease-out)]"
                   >
-                    <span className="w-1 self-stretch rounded-full bg-blue-600" />
                     <div className="flex-1">
                       <h3 className="font-semibold text-gray-900">{e.name}</h3>
                       {e.description && (
@@ -249,7 +248,7 @@ export function PublicBookingPage() {
                 {(tenantName || "A").charAt(0).toUpperCase()}
               </span>
               <p className="text-sm text-gray-500 mt-3">{tenantName}</p>
-              <h2 className="text-lg font-bold text-gray-900">{et.name}</h2>
+              <h2 className="text-base font-semibold text-ink">{et.name}</h2>
               <div className="space-y-2 mt-3 text-sm text-gray-600">
                 <div className="flex items-center gap-2">
                   <Icon name="clock" className="w-4 h-4 text-gray-400" />{" "}
@@ -265,7 +264,7 @@ export function PublicBookingPage() {
                 {DOWS.map((d) => (
                   <div
                     key={d}
-                    className="text-center text-[11px] font-bold text-gray-400 pb-1"
+                    className="text-center text-xs font-semibold text-muted pb-1"
                   >
                     {d}
                   </div>
@@ -387,7 +386,7 @@ export function PublicBookingPage() {
             <span className="w-16 h-16 rounded-2xl bg-green-100 text-green-700 grid place-items-center mx-auto mb-4">
               <Icon name="check" className="w-8 h-8" />
             </span>
-            <h2 className="text-2xl font-bold text-gray-900">{t("pub.doneTitle")}</h2>
+            <h2 className="text-xl font-semibold text-ink">{t("pub.doneTitle")}</h2>
             <p className="text-gray-500 mt-2">{t("pub.doneSubtitle")}</p>
             <div className="card p-4 mt-5 text-left">
               <div className="text-sm font-semibold text-gray-900">{et.name}</div>

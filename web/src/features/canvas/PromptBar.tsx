@@ -39,7 +39,7 @@ export function PromptBar({ onRun, disabled }: PromptBarProps) {
   }
 
   return (
-    <div className="rounded-xl border border-line bg-surface p-3 shadow-sm">
+    <div className="rounded-xl border border-line bg-surface p-3 shadow-sm focus-within:border-brand focus-within:ring-1 focus-within:ring-brand">
       <div className="flex items-center gap-2">
         <Icon name="sparkles" className="w-4 h-4 text-brand shrink-0" />
         <input
@@ -72,7 +72,7 @@ export function PromptBar({ onRun, disabled }: PromptBarProps) {
             type="button"
             disabled={disabled}
             onClick={() => run(t(`suggestions.${key}`))}
-            className="prompt-chip inline-flex items-center gap-1 rounded-full border border-line bg-surface-2 px-2.5 py-1 text-xs font-medium text-muted hover:text-ink hover:border-brand/40 hover:bg-brand/5 active:scale-[0.97] motion-reduce:active:scale-100 disabled:opacity-40 disabled:pointer-events-none"
+            className="prompt-chip inline-flex items-center gap-1 rounded-full border border-line bg-surface-2 px-2.5 py-1.5 text-xs font-medium text-muted hover:text-ink hover:border-brand/40 hover:bg-brand/5 active:scale-[0.97] motion-reduce:active:scale-100 disabled:opacity-40 disabled:pointer-events-none"
             style={{
               transition:
                 "color var(--dur-press) var(--ease-out), background-color var(--dur-press) var(--ease-out), border-color var(--dur-press) var(--ease-out), transform var(--dur-press) var(--ease-out)",

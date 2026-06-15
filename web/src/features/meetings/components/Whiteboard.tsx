@@ -41,8 +41,8 @@ export function Whiteboard() {
 
   return (
     <div className="absolute inset-0 z-20 flex flex-col bg-white">
-      <div className="flex items-center gap-2 border-b border-[#e5e7eb] bg-[#f8fafc] p-2">
-        <span className="text-base font-semibold text-[#111827]">{t("meetings.whiteboard")}</span>
+      <div className="flex items-center gap-2 border-b border-line bg-surface-2 p-2">
+        <span className="text-base font-semibold text-ink">{t("meetings.whiteboard")}</span>
         <div className="ml-2 flex items-center gap-1">
           {COLORS.map((c) => (
             <button
@@ -50,21 +50,21 @@ export function Whiteboard() {
               onClick={() => setColor(c)}
               aria-label={c}
               aria-pressed={color === c}
-              className={clsx("h-7 w-7 rounded-full border-2", color === c ? "border-[#111827]" : "border-transparent")}
+              className={clsx("h-7 w-7 rounded-full border-2", color === c ? "border-ink" : "border-transparent")}
               style={{ background: c }}
             />
           ))}
         </div>
         <button
           onClick={() => setStrokes([])}
-          className="ml-auto inline-flex h-9 items-center gap-1 rounded-md border border-[#e5e7eb] px-2 text-base text-[#111827] hover:bg-[#eef2f7]"
+          className="ml-auto inline-flex h-9 items-center gap-1 rounded-md border border-line px-2 text-sm font-medium text-ink hover:bg-surface-2"
         >
           <HiOutlineTrash className="h-4 w-4" aria-hidden /> {t("meetings.clear")}
         </button>
         <button
           onClick={toggleWhiteboard}
           aria-label={t("meetings.closeWhiteboard")}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-[#e5e7eb] text-[#111827] hover:bg-[#eef2f7]"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-line text-ink hover:bg-surface-2"
         >
           <HiOutlineXMark className="h-5 w-5" aria-hidden />
         </button>

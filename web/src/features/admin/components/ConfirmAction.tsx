@@ -4,7 +4,7 @@ import { Icon } from "@/components/Icon";
 import { Button } from "@/components/ui";
 
 const INPUT_CLASS =
-  "h-10 rounded-lg border border-line bg-surface px-3 text-sm text-ink transition-colors duration-150 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-brand";
+  "h-11 rounded-lg border border-line bg-surface px-3 text-sm text-ink transition-colors duration-150 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-brand";
 
 /**
  * Tehlikeli aksiyon onay deseni: açığa-çıkar → yazarak-doğrula → onayla.
@@ -44,13 +44,14 @@ export function ConfirmAction({
     <div
       className="flex flex-wrap items-end gap-2 rounded-lg border border-danger bg-surface p-2 origin-top-left motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)_both]"
     >
-      <Icon name="warning" className="h-[18px] w-[18px] text-danger" />
+      <Icon name="warning" className="h-5 w-5 text-danger" />
       <label className="flex flex-col gap-1 text-sm text-ink">
         {t("typeToConfirm", { word: verifyWord })}
         <input
           autoFocus
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          placeholder={verifyWord}
           onKeyDown={(e) => {
             if (e.key === "Enter" && value === verifyWord) confirm();
             if (e.key === "Escape") {

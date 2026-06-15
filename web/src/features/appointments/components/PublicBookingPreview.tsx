@@ -69,7 +69,7 @@ export function PublicBookingPreview() {
         <span className="ml-2 inline-flex items-center gap-1.5 rounded-md bg-surface px-2 py-1 text-sm text-muted">
           <Icon name="globe" className="h-3.5 w-3.5" /> aura.dev/{selected?.slug ?? "you"}
         </span>
-        <span className="ml-auto text-xs font-medium uppercase tracking-wide text-muted">{t("public.previewBadge")}</span>
+        <span className="ml-auto text-xs font-semibold text-muted">{t("public.previewBadge")}</span>
       </div>
 
       <div className="grid gap-4 p-5 md:grid-cols-2">
@@ -88,9 +88,9 @@ export function PublicBookingPreview() {
                     selected?.id === et.id ? "border-brand bg-surface-2" : "border-line hover:bg-surface-2",
                   )}
                 >
-                  <span className="h-8 w-1 rounded-full bg-brand" aria-hidden />
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand" aria-hidden><Icon name="calendar" className="h-4 w-4" /></span>
                   <span className="flex-1">
-                    <span className="block text-base font-medium text-ink">{et.title}</span>
+                    <span className="block text-sm font-semibold text-ink">{et.title}</span>
                     <span className="mt-0.5 flex items-center gap-1 text-sm text-muted">
                       <Icon name="clock" className="h-3.5 w-3.5" /> {t("minutes", { n: et.durationMin })}
                     </span>

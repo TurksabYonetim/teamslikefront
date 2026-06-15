@@ -35,7 +35,7 @@ export function ActionBarChart({ logs }: { logs: AuditLog[] }) {
     xAxis: {
       type: "value",
       splitLine: { lineStyle: { color: SPLIT } },
-      axisLabel: { color: AXIS, fontSize: 11 },
+      axisLabel: { color: AXIS, fontSize: 12 },
     },
     yAxis: {
       type: "category",
@@ -128,13 +128,13 @@ export function EventsOverTimeChart({ logs }: { logs: AuditLog[] }) {
       boundaryGap: false,
       data: data.map((d) => shortDayLabel(d.date)),
       axisLine: { lineStyle: { color: "#e5e7eb" } },
-      axisLabel: { color: AXIS, fontSize: 11 },
+      axisLabel: { color: AXIS, fontSize: 12 },
     },
     yAxis: {
       type: "value",
       minInterval: 1,
       splitLine: { lineStyle: { color: SPLIT } },
-      axisLabel: { color: AXIS, fontSize: 11 },
+      axisLabel: { color: AXIS, fontSize: 12 },
     },
     series: [
       {

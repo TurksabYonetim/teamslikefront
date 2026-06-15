@@ -189,7 +189,7 @@ export function TableGridView() {
             value={newColType}
             onChange={(e) => setNewColType(e.target.value as ColumnType)}
             aria-label={t("table.addColumn")}
-            className="h-9 rounded-lg border border-line bg-surface px-2 text-sm text-ink"
+            className="input h-9 w-auto"
           >
             {NEW_COL_TYPES.map((ty) => (
               <option key={ty} value={ty}>

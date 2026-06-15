@@ -60,7 +60,7 @@ export function ClipCard({ clip, onPlay, onEdit, onDelete }: ClipCardProps) {
             className="absolute inset-0 w-full h-full object-cover"
           />
         ) : (
-          <span className="absolute right-2 top-2 text-[11px] text-white/60">
+          <span className="absolute right-2 top-2 text-xs text-white/70">
             {t("card.noThumbnail")}
           </span>
         )}
@@ -87,7 +87,7 @@ export function ClipCard({ clip, onPlay, onEdit, onDelete }: ClipCardProps) {
         </span>
 
         {clip.duration_s != null && (
-          <span className="absolute right-2 bottom-2 bg-black/70 text-white text-[11px] font-medium px-1.5 py-0.5 rounded tabular-nums">
+          <span className="absolute right-2 bottom-2 bg-black/70 text-white text-xs font-medium px-1.5 py-0.5 rounded tabular-nums">
             {formatDuration(clip.duration_s)}
           </span>
         )}
@@ -96,28 +96,32 @@ export function ClipCard({ clip, onPlay, onEdit, onDelete }: ClipCardProps) {
       <div className="p-3">
         <div className="flex items-start gap-2">
           <div className="flex-1 min-w-0">
-            <div className="font-medium text-gray-900 text-sm truncate">
+            <div className="font-medium text-ink text-sm truncate">
               {clip.title}
             </div>
             {clip.description && (
-              <div className="text-xs text-gray-500 mt-0.5 line-clamp-2">
+              <div className="text-xs text-muted mt-0.5 line-clamp-2">
                 {clip.description}
               </div>
             )}
           </div>
           <button
-            className="p-1 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-700 duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform] motion-safe:active:scale-[0.97]"
+            type="button"
+            aria-label={t("card.edit")}
+            className="p-1.5 min-w-[44px] min-h-[44px] grid place-items-center rounded hover:bg-gray-100 text-gray-400 hover:text-gray-700 duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform] motion-safe:active:scale-[0.97]"
             title={t("card.edit")}
             onClick={() => onEdit(clip)}
           >
-            <Icon name="pencil" className="w-4 h-4" />
+            <Icon name="pencil" className="w-4 h-4" aria-hidden="true" />
           </button>
           <button
-            className="p-1 rounded hover:bg-gray-100 text-gray-400 hover:text-red-600 duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform] motion-safe:active:scale-[0.97]"
+            type="button"
+            aria-label={t("card.delete")}
+            className="p-1.5 min-w-[44px] min-h-[44px] grid place-items-center rounded hover:bg-gray-100 text-gray-400 hover:text-red-600 duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform] motion-safe:active:scale-[0.97]"
             title={t("card.delete")}
             onClick={() => onDelete(clip)}
           >
-            <Icon name="trash" className="w-4 h-4" />
+            <Icon name="trash" className="w-4 h-4" aria-hidden="true" />
           </button>
         </div>
       </div>

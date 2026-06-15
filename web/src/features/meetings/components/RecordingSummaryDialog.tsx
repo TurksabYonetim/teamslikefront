@@ -39,7 +39,7 @@ export function RecordingSummaryDialog({
     <Modal open={open} onClose={onClose} title={t("recapTitle")}>
       <div className="max-h-[70vh] space-y-4 overflow-y-auto">
         <section>
-          <h3 className="mb-1 flex items-center gap-1 text-base font-semibold text-brand">
+          <h3 className="mb-1 flex items-center gap-1 text-base font-semibold text-ink">
             <HiOutlineSparkles className="h-4 w-4" aria-hidden /> {t("aiSummary")}
           </h3>
           <p className="text-sm text-ink">{t("recapOverview")}</p>
@@ -51,7 +51,7 @@ export function RecordingSummaryDialog({
         </section>
 
         <section>
-          <h3 className="mb-1 text-base font-semibold text-ink-2">{t("transcript")}</h3>
+          <h3 className="mb-1 text-base font-semibold text-ink">{t("transcript")}</h3>
           <div className="space-y-1 rounded-md border border-line bg-surface-2 p-3">
             {CAPTION_SCRIPT.map((line, i) => (
               <div key={i} className="text-sm">
@@ -63,7 +63,7 @@ export function RecordingSummaryDialog({
         </section>
 
         <div className="flex justify-end">
-          <Button onClick={downloadRecap} leftIcon={<HiOutlineArrowDownTray className="h-[18px] w-[18px]" aria-hidden />}>
+          <Button onClick={downloadRecap} leftIcon={<HiOutlineArrowDownTray className="h-4 w-4" aria-hidden />}>
             {t("downloadRecap")}
           </Button>
         </div>

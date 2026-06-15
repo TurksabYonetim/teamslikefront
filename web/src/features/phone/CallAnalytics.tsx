@@ -53,14 +53,14 @@ export function CallAnalytics() {
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {cards.map((c) => (
           <div key={c.label} className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-            <p className="text-xs font-medium uppercase tracking-wide text-gray-400">{c.label}</p>
-            <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{c.value}</p>
+            <p className="text-xs font-medium text-muted">{c.label}</p>
+            <p className="mt-1 text-xl font-semibold text-ink">{c.value}</p>
           </div>
         ))}
       </div>
 
       <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">{t("analytics.volumeByHour")}</p>
+        <p className="mb-3 text-xs font-semibold text-muted">{t("analytics.volumeByHour")}</p>
         <div className="flex h-32 items-end gap-0.5" role="img" aria-label={t("analytics.volumeByHour")}>
           {buckets.map((b) => (
             <div key={b.hour} className="flex flex-1 flex-col items-center justify-end" title={`${b.hour}:00 — ${b.count}`}>
@@ -71,14 +71,14 @@ export function CallAnalytics() {
             </div>
           ))}
         </div>
-        <div className="mt-1 flex justify-between text-[10px] text-gray-400">
+        <div className="mt-1 flex justify-between text-xs text-muted">
           <span>0</span><span>6</span><span>12</span><span>18</span><span>23</span>
         </div>
       </div>
 
       {queues.length > 0 && (
         <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">{t("analytics.queueSla")}</p>
+          <p className="mb-3 text-xs font-semibold text-muted">{t("analytics.queueSla")}</p>
           <ul className="divide-y divide-gray-100 dark:divide-gray-700">
             {queues.map((q) => {
               const est = estimatedWaitSec(q);

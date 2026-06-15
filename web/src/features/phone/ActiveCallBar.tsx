@@ -123,7 +123,7 @@ export function ActiveCallBar() {
       <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-3 px-4 py-3">
         {/* Arayan kimliği + durum */}
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold text-gray-900 dark:text-white">
+          <p className="truncate text-sm font-semibold text-ink">
             {display}
           </p>
           <p className="text-xs text-muted" aria-live="polite">
@@ -140,7 +140,7 @@ export function ActiveCallBar() {
         {/* Gelen çağrı: kabul / reddet */}
         {isIncomingRinging ? (
           <div className="flex items-center gap-2">
-            <span className="mr-1 inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+            <span className="mr-1 inline-flex items-center gap-1 rounded-full bg-surface-2 px-2 py-0.5 text-xs font-medium text-muted dark:bg-gray-700 dark:text-gray-300">
               {t(`enums.callerClass.${classifyCaller(normalizeNumber(peer), { contacts: (contacts ?? []).map((c) => ({ name: c.name, e164: normalizeNumber(c.number) })), blocklist })}`)}
             </span>
             <button
@@ -383,7 +383,7 @@ function MonitorPanel({ mode }: { mode: MonitorMode }) {
                   (audio[f.key] ? "bg-green-500" : "bg-gray-300 dark:bg-gray-600")
                 }
               />
-              <span className={audio[f.key] ? "" : "text-gray-400 line-through dark:text-gray-500"}>
+              <span className={audio[f.key] ? "" : "text-muted line-through"}>
                 {f.label}
               </span>
             </li>
@@ -403,7 +403,7 @@ function ParkedStrip({ embedded }: { embedded?: boolean }) {
 
   const inner = (
     <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-2 px-4 py-2">
-      <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-muted">
+      <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted">
         <HiOutlinePhoneArrowDownLeft size={14} aria-hidden />
         {t("parked.title")} ({parked.length})
       </span>

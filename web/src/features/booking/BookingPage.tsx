@@ -159,7 +159,7 @@ function EventTypesTab() {
   return (
     <div className="pt-4">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-900">
+        <h2 className="text-base font-semibold text-ink">
           {t("et.list.title")}{" "}
           <span className="text-gray-500 font-normal">
             {t("et.list.count", { count: items.length })}
@@ -197,8 +197,8 @@ function EventTypesTab() {
 
       {!isLoading && !isError && items.length > 0 && (
         <div className="overflow-x-auto rounded-lg border border-gray-200">
-          <table className="w-full text-left text-sm text-gray-500">
-            <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+          <table className="w-full text-left text-sm text-ink-2">
+            <thead className="bg-gray-50 text-xs font-semibold text-muted">
               <tr>
                 <th className="px-4 py-3 font-semibold">{t("et.table.name")}</th>
                 <th className="px-4 py-3 font-semibold">{t("et.table.slug")}</th>
@@ -232,7 +232,7 @@ function EventTypesTab() {
                         "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium " +
                         (et.active
                           ? "bg-green-100 text-green-800"
-                          : "bg-gray-100 text-gray-600")
+                          : "bg-gray-100 text-gray-700")
                       }
                     >
                       {et.active ? t("et.status.active") : t("et.status.hidden")}
@@ -275,7 +275,7 @@ function EventTypesTab() {
           />
           <div className="fixed right-0 top-0 z-40 h-screen w-full max-w-sm overflow-y-auto bg-white p-4 motion-safe:[animation:tl-drawer-in-end_var(--dur-modal)_var(--ease-drawer)_both]">
             <div className="mb-4 flex items-center justify-between">
-              <h4 className="text-sm font-semibold uppercase text-gray-500">
+              <h4 className="text-sm font-semibold text-ink">
                 {editId ? t("et.form.update") : t("et.form.create")}
               </h4>
               <button
@@ -292,7 +292,7 @@ function EventTypesTab() {
                   {t("et.form.name")}
                 </label>
                 <input
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                   value={form.name}
                   onChange={(e) => {
                     const name = e.target.value;
@@ -311,7 +311,7 @@ function EventTypesTab() {
                   {t("et.form.slug")}
                 </label>
                 <input
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                   value={form.slug}
                   onChange={(e) => {
                     setSlugTouched(true);
@@ -330,7 +330,7 @@ function EventTypesTab() {
                 <input
                   type="number"
                   min={1}
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                   value={form.duration_min}
                   onChange={(e) =>
                     setForm((f) => ({ ...f, duration_min: Number(e.target.value) }))
@@ -344,7 +344,7 @@ function EventTypesTab() {
                 </label>
                 <textarea
                   rows={3}
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                   value={form.description}
                   onChange={(e) =>
                     setForm((f) => ({ ...f, description: e.target.value }))
@@ -355,7 +355,7 @@ function EventTypesTab() {
               <label className="flex items-center gap-2 text-sm text-gray-900">
                 <input
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-primary-600"
+                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   checked={form.active}
                   onChange={(e) =>
                     setForm((f) => ({ ...f, active: e.target.checked }))
@@ -466,7 +466,7 @@ function AvailabilityTab() {
 
   return (
     <div className="pt-4 max-w-2xl">
-      <h2 className="text-lg font-semibold text-gray-900">
+      <h2 className="text-base font-semibold text-ink">
         {t("et.availability.title")}
       </h2>
       <p className="text-sm text-gray-500 mb-4">{t("et.availability.description")}</p>
@@ -487,7 +487,7 @@ function AvailabilityTab() {
               <label className="flex w-40 items-center gap-2 text-sm font-medium text-gray-900">
                 <input
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-primary-600"
+                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   checked={r.open}
                   onChange={(e) =>
                     setRows((prev) =>
@@ -502,7 +502,7 @@ function AvailabilityTab() {
               <input
                 type="time"
                 disabled={!r.open}
-                className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm disabled:opacity-40"
+                className="rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:opacity-40"
                 value={r.start}
                 onChange={(e) =>
                   setRows((prev) =>
@@ -516,7 +516,7 @@ function AvailabilityTab() {
               <input
                 type="time"
                 disabled={!r.open}
-                className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm disabled:opacity-40"
+                className="rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:opacity-40"
                 value={r.end}
                 onChange={(e) =>
                   setRows((prev) =>
@@ -532,11 +532,12 @@ function AvailabilityTab() {
       )}
 
       <div className="mt-4 flex items-center gap-3">
-        <label className="text-sm font-medium text-gray-900">
+        <label htmlFor="tz" className="text-sm font-medium text-ink">
           {t("et.availability.timezone")}
         </label>
         <input
-          className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm"
+          id="tz"
+          className="rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           value={tz}
           onChange={(e) => setTz(e.target.value)}
         />
@@ -563,7 +564,7 @@ function BookingsTab() {
 
   return (
     <div className="pt-4">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">
+      <h2 className="text-base font-semibold text-ink mb-4">
         {t("et.bookings.title")}
       </h2>
       {isLoading ? (
@@ -579,8 +580,8 @@ function BookingsTab() {
         />
       ) : (
         <div className="overflow-x-auto rounded-lg border border-gray-200">
-          <table className="w-full text-left text-sm text-gray-500">
-            <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+          <table className="w-full text-left text-sm text-ink-2">
+            <thead className="bg-gray-50 text-xs font-semibold text-muted">
               <tr>
                 <th className="px-4 py-3 font-semibold">{t("et.bookings.invitee")}</th>
                 <th className="px-4 py-3 font-semibold">{t("et.bookings.type")}</th>

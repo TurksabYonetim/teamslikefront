@@ -213,7 +213,7 @@ export function ClipDetail({ clip }: { clip: Clip }) {
             value={clip.privacy ?? "workspace"}
             onChange={(e) => setPrivacy(clip.id, e.target.value as ClipPrivacy)}
             aria-label={t("clip.privacyLabel")}
-            className="h-10 rounded-lg border border-line bg-surface px-2 text-sm text-ink"
+            className="input h-10"
           >
             {PRIVACIES.map((p) => (
               <option key={p} value={p}>

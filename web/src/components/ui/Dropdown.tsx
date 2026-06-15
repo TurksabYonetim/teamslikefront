@@ -47,7 +47,7 @@ export function Dropdown({ trigger, label, align = "end", triggerClassName, chil
         <div
           role="menu"
           className={clsx(
-            "absolute z-50 mt-1 w-48 rounded-md border border-line bg-white p-1 shadow-xl dark:border-gray-700 dark:bg-gray-800",
+            "absolute z-50 mt-1 w-48 rounded-md border border-line bg-surface p-1 shadow-xl dark:border-gray-700 dark:bg-gray-800",
             // emil: tetikleyiciden ölçeklenerek aç (origin-aware), merkez değil
             align === "end" ? "end-0 origin-top-right" : "start-0 origin-top-left",
             "motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)]",
@@ -70,7 +70,7 @@ export function DropdownItem({ onSelect, children }: { onSelect: () => void; chi
         onSelect();
         ctx?.close();
       }}
-      className="flex h-10 w-full cursor-pointer items-center gap-2 rounded-md px-2 text-start text-sm text-ink outline-none transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-surface-2 dark:text-white dark:hover:bg-gray-700"
+      className="flex h-10 w-full cursor-pointer items-center gap-2 rounded-md px-2 text-start text-sm text-ink outline-none transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-surface-2 focus-visible:bg-surface-2 focus-visible:ring-1 focus-visible:ring-blue-500 dark:text-white dark:hover:bg-gray-700"
     >
       {children}
     </button>

@@ -47,12 +47,12 @@ const GROUPS: { labelKey: string; icon: string; items: Item[] }[] = [
 
 /* ---- stiller (Flowbite) ----------------------------------------------- */
 const ITEM =
-  "flex items-center p-2 text-base font-normal rounded-lg group transition-[background-color,color,transform] duration-[var(--dur-press)] ease-[var(--ease-out)] active:scale-[0.98]";
+  "flex items-center p-2 text-sm font-medium rounded-lg group transition-[background-color,color,transform] duration-[var(--dur-press)] ease-[var(--ease-out)] active:scale-[0.98]";
 const itemCls = (active: boolean, collapsed?: boolean) =>
   clsx(
     ITEM,
     collapsed && "justify-center",
-    active ? "bg-primary-50 text-primary-700" : "text-gray-900 hover:bg-gray-100",
+    active ? "bg-primary-50 text-primary-700" : "text-ink hover:bg-gray-100",
   );
 
 function Badge({ n }: { n?: number }) {
@@ -80,7 +80,7 @@ function Leaf({ to, icon, labelKey, end, collapsed }: { to: string; icon: string
       >
         {({ isActive }) => (
           <>
-            <Icon name={icon} className={iconCls(isActive)} />
+            <Icon name={icon} aria-hidden className={iconCls(isActive)} />
             {!collapsed && <span className="flex-1 ml-3 whitespace-nowrap">{t(labelKey)}</span>}
           </>
         )}
@@ -112,13 +112,13 @@ function Group({ labelKey, icon, items, collapsed, onExpand }: { labelKey: strin
         onClick={handleClick}
         title={collapsed ? t(labelKey) : undefined}
         aria-expanded={!collapsed && open}
-        className={clsx(ITEM, "w-full hover:bg-gray-100", collapsed && "justify-center", active ? "text-primary-700" : "text-gray-900")}
+        className={clsx(ITEM, "w-full hover:bg-gray-100", collapsed && "justify-center", active ? "text-primary-700" : "text-ink")}
       >
-        <Icon name={icon} className={clsx("w-5 h-5 shrink-0 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]", active ? "text-primary-700" : "text-gray-400 group-hover:text-gray-900")} />
+        <Icon name={icon} aria-hidden className={clsx("w-5 h-5 shrink-0 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]", active ? "text-primary-700" : "text-gray-400 group-hover:text-gray-900")} />
         {!collapsed && (
           <>
             <span className="flex-1 ml-3 text-left whitespace-nowrap">{t(labelKey)}</span>
-            <Icon name="chevronDown" className={clsx("w-5 h-5 text-gray-400 motion-safe:transition-transform duration-[var(--dur-pop)] ease-[var(--ease-out)]", open && "rotate-180")} />
+            <Icon name="chevronDown" aria-hidden className={clsx("w-5 h-5 text-gray-400 motion-safe:transition-transform duration-[var(--dur-pop)] ease-[var(--ease-out)]", open && "rotate-180")} />
           </>
         )}
       </button>
@@ -142,7 +142,7 @@ function Group({ labelKey, icon, items, collapsed, onExpand }: { labelKey: strin
                 <NavLink to={i.to} className={({ isActive }) => clsx(itemCls(isActive), "pl-9")}>
                   {({ isActive }) => (
                     <>
-                      <Icon name={i.icon} className={iconCls(isActive)} />
+                      <Icon name={i.icon} aria-hidden className={iconCls(isActive)} />
                       <span className="flex-1 ml-3 whitespace-nowrap">{t(i.labelKey)}</span>
                       <Badge n={i.badge} />
                     </>
@@ -170,7 +170,7 @@ export function Sidebar() {
       {/* ana panel — daraltılınca ikon çubuğuna (w-16) küçülür */}
       <div
         className={clsx(
-          "overflow-y-auto no-scrollbar relative py-5 px-3 h-full bg-white border-r border-gray-200 transition-[width] duration-200 ease-drawer",
+          "overflow-y-auto no-scrollbar relative py-5 px-3 h-full bg-surface border-r border-line transition-[width] duration-200 ease-drawer",
           collapsed ? "w-16" : "w-64 max-w-[calc(86vw-4rem)] md:max-w-none",
         )}
       >
@@ -194,17 +194,18 @@ export function Sidebar() {
           <Leaf to="/support" icon="comment" labelKey="nav.support" collapsed={collapsed} />
         </ul>
 
-        <ul className="pt-5 mt-5 space-y-1 border-t border-gray-200">
+        <ul className="pt-5 mt-5 space-y-1 border-t border-line">
           <Leaf to="/admin" icon="key" labelKey="nav.admin" collapsed={collapsed} />
           <Leaf to="/users" icon="users" labelKey="nav.team" collapsed={collapsed} />
           <Leaf to="/settings" icon="settings" labelKey="nav.settings" collapsed={collapsed} />
           <li>
             <button
               onClick={logout}
+              aria-label={t("nav.logout")}
               title={collapsed ? t("nav.logout") : undefined}
-              className={clsx(ITEM, "w-full text-gray-500 hover:bg-gray-100 hover:text-gray-900", collapsed && "justify-center")}
+              className={clsx(ITEM, "w-full text-muted hover:bg-gray-100 hover:text-ink", collapsed && "justify-center")}
             >
-              <Icon name="logout" className="w-5 h-5 shrink-0 text-gray-400 group-hover:text-gray-900 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]" />
+              <Icon name="logout" aria-hidden className="w-5 h-5 shrink-0 text-gray-400 group-hover:text-gray-900 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]" />
               {!collapsed && <span className="flex-1 ml-3 text-left whitespace-nowrap">{t("nav.logout")}</span>}
             </button>
           </li>
@@ -220,13 +221,15 @@ export function Sidebar() {
         {/* daralt / genişlet (sadece masaüstü) */}
         <button
           onClick={() => setCollapsed((c) => !c)}
+          aria-label={collapsed ? t("panel.show") : t("panel.hide")}
           title={collapsed ? t("panel.show") : t("panel.hide")}
+          aria-expanded={!collapsed}
           className={clsx(
-            "hidden md:inline-flex absolute bottom-2 p-2 text-gray-500 rounded-full cursor-pointer transition-[background-color,color,transform] duration-150 ease-out hover:text-gray-900 hover:bg-gray-100 active:scale-90",
+            "hidden md:inline-flex absolute bottom-2 p-2 text-muted rounded-full cursor-pointer transition-[background-color,color,transform] duration-150 ease-out hover:text-ink hover:bg-gray-100 active:scale-90",
             collapsed ? "left-1/2 -translate-x-1/2" : "right-2",
           )}
         >
-          <Icon name={collapsed ? "chevronRight" : "chevronLeft"} className="w-6 h-6" />
+          <Icon name={collapsed ? "chevronRight" : "chevronLeft"} aria-hidden className="w-6 h-6" />
         </button>
       </div>
     </div>

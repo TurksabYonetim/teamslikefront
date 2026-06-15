@@ -74,7 +74,7 @@ export function GlobalSearchDialog({ open, onClose }: { open: boolean; onClose: 
   return (
     <Modal open={open} onClose={onClose} title={t("palette.title")}>
       <div className="space-y-2">
-        <div className="flex items-center gap-2 rounded-md border border-line px-3 dark:border-gray-700">
+        <div className="flex items-center gap-2 rounded-md border border-line px-3 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 dark:border-gray-700">
           <HiOutlineMagnifyingGlass className="h-5 w-5 text-muted" aria-hidden />
           <input
             autoFocus
@@ -119,8 +119,8 @@ export function GlobalSearchDialog({ open, onClose }: { open: boolean; onClose: 
                       </span>
                     ) : (
                       <>
-                        <span className="text-sm font-medium text-ink dark:text-white">{item.meta}</span>
-                        <span className="truncate text-sm text-ink dark:text-white">{item.label}</span>
+                        <span className="truncate text-sm font-medium text-ink dark:text-white">{item.label}</span>
+                        <span className="text-xs text-muted">{item.meta}</span>
                       </>
                     )}
                   </button>

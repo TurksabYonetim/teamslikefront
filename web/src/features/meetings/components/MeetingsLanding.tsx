@@ -39,10 +39,10 @@ export function MeetingsLanding() {
     <div className="mx-auto max-w-5xl p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-xl font-semibold text-ink dark:text-white">
             {t("landing.title")}
           </h1>
-          <p className="mt-1 text-base text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-sm text-muted dark:text-gray-400">
             {t("landingSubtitle")}
           </p>
         </div>
@@ -69,10 +69,10 @@ export function MeetingsLanding() {
           <HiOutlineLink className="h-[22px] w-[22px]" aria-hidden />
         </span>
         <div className="min-w-0 flex-1">
-          <div className="text-lg font-semibold text-gray-900 dark:text-white">
+          <div className="text-sm font-semibold text-ink dark:text-white">
             {t("personalRoom")}
           </div>
-          <div className="truncate text-base text-gray-500 dark:text-gray-400">
+          <div className="truncate text-sm text-muted dark:text-gray-400">
             {PERSONAL_ROOM_URL}
           </div>
         </div>
@@ -86,7 +86,7 @@ export function MeetingsLanding() {
       </div>
 
       {/* Upcoming / live meetings */}
-      <h2 className="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
+      <h2 className="mt-6 text-base font-semibold text-ink dark:text-white">
         {t("upcoming")}
       </h2>
       <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -97,10 +97,10 @@ export function MeetingsLanding() {
                 <HiOutlineVideoCamera className="h-6 w-6" aria-hidden />
               </span>
               <div className="min-w-0 flex-1">
-                <div className="truncate text-lg font-semibold text-gray-900 dark:text-white">
+                <div className="truncate text-sm font-semibold text-ink dark:text-white">
                   {m.title}
                 </div>
-                <div className="truncate text-base text-gray-500 dark:text-gray-400">
+                <div className="truncate text-sm text-muted dark:text-gray-400">
                   {memberName(m.host)}
                 </div>
               </div>
@@ -124,7 +124,7 @@ export function MeetingsLanding() {
                   </span>
                 ))}
                 {m.participantIds.length > 4 ? (
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-surface-2 text-base text-gray-500 ring-2 ring-white dark:bg-gray-700 dark:text-gray-400 dark:ring-gray-800">
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-surface-2 text-xs text-muted ring-2 ring-white dark:bg-gray-700 dark:text-gray-400 dark:ring-gray-800">
                     +{m.participantIds.length - 4}
                   </span>
                 ) : null}
@@ -139,7 +139,7 @@ export function MeetingsLanding() {
 
       {/* Persistent video rooms (moderator-created, Jitsi-style) */}
       <div className="mt-8 flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-base font-semibold text-ink dark:text-white">
           {t("rooms")}
         </h2>
         <Button
@@ -161,10 +161,10 @@ export function MeetingsLanding() {
               )}
             </span>
             <div className="min-w-0 flex-1">
-              <div className="truncate text-lg font-semibold text-gray-900 dark:text-white">
+              <div className="truncate text-sm font-semibold text-ink dark:text-white">
                 {r.name}
               </div>
-              <div className="truncate text-base text-gray-500 dark:text-gray-400">
+              <div className="truncate text-sm text-muted dark:text-gray-400">
                 {t("participantCount", { n: r.participants ?? 0 })}
                 {r.waitingRoom ? ` · ${t("waitingRoom")}` : ""}
               </div>

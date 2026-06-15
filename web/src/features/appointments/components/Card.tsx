@@ -9,7 +9,7 @@ export function Card({ className, children }: { className?: string; children: Re
 export function StatCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border border-line bg-surface p-4">
-      <div className="text-2xl font-bold text-ink">{value}</div>
+      <div className="text-xl font-semibold text-ink">{value}</div>
       <div className="mt-1 text-xs text-muted">{label}</div>
     </div>
   );

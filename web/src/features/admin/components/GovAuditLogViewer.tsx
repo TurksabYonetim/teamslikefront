@@ -116,9 +116,9 @@ export function GovAuditLogViewer() {
             {visible.map((e) => (
               <tr key={e.id} className="border-b border-line/60 last:border-0">
                 <td className="py-1.5 pr-2 text-ink">{e.action}</td>
-                <td className="py-1.5 pr-2 font-mono text-[12px] text-muted">{e.actorId}</td>
+                <td className="py-1.5 pr-2 font-mono text-xs text-muted">{e.actorId}</td>
                 <td className="py-1.5 pr-2 text-ink-2">{e.resource}</td>
-                <td className="py-1.5 pr-2 font-mono text-[12px] text-muted">{e.ip ?? "—"}</td>
+                <td className="py-1.5 pr-2 font-mono text-xs text-muted">{e.ip ?? "—"}</td>
                 <td className="py-1.5 whitespace-nowrap text-muted">{fmt(e.at)}</td>
               </tr>
             ))}

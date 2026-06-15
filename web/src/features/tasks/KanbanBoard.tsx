@@ -295,7 +295,7 @@ export function KanbanBoard() {
                     <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
                   </svg>
                 </div>
-                <input type="text" id="simple-search" value={search} onChange={(e) => setSearch(e.target.value)} className="block w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-9 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder={t("search.placeholder")} />
+                <input type="text" id="simple-search" value={search} onChange={(e) => setSearch(e.target.value)} className="block w-full max-w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-9 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder={t("search.placeholder")} />
               </div>
             </div>
             <div className="flex flex-wrap items-center gap-3 xl:gap-4">
@@ -306,7 +306,7 @@ export function KanbanBoard() {
                 {t("share.button")}
               </button>
               {/* Share dropdown menu */}
-              <div action="#" method="get" id="dropdown-share" className="z-10 hidden max-w-xs rounded-lg bg-white p-3 shadow-sm dark:bg-gray-700" aria-labelledby="dropdownShare">
+              <div id="dropdown-share" className="z-10 hidden max-w-xs rounded-lg bg-white p-3 shadow-sm dark:bg-gray-700" aria-labelledby="dropdownShare">
                 <h5 className="text-sm font-semibold text-gray-900 dark:text-white">{t("share.title")}</h5>
                 <div className="my-4">
                   <label htmlFor="names" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{t("share.namesLabel")}</label>
@@ -350,7 +350,7 @@ export function KanbanBoard() {
                       </svg>
                       <label htmlFor="status" className="flex items-center text-sm font-medium text-gray-900 dark:text-gray-100"> {t("group.status")} </label>
                     </div>
-                    <div className="text-gray-400">244</div>
+                    <div className="text-gray-500 dark:text-gray-400">244</div>
                   </li>
                   <li className="flex items-center justify-between">
                     <div className="flex items-center">
@@ -360,7 +360,7 @@ export function KanbanBoard() {
                       </svg>
                       <label htmlFor="priority" className="flex items-center text-sm font-medium text-gray-900 dark:text-gray-100"> {t("group.priority")} </label>
                     </div>
-                    <div className="text-gray-400">123</div>
+                    <div className="text-gray-500 dark:text-gray-400">123</div>
                   </li>
                   <li className="flex items-center justify-between">
                     <div className="flex items-center">
@@ -370,7 +370,7 @@ export function KanbanBoard() {
                       </svg>
                       <label htmlFor="assignee" className="flex items-center text-sm font-medium text-gray-900 dark:text-gray-100"> {t("group.assignee")} </label>
                     </div>
-                    <div className="text-gray-400">22</div>
+                    <div className="text-gray-500 dark:text-gray-400">22</div>
                   </li>
                   <li className="flex items-center justify-between">
                     <div className="flex items-center">
@@ -381,7 +381,7 @@ export function KanbanBoard() {
                       </svg>
                       <label htmlFor="category" className="flex items-center text-sm font-medium text-gray-900 dark:text-gray-100"> {t("group.category")} </label>
                     </div>
-                    <div className="text-gray-400">22</div>
+                    <div className="text-gray-500 dark:text-gray-400">22</div>
                   </li>
                 </ul>
               </div>
@@ -392,7 +392,7 @@ export function KanbanBoard() {
                 {t("filter.button")}
               </button>
               {/* Filter dropdown menu */}
-              <div action="#" method="get" id="dropdown-filter" className="z-10 hidden w-64 rounded-lg bg-white p-3 shadow-sm dark:bg-gray-700" aria-labelledby="dropdownFilter">
+              <div id="dropdown-filter" className="z-10 hidden w-64 rounded-lg bg-white p-3 shadow-sm dark:bg-gray-700" aria-labelledby="dropdownFilter">
                 <h5 className="text-sm font-semibold text-gray-900 dark:text-white">{t("filter.title")}</h5>
                 <div className="my-4">
                   <h6 className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">{t("filter.assignee")}</h6>
@@ -470,7 +470,7 @@ export function KanbanBoard() {
                   </div>
                 </div>
                 <div className="mb-4">
-                  <label className="text-sm font-semibold text-gray-900 dark:text-white"> {t("filter.category")} </label>
+                  <h6 className="text-sm font-semibold text-gray-900 dark:text-white">{t("filter.category")}</h6>
                   <ul className="mt-2 grid w-full grid-cols-2 gap-3">
                     <li>
                       <input type="checkbox" id="completed" name="category" value="" className="peer hidden" />
@@ -717,15 +717,15 @@ export function KanbanBoard() {
                   {COLUMNS.map((column, colIndex) => {
                     const cards = visibleTasks(column.status);
                     return (
-                      <div key={column.status} className="min-w-[28rem]">
+                      <div key={column.status} className="w-full min-w-0 sm:min-w-[20rem]">
                         <div className="flex items-center justify-between">
                           <div className="py-4 text-base font-semibold text-gray-900 dark:text-gray-300">
                             {t(column.titleKey)}
-                            <span className="ml-2 text-sm font-normal text-gray-400">{cards.length}</span>
+                            <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">{cards.length}</span>
                           </div>
                         </div>
 
-                        <div id={`kanban-list-${colIndex + 1}`} data-status={column.status} className="mb-4 min-w-[28rem] space-y-4">
+                        <div id={`kanban-list-${colIndex + 1}`} data-status={column.status} className="mb-4 space-y-4">
                           {isLoading
                             ? Array.from({ length: 3 }).map((_, i) => (
                                 <div key={i} className="rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
@@ -743,7 +743,7 @@ export function KanbanBoard() {
                                   return (
                                     <div key={task.id} data-task-id={task.id} className="tl-stagger flex max-w-md cursor-move flex-col rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
                                       <div className="flex items-center justify-between pb-4">
-                                        <div className="text-base font-semibold text-gray-900 dark:text-white">{task.title}</div>
+                                        <div className="text-sm font-semibold text-gray-900 dark:text-white">{task.title}</div>
                                         <button type="button" onClick={() => openEditTask(task)} className="rounded-lg p-1.5 text-sm text-gray-500 transition-transform motion-safe:active:scale-[0.97] hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
                                           <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                             <path fillRule="evenodd" d="M11.3 6.2H5a2 2 0 0 0-2 2V19a2 2 0 0 0 2 2h11c1.1 0 2-1 2-2.1V11l-4 4.2c-.3.3-.7.6-1.2.7l-2.7.6c-1.7.3-3.3-1.3-3-3.1l.6-2.9c.1-.5.4-1 .7-1.3l3-3.1Z" clipRule="evenodd" />
@@ -793,7 +793,7 @@ export function KanbanBoard() {
         <div className="relative max-h-full w-full max-w-md p-4">
           <div className="relative rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800 sm:p-5">
             <div className="mb-4 flex items-center justify-between dark:border-gray-600 sm:mb-5">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("taskModal.addNewTask")}</h3>
+              <h3 className="text-base font-semibold text-gray-900 dark:text-white">{t("taskModal.addNewTask")}</h3>
               <button type="button" onClick={() => newModalRef.current?.hide()} className="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
                 <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 17.94 6M18 18 6.06 6" />
@@ -805,7 +805,7 @@ export function KanbanBoard() {
               <div className="mb-4 space-y-4">
                 <div>
                   <label htmlFor="new-title" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{t("taskModal.title")}</label>
-                  <input type="text" id="new-title" value={newDraft.title} onChange={(e) => setNewDraft({ ...newDraft, title: e.target.value })} className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-600 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder={t("taskModal.titlePlaceholder")} required />
+                  <input type="text" id="new-title" value={newDraft.title} onChange={(e) => setNewDraft({ ...newDraft, title: e.target.value })} className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder={t("taskModal.titlePlaceholder")} required />
                 </div>
                 <div>
                   <label htmlFor="new-description" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{t("taskModal.description")}</label>
@@ -838,7 +838,7 @@ export function KanbanBoard() {
         <div className="relative max-h-full w-full max-w-md p-4">
           <div className="relative rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800 sm:p-5">
             <div className="mb-4 flex items-center justify-between dark:border-gray-600 sm:mb-5">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("taskModal.editTask")}</h3>
+              <h3 className="text-base font-semibold text-gray-900 dark:text-white">{t("taskModal.editTask")}</h3>
               <div>
                 <button type="button" onClick={deleteEditTask} className="inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-red-600 hover:bg-gray-100 hover:text-red-700 dark:text-red-500 dark:hover:bg-gray-600">
                   <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -858,7 +858,7 @@ export function KanbanBoard() {
               <div className="mb-4 space-y-4">
                 <div>
                   <label htmlFor="edit-title" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{t("taskModal.title")}</label>
-                  <input type="text" id="edit-title" value={editDraft.title} onChange={(e) => setEditDraft({ ...editDraft, title: e.target.value })} className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-600 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder={t("taskModal.titlePlaceholder")} required />
+                  <input type="text" id="edit-title" value={editDraft.title} onChange={(e) => setEditDraft({ ...editDraft, title: e.target.value })} className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder={t("taskModal.titlePlaceholder")} required />
                 </div>
                 <div>
                   <label htmlFor="edit-description" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{t("taskModal.description")}</label>

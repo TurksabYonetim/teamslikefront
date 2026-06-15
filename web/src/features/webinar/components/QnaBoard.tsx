@@ -27,7 +27,7 @@ export function QnaBoard() {
   return (
     <div className="rounded-xl border border-slate-700 bg-slate-900 p-4">
       <h3 className="mb-2 flex items-center gap-1 text-base font-semibold text-white">
-        <Icon name="question" className="h-[18px] w-[18px]" /> {t("qna")}
+        <Icon name="question" className="h-4 w-4" /> {t("qna")}
       </h3>
       <div className="mb-2 flex items-end gap-2">
         <input
@@ -36,10 +36,10 @@ export function QnaBoard() {
           onKeyDown={(e) => e.key === "Enter" && submit()}
           placeholder={t("qnaPlaceholder")}
           aria-label={t("qnaPlaceholder")}
-          className="h-11 flex-1 rounded-md border border-slate-600 bg-slate-800 px-2 text-base text-white outline-none placeholder:text-slate-400"
+          className="h-11 flex-1 rounded-lg border border-slate-600 bg-slate-800 px-2.5 text-sm text-white placeholder:text-slate-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
         />
         <IconButton label={t("ask")} variant="primary" disabled={!text.trim()} onClick={submit}>
-          <Icon name="send" className="h-[18px] w-[18px]" />
+          <Icon name="send" className="h-4 w-4" />
         </IconButton>
       </div>
       <ul className="space-y-2" role="feed" aria-label={t("qna")}>
@@ -47,11 +47,11 @@ export function QnaBoard() {
           const up = q.upvotes.includes(ME_ID);
           return (
             <li key={q.id} className={clsx("rounded-md border border-slate-700 p-2", q.answered && "opacity-60")}>
-              <div className="text-base text-white">{q.text}</div>
-              <div className="mt-1 flex items-center gap-2 text-base text-slate-400">
+              <div className="text-sm text-white">{q.text}</div>
+              <div className="mt-1 flex items-center gap-2 text-xs text-slate-400">
                 {q.answered ? <span className="text-green-400">{t("answered")}</span> : null}
                 {canModerate && !q.answered ? (
-                  <button onClick={() => qnaStore.getState().answer(q.id)} className="rounded-md px-2 py-0.5 text-brand hover:bg-slate-800">
+                  <button onClick={() => qnaStore.getState().answer(q.id)} className="rounded-md px-2 py-1.5 text-brand hover:bg-slate-800">
                     {t("markAnswered")}
                   </button>
                 ) : null}
@@ -59,7 +59,7 @@ export function QnaBoard() {
                   onClick={() => qnaStore.getState().upvote(q.id, ME_ID)}
                   aria-pressed={up}
                   className={clsx(
-                    "ml-auto inline-flex items-center gap-1 rounded-md border px-2 py-0.5",
+                    "ml-auto inline-flex items-center gap-1 rounded-md border px-2 py-1.5",
                     up ? "border-brand text-brand" : "border-slate-600 text-slate-400",
                   )}
                 >

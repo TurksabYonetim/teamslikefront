@@ -19,7 +19,7 @@ const toMin = (hhmm: string) => {
   return (h || 0) * 60 + (m || 0);
 };
 
-const timeCls = "h-10 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
+const timeCls = "h-10 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
 
 export function AvailabilityEditor() {
   const { t } = useTranslation("appointments");
@@ -59,7 +59,7 @@ export function AvailabilityEditor() {
             const rule = schedule.rules.find((r) => r.weekday === wd);
             const dayName = t(`weekday.${wd}`);
             return (
-              <li key={wd} className="flex items-center gap-2 text-base">
+              <li key={wd} className="flex items-center gap-2 text-sm">
                 <label className="flex w-28 items-center gap-2">
                   <input type="checkbox" checked={!!rule} onChange={() => toggleDay(wd)} className="h-4 w-4 accent-[var(--color-brand)]" />
                   <span className={rule ? "text-ink" : "text-muted"}>{dayName}</span>
@@ -82,20 +82,20 @@ export function AvailabilityEditor() {
       <Card>
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
           <h3 className="text-base font-semibold text-ink">{t("slotsPreview")}</h3>
-          <label className="flex items-center gap-2 text-base text-muted">
+          <label className="flex items-center gap-2 text-sm text-muted">
             {t("pickDate")}
             <input type="date" value={previewDate} onChange={(e) => setPreviewDate(e.target.value)} className={timeCls} />
           </label>
         </div>
         {eventType ? (
-          <div className="mb-2 text-base text-muted">{eventType.title} · {t("minutes", { n: eventType.durationMin })}</div>
+          <div className="mb-2 text-sm text-muted">{eventType.title} · {t("minutes", { n: eventType.durationMin })}</div>
         ) : null}
         {slots.length === 0 ? (
-          <p className="text-base text-muted">{t("noSlots")}</p>
+          <p className="text-sm text-muted">{t("noSlots")}</p>
         ) : (
           <div className="flex flex-wrap gap-1.5">
             {slots.map((s) => (
-              <span key={s.startMs} className="rounded-md border border-line bg-surface-2 px-2 py-1 text-base text-ink">
+              <span key={s.startMs} className="rounded-md border border-line bg-surface-2 px-2 py-1 text-xs text-ink">
                 {new Date(s.startMs).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
               </span>
             ))}

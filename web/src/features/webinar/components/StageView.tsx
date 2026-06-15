@@ -30,8 +30,8 @@ export function StageView() {
         <Badge tone={pos.live ? "danger" : "neutral"}>
           <Icon name="broadcast" className="h-3.5 w-3.5" /> {liveBadge ? t("live") : t(`modeLabel.${mode}`)}
         </Badge>
-        <span className="ml-auto inline-flex items-center gap-1 text-base text-slate-300">
-          <Icon name="usersThree" className="h-4 w-4" /> {attendees.toLocaleString()}
+        <span className="ml-auto inline-flex items-center gap-1 text-xs text-slate-300" aria-label={t("attendeeCount", { count: attendees })}>
+          <Icon name="usersThree" className="h-4 w-4" aria-hidden /> {attendees.toLocaleString()}
         </span>
       </div>
 
@@ -40,14 +40,14 @@ export function StageView() {
           <Icon name="play" className="h-7 w-7" />
         </div>
         <div className="text-xl font-semibold text-white">{event.title}</div>
-        <div className="text-base text-slate-300">{event.sessions[0]?.title}</div>
+        <div className="text-sm text-slate-300">{event.sessions[0]?.title}</div>
       </div>
 
       <div className="border-t border-slate-700 px-3 py-2" aria-label={t("timeline")}>
         <div className="h-2 w-full overflow-hidden rounded-full bg-slate-700">
           <div className="h-full bg-brand" style={{ width: `${pos.pct}%` }} aria-hidden />
         </div>
-        <div className="mt-1 flex justify-between text-base text-slate-400">
+        <div className="mt-1 flex justify-between text-xs text-slate-400">
           <span>{fmt(pos.elapsedSec)}</span>
           <span>{fmt(event.durationSec)}</span>
         </div>

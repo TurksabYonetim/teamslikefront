@@ -108,9 +108,9 @@ export function MessageList() {
           <React.Fragment key={m.id}>
             {i === unreadFromIndex ? (
               <div className="my-2 flex items-center gap-2 px-4" role="separator">
-                <span className="h-px flex-1 bg-red-500" />
-                <span className="text-xs font-medium text-red-500">{t("newMessages")}</span>
-                <span className="h-px flex-1 bg-red-500" />
+                <span className="h-px flex-1 bg-danger" />
+                <span className="text-xs font-medium text-danger">{t("newMessages")}</span>
+                <span className="h-px flex-1 bg-danger" />
               </div>
             ) : null}
             <MessageBubble message={m} grouped={grouped} />

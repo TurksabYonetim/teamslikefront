@@ -117,7 +117,7 @@ export function EngagePanel() {
                 onChange={(e) => setPollQ(e.target.value)}
                 placeholder={t("poll.questionPh")}
                 aria-label={t("poll.questionPh")}
-                className="h-10 w-full rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none dark:border-gray-700"
+                className="block h-10 w-full rounded-md border border-gray-300 bg-surface-2 px-2 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700"
               />
               {pollOpts.map((o, i) => (
                 <input
@@ -126,7 +126,7 @@ export function EngagePanel() {
                   onChange={(e) => setPollOpts(pollOpts.map((x, j) => (j === i ? e.target.value : x)))}
                   placeholder={`${t("poll.option")} ${i + 1}`}
                   aria-label={`${t("poll.option")} ${i + 1}`}
-                  className="h-10 w-full rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none dark:border-gray-700"
+                  className="block h-10 w-full rounded-md border border-gray-300 bg-surface-2 px-2 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700"
                 />
               ))}
               <div className="flex gap-2">
@@ -171,7 +171,7 @@ export function EngagePanel() {
               }}
               placeholder={t("qnaPlaceholder")}
               aria-label={t("qnaPlaceholder")}
-              className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none dark:border-gray-700"
+              className="block h-10 flex-1 rounded-md border border-gray-300 bg-surface-2 px-2 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700"
             />
             <IconButton label={t("qnaAsk")} variant="primary" disabled={!question.trim()} onClick={submitQuestion}>
               <HiOutlinePaperAirplane className="h-[18px] w-[18px]" aria-hidden />
@@ -196,7 +196,7 @@ export function EngagePanel() {
                       <button
                         type="button"
                         onClick={() => act().answerQuestion(q.id)}
-                        className="rounded-md px-2 py-0.5 text-brand hover:bg-surface-2"
+                        className="rounded-md px-2 py-0.5 text-brand hover:bg-surface-2 focus-visible:ring-1 focus-visible:ring-brand"
                       >
                         {t("qnaAnswer")}
                       </button>

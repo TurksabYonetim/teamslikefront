@@ -50,7 +50,7 @@ export function CreateRoomDialog({
         "h-9 rounded-md border px-3 text-sm",
         on
           ? "border-primary-500 bg-primary-50 text-primary-700 dark:border-primary-500 dark:bg-gray-700 dark:text-primary-400"
-          : "border-line bg-white text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400",
+          : "border-line bg-surface text-muted dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400",
       )}
     >
       {label}
@@ -61,14 +61,14 @@ export function CreateRoomDialog({
     <Modal open={open} onClose={onClose} title={t("createRoom")}>
       <div className="space-y-3">
         <label className="block">
-          <span className="mb-1 block text-sm text-gray-500 dark:text-gray-400">
+          <span className="mb-1 block text-sm text-muted dark:text-gray-400">
             {t("roomName")}
           </span>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder={t("roomNamePh")}
-            className="h-11 w-full rounded-md border border-line bg-white px-3 text-sm text-gray-900 outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+            className="block h-11 w-full rounded-lg border border-gray-300 bg-surface-2 px-3 text-sm text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
           />
         </label>
         <div className="flex flex-wrap gap-2">
@@ -76,14 +76,14 @@ export function CreateRoomDialog({
           <Toggle on={waitingRoom} set={setWaitingRoom} label={t("roomWaiting")} />
         </div>
         <label className="block">
-          <span className="mb-1 block text-sm text-gray-500 dark:text-gray-400">
+          <span className="mb-1 block text-sm text-muted dark:text-gray-400">
             {t("roomPassword")}
           </span>
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder={t("roomPasswordPh")}
-            className="h-11 w-full rounded-md border border-line bg-white px-3 text-sm text-gray-900 outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+            className="block h-11 w-full rounded-lg border border-gray-300 bg-surface-2 px-3 text-sm text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
           />
         </label>
         <div className="flex justify-end gap-2">

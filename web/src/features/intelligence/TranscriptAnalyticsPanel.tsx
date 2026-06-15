@@ -27,11 +27,8 @@ export function TranscriptAnalyticsPanel({ content }: { content: string }) {
     [content],
   );
 
-  if (!content.trim()) {
-    return <EmptyState title={t("analytics.empty")} />;
-  }
-
   // Frekans grafiği: yatay bar, en sık üstte.
+  // (Tüm hook'lar erken return'ün ÜSTÜNDE — Rules of Hooks.)
   const freqOption = useMemo(() => {
     const items = [...frequency].reverse();
     return {
@@ -40,7 +37,7 @@ export function TranscriptAnalyticsPanel({ content }: { content: string }) {
       xAxis: {
         type: "value",
         splitLine: { lineStyle: { color: "#f3f4f6" } },
-        axisLabel: { color: "#9ca3af", fontSize: 11 },
+        axisLabel: { color: "#9ca3af", fontSize: 12 },
       },
       yAxis: {
         type: "category",
@@ -59,6 +56,10 @@ export function TranscriptAnalyticsPanel({ content }: { content: string }) {
       ],
     };
   }, [frequency]);
+
+  if (!content.trim()) {
+    return <EmptyState title={t("analytics.empty")} />;
+  }
 
   return (
     <div className="space-y-6">

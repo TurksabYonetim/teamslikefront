@@ -11,13 +11,13 @@ export function IconButton({ label, variant = "ghost", className, children, ...r
     <button
       type="button"
       aria-label={label}
-      title={label}
       aria-pressed={primary}
+      title={label}
       className={clsx(
-        "inline-flex h-9 w-9 items-center justify-center rounded-md transition-[transform,colors] motion-safe:active:scale-[0.97] ease-[var(--ease-out)]",
+        "inline-flex h-9 w-9 min-h-11 min-w-11 items-center justify-center rounded-md transition-[transform,background-color,color] motion-safe:active:scale-[0.97] ease-[var(--ease-out)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand",
         primary
           ? "bg-brand text-white"
-          : "text-muted hover:bg-surface-2 dark:text-gray-400 dark:hover:bg-gray-700",
+          : "text-muted hover:bg-surface-2 dark:hover:bg-gray-700",
         className,
       )}
       {...rest}

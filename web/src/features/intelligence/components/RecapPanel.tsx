@@ -32,16 +32,16 @@ export function RecapPanel() {
 
   return (
     <div className="rounded-card border border-line bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-      <h3 className="mb-1 flex items-center gap-1 text-base font-semibold text-blue-700 dark:text-blue-400">
+      <h3 className="mb-1 flex items-center gap-1 text-base font-semibold text-ink dark:text-white">
         <HiOutlineCheckBadge size={16} aria-hidden /> {t("recap")}
       </h3>
-      <p className="text-base text-gray-900 dark:text-white">{recap.tldr}</p>
+      <p className="text-sm text-ink-2 dark:text-white">{recap.tldr}</p>
 
       <div className="mt-3 grid gap-4 sm:grid-cols-2">
         {recap.decisions.length > 0 ? (
           <section>
-            <h4 className="mb-1 text-base font-semibold text-gray-500 dark:text-gray-400">{t("decisions")}</h4>
-            <ul className="ml-5 list-disc text-base text-gray-900 dark:text-white">
+            <h4 className="mb-1 text-sm font-semibold text-ink dark:text-gray-200">{t("decisions")}</h4>
+            <ul className="ml-5 list-disc text-sm text-ink-2 dark:text-white">
               {recap.decisions.map((d, i) => (
                 <li key={i}>{d}</li>
               ))}
@@ -51,8 +51,8 @@ export function RecapPanel() {
 
         {recap.nextSteps.length > 0 ? (
           <section>
-            <h4 className="mb-1 text-base font-semibold text-gray-500 dark:text-gray-400">{t("nextSteps")}</h4>
-            <ul className="ml-5 list-disc text-base text-gray-900 dark:text-white">
+            <h4 className="mb-1 text-sm font-semibold text-ink dark:text-gray-200">{t("nextSteps")}</h4>
+            <ul className="ml-5 list-disc text-sm text-ink-2 dark:text-white">
               {recap.nextSteps.map((n, i) => (
                 <li key={i}>{n}</li>
               ))}
@@ -63,7 +63,7 @@ export function RecapPanel() {
 
       {recap.actions.length > 0 ? (
         <section className="mt-3">
-          <h4 className="mb-1 flex items-center gap-1 text-base font-semibold text-gray-500 dark:text-gray-400">
+          <h4 className="mb-1 flex items-center gap-1 text-sm font-semibold text-ink dark:text-gray-200">
             <HiOutlineClipboardDocumentCheck size={16} aria-hidden /> {t("actionItems")}
           </h4>
           <ul className="space-y-1.5">
@@ -73,15 +73,15 @@ export function RecapPanel() {
                 className="flex items-center gap-2 rounded-md border border-line p-2 dark:border-gray-700"
               >
                 <HiOutlineArrowRight size={14} className="text-blue-700 dark:text-blue-400" aria-hidden />
-                <span className="flex-1 text-base text-gray-900 dark:text-white">{a.text}</span>
-                <span className="inline-flex items-center gap-1 text-base text-gray-500 dark:text-gray-400">
+                <span className="flex-1 text-sm text-ink dark:text-white">{a.text}</span>
+                <span className="inline-flex items-center gap-1 text-xs text-muted dark:text-gray-400">
                   <Avatar name={memberName(a.ownerId)} size="xs" />
                   <span className="hidden sm:inline">{memberName(a.ownerId)}</span>
                 </span>
                 <button
                   type="button"
                   onClick={() => sendToChat(a.text)}
-                  className="inline-flex items-center gap-1 rounded-md border border-line px-2 py-1 text-base text-blue-700 hover:bg-gray-50 dark:border-gray-700 dark:text-blue-400 dark:hover:bg-gray-700"
+                  className="inline-flex items-center gap-1 rounded-md border border-line px-2 py-1 text-sm font-medium text-blue-700 hover:bg-gray-50 dark:border-gray-700 dark:text-blue-400 dark:hover:bg-gray-700"
                 >
                   <HiOutlinePaperAirplane size={14} aria-hidden /> {t("sendToChat")}
                 </button>

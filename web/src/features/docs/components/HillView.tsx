@@ -35,7 +35,7 @@ export function HillView({ table }: { table: DataTable }) {
       </svg>
       <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
         {pts.map((p) => (
-          <li key={p.id} className="flex items-center gap-1 text-sm text-ink">
+          <li key={p.id} className="flex items-center gap-1 text-xs text-muted">
             <span className="h-2 w-2 rounded-full bg-brand" aria-hidden /> {p.label}
           </li>
         ))}

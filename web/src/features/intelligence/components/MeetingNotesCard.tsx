@@ -24,18 +24,18 @@ export function MeetingNotesCard() {
 
   return (
     <div className="rounded-card border border-line bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-      <h3 className="mb-2 flex items-center gap-1 text-base font-semibold text-gray-900 dark:text-white">
+      <h3 className="mb-2 flex items-center gap-1 text-base font-semibold text-ink dark:text-white">
         <MdGraphicEq size={18} aria-hidden /> {t("notes.title")}
       </h3>
       <div className="grid gap-4 sm:grid-cols-3">
         <section>
-          <h4 className="mb-1 text-base font-semibold text-gray-500 dark:text-gray-400">{t("notes.wpm")}</h4>
+          <h4 className="mb-1 text-sm font-semibold text-muted">{t("notes.wpm")}</h4>
           <ul className="space-y-1.5">
             {stats.map((st) => (
               <li key={st.speakerId}>
-                <div className="flex items-center justify-between text-base text-gray-900 dark:text-white">
+                <div className="flex items-center justify-between text-sm text-ink dark:text-white">
                   <span className="truncate">{nameOf(st)}</span>
-                  <span className="text-gray-500 dark:text-gray-400">
+                  <span className="text-xs text-muted">
                     {st.wpm} {t("notes.wpmUnit")}
                   </span>
                 </div>
@@ -51,33 +51,33 @@ export function MeetingNotesCard() {
         </section>
 
         <section>
-          <h4 className="mb-1 flex items-center gap-1 text-base font-semibold text-gray-500 dark:text-gray-400">
+          <h4 className="mb-1 flex items-center gap-1 text-sm font-semibold text-muted">
             <HiOutlineTag size={14} aria-hidden /> {t("notes.keywords")}
           </h4>
           <div className="flex flex-wrap gap-1">
             {keywords.map((k) => (
               <span
                 key={k.word}
-                className="rounded-full border border-line px-2 py-0.5 text-base text-gray-900 dark:border-gray-700 dark:text-white"
+                className="rounded-full border border-line px-2 py-0.5 text-xs text-ink dark:border-gray-700 dark:text-white"
               >
-                {k.word} <span className="text-gray-500 dark:text-gray-400">{k.count}</span>
+                {k.word} <span className="text-muted">{k.count}</span>
               </span>
             ))}
           </div>
         </section>
 
         <section>
-          <h4 className="mb-1 flex items-center gap-1 text-base font-semibold text-gray-500 dark:text-gray-400">
+          <h4 className="mb-1 flex items-center gap-1 text-sm font-semibold text-muted">
             <HiOutlineClipboardDocumentCheck size={14} aria-hidden /> {t("notes.actions")}
           </h4>
           {actions.length > 0 ? (
-            <ul className="ml-4 list-disc space-y-1 text-base text-gray-900 dark:text-white">
+            <ul className="ml-4 list-disc space-y-1 text-sm text-ink dark:text-white">
               {actions.map((a, i) => (
                 <li key={i}>{a}</li>
               ))}
             </ul>
           ) : (
-            <p className="text-base text-gray-500 dark:text-gray-400">{t("notes.noActions")}</p>
+            <p className="text-sm text-muted">{t("notes.noActions")}</p>
           )}
         </section>
       </div>

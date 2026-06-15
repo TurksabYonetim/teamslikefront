@@ -147,7 +147,7 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
   return (
     <div className="flex w-full flex-1 flex-col">
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 className="text-base font-semibold text-gray-900 dark:text-white">
           {t("contacts.title")}
         </h3>
         {!editing && (
@@ -191,7 +191,7 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
       {/* Favori çipleri — tek dokunuşla ara */}
       {!editing && favContacts.length > 0 && (
         <div className="mb-3">
-          <p className="mb-1.5 px-1 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+          <p className="mb-1.5 px-1 text-xs font-semibold text-gray-500 dark:text-gray-400">
             {t("directory.favorites")}
           </p>
           <ul className="tl-stagger flex flex-wrap gap-2">
@@ -308,7 +308,7 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
         <div className="space-y-4">
           {groups.map((group) => (
             <div key={group.letter}>
-              <p className="mb-1.5 px-1 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+              <p className="mb-1.5 px-1 text-xs font-semibold text-gray-500 dark:text-gray-400">
                 {group.letter}
               </p>
               <ul className="tl-stagger divide-y divide-gray-100 rounded-lg border border-gray-200 bg-white dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800">
@@ -326,7 +326,7 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
                       <p className="truncate font-medium text-gray-900 dark:text-white">
                         {c.name}
                       </p>
-                      <p className="truncate text-xs text-gray-500 dark:text-gray-400">
+                      <p className="truncate text-sm text-gray-500 dark:text-gray-400">
                         {c.number}
                         {c.email ? ` · ${c.email}` : ""}
                       </p>
@@ -356,6 +356,7 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
           className="fixed inset-0 z-40 flex items-end justify-center bg-black/40 p-4 sm:items-center motion-safe:[animation:tl-fade_var(--dur-modal)_var(--ease-out)]"
           role="dialog"
           aria-modal="true"
+          aria-labelledby="contact-detail-name"
           onClick={() => setDetail(null)}
         >
           <div
@@ -363,10 +364,10 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-4 flex flex-col items-center text-center">
-              <span className="mb-3 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary-100 text-xl font-semibold text-primary-700 dark:bg-primary-900 dark:text-primary-200">
+              <span className="mb-3 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary-100 text-lg font-semibold text-primary-700 dark:bg-primary-900 dark:text-primary-200">
                 {initials(detail.name)}
               </span>
-              <p className="text-lg font-semibold text-gray-900 dark:text-white">
+              <p id="contact-detail-name" className="text-base font-semibold text-gray-900 dark:text-white">
                 {detail.name}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">

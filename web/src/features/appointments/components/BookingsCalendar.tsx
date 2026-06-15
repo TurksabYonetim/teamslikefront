@@ -63,7 +63,7 @@ const toTimeInput = (ms: number) => {
   return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
 };
 
-const inputCls = "h-10 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
+const inputCls = "block rounded-lg border border-gray-300 bg-surface-2 p-2.5 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500";
 
 export function BookingsCalendar() {
   const { t } = useTranslation("appointments");
@@ -183,7 +183,7 @@ export function BookingsCalendar() {
         }
       >
         {selected ? (
-          <div className="space-y-2 text-base">
+          <div className="space-y-2 text-sm">
             <Badge tone={STATUS_TONE[selected.status]}>{t(`status.${selected.status}`)}</Badge>
             <div><span className="text-muted">{t("eventType")}: </span><span className="text-ink">{eventTypes.find((e) => e.id === selected.eventTypeId)?.title ?? "—"}</span></div>
             <div><span className="text-muted">{t("invitee")}: </span><span className="text-ink">{selected.inviteeName} · {selected.inviteeEmail}</span></div>

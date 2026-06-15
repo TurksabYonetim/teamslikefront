@@ -115,6 +115,7 @@ export const BlockCard = forwardRef<HTMLDivElement, BlockCardProps>(
           <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-[160ms] ease-[var(--ease-out)]">
             <button
               type="button"
+              aria-label={t("actions.moveUp")}
               title={t("actions.moveUp")}
               disabled={index === 0 || reorderDisabled}
               className="p-1 rounded text-muted hover:text-ink hover:bg-surface-3 transition-[transform,color,background-color] duration-[160ms] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] disabled:opacity-30 disabled:pointer-events-none"
@@ -124,6 +125,7 @@ export const BlockCard = forwardRef<HTMLDivElement, BlockCardProps>(
             </button>
             <button
               type="button"
+              aria-label={t("actions.moveDown")}
               title={t("actions.moveDown")}
               disabled={index === count - 1 || reorderDisabled}
               className="p-1 rounded text-muted hover:text-ink hover:bg-surface-3 transition-[transform,color,background-color] duration-[160ms] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] disabled:opacity-30 disabled:pointer-events-none"
@@ -133,6 +135,7 @@ export const BlockCard = forwardRef<HTMLDivElement, BlockCardProps>(
             </button>
             <button
               type="button"
+              aria-label={t("actions.edit")}
               title={t("actions.edit")}
               className="p-1 rounded text-muted hover:text-ink hover:bg-surface-3 transition-[transform,color,background-color] duration-[160ms] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
               onClick={() => onEdit(block)}
@@ -141,6 +144,7 @@ export const BlockCard = forwardRef<HTMLDivElement, BlockCardProps>(
             </button>
             <button
               type="button"
+              aria-label={t("actions.delete")}
               title={t("actions.delete")}
               className="p-1 rounded text-muted hover:text-danger hover:bg-surface-3 transition-[transform,color,background-color] duration-[160ms] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
               onClick={() => onDelete(block)}

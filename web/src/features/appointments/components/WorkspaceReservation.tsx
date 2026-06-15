@@ -18,7 +18,7 @@ const SLOT_KEY: Record<DeskSlot, string> = {
 };
 const name = (id: string) => HOST_NAMES[id] ?? id;
 
-const inputCls = "h-10 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
+const inputCls = "h-10 rounded-md border border-line bg-surface-2 px-2.5 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
 
 export function WorkspaceReservation() {
   const { t } = useTranslation("appointments");
@@ -45,7 +45,7 @@ export function WorkspaceReservation() {
           </div>
 
           <div className="mb-3 flex flex-wrap items-center gap-3">
-            <label className="flex items-center gap-2 text-base text-ink">
+            <label className="flex items-center gap-2 text-sm font-medium text-ink">
               {t("workspace.date")}
               <input type="date" value={dateISO} onChange={(e) => act().setDate(e.target.value)} aria-label={t("workspace.date")} className={inputCls} />
             </label>
@@ -55,7 +55,7 @@ export function WorkspaceReservation() {
                   key={k}
                   aria-pressed={slot === k}
                   onClick={() => act().setSlot(k)}
-                  className={clsx("inline-flex h-10 items-center px-3 text-base", slot === k ? "bg-brand text-white" : "bg-surface text-ink")}
+                  className={clsx("inline-flex h-10 items-center px-3 text-sm", slot === k ? "bg-brand text-white" : "bg-surface text-ink")}
                 >
                   {t(SLOT_KEY[k])}
                 </button>
@@ -68,10 +68,10 @@ export function WorkspaceReservation() {
               <li key={d.id} className="flex items-center gap-2 py-2">
                 <Icon name={d.kind === "room" ? "room" : "desk"} className="h-[18px] w-[18px] text-muted" />
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-base text-ink">
+                  <div className="truncate text-sm text-ink-2">
                     {d.label}{d.kind === "room" ? ` · ${t("workspace.capacity", { n: d.capacity })}` : ""}
                   </div>
-                  <div className="flex items-center gap-1 truncate text-base text-muted">
+                  <div className="flex items-center gap-1 truncate text-sm text-muted">
                     <Icon name="pin" className="h-3.5 w-3.5" /> {d.zone}{d.amenities.length ? ` · ${d.amenities.join(", ")}` : ""}
                   </div>
                 </div>
@@ -89,7 +89,7 @@ export function WorkspaceReservation() {
       <Card className="lg:col-span-1">
         <h3 className="mb-2 text-base font-semibold text-ink">{t("workspace.mine")}</h3>
         {mine.length === 0 ? (
-          <p className="text-base text-muted">{t("workspace.mineEmpty")}</p>
+          <p className="text-sm text-ink-2">{t("workspace.mineEmpty")}</p>
         ) : (
           <ul className="divide-y divide-line">
             {mine.map((r) => {
@@ -97,8 +97,8 @@ export function WorkspaceReservation() {
               return (
                 <li key={r.id} className="flex items-center gap-2 py-2">
                   <div className="min-w-0 flex-1">
-                    <div className="truncate text-base text-ink">{desk?.label ?? r.deskId}</div>
-                    <div className="truncate text-base text-muted">{name(r.userId)} · {t(SLOT_KEY[r.slot])}</div>
+                    <div className="truncate text-sm text-ink-2">{desk?.label ?? r.deskId}</div>
+                    <div className="truncate text-sm text-muted">{name(r.userId)} · {t(SLOT_KEY[r.slot])}</div>
                   </div>
                   {r.checkedIn ? (
                     <Badge tone="positive">{t("workspace.checkedIn")}</Badge>

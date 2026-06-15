@@ -1,10 +1,10 @@
 import clsx from "clsx";
 
 const SIZES = {
-  xs: "w-6 h-6 text-[10px]",
+  xs: "w-6 h-6 text-xs",
   sm: "w-8 h-8 text-xs",
-  md: "w-9 h-9 text-[13px]",
-  lg: "w-12 h-12 text-[17px]",
+  md: "w-9 h-9 text-sm",
+  lg: "w-12 h-12 text-base",
 } as const;
 
 interface AvatarProps {

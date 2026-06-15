@@ -115,21 +115,23 @@ export function ClipPlayerModal({
       onClick={onClose}
       role="dialog"
       aria-modal="true"
-      aria-label={clip.title}
+      aria-labelledby="clip-player-title"
     >
       <div
         className="w-full max-w-3xl bg-white rounded-lg shadow-xl overflow-hidden origin-center motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Başlık çubuğu */}
-        <div className="flex items-center justify-between gap-3 p-3 border-b border-gray-200">
-          <h3 className="text-base font-semibold text-gray-900 truncate">
+        <div className="flex items-center justify-between gap-3 p-3 border-b border-line">
+          <h3 id="clip-player-title" className="text-base font-semibold text-ink truncate">
             {clip.title}
           </h3>
           <button
             onClick={onClose}
+            type="button"
+            aria-label={t("player.close")}
             title={t("player.close")}
-            className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-900 shrink-0 motion-safe:active:scale-[0.97] duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform]"
+            className="p-1.5 rounded-lg text-muted hover:bg-gray-100 hover:text-ink shrink-0 motion-safe:active:scale-[0.97] duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform]"
           >
             <Icon name="close" className="w-5 h-5" />
           </button>
@@ -150,8 +152,9 @@ export function ClipPlayerModal({
             <button
               type="button"
               onClick={onPrev}
+              aria-label={t("player.prev")}
               title={t("player.prev")}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 grid place-items-center rounded-full bg-black/50 text-white hover:bg-black/70 motion-safe:active:scale-[0.97] duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform]"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-11 h-11 grid place-items-center rounded-full bg-black/50 text-white hover:bg-black/70 motion-safe:active:scale-[0.97] duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform]"
             >
               <Icon name="chevronLeft" className="w-5 h-5" />
             </button>
@@ -160,8 +163,9 @@ export function ClipPlayerModal({
             <button
               type="button"
               onClick={onNext}
+              aria-label={t("player.next")}
               title={t("player.next")}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 grid place-items-center rounded-full bg-black/50 text-white hover:bg-black/70 motion-safe:active:scale-[0.97] duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform]"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-11 h-11 grid place-items-center rounded-full bg-black/50 text-white hover:bg-black/70 motion-safe:active:scale-[0.97] duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform]"
             >
               <Icon name="chevronRight" className="w-5 h-5" />
             </button>
@@ -169,9 +173,9 @@ export function ClipPlayerModal({
         </div>
 
         {/* Alt kontrol çubuğu */}
-        <div className="flex flex-wrap items-center gap-3 p-3 border-t border-gray-200 bg-gray-50">
+        <div className="flex flex-wrap items-center gap-3 p-3 border-t border-line bg-surface-2">
           {clip.duration_s != null && (
-            <span className="text-xs text-gray-500 tabular-nums inline-flex items-center gap-1">
+            <span className="text-xs text-muted tabular-nums inline-flex items-center gap-1">
               <Icon name="clock" className="w-4 h-4" />
               {formatDuration(clip.duration_s)}
             </span>
@@ -179,18 +183,19 @@ export function ClipPlayerModal({
 
           {/* Oynatma hızı */}
           <div className="flex items-center gap-1 ml-auto">
-            <span className="text-xs text-gray-500">{t("player.speed")}</span>
+            <span className="text-xs text-muted">{t("player.speed")}</span>
             {SPEEDS.map((s) => (
               <button
                 key={s}
                 type="button"
+                aria-pressed={speed === s}
                 onClick={() => setSpeed(s)}
                 className={[
                   "px-2 py-1 rounded text-xs font-medium tabular-nums",
                   "motion-safe:active:scale-[0.97] duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform]",
                   speed === s
                     ? "bg-brand text-white"
-                    : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-100",
+                    : "bg-surface text-ink-2 border border-line hover:bg-gray-100",
                 ].join(" ")}
               >
                 {s}×
@@ -203,7 +208,7 @@ export function ClipPlayerModal({
             type="button"
             onClick={handleCopyShare}
             title={t("player.copyShare")}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium bg-white text-gray-700 border border-gray-200 hover:bg-gray-100 motion-safe:active:scale-[0.97] duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform]"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium bg-surface text-ink-2 border border-line hover:bg-gray-100 motion-safe:active:scale-[0.97] duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform]"
           >
             <Icon name="link" className="w-4 h-4" />
             {t("player.copyShare")}

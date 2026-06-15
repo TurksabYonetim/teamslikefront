@@ -13,20 +13,20 @@ export function SpeakerAnalytics() {
 
   return (
     <div className="rounded-card border border-line bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-      <h3 className="mb-2 text-base font-semibold text-fg">{t("speakers")}</h3>
+      <h3 className="mb-2 text-base font-semibold text-ink">{t("speakers")}</h3>
       <ul className="space-y-3">
         {stats.map((s) => {
           const pct = Math.round((s.talkSec / total) * 100);
           return (
             <li key={s.speakerId}>
-              <div className="flex items-center justify-between text-base">
-                <span className="font-medium text-fg">{s.name ?? memberName(s.speakerId)}</span>
-                <span className="text-muted">{pct}% · {fmtClock(s.talkSec)}</span>
+              <div className="flex items-center justify-between text-sm">
+                <span className="font-medium text-ink">{s.name ?? memberName(s.speakerId)}</span>
+                <span className="text-xs text-muted">{pct}% · {fmtClock(s.talkSec)}</span>
               </div>
               <div className="my-1 h-2 w-full overflow-hidden rounded-full bg-surface">
                 <div className="h-full rounded-full bg-accent" style={{ width: `${pct}%` }} />
               </div>
-              <div className="flex flex-wrap items-center gap-3 text-base text-muted">
+              <div className="flex flex-wrap items-center gap-3 text-xs text-muted">
                 <SentimentChip sentiment={sentimentFromValue(s.sentiment)} />
                 <span>{t("interruptions", { n: s.interruptions })}</span>
                 <span>{t("filler", { n: s.fillerWords })}</span>

@@ -20,7 +20,7 @@ const ICON: Record<PolicyKind, string> = {
 };
 
 const CONFIG_INPUT =
-  "h-8 w-32 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
+  "h-9 w-32 rounded-md border border-line bg-surface-2 px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
 
 export function SecurityPolicies() {
   const { t } = useTranslation("admin");

@@ -107,7 +107,7 @@ export function CallHistory({
   return (
     <div className="flex w-full flex-col">
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 className="text-base font-semibold text-gray-900 dark:text-white">
           {t("history.title")}
         </h3>
       </div>
@@ -153,7 +153,7 @@ export function CallHistory({
               aria-selected={selected}
               onClick={() => setFilter(f)}
               className={
-                "shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition-[transform,color,background-color] duration-150 ease-[var(--ease-out)] motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 " +
+                "shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition-[transform,color,background-color] duration-150 ease-[var(--ease-out)] motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-1 " +
                 (selected
                   ? "bg-primary-600 text-white"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600")
@@ -193,7 +193,7 @@ export function CallHistory({
         <div className="space-y-4">
           {groups.map((group) => (
             <div key={group.key}>
-              <p className="mb-1.5 px-1 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+              <p className="mb-1.5 px-1 text-xs font-semibold text-muted dark:text-gray-400">
                 {t(`history.groups.${group.key}`)}
               </p>
               <ul className="tl-stagger divide-y divide-gray-100 rounded-lg border border-gray-200 bg-white dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800">
@@ -207,7 +207,7 @@ export function CallHistory({
                     <li key={rec.id} className="flex items-center gap-3 px-4 py-3">
                       <DirectionIcon direction={rec.direction} />
                       <div className="min-w-0 flex-1">
-                        <p className="truncate font-medium text-gray-900 dark:text-white">
+                        <p className="truncate text-sm font-medium text-gray-900 dark:text-white">
                           {name}
                         </p>
                         <p className="truncate text-xs text-gray-500 dark:text-gray-400">

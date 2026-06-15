@@ -39,13 +39,14 @@ export function AppShell() {
   }, []);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50">
+    <div className="flex h-screen overflow-hidden bg-surface-2">
       {/* mobil üst bar */}
       <MobileTopbar onMenu={() => setOpen(true)} />
 
       {/* backdrop (yalnızca mobil, drawer açıkken) */}
       {open && (
         <div
+          aria-hidden="true"
           className="fixed inset-0 z-30 bg-gray-900/50 md:hidden motion-safe:animate-[tl-fade_var(--dur-drawer,240ms)_var(--ease-out)]"
           onClick={() => setOpen(false)}
         />
@@ -63,7 +64,7 @@ export function AppShell() {
       </div>
 
       {/* içerik */}
-      <main className="flex flex-1 flex-col overflow-hidden bg-white min-w-0 pt-14 md:pt-0">
+      <main className="flex flex-1 flex-col overflow-hidden bg-surface min-w-0 pt-14 md:pt-0">
         <Outlet />
       </main>
 

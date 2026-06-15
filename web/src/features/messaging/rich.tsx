@@ -17,7 +17,7 @@ export function renderInline(text: string): React.ReactNode[] {
     if (!part) return null;
     if (part.startsWith("`") && part.endsWith("`")) {
       return (
-        <code key={i} className="rounded bg-surface-3 px-1 py-0.5 font-mono text-[0.85em] dark:bg-gray-700">
+        <code key={i} className="rounded bg-surface-3 px-1 py-0.5 font-mono text-xs">
           {part.slice(1, -1)}
         </code>
       );

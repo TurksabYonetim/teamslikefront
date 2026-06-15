@@ -35,7 +35,7 @@ export function StatCard({ stat }: { stat: Stat }) {
           {stat.delta}
         </span>
       </div>
-      <div className="mt-3 text-3xl font-bold text-ink tracking-tight tabular-nums">
+      <div className="mt-3 text-2xl font-semibold text-ink tracking-tight tabular-nums">
         {stat.value}
       </div>
       <div className="text-sm text-muted">{stat.label}</div>
@@ -105,7 +105,7 @@ export function WeeklyBars({
     yAxis: {
       type: "value",
       splitLine: { lineStyle: { color: "#f3f4f6" } },
-      axisLabel: { color: "#9ca3af", fontSize: 11 },
+      axisLabel: { color: "#9ca3af", fontSize: 12 },
     },
     series: [
       {

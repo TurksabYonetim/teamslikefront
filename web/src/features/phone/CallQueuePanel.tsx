@@ -25,14 +25,14 @@ export function CallQueuePanel() {
       {queues.map((q) => (
         <section key={q.id} aria-labelledby={`queue-heading-${q.id}`} className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-            <h3 id={`queue-heading-${q.id}`} className="text-lg font-semibold text-gray-900 dark:text-white">{q.name}</h3>
+            <h3 id={`queue-heading-${q.id}`} className="text-base font-semibold text-gray-900 dark:text-white">{q.name}</h3>
             <div className="flex items-center gap-2 text-sm">
               <Badge>{t("queues.strategy")}: {t(`enums.strategy.${q.strategy}`)}</Badge>
               <Badge>{t("queues.estWait")}: {formatDuration(estimatedWaitSec(q))}</Badge>
             </div>
           </div>
 
-          <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-400">{t("queues.agents")}</p>
+          <p className="mb-1 text-xs font-semibold text-muted">{t("queues.agents")}</p>
           <ul className="mb-4 divide-y divide-gray-100 dark:divide-gray-700">
             {q.agents.map((a) => (
               <li key={a.id} className="flex items-center justify-between py-2">
@@ -46,7 +46,7 @@ export function CallQueuePanel() {
                   aria-pressed={a.available}
                   aria-label={`${a.name}: ${a.available ? t("queues.available") : t("queues.unavailable")}`}
                   className={
-                    "rounded-full px-3 py-1 text-xs font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 " +
+                    "inline-flex min-h-[44px] items-center rounded-full px-3 py-1.5 text-xs font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 " +
                     (a.available
                       ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200"
                       : "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300")
@@ -59,7 +59,7 @@ export function CallQueuePanel() {
           </ul>
 
           <div className="mb-2 flex items-center justify-between">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">
+            <p className="text-xs font-semibold text-muted">
               {t("queues.waiting")} ({q.waiting.length})
             </p>
             <Button size="sm" onClick={() => pbxStore.getState().assignNext(q.id)} disabled={q.waiting.length === 0}>
@@ -80,7 +80,7 @@ export function CallQueuePanel() {
                       type="button"
                       onClick={() => pbxStore.getState().requestCallback(q.id, c.id)}
                       aria-label={`${t("queues.requestCallback")} — ${formatNumber(c.from)}`}
-                      className="text-xs font-medium text-primary-600 hover:underline dark:text-primary-400"
+                      className="-mx-2 inline-flex min-h-[44px] items-center px-2 py-2 text-xs font-medium text-primary-600 hover:underline dark:text-primary-400"
                     >
                       {t("queues.requestCallback")}
                     </button>

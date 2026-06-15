@@ -53,7 +53,7 @@ export function WorkflowBuilder() {
             value={trigger}
             onChange={(e) => setTrigger(e.target.value as WorkflowTrigger)}
             aria-label={t("workflows.triggerLabel")}
-            className="h-10 w-full rounded-lg border border-line bg-surface px-2 text-sm text-ink"
+            className="input h-10"
           >
             {TRIGGERS.map((tr) => (
               <option key={tr} value={tr}>

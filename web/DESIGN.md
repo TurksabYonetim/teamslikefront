@@ -55,11 +55,32 @@ Semantik takma adlar (`brand`): `brand` = blue-700, `brand-soft` = blue-100, `br
 
 ## 3. Tipografi
 
-- Font ailesi: **Inter** (Google Fonts, `index.html`'de yüklü), fallback `Segoe UI, system-ui`.
-- Başlıklar: `text-2xl/xl font-bold text-gray-900 tracking-tight`.
-- Bölüm başlığı: `text-sm font-semibold uppercase tracking-wide text-gray-500`.
-- Gövde: `text-sm text-gray-700` · yardımcı: `text-sm text-gray-500` · küçük: `text-xs`.
-- Buton metni: `text-sm font-medium`.
+Font ailesi: **Inter** (Google Fonts, `index.html`'de yüklü), fallback `Segoe UI, system-ui`.
+Product register: **sabit rem ölçeği** (akışkan/clamp değil), tek aile, kibar boyut. Başlıklar
+kapaklı; ekranı dolduran font yok.
+
+### Tip ölçeği (semantik roller — bağla ve sapma)
+
+| Rol | Tailwind | px | Ağırlık | Renk |
+|---|---|---|---|---|
+| Sayfa kahramanı (nadir, landing) | `text-2xl` | 24 | `font-semibold` | `text-ink` |
+| Sayfa başlığı (h1) | `text-xl` | 20 | `font-semibold` | `text-ink` |
+| Bölüm başlığı (h2) | `text-base` | 16 | `font-semibold` | `text-ink` |
+| Kart/alt başlık (h3) | `text-sm` | 14 | `font-semibold` | `text-ink` |
+| Gövde | `text-sm` | 14 | `font-normal` | `text-ink-2` |
+| Gövde vurgu / buton / etiket | `text-sm` | 14 | `font-medium` | — |
+| Yardımcı / ikincil | `text-sm` | 14 | `font-normal` | `text-muted` |
+| Açıklama / meta / sayaç | `text-xs` | 12 | `font-normal` | `text-muted` |
+
+### Kurallar
+- **Tavan `text-2xl` (24px).** `text-3xl`/`4xl`/`5xl` kullanma — "çok büyük" = yanlış.
+  (İstisna yok: landing/hero da `text-2xl` ile kibar durur.)
+- **Keyfi px boyut yok.** `text-[10px]/[11px]/[13px]/[17px]` → ölçeğe eşle (`text-xs`/`text-sm`).
+- **Taban 12px (`text-xs`).** 10–11px metin okunmuyor → en az `text-xs`.
+- **Eyebrow yok.** `uppercase tracking-wide` küçük başlık deseni YASAK → düz `text-xs font-semibold text-muted`.
+- **`font-light` kullanma** (özellikle küçük metinde kontrast düşer). En hafif `font-normal`.
+- **Aynı rol her yerde aynı.** Başlık bir yerde `font-bold`, başka yerde `font-semibold` olmasın → `font-semibold`.
+- Sayısal hizalama gereken yerde (tablo, metrik) `tabular-nums`.
 
 ---
 

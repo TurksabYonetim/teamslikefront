@@ -37,14 +37,14 @@ export function FacilitatorPanel() {
 
   return (
     <section className="space-y-2">
-      <h3 className="flex items-center gap-1 text-sm font-semibold text-muted">
+      <h3 className="flex items-center gap-1 text-sm font-semibold text-ink">
         <HiOutlineSparkles className="h-4 w-4" aria-hidden /> {t("facilitator.title")}
       </h3>
 
-      <div className="rounded-md border border-gray-200 px-3 py-2 dark:border-gray-700">
+      <div className="rounded-md border border-line px-3 py-2">
         <div className="flex items-center gap-2 text-sm">
           <HiOutlineClock className="h-4 w-4 text-muted" aria-hidden />
-          <span className="flex-1 text-ink dark:text-gray-100">
+          <span className="flex-1 text-ink">
             {prog.current ? prog.current.title : t("facilitator.noAgenda")}
           </span>
           <IconButton label={t("facilitator.back")} onClick={() => setElapsedMin((m) => Math.max(0, m - 5))}>
@@ -66,7 +66,7 @@ export function FacilitatorPanel() {
         ) : null}
       </div>
 
-      <div className="rounded-md border border-gray-200 px-3 py-2 dark:border-gray-700">
+      <div className="rounded-md border border-line px-3 py-2">
         <div className="mb-1 flex items-center gap-1 text-sm text-muted">
           <HiOutlineClipboardDocumentCheck className="h-4 w-4" aria-hidden />{" "}
           {t("facilitator.actionItems", { n: actions.length })}
@@ -76,7 +76,7 @@ export function FacilitatorPanel() {
         ) : (
           <ul className="space-y-1">
             {actions.map((a, i) => (
-              <li key={i} className="flex items-center gap-2 text-sm text-ink dark:text-gray-100">
+              <li key={i} className="flex items-center gap-2 text-sm text-ink">
                 <Badge tone="accent">{a.owner}</Badge>
                 <span className="min-w-0 flex-1 truncate">{a.text}</span>
               </li>
@@ -85,7 +85,7 @@ export function FacilitatorPanel() {
         )}
       </div>
 
-      <div className="rounded-md border border-gray-200 px-3 py-2 dark:border-gray-700">
+      <div className="rounded-md border border-line px-3 py-2">
         <div className="mb-1 flex items-center gap-1 text-sm text-muted">
           <HiOutlineBookmark className="h-4 w-4" aria-hidden />{" "}
           {t("facilitator.chapters", { n: chapters.length })}
@@ -95,7 +95,7 @@ export function FacilitatorPanel() {
         ) : (
           <ol className="space-y-1">
             {chapters.map((c) => (
-              <li key={c.index} className="flex items-center gap-2 text-sm text-ink dark:text-gray-100">
+              <li key={c.index} className="flex items-center gap-2 text-sm text-ink">
                 <span className="tabular-nums text-muted">{c.index + 1}.</span>
                 <span className="min-w-0 flex-1 truncate">{c.title}</span>
               </li>

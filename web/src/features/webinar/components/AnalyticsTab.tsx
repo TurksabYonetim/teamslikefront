@@ -37,7 +37,7 @@ export function AnalyticsTab() {
           <h3 className="mb-2 text-base font-semibold text-ink">{t("analytics.sources")}</h3>
           <ul className="space-y-1">
             {Object.entries(bySource).map(([src, n]) => (
-              <li key={src} className="flex items-center gap-2 text-base">
+              <li key={src} className="flex items-center gap-2 text-sm">
                 <span className="flex-1 text-ink">{src}</span>
                 <span className="text-muted">{n}</span>
               </li>
@@ -46,11 +46,11 @@ export function AnalyticsTab() {
         </Card>
         <Card>
           <h3 className="mb-2 text-base font-semibold text-ink">{t("analytics.engagement")}</h3>
-          <dl className="space-y-1 text-base">
+          <dl className="space-y-1 text-sm">
             <div className="flex justify-between"><dt className="text-muted">{t("analytics.liveAttendees")}</dt><dd className="text-ink">{attendees.toLocaleString()}</dd></div>
             <div className="flex justify-between"><dt className="text-muted">{t("analytics.pollVotes")}</dt><dd className="text-ink">{pollVotes}</dd></div>
           </dl>
-          <p className="mt-2 text-base text-muted">{t("analytics.intentNote")}</p>
+          <p className="mt-2 text-sm text-muted">{t("analytics.intentNote")}</p>
         </Card>
       </div>
     </div>

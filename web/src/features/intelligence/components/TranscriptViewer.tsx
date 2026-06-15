@@ -105,7 +105,7 @@ export function TranscriptViewer() {
 
       {dub ? (
         <div
-          className="flex items-center gap-2 border-b border-line bg-white px-3 py-1.5 text-sm text-brand dark:border-gray-700 dark:bg-gray-800"
+          className="flex items-center gap-2 border-b border-line bg-surface-2 px-3 py-1.5 text-sm text-brand dark:border-gray-700 dark:bg-gray-800"
           aria-live="polite"
         >
           <HiOutlineSpeakerWave className="h-4 w-4" aria-hidden /> {t("dubbing", { lang: dubLang })}
@@ -121,7 +121,7 @@ export function TranscriptViewer() {
               <Avatar name={seg.speakerName ?? memberName(seg.speakerId)} size="sm" />
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-semibold text-ink dark:text-white">
+                  <span className="text-sm font-semibold text-ink dark:text-white">
                     {seg.speakerName ?? memberName(seg.speakerId)}
                   </span>
                   <span className="text-sm text-muted dark:text-gray-400">{fmtClock(seg.startSec)}</span>
@@ -131,7 +131,7 @@ export function TranscriptViewer() {
                   {highlight(redact ? redactText(seg.en) : seg.en, search.trim())}
                 </div>
                 {targetLang !== "off" ? (
-                  <div className="mt-0.5 rounded-md border-l-2 border-brand bg-white px-2 py-1 text-sm text-ink dark:bg-gray-800 dark:text-white">
+                  <div className="mt-0.5 rounded-md border border-line bg-surface-2 px-2 py-1 text-sm text-ink dark:border-gray-700 dark:bg-gray-800 dark:text-white">
                     {redact ? redactText(translate(seg)) : translate(seg)}
                   </div>
                 ) : null}

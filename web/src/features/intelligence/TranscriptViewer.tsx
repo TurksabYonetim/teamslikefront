@@ -63,7 +63,7 @@ function SegmentList({
           </span>
           <div className="min-w-0 flex-1">
             {seg.timestamp && (
-              <span className="text-[11px] text-muted tabular-nums mr-2">
+              <span className="text-xs text-muted tabular-nums mr-2">
                 {seg.timestamp}
               </span>
             )}

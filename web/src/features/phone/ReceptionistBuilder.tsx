@@ -51,7 +51,7 @@ export function ReceptionistBuilder() {
     <div className="mx-auto flex h-full w-full max-w-4xl flex-col gap-6 overflow-y-auto p-4 lg:flex-row lg:items-start">
       <div className="flex w-full flex-col gap-4 lg:max-w-md">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{t("reception.title")}</h2>
+          <h2 className="text-xl font-semibold text-ink">{t("reception.title")}</h2>
           <button
             type="button"
             onClick={() => receptionistStore.getState().toggleEnabled()}
@@ -65,15 +65,15 @@ export function ReceptionistBuilder() {
           </button>
         </div>
 
-        <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">{t("reception.intents")}</p>
+        <div className="rounded-lg border border-line bg-surface p-4">
+          <p className="mb-2 text-xs font-semibold text-muted">{t("reception.intents")}</p>
           <ul className="mb-4 divide-y divide-gray-100 dark:divide-gray-700">
             {config.intents.map((i) => (
               <li key={i.id} className="flex items-center justify-between py-2 text-sm">
                 <span className="min-w-0">
                   <span className="font-medium text-gray-900 dark:text-white">{i.label}</span>
-                  <span className="ml-2 text-gray-400">{t(`enums.receptionAction.${i.action}`)}{i.target ? ` (${i.target})` : ""}</span>
-                  <span className="block truncate text-xs text-gray-500 dark:text-gray-400">{i.phrases.join(", ")}</span>
+                  <span className="ml-2 text-sm text-muted">{t(`enums.receptionAction.${i.action}`)}{i.target ? ` (${i.target})` : ""}</span>
+                  <span className="block truncate text-xs text-muted">{i.phrases.join(", ")}</span>
                 </span>
                 <button
                   type="button"
@@ -99,8 +99,8 @@ export function ReceptionistBuilder() {
           </div>
         </div>
 
-        <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">{t("reception.capture")}</p>
+        <div className="rounded-lg border border-line bg-surface p-4">
+          <p className="mb-2 text-xs font-semibold text-muted">{t("reception.capture")}</p>
           <div className="flex flex-wrap gap-4">
             {CAPTURE_FIELDS.map((f) => (
               <label key={f} className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">

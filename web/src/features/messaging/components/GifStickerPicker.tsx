@@ -11,7 +11,7 @@ export function GifStickerPicker({ onSend }: { onSend: (sticker: string) => void
     <Dropdown
       label={t("sticker")}
       align="start"
-      triggerClassName="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted hover:bg-surface-2 dark:text-gray-400 dark:hover:bg-gray-700"
+      triggerClassName="inline-flex h-11 w-11 items-center justify-center rounded-md text-muted hover:bg-surface-2"
       trigger={<HiOutlineSparkles className="h-[18px] w-[18px]" aria-hidden />}
     >
       <div className="grid w-60 grid-cols-6 gap-1 p-1">
@@ -21,7 +21,7 @@ export function GifStickerPicker({ onSend }: { onSend: (sticker: string) => void
             type="button"
             aria-label={s}
             onClick={() => onSend(s)}
-            className="flex h-9 items-center justify-center rounded-md text-2xl hover:bg-surface-2 dark:hover:bg-gray-700"
+            className="flex h-11 items-center justify-center rounded-md text-2xl hover:bg-surface-2"
           >
             <span aria-hidden>{s}</span>
           </button>

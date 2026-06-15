@@ -34,7 +34,7 @@ export function WorkforceView() {
       <Card className="lg:col-span-2">
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <Icon name="chartBar" className="h-5 w-5 text-brand" aria-hidden />
-          <h2 className="text-lg font-semibold text-ink">{t("wfo.forecast")}</h2>
+          <h2 className="text-base font-semibold text-ink">{t("wfo.forecast")}</h2>
           <Badge tone={sl >= 90 ? "positive" : sl >= 75 ? "warning" : "danger"}>{t("wfo.serviceLevel", { n: sl })}</Badge>
           {gaps.length > 0 ? (
             <Badge tone="warning">
@@ -46,7 +46,7 @@ export function WorkforceView() {
           </Button>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-base">
+          <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="text-left text-sm text-muted">
                 <th className="border-b border-line px-2 py-1 font-semibold">{t("wfo.interval")}</th>
@@ -71,7 +71,7 @@ export function WorkforceView() {
                         value={i.forecastVolume}
                         onChange={(e) => act().setVolume(i.id, Number(e.target.value))}
                         aria-label={`${i.label} ${t("wfo.volume")}`}
-                        className="h-9 w-20 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                        className="h-9 w-20 rounded-lg border border-gray-300 bg-surface-2 px-2 text-sm text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                       />
                     </td>
                     <td className="border-b border-line px-2 py-1 text-ink">{i.required}</td>
@@ -98,7 +98,7 @@ export function WorkforceView() {
       <Card>
         <div className="mb-3 flex items-center gap-2">
           <Icon name="chartBar" className="h-5 w-5 text-brand" aria-hidden />
-          <h2 className="text-lg font-semibold text-ink">{t("wfo.adherence")}</h2>
+          <h2 className="text-base font-semibold text-ink">{t("wfo.adherence")}</h2>
         </div>
         <ul className="space-y-3">
           {adherenceRows.map((row) => {
@@ -107,7 +107,7 @@ export function WorkforceView() {
             const text = pct >= 90 ? "text-green-600 dark:text-green-400" : pct >= 80 ? "text-amber-600 dark:text-amber-400" : "text-red-600 dark:text-red-400";
             return (
               <li key={row.agentId}>
-                <div className="mb-1 flex items-center justify-between text-base">
+                <div className="mb-1 flex items-center justify-between text-sm">
                   <span className="text-ink">{agentName(row.agentId)}</span>
                   <span className={clsx("font-medium tabular-nums", text)}>{pct}%</span>
                 </div>
@@ -127,7 +127,7 @@ export function WorkforceView() {
       <Card>
         <div className="mb-3 flex items-center gap-2">
           <Icon name="clipboard" className="h-5 w-5 text-brand" aria-hidden />
-          <h2 className="text-lg font-semibold text-ink">{t("wfo.quality")}</h2>
+          <h2 className="text-base font-semibold text-ink">{t("wfo.quality")}</h2>
         </div>
 
         <div className="mb-3 space-y-2">
@@ -138,7 +138,7 @@ export function WorkforceView() {
             id="wfo-agent"
             value={agentId}
             onChange={(e) => setAgentId(e.target.value)}
-            className="h-10 w-full rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            className="block w-full rounded-lg border border-gray-300 bg-surface-2 p-2.5 text-sm text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           >
             {AGENTS.map((a) => (
               <option key={a.id} value={a.id}>
@@ -149,14 +149,14 @@ export function WorkforceView() {
 
           {criteria.map((c) => (
             <div key={c.id} className="flex items-center gap-2">
-              <span className="flex-1 text-base text-ink">
+              <span className="flex-1 text-sm text-ink">
                 {c.label} <span className="text-muted">×{c.weight}</span>
               </span>
               <select
                 value={scores[c.id] ?? 0}
                 onChange={(e) => setScores((s) => ({ ...s, [c.id]: Number(e.target.value) }))}
                 aria-label={c.label}
-                className="h-9 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                className="h-9 rounded-lg border border-gray-300 bg-surface-2 px-2 text-sm text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               >
                 {[0, 1, 2, 3, 4, 5].map((n) => (
                   <option key={n} value={n}>
@@ -180,7 +180,7 @@ export function WorkforceView() {
         <h3 className="mb-1 text-sm font-semibold text-ink">{t("wfo.evaluations")}</h3>
         <ul className="space-y-1">
           {evaluations.map((ev) => (
-            <li key={ev.id} className="flex items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-base">
+            <li key={ev.id} className="flex items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-sm">
               <span className="text-ink">{agentName(ev.agentId)}</span>
               <span className="text-muted">· {ev.conversationId}</span>
               <Badge tone="positive" className="ml-auto">

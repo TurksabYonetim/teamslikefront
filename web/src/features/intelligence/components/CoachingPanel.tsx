@@ -49,18 +49,18 @@ export function CoachingPanel() {
   if (coaching.length === 0) return null;
 
   return (
-    <div className="rounded-card border border-blue-700 bg-white p-3 dark:border-blue-400 dark:bg-gray-800">
-      <h3 className="mb-2 flex items-center gap-1 text-base font-semibold text-blue-700 dark:text-blue-400">
+    <div className="rounded-card border border-line bg-surface p-3 dark:border-gray-700 dark:bg-gray-800">
+      <h3 className="mb-2 flex items-center gap-1 text-sm font-semibold text-ink dark:text-gray-200">
         <HiOutlineMicrophone size={16} aria-hidden /> {t("coaching")}
       </h3>
       <ul className="space-y-1.5" aria-live="polite">
         {coaching.map((c) => {
           const { Icon, tone } = KIND[c.kind];
           return (
-            <li key={c.id} className="flex items-start gap-2 text-base">
+            <li key={c.id} className="flex items-start gap-2 text-sm">
               <Icon size={16} className={`mt-0.5 ${tone}`} aria-hidden />
-              <span className="flex-1 text-gray-900 dark:text-white">{c.text}</span>
-              <span className="text-gray-500 dark:text-gray-400">{fmtClock(c.tSec)}</span>
+              <span className="flex-1 text-ink dark:text-white">{c.text}</span>
+              <span className="text-xs text-muted">{fmtClock(c.tSec)}</span>
             </li>
           );
         })}

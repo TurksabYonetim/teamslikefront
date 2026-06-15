@@ -24,10 +24,10 @@ export function EventBuilder() {
     <div className="grid gap-4 lg:grid-cols-2">
       <Card>
         <h3 className="mb-3 text-base font-semibold text-ink">{t("details")}</h3>
-        <dl className="space-y-3 text-base">
+        <dl className="space-y-3 text-sm">
           <div>
             <dt className="text-muted">{t("title")}</dt>
-            <dd className="flex items-center gap-2 text-lg font-semibold text-ink">
+            <dd className="flex items-center gap-2 text-sm font-semibold text-ink">
               {event.title}
               <Badge tone={statusTone}>{t(`status.${st}`)}</Badge>
             </dd>
@@ -41,7 +41,7 @@ export function EventBuilder() {
                   aria-pressed={mode === m}
                   onClick={() => setMode(m)}
                   className={clsx(
-                    "rounded-md border px-3 py-1 text-base",
+                    "rounded-md border px-3 py-1.5 text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand",
                     mode === m ? "border-brand text-brand" : "border-line text-muted hover:bg-surface-2",
                   )}
                 >
@@ -68,7 +68,7 @@ export function EventBuilder() {
         <h3 className="mb-2 text-base font-semibold text-ink">{t("sessions")}</h3>
         <ul className="space-y-1.5">
           {event.sessions.map((s) => (
-            <li key={s.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-2 text-base">
+            <li key={s.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-2 text-sm">
               <Icon name="calendar" className="h-4 w-4 text-muted" />
               <span className="flex-1 text-ink">{s.title}</span>
               <Badge tone="neutral">{new Date(s.startsAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</Badge>

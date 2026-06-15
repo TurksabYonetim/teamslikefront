@@ -10,7 +10,7 @@ export function EmojiPicker({ onPick }: { onPick: (emoji: string) => void }) {
     <Dropdown
       label={t("emoji")}
       align="start"
-      triggerClassName="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted hover:bg-surface-2 dark:text-gray-400 dark:hover:bg-gray-700"
+      triggerClassName="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted hover:bg-surface-2"
       trigger={<HiOutlineFaceSmile className="h-[18px] w-[18px]" aria-hidden />}
     >
       <div className="grid w-64 grid-cols-8 gap-1 p-1">
@@ -20,7 +20,7 @@ export function EmojiPicker({ onPick }: { onPick: (emoji: string) => void }) {
             type="button"
             aria-label={e}
             onClick={() => onPick(e)}
-            className="flex h-7 items-center justify-center rounded-md text-lg hover:bg-surface-2 dark:hover:bg-gray-700"
+            className="flex h-7 items-center justify-center rounded-md text-lg hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
             <span aria-hidden>{e}</span>
           </button>

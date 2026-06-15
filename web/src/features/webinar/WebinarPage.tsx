@@ -35,15 +35,15 @@ export function WebinarPage() {
     <div className="mx-auto max-w-6xl space-y-4 p-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold text-ink">{t("nav")}</h1>
-          <p className="mt-1 text-base text-muted">{event.title}</p>
+          <h1 className="text-xl font-semibold text-ink">{t("nav")}</h1>
+          <p className="mt-1 text-sm text-muted">{event.title}</p>
         </div>
         <div className="inline-flex overflow-hidden rounded-md border border-line" role="tablist" aria-label={t("view")}>
           <button
             role="tab"
             aria-selected={phase === "console"}
             onClick={exitLive}
-            className={clsx("inline-flex h-11 items-center gap-2 px-3 text-base", phase === "console" ? "bg-brand text-white" : "bg-surface text-ink")}
+            className={clsx("inline-flex h-11 items-center gap-2 px-3 text-sm font-medium", phase === "console" ? "bg-brand text-white" : "bg-surface text-ink")}
           >
             <Icon name="monitor" className="h-[18px] w-[18px]" /> {t("console")}
           </button>
@@ -51,7 +51,7 @@ export function WebinarPage() {
             role="tab"
             aria-selected={phase === "live"}
             onClick={goLive}
-            className={clsx("inline-flex h-11 items-center gap-2 px-3 text-base", phase === "live" ? "bg-brand text-white" : "bg-surface text-ink")}
+            className={clsx("inline-flex h-11 items-center gap-2 px-3 text-sm font-medium", phase === "live" ? "bg-brand text-white" : "bg-surface text-ink")}
           >
             <Icon name="tv" className="h-[18px] w-[18px]" /> {t("livePreview")}
           </button>

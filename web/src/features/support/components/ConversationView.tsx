@@ -38,7 +38,7 @@ export function ConversationView() {
       <div className="flex min-h-0 flex-col items-center justify-center rounded-xl border border-line bg-surface p-6 text-center">
         <Icon name="chat" className="mb-2 h-8 w-8 text-muted" aria-hidden />
         <p className="text-base font-medium text-ink">{t("conversation.noneTitle")}</p>
-        <p className="text-base text-muted">{t("conversation.noneHint")}</p>
+        <p className="text-sm text-muted">{t("conversation.noneHint")}</p>
       </div>
     );
   }
@@ -75,7 +75,7 @@ export function ConversationView() {
     <div className="flex min-h-0 min-w-0 flex-col rounded-xl border border-line bg-surface">
       {/* Header */}
       <div className="flex flex-wrap items-center gap-2 border-b border-line px-3 py-2">
-        <span className="text-base font-semibold text-ink">{contactName(conv.contactId)}</span>
+        <span className="text-sm font-semibold text-ink">{contactName(conv.contactId)}</span>
         {assigned ? <Badge tone="neutral">{t("conversation.assignedTo", { name: assigned })}</Badge> : null}
         <div className="ml-auto flex flex-wrap items-center gap-2">
           <Button
@@ -114,7 +114,7 @@ export function ConversationView() {
             value={conv.status}
             onChange={(e) => conversationStore.getState().setStatus(conv.id, e.target.value as ConversationStatus)}
             aria-label={t("conversation.statusLabel")}
-            className="h-9 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            className="h-9 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
             {STATUSES.map((s) => (
               <option key={s} value={s}>
@@ -131,7 +131,7 @@ export function ConversationView() {
           <button
             key={m.id}
             onClick={() => conversationStore.getState().applyMacro(conv.id, m)}
-            className="inline-flex items-center gap-1 rounded-md border border-line px-2 py-0.5 text-base text-muted transition-colors hover:bg-surface-2 active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
+            className="inline-flex items-center gap-1 rounded-md border border-line px-2 py-0.5 text-xs text-muted transition-colors hover:bg-surface-2 active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
           >
             <Icon name="bolt" className="h-3.5 w-3.5" aria-hidden /> {m.name}
           </button>
@@ -145,7 +145,7 @@ export function ConversationView() {
             return (
               <div
                 key={m.id}
-                className="rounded-md border-l-2 border-amber-400 bg-amber-50 px-3 py-1.5 text-base text-ink dark:bg-amber-900/20"
+                className="rounded-md border border-amber-300 bg-amber-50 px-3 py-1.5 text-sm text-ink dark:bg-amber-900/20"
               >
                 <span className="font-medium text-amber-700 dark:text-amber-300">{t("conversation.note")}: </span>
                 {m.body}
@@ -157,7 +157,7 @@ export function ConversationView() {
             <div key={m.id} className={clsx("flex", out ? "justify-end" : "justify-start")}>
               <span
                 className={clsx(
-                  "max-w-[80%] rounded-lg px-3 py-1.5 text-base",
+                  "max-w-[80%] rounded-lg px-3 py-1.5 text-sm",
                   out ? "bg-brand text-white" : "bg-surface-2 text-ink",
                 )}
               >
@@ -172,10 +172,10 @@ export function ConversationView() {
       {/* AI suggestion (human-approved) */}
       {suggestion ? (
         <div className="mx-3 mb-2 rounded-md border border-brand bg-surface-2 p-2 origin-bottom motion-safe:animate-[tl-pop-in_var(--dur-pop)_var(--ease-out)]">
-          <div className="mb-1 flex items-center gap-1 text-base text-brand">
+          <div className="mb-1 flex items-center gap-1 text-xs font-semibold text-brand">
             <Icon name="sparkles" className="h-3.5 w-3.5" aria-hidden /> {t("conversation.aiDraft")}
           </div>
-          <p className="text-base text-ink">{suggestion}</p>
+          <p className="text-sm text-ink">{suggestion}</p>
           <div className="mt-1 flex gap-2">
             <Button
               size="sm"
@@ -200,7 +200,7 @@ export function ConversationView() {
             <button
               key={c.id}
               onClick={() => insertCanned(c.body)}
-              className="rounded-full border border-line px-2 py-0.5 text-base text-muted transition-colors hover:bg-surface-2 active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
+              className="rounded-full border border-line px-2 py-0.5 text-xs text-muted transition-colors hover:bg-surface-2 active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
             >
               {c.shortcode}
             </button>
@@ -228,7 +228,7 @@ export function ConversationView() {
             placeholder={note ? t("conversation.notePlaceholder") : t("conversation.replyPlaceholder")}
             aria-label={note ? t("conversation.notePlaceholder") : t("conversation.replyPlaceholder")}
             className={clsx(
-              "h-11 flex-1 rounded-md border bg-surface px-3 text-base text-ink outline-none placeholder:text-muted focus-visible:ring-2 focus-visible:ring-brand",
+              "h-11 flex-1 rounded-md border bg-surface-2 px-3 text-sm text-ink outline-none placeholder:text-muted focus:border-brand focus:ring-1 focus:ring-brand",
               note ? "border-amber-400" : "border-line",
             )}
           />

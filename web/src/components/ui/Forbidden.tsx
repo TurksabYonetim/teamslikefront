@@ -19,7 +19,6 @@ export function Forbidden({ title, message, className }: ForbiddenProps) {
   return (
     <div
       role="alert"
-      aria-live="polite"
       className={className ?? "grid min-h-[60vh] place-items-center"}
     >
       <EmptyState

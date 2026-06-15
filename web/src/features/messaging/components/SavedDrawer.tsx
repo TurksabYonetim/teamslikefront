@@ -38,7 +38,7 @@ export function SavedDrawer({ open, onClose }: { open: boolean; onClose: () => v
                   onClick={() => goto(m.channelId, m.topicId)}
                   className="flex w-full items-start gap-2 rounded-md border border-line bg-surface-2 p-3 text-start hover:border-brand dark:border-gray-700"
                 >
-                  <HiOutlineBookmark className="mt-0.5 h-[18px] w-[18px] text-brand" aria-hidden />
+                  <HiOutlineBookmark className="mt-0.5 h-[1.125rem] w-[1.125rem] text-brand" aria-hidden />
                   <span className="min-w-0 flex-1">
                     <span className="block text-sm font-medium text-ink dark:text-white">
                       {memberName(m.authorId)} ·{" "}

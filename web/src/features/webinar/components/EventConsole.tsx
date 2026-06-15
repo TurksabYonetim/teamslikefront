@@ -51,11 +51,11 @@ export function EventConsole() {
             onClick={() => setTab(id)}
             onKeyDown={(e) => onKey(e, i)}
             className={clsx(
-              "inline-flex h-11 items-center gap-2 rounded-t-md border-b-2 px-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand",
+              "inline-flex h-11 items-center gap-2 rounded-t-md border-b-2 px-3 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand",
               tab === id ? "border-brand text-brand" : "border-transparent text-muted hover:text-ink",
             )}
           >
-            <Icon name={icon} className="h-[18px] w-[18px]" /> {t(`tabs.${id}`)}
+            <Icon name={icon} className="h-4 w-4" /> {t(`tabs.${id}`)}
           </button>
         ))}
       </div>

@@ -93,8 +93,8 @@ export function AppointmentsPage() {
   return (
     <div className="mx-auto max-w-6xl space-y-4 p-6">
       <div>
-        <h1 className="text-3xl font-bold text-ink">{t("nav")}</h1>
-        <p className="mt-1 text-base text-muted">{t("subtitle")}</p>
+        <h1 className="text-xl font-semibold text-ink">{t("nav")}</h1>
+        <p className="mt-1 text-sm text-muted">{t("subtitle")}</p>
       </div>
 
       {/* Üst seviye yüzey seçici (konsol / genel sayfa / çalışma alanı). */}
@@ -109,11 +109,11 @@ export function AppointmentsPage() {
             onClick={() => setSurface(id)}
             onKeyDown={(e) => onSurfaceKey(e, i)}
             className={clsx(
-              "inline-flex h-9 items-center gap-2 rounded-md px-3 text-base transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.98]",
+              "inline-flex h-9 items-center gap-2 rounded-md px-3 text-sm font-medium transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.98]",
               surface === id ? "bg-surface text-ink shadow-sm" : "text-muted hover:text-ink",
             )}
           >
-            <Icon name={icon} className="h-[18px] w-[18px]" /> {t(`surfaces.${id}`)}
+            <Icon name={icon} className="h-4 w-4" /> {t(`surfaces.${id}`)}
           </button>
         ))}
       </div>
@@ -131,11 +131,11 @@ export function AppointmentsPage() {
                 onClick={() => setTab(id)}
                 onKeyDown={(e) => onTabKey(e, i)}
                 className={clsx(
-                  "inline-flex h-11 items-center gap-2 rounded-t-md border-b-2 px-3 text-base transition-[color,border-color] duration-150 ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.98]",
+                  "inline-flex h-11 items-center gap-2 rounded-t-md border-b-2 px-3 text-sm font-medium transition-[color,border-color] duration-150 ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.98]",
                   tab === id ? "border-brand text-brand" : "border-transparent text-muted hover:text-ink",
                 )}
               >
-                <Icon name={icon} className="h-[18px] w-[18px]" /> {t(`tabs.${id}`)}
+                <Icon name={icon} className="h-4 w-4" /> {t(`tabs.${id}`)}
               </button>
             ))}
           </div>

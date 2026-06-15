@@ -41,7 +41,7 @@ export function CostPanel() {
           <select
             value={region}
             onChange={(e) => setRegion(e.target.value)}
-            className="h-9 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            className="h-9 rounded-lg border border-line bg-surface-2 px-2.5 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
             {Object.keys(RATE_CARD).map((r) => (
               <option key={r} value={r}>
@@ -53,7 +53,7 @@ export function CostPanel() {
       </div>
       <p className="mb-3 text-sm text-muted">{t("cost.subtitle")}</p>
 
-      <table className="w-full border-collapse text-base">
+      <table className="w-full border-collapse text-sm">
         <thead>
           <tr className="text-muted">
             <th className="py-1 text-left text-sm font-medium">{t("cost.category")}</th>
@@ -76,7 +76,7 @@ export function CostPanel() {
         </tbody>
       </table>
 
-      <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-line pt-3 text-base">
+      <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-line pt-3 text-sm">
         <Icon name="clock" className="h-4 w-4 text-muted" aria-hidden />
         <span className="text-ink">{t("cost.window")}</span>
         <input

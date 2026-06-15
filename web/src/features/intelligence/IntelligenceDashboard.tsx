@@ -61,7 +61,7 @@ function TabBtn({
         "inline-flex items-center gap-1.5 border-b-2 px-4 py-2.5 text-sm font-medium transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:transition-transform motion-safe:active:scale-[0.97]",
         active
           ? "border-brand text-brand"
-          : "border-transparent text-muted hover:border-gray-300 hover:text-ink dark:text-gray-400 dark:hover:text-white",
+          : "border-transparent text-muted hover:border-line hover:text-ink dark:text-gray-400 dark:hover:text-white",
       )}
     >
       {children}
@@ -222,7 +222,7 @@ export function IntelligenceDashboard() {
       {/* Header */}
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
-          <h1 className="text-xl font-bold text-ink dark:text-white">{t("dash.title")}</h1>
+          <h1 className="text-xl font-semibold text-ink dark:text-white">{t("dash.title")}</h1>
           <p className="text-sm text-muted dark:text-gray-400">{t("subtitle")}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -233,7 +233,7 @@ export function IntelligenceDashboard() {
                 value={activeSourceId}
                 onChange={(e) => intelStore.getState().setSource(e.target.value)}
                 aria-label={t("source")}
-                className="h-9 rounded-md border border-line bg-surface-3 px-2 text-sm text-ink dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+                className="h-9 rounded-md border border-gray-300 bg-surface-2 px-2 text-sm text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
               >
                 {SOURCES.map((s) => (
                   <option key={s.id} value={s.id}>
@@ -348,7 +348,7 @@ export function IntelligenceDashboard() {
                     value={targetLang}
                     onChange={(e) => intelStore.getState().setTargetLang(e.target.value)}
                     aria-label={t("translateTo")}
-                    className="h-9 rounded-md border border-line bg-surface-3 px-2 text-sm text-ink dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+                    className="h-9 rounded-md border border-gray-300 bg-surface-2 px-2 text-sm text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
                   >
                     {LANGS.map((l) => (
                       <option key={l.code} value={l.code}>

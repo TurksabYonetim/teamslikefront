@@ -42,8 +42,8 @@ export function VoiceMessage({ seconds, seed }: { seconds: number; seed: string 
       <button
         type="button"
         onClick={() => setSpeedIdx((i) => (i + 1) % SPEEDS.length)}
-        aria-label={t("voice.speed")}
-        className="rounded-md border border-line px-1.5 text-sm text-muted hover:bg-surface-2 dark:border-gray-700 dark:hover:bg-gray-700"
+        aria-label={t("voice.speed", { speed: SPEEDS[speedIdx] })}
+        className="inline-flex h-9 min-w-9 items-center justify-center rounded-md border border-line px-1.5 text-sm text-muted hover:bg-surface-2 dark:border-gray-700 dark:hover:bg-gray-700"
       >
         {SPEEDS[speedIdx]}×
       </button>

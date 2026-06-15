@@ -16,7 +16,7 @@ export function SmartReplies({ onPick }: { onPick: (text: string) => void }) {
             key={key}
             type="button"
             onClick={() => onPick(text)}
-            className="rounded-full border border-line bg-surface-2 px-3 py-1 text-sm text-ink hover:bg-surface-3 dark:border-gray-700 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+            className="rounded-full border border-line bg-surface-2 px-3 py-1.5 min-h-[36px] text-sm font-medium text-ink hover:bg-surface-3"
           >
             {text}
           </button>

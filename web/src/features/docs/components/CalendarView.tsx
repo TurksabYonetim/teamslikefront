@@ -31,7 +31,7 @@ export function CalendarView({ table }: { table: DataTable }) {
       <ul className="space-y-3">
         {dates.map((d) => (
           <li key={d}>
-            <div className="text-sm font-semibold text-brand">{d}</div>
+            <div className="text-sm font-semibold text-ink">{d}</div>
             <ul className="ml-3 mt-1 space-y-1">
               {byDate.get(d)!.map((r) => (
                 <li key={r.id} className="flex items-center gap-2 text-sm text-ink">

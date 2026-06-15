@@ -33,11 +33,11 @@ export function CreateChannelDialog({ open, onClose }: { open: boolean; onClose:
     <Modal open={open} onClose={onClose} title={t("createChannelTitle")}>
       <div className="space-y-3">
         <label className="block">
-          <span className="mb-1 block text-sm text-muted">{t("channelName")}</span>
+          <span className="mb-1 block text-sm font-medium text-ink-2">{t("channelName")}</span>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="h-11 w-full rounded-md border border-line bg-white px-3 text-sm text-ink outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+            className="block w-full rounded-lg border border-gray-300 bg-surface-2 p-2.5 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
           />
         </label>
 
@@ -49,7 +49,7 @@ export function CreateChannelDialog({ open, onClose }: { open: boolean; onClose:
               onClick={() => setKind(k)}
               aria-pressed={kind === k}
               className={clsx(
-                "flex h-11 flex-1 items-center justify-center gap-2 rounded-md border text-sm",
+                "flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border text-sm",
                 kind === k
                   ? "border-brand bg-surface-2 text-brand"
                   : "border-line text-muted hover:bg-surface-2 dark:border-gray-700 dark:hover:bg-gray-700",

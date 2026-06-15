@@ -22,9 +22,9 @@ export function AttendantConsole() {
   return (
     <div className="mx-auto flex h-full w-full max-w-3xl flex-col gap-4 overflow-y-auto p-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{t("attendant.title")}</h2>
+        <h2 className="text-xl font-semibold text-ink">{t("attendant.title")}</h2>
         <label className="flex items-center gap-2 text-sm">
-          <span className="text-gray-600 dark:text-gray-300">{t("attendant.transferTo")}</span>
+          <span className="text-ink-2">{t("attendant.transferTo")}</span>
           <select
             value={target}
             onChange={(e) => setTarget(e.target.value)}
@@ -40,7 +40,7 @@ export function AttendantConsole() {
         </label>
       </div>
 
-      <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-400">
+      <h3 className="text-sm font-semibold text-muted">
         {t("attendant.waitingCalls")} ({waiting.length})
       </h3>
 
@@ -51,11 +51,11 @@ export function AttendantConsole() {
           {waiting.map(({ queueId, queueName, call }) => (
             <li
               key={call.id}
-              className="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-gray-700 dark:bg-gray-800"
+              className="flex items-center justify-between rounded-lg border border-line bg-surface px-4 py-3"
             >
               <div className="min-w-0">
-                <p className="truncate text-sm font-medium text-gray-900 dark:text-white">{formatNumber(call.from)}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{queueName}</p>
+                <p className="truncate text-sm font-medium text-ink">{formatNumber(call.from)}</p>
+                <p className="text-xs text-muted">{queueName}</p>
               </div>
               <Button
                 size="sm"
@@ -69,8 +69,8 @@ export function AttendantConsole() {
           ))}
         </ul>
       )}
-      <section aria-labelledby="monitor-heading" className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-        <h3 id="monitor-heading" className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-400">{t("monitor.title")}</h3>
+      <section aria-labelledby="monitor-heading" className="rounded-lg border border-line bg-surface p-4">
+        <h3 id="monitor-heading" className="mb-3 text-sm font-semibold text-muted">{t("monitor.title")}</h3>
         <div className="mb-3 flex flex-wrap gap-2">
           {(["listen", "whisper", "barge", "takeover"] as MonitorMode[]).map((m) => (
             <button
@@ -80,7 +80,7 @@ export function AttendantConsole() {
               aria-pressed={monitor === m}
               className={
                 "rounded-full px-3 py-1 text-xs font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 " +
-                (monitor === m ? "bg-primary-600 text-white" : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300")
+                (monitor === m ? "bg-primary-600 text-white" : "bg-surface-2 text-ink-2")
               }
             >
               {t(`monitor.${m}`)}
@@ -95,7 +95,7 @@ export function AttendantConsole() {
         {monitor && (() => {
           const a = monitorAudio(monitor);
           return (
-            <ul className="text-xs text-gray-600 dark:text-gray-300">
+            <ul className="text-xs text-muted">
               <li>{t("monitor.supervisorHears")}: {String(a.supervisorHearsParties)}</li>
               <li>{t("monitor.agentHears")}: {String(a.agentHearsSupervisor)}</li>
               <li>{t("monitor.customerHears")}: {String(a.customerHearsSupervisor)}</li>

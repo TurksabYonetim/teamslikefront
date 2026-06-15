@@ -67,7 +67,7 @@ export function LoginPage() {
   return (
     <AuthShell>
       <header className="space-y-1">
-        <h1 className="text-xl font-bold leading-tight tracking-tight text-ink sm:text-2xl dark:text-white">
+        <h1 className="text-xl font-semibold leading-tight text-ink sm:text-2xl dark:text-white">
           {t("login.title")}
         </h1>
         <p className="text-sm text-muted">{t("login.subtitle")}</p>
@@ -144,7 +144,7 @@ export function LoginPage() {
           {t("login.demo")}
         </Button>
 
-        <p className="text-sm font-light text-muted">
+        <p className="text-sm text-muted">
           {t("login.noAccount")}{" "}
           <Link
             to="/signup"
@@ -153,7 +153,7 @@ export function LoginPage() {
             {t("login.signupLink")}
           </Link>
         </p>
-        <p className="text-sm font-light text-muted">
+        <p className="text-sm text-muted">
           {t("login.customer")}{" "}
           <Link
             to="/portal"

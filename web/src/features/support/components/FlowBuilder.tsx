@@ -68,14 +68,14 @@ export function FlowBuilder() {
         </p>
       ) : null}
       {unreachable.length > 0 ? (
-        <p className="mb-2 flex items-center gap-1 rounded-md border border-amber-300 px-3 py-1.5 text-sm text-amber-700 dark:text-amber-300" aria-live="polite">
+        <p className="mb-2 flex items-center gap-1 rounded-md border border-warning px-3 py-1.5 text-sm text-warning" aria-live="polite">
           <Icon name="info" className="h-4 w-4" aria-hidden /> {t("flow.unreachable", { n: unreachable.length })}
         </p>
       ) : null}
 
       <ul className="space-y-1">
         {flow.nodes.map((n) => (
-          <li key={n.id} className="flex items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-base">
+          <li key={n.id} className="flex items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-sm">
             <Icon name={NODE_ICON[n.kind]} className="h-4 w-4 text-muted" aria-hidden />
             <Badge tone="neutral">{t(`flow.kind.${n.kind}`)}</Badge>
             <span className="min-w-0 flex-1 truncate text-ink">{n.text}</span>

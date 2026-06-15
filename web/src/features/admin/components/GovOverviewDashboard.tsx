@@ -41,7 +41,7 @@ export function GovOverviewDashboard() {
               <div className="text-sm text-muted">
                 {q.used} / {q.limit}
               </div>
-              <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-surface-3">
+              <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-surface-3" role="progressbar" aria-valuenow={Math.min(100, pct)} aria-valuemin={0} aria-valuemax={100} aria-label={t(`quotaKey.${q.key}`, q.key)}>
                 <div
                   className={clsx("h-full transition-[width] duration-[var(--dur-modal)] ease-[var(--ease-out)]", bar)}
                   style={{ width: `${Math.min(100, pct)}%` }}

@@ -30,26 +30,26 @@ export function WrapUpCard() {
     <div
       role="dialog"
       aria-label={t("wrapUp.title")}
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-surface shadow-2xl"
     >
       <div className="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-3">
-        <p className="text-sm font-semibold text-gray-900 dark:text-white">
+        <p className="text-sm font-semibold text-ink">
           {t("wrapUp.title")} · {formatNumber(pending.peerNumber)}
         </p>
         <div className="flex flex-wrap items-end gap-3">
-          <label className="flex flex-col text-xs text-gray-500">
+          <label className="flex flex-col text-xs text-muted">
             {t("wrapUp.outcome")}
             <select value={outcome} onChange={(e) => setOutcome(e.target.value as CallOutcome)} aria-label={t("wrapUp.outcome")} className="input">
               {OUTCOMES.map((o) => <option key={o} value={o}>{t(`enums.outcome.${o}`)}</option>)}
             </select>
           </label>
-          <label className="flex flex-1 flex-col text-xs text-gray-500">
+          <label className="flex flex-1 flex-col text-xs text-muted">
             {t("wrapUp.note")}
             <input value={note} onChange={(e) => setNote(e.target.value)} aria-label={t("wrapUp.note")} className="input" />
           </label>
-          <label className="flex flex-col text-xs text-gray-500">
+          <label className="flex flex-col text-xs text-muted">
             {t("wrapUp.tags")}
-            <input value={tags} onChange={(e) => setTags(e.target.value)} aria-label={t("wrapUp.tags")} className="input w-40" />
+            <input value={tags} onChange={(e) => setTags(e.target.value)} aria-label={t("wrapUp.tags")} className="input w-full sm:w-40" />
           </label>
           <div className="flex gap-2">
             <Button onClick={save}>{t("wrapUp.save")}</Button>

@@ -109,7 +109,7 @@ function ToastRow({
       data-state={visible ? "open" : "closed"}
       className={clsx(
         "min-w-[260px] max-w-sm rounded-lg shadow-lg px-4 py-3 text-sm flex items-center gap-3",
-        "border bg-white text-ink border-line",
+        "border bg-surface text-ink border-line",
         "transition-[transform,opacity] duration-[var(--dur-toast)] ease-[var(--ease-out)]",
         "data-[state=closed]:translate-y-2 data-[state=closed]:scale-[0.96] data-[state=closed]:opacity-0",
         "data-[state=open]:translate-y-0 data-[state=open]:scale-100 data-[state=open]:opacity-100",
@@ -127,7 +127,7 @@ function ToastRow({
       <span className="flex-1">{item.message}</span>
       {item.action && (
         <button
-          className="font-medium text-brand hover:underline"
+          className="font-medium text-brand rounded hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-1"
           onClick={() => {
             item.action!.onClick();
             onDismiss(item.id);

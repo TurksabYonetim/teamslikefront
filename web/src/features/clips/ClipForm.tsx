@@ -83,12 +83,12 @@ export function ClipForm({ form, onChange }: ClipFormProps) {
   const thumb = form.thumbnail_url.trim();
 
   const fieldClass =
-    "px-3 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:border-color,box-shadow]";
+    "block w-full px-3 py-2.5 text-sm bg-surface-2 border rounded-lg placeholder-gray-400 focus:outline-none focus:ring-1 focus:border-blue-500 duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:border-color,box-shadow]";
 
   return (
     <div className="flex flex-col gap-3">
       <label className="flex flex-col gap-1 text-sm">
-        <span className="font-medium text-gray-700">{t("form.title")}</span>
+        <span className="font-medium text-ink">{t("form.title")}</span>
         <input
           value={form.title}
           onChange={(e) => set("title", e.target.value)}
@@ -98,20 +98,21 @@ export function ClipForm({ form, onChange }: ClipFormProps) {
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span className="font-medium text-gray-700">{t("form.videoUrl")}</span>
+        <span className="font-medium text-ink">{t("form.videoUrl")}</span>
         <input
           value={form.video_url}
           onChange={(e) => set("video_url", e.target.value)}
           placeholder={t("form.videoUrlPlaceholder")}
           aria-invalid={videoInvalid}
+          aria-describedby={videoInvalid ? "videoUrlError" : undefined}
           className={`${fieldClass} ${
             videoInvalid
-              ? "border-red-400 focus:ring-red-400"
-              : "border-gray-300 focus:ring-blue-500"
+              ? "border-red-500 focus:ring-red-500"
+              : "border-gray-300 focus:border-blue-500 focus:ring-blue-500"
           }`}
         />
         {videoInvalid && (
-          <span className="text-xs text-red-600 inline-flex items-center gap-1 motion-safe:animate-[tl-fade-in_var(--dur-press)_var(--ease-out)]">
+          <span id="videoUrlError" role="alert" className="text-xs text-red-600 inline-flex items-center gap-1 motion-safe:animate-[tl-fade-in_var(--dur-press)_var(--ease-out)]">
             <Icon name="info" className="w-3.5 h-3.5" />
             {t("form.invalidVideoUrl")}
           </span>
@@ -119,7 +120,7 @@ export function ClipForm({ form, onChange }: ClipFormProps) {
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span className="font-medium text-gray-700">
+        <span className="font-medium text-ink">
           {t("form.thumbnailUrl")}
         </span>
         <input
@@ -135,7 +136,7 @@ export function ClipForm({ form, onChange }: ClipFormProps) {
         {thumb !== "" && (
           <div className="mt-1 w-40 aspect-video rounded-md overflow-hidden border border-gray-200 bg-gray-100 grid place-items-center motion-safe:animate-[tl-pop-in_var(--dur-pop)_var(--ease-out)] origin-top-left">
             {thumbBroken ? (
-              <span className="text-[11px] text-gray-400 inline-flex flex-col items-center gap-1">
+              <span className="text-xs text-muted inline-flex flex-col items-center gap-1">
                 <Icon name="photo" className="w-5 h-5" />
                 {t("form.thumbnailBroken")}
               </span>
@@ -152,7 +153,7 @@ export function ClipForm({ form, onChange }: ClipFormProps) {
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span className="font-medium text-gray-700">{t("form.durationS")}</span>
+        <span className="font-medium text-ink">{t("form.durationS")}</span>
         <input
           type="number"
           min={0}
@@ -164,7 +165,7 @@ export function ClipForm({ form, onChange }: ClipFormProps) {
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span className="font-medium text-gray-700">
+        <span className="font-medium text-ink">
           {t("form.description")}
         </span>
         <textarea

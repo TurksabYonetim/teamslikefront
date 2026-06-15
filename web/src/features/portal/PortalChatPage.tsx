@@ -123,7 +123,7 @@ export function PortalChatPage() {
           }
         >
           <div className="flex items-center justify-between px-4 h-14 border-b border-line-2 dark:border-gray-800">
-            <h2 className="font-semibold text-ink dark:text-white">
+            <h2 className="text-base font-semibold text-ink dark:text-white">
               {t("chat.myChats")}
             </h2>
             <button
@@ -208,7 +208,7 @@ export function PortalChatPage() {
                       <span className="font-medium text-sm text-ink dark:text-white truncate flex-1">
                         {label}
                       </span>
-                      <span className="text-[11px] text-muted shrink-0">
+                      <span className="text-xs text-muted shrink-0">
                         {fmtTime(th.last_message_at)}
                       </span>
                     </div>
@@ -252,7 +252,7 @@ export function PortalChatPage() {
                   size="sm"
                 />
                 <div className="min-w-0">
-                  <div className="font-semibold text-ink dark:text-white truncate">
+                  <div className="text-base font-semibold text-ink dark:text-white truncate">
                     {threadLabel(active, t("chat.agent"))}
                   </div>
                   <div className="text-xs text-muted">{t("chat.agent")}</div>
@@ -333,7 +333,7 @@ export function PortalChatPage() {
                             </div>
                             <div
                               className={
-                                "text-[11px] text-muted mt-0.5 " +
+                                "text-xs text-muted mt-0.5 " +
                                 (mine ? "text-right" : "")
                               }
                             >
@@ -360,7 +360,7 @@ export function PortalChatPage() {
                     onChange={(e) => setText(e.target.value)}
                     placeholder={t("chat.messagePlaceholder")}
                     aria-label={t("chat.messagePlaceholder")}
-                    className="flex-1 bg-transparent outline-none text-sm py-1 text-ink dark:text-white placeholder:text-muted"
+                    className="flex-1 bg-transparent outline-none text-sm py-1 text-ink dark:text-white placeholder:text-gray-400"
                   />
                   <Button
                     type="submit"

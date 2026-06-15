@@ -28,7 +28,7 @@ export function BlockBody({ block, onChecklistToggle, onOpen }: BlockBodyProps) 
       <button
         type="button"
         onClick={onOpen}
-        className="text-left w-full text-sm text-muted/70 italic transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
+        className="text-left w-full text-sm text-muted italic transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
       >
         {t("emptyContent")}
       </button>
@@ -194,7 +194,7 @@ function MetricBody({
       className="text-left w-full flex flex-col items-start transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
     >
       <div className="flex items-baseline gap-2">
-        <span className="text-3xl font-semibold text-ink tabular-nums leading-none">
+        <span className="text-2xl font-semibold text-ink tabular-nums leading-none">
           {value}
         </span>
         {delta && (

@@ -300,14 +300,14 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
                 />
               ) : (
                 <div className="relative mx-auto flex aspect-video w-[512px] items-center justify-center rounded-lg bg-gray-900 shadow-lg lg:mx-0 lg:w-full">
-                  <span className="flex h-24 w-24 items-center justify-center rounded-full bg-primary-700 text-3xl font-semibold text-white">{initials}</span>
-                  <span className="absolute bottom-3 end-4 text-xs font-medium text-gray-300">{t("lobby.cameraOff")}</span>
+                  <span className="flex h-24 w-24 items-center justify-center rounded-full bg-primary-700 text-2xl font-semibold text-white">{initials}</span>
+                  <span className="absolute bottom-3 end-4 text-xs font-medium text-gray-200">{t("lobby.cameraOff")}</span>
                 </div>
               )}
               <span className="absolute bottom-3 start-4 text-sm font-medium text-white drop-shadow">{displayName}</span>
             </div>
             <div className="mx-auto flex items-center justify-center">
-              <button onClick={() => setMicOn((v) => !v)} data-tooltip-target="tooltip-microphone" type="button" className={ctrlBtn(micOn)}>
+              <button onClick={() => setMicOn((v) => !v)} aria-pressed={micOn} data-tooltip-target="tooltip-microphone" type="button" className={ctrlBtn(micOn)}>
                 <svg className={ctrlIcon(micOn)} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 19">
                   <path d="M15 5a1 1 0 0 0-1 1v3a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V6a1 1 0 0 0-2 0v3a6.006 6.006 0 0 0 6 6h1v2H5a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2H9v-2h1a6.006 6.006 0 0 0 6-6V6a1 1 0 0 0-1-1Z"></path>
                   <path d="M9 0H7a3 3 0 0 0-3 3v5a3 3 0 0 0 3 3h2a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3Z"></path>
@@ -318,7 +318,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
                 {t("lobby.muteMicrophone")}
                 <div className="tooltip-arrow" data-popper-arrow=""></div>
               </div>
-              <button onClick={() => setCameraOn((v) => !v)} data-tooltip-target="tooltip-camera" type="button" className={ctrlBtn(cameraOn)}>
+              <button onClick={() => setCameraOn((v) => !v)} aria-pressed={cameraOn} data-tooltip-target="tooltip-camera" type="button" className={ctrlBtn(cameraOn)}>
                 <svg className={ctrlIcon(cameraOn)} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
                   <path d="M11 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm8.585 1.189a.994.994 0 0 0-.9-.138l-2.965.983a1 1 0 0 0-.685.949v8a1 1 0 0 0 .675.946l2.965 1.02a1.013 1.013 0 0 0 1.032-.242A1 1 0 0 0 20 12V2a1 1 0 0 0-.415-.811Z"></path>
                 </svg>
@@ -328,7 +328,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
                 {t("lobby.hideCamera")}
                 <div className="tooltip-arrow" data-popper-arrow=""></div>
               </div>
-              <button onClick={() => setEffectsOn((v) => !v)} data-tooltip-target="tooltip-visual-effects" type="button" className={ctrlBtn(effectsOn)}>
+              <button onClick={() => setEffectsOn((v) => !v)} aria-pressed={effectsOn} data-tooltip-target="tooltip-visual-effects" type="button" className={ctrlBtn(effectsOn)}>
                 <svg className={ctrlIcon(effectsOn)} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                   <path fillRule="evenodd" d="M17.44 3a1 1 0 0 1 .707.293l2.56 2.56a1 1 0 0 1 0 1.414L18.194 9.78 14.22 5.806l2.513-2.513A1 1 0 0 1 17.44 3Zm-4.634 4.22-9.513 9.513a1 1 0 0 0 0 1.414l2.56 2.56a1 1 0 0 0 1.414 0l9.513-9.513-3.974-3.974ZM6 6a1 1 0 0 1 1 1v1h1a1 1 0 0 1 0 2H7v1a1 1 0 1 1-2 0v-1H4a1 1 0 0 1 0-2h1V7a1 1 0 0 1 1-1Zm9 9a1 1 0 0 1 1 1v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 1 1 0-2h1v-1a1 1 0 0 1 1-1Z" clipRule="evenodd" />
                   <path d="M19 13h-2v2h2v-2ZM13 3h-2v2h2V3Zm-2 2H9v2h2V5ZM9 3H7v2h2V3Zm12 8h-2v2h2v-2Zm0 4h-2v2h2v-2Z" />
@@ -379,19 +379,19 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
             <div className="mb-4 hidden md:block lg:mb-6">
               <Logo className="h-8" />
             </div>
-            <h1 className="mb-4 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white md:text-start">{t("lobby.readyToJoin")}</h1>
+            <h1 className="mb-4 text-center text-xl font-semibold tracking-tight text-ink dark:text-white md:text-start">{t("lobby.readyToJoin")}</h1>
             <div className="flex w-full items-center justify-center space-x-4 dark:border-gray-800 md:justify-start lg:mb-6 lg:border-b lg:border-gray-200 lg:pb-6">
               <button type="button" onClick={askToJoin} disabled={guestToken.isPending} className="inline-flex shrink-0 items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-3 py-2.5 text-center text-sm font-medium text-white transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)] hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 disabled:opacity-60 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                 {guestToken.isPending ? "…" : t("lobby.askToJoin")}
               </button>
-              <button type="button" onClick={() => setPresenting((v) => !v)} aria-pressed={presenting} className={"hidden shrink-0 items-center rounded-lg px-3 py-2.5 text-base font-medium transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)] focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 lg:flex " + (presenting ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300" : "text-primary-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-white")}>
+              <button type="button" onClick={() => setPresenting((v) => !v)} aria-pressed={presenting} className={"hidden shrink-0 items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)] focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 lg:flex " + (presenting ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300" : "text-primary-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-white")}>
                 <svg className="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v5m-3 0h6M4 11h16M5 15h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1Z" />
                 </svg>
 
                 {presenting ? t("lobby.presenting") : t("lobby.present")}
               </button>
-              <button type="button" onClick={() => setCompanionMode((v) => !v)} aria-pressed={companionMode} className={"flex shrink-0 items-center rounded-lg px-3 py-2.5 text-base font-medium transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)] focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 " + (companionMode ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300" : "text-primary-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-white")}>
+              <button type="button" onClick={() => setCompanionMode((v) => !v)} aria-pressed={companionMode} className={"flex shrink-0 items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)] focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 " + (companionMode ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300" : "text-primary-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-white")}>
                 <svg className="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                   <path fillRule="evenodd" d="M8 5a1 1 0 0 1 1-1h11a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1a1 1 0 1 1 0-2h1V6H9a1 1 0 0 1-1-1Z" clipRule="evenodd" />
                   <path fillRule="evenodd" d="M4 7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H4Zm0 11v-5.5h11V18H4Z" clipRule="evenodd" />
@@ -400,7 +400,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
               </button>
             </div>
             <div className="hidden items-center lg:flex">
-              <button type="button" id="microphoneDropdownButton" data-dropdown-toggle="microphoneDropdown" className="flex items-center pr-5 text-base font-medium text-gray-500 hover:underline dark:text-gray-400">
+              <button type="button" id="microphoneDropdownButton" data-dropdown-toggle="microphoneDropdown" className="flex items-center pr-5 text-sm font-medium text-muted hover:underline dark:text-gray-400">
                 <svg className="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                   <path fillRule="evenodd" d="M5 8a1 1 0 0 1 1 1v3a4.006 4.006 0 0 0 4 4h4a4.006 4.006 0 0 0 4-4V9a1 1 0 1 1 2 0v3.001A6.006 6.006 0 0 1 14.001 18H13v2h2a1 1 0 1 1 0 2H9a1 1 0 1 1 0-2h2v-2H9.999A6.006 6.006 0 0 1 4 12.001V9a1 1 0 0 1 1-1Z" clipRule="evenodd" />
                   <path d="M7 6a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4h-2a4 4 0 0 1-4-4V6Z" />
@@ -444,7 +444,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
                   </li>
                 </ul>
               </div>
-              <button type="button" id="speakersDropdownButton" data-dropdown-toggle="speakersDropdown" className="flex items-center pr-5 text-base font-medium text-gray-500 hover:underline dark:text-gray-400">
+              <button type="button" id="speakersDropdownButton" data-dropdown-toggle="speakersDropdown" className="flex items-center pr-5 text-sm font-medium text-muted hover:underline dark:text-gray-400">
                 <svg className="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M13 6.037c0-1.724-1.978-2.665-3.28-1.562L5.638 7.933H4c-1.105 0-2 .91-2 2.034v4.066c0 1.123.895 2.034 2 2.034h1.638l4.082 3.458c1.302 1.104 3.28.162 3.28-1.562V6.037Z" />
                   <path fillRule="evenodd" d="M14.786 7.658a.988.988 0 0 1 1.414-.014A6.135 6.135 0 0 1 18 12c0 1.662-.655 3.17-1.715 4.27a.989.989 0 0 1-1.414.014 1.029 1.029 0 0 1-.014-1.437A4.085 4.085 0 0 0 16 12a4.085 4.085 0 0 0-1.2-2.904 1.029 1.029 0 0 1-.014-1.438Z" clipRule="evenodd" />
@@ -490,7 +490,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
                   </li>
                 </ul>
               </div>
-              <button type="button" id="cameraDropdownButton" data-dropdown-toggle="cameraDropdown" className="flex items-center pr-5 text-base font-medium text-gray-500 hover:underline dark:text-gray-400">
+              <button type="button" id="cameraDropdownButton" data-dropdown-toggle="cameraDropdown" className="flex items-center pr-5 text-sm font-medium text-muted hover:underline dark:text-gray-400">
                 <svg className="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                   <path fillRule="evenodd" d="M14 7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7Zm2 9.387 4.684 1.562A1 1 0 0 0 22 17V7a1 1 0 0 0-1.316-.949L16 7.613v8.774Z" clipRule="evenodd" />
                 </svg>
@@ -543,7 +543,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
           <div className="relative max-h-full w-full max-w-lg motion-safe:animate-[tl-modal-in_var(--dur-modal)_var(--ease-out)]">
             <div className="relative rounded-lg bg-white shadow dark:bg-gray-700">
               <div className="flex items-center justify-between rounded-t border-b border-gray-200 p-4 dark:border-gray-600 md:p-5">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("lobby.report.title")}</h3>
+                <h3 className="text-base font-semibold text-ink dark:text-white">{t("lobby.report.title")}</h3>
                 <button type="button" onClick={() => setReportOpen(false)} className="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
                   <svg className="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
@@ -577,7 +577,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
                       }}
                       placeholder={t("lobby.report.placeholder")}
                       className={
-                        "block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 " +
+                        "block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 " +
                         (reportError
                           ? "border-red-500 dark:border-red-500"
                           : "border-gray-300 dark:border-gray-600")
@@ -587,7 +587,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
                   </div>
                   <div>
                     <div className="mb-1.5 flex items-center justify-between">
-                      <span className="text-xs font-medium uppercase tracking-wide text-gray-400 dark:text-gray-500">{t("lobby.report.diagnostics")}</span>
+                      <span className="text-xs font-semibold text-muted">{t("lobby.report.diagnostics")}</span>
                       <button type="button" onClick={copyReport} className="text-xs font-medium text-primary-700 hover:underline dark:text-primary-500">
                         {copied ? t("lobby.report.copied") : t("lobby.report.copy")}
                       </button>
@@ -615,7 +615,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
           <div className="relative max-h-full w-full max-w-lg motion-safe:animate-[tl-modal-in_var(--dur-modal)_var(--ease-out)]">
             <div className="relative rounded-lg bg-white shadow dark:bg-gray-700">
               <div className="flex items-center justify-between rounded-t border-b border-gray-200 p-4 dark:border-gray-600 md:p-5">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("lobby.diag.title")}</h3>
+                <h3 className="text-base font-semibold text-ink dark:text-white">{t("lobby.diag.title")}</h3>
                 <button type="button" onClick={() => setDiagOpen(false)} className="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
                   <svg className="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />

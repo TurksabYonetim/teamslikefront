@@ -24,7 +24,7 @@ export function PollOverlay() {
           const total = p.options.reduce((n, o) => n + o.votes.length, 0);
           return (
             <div key={p.id}>
-              <div className="mb-1 text-base font-medium text-white">{p.question}</div>
+              <div className="mb-1 text-sm font-semibold text-white">{p.question}</div>
               <ul className="space-y-1.5">
                 {p.options.map((o) => {
                   const pct = total > 0 ? Math.round((o.votes.length / total) * 100) : 0;
@@ -35,7 +35,7 @@ export function PollOverlay() {
                         onClick={() => vote(p.id, o.id)}
                         aria-pressed={mine}
                         className={clsx(
-                          "relative w-full overflow-hidden rounded-md border px-3 py-2 text-left text-base",
+                          "relative w-full overflow-hidden rounded-md border px-3 py-2 text-left text-sm",
                           mine ? "border-brand" : "border-slate-600",
                         )}
                       >
@@ -43,14 +43,14 @@ export function PollOverlay() {
                         <span className="relative flex items-center gap-2">
                           {mine ? <Icon name="check" className="h-4 w-4 text-brand" /> : null}
                           <span className="flex-1 text-white">{o.text}</span>
-                          <span className="text-slate-300">{pct}%</span>
+                          <span className="text-slate-200">{pct}%</span>
                         </span>
                       </button>
                     </li>
                   );
                 })}
               </ul>
-              <div className="mt-1 text-base text-slate-400">{t("votes", { n: total })}</div>
+              <div className="mt-1 text-xs text-slate-400">{t("votes", { n: total })}</div>
             </div>
           );
         })}

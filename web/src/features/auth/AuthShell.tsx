@@ -37,10 +37,10 @@ export function AuthShell({ children }: { children: ReactNode }) {
               <div key={key} className="flex pt-8 first:pt-0">
                 <CheckIcon />
                 <div>
-                  <h3 className="mb-2 text-xl font-bold leading-none text-ink dark:text-white">
+                  <h3 className="mb-2 text-sm font-semibold leading-none text-ink dark:text-white">
                     {t(`shell.features.${key}.title`)}
                   </h3>
-                  <p className="mb-2 font-light text-muted">
+                  <p className="mb-2 text-sm font-normal text-muted">
                     {t(`shell.features.${key}.desc`)}
                   </p>
                 </div>

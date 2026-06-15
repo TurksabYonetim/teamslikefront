@@ -39,16 +39,16 @@ export function Notifications() {
               </li>
             </ol>
           </nav>
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">Notifications</h1>
+          <h1 className="text-xl font-semibold text-ink">Notifications</h1>
         </div>
         <div className="tl-stagger col-span-full my-4 space-y-4 md:mb-8">
-          <h2 className="mb-4 text-xl text-gray-500 dark:text-gray-400">Today</h2>
-          <div className="relative flex items-center justify-between rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
+          <h2 className="mb-4 text-base font-semibold text-ink">Today</h2>
+          <div className="relative flex items-center justify-between rounded-lg bg-surface p-4 shadow-sm">
             <div className="me-8 flex items-start sm:items-center">
               <img src="/images/users/avatar-10.png" alt="Avatar" className="me-3 flex h-6 w-6 rounded-full sm:h-8 sm:w-8" />
-              <div className="text-gray-500 dark:text-gray-400">
-                <p className="mb-1 text-sm sm:text-base">New message from <a data-popover-target="popover-jese-profile" className="cursor-pointer font-medium text-gray-900 underline hover:no-underline dark:text-white">Jese Leos:</a> "Hey, what's up? All set for the showcase"</p>
-                <div className="flex items-center text-xs sm:text-sm">
+              <div className="text-muted">
+                <p className="mb-1 text-sm text-ink-2">New message from <a data-popover-target="popover-jese-profile" className="cursor-pointer font-medium text-gray-900 underline hover:no-underline dark:text-white">Jese Leos:</a> "Hey, what's up? All set for the showcase"</p>
+                <div className="flex items-center text-xs text-muted">
                   <svg className="me-1 h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v4c0 .3.1.5.3.7l3 3a1 1 0 0 0 1.4-1.4L13 11.6V8Z" clipRule="evenodd" />
                   </svg>
@@ -92,7 +92,7 @@ export function Notifications() {
                 </div>
               </div>
             </div>
-            <button id="notification-1-dropdown-button" type="button" data-dropdown-toggle="notification-1-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
+            <button id="notification-1-dropdown-button" type="button" aria-label="Notification options" data-dropdown-toggle="notification-1-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
               <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" strokeLinecap="round" strokeWidth="4" d="M6 12h0m6 0h0m6 0h0" />
               </svg>
@@ -118,11 +118,11 @@ export function Notifications() {
               </ul>
             </div>
           </div>
-          <div className="relative flex items-center justify-between rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
+          <div className="relative flex items-center justify-between rounded-lg bg-surface p-4 shadow-sm">
             <div className="me-8 flex items-start sm:items-center">
               <img src="/images/users/avatar-4.png" alt="Avatar" className="me-3 flex h-6 w-6 rounded-full sm:h-8 sm:w-8" />
-              <div className="text-gray-500 dark:text-gray-400">
-                <p className="mb-1 text-sm sm:text-base">
+              <div className="text-muted">
+                <p className="mb-1 text-sm text-ink-2">
                   <a href="#" data-popover-target="popover-user-profile" className="font-medium text-gray-900 underline hover:no-underline dark:text-white">Joseph Mcfall</a> and
                   <a href="#" className="underline hover:no-underline font-medium text-gray-900 dark:text-white">5 others</a> started following you.
                 </p>
@@ -162,7 +162,7 @@ export function Notifications() {
                   </div>
                   <div data-popper-arrow></div>
                 </div>
-                <div className="flex items-center text-sm">
+                <div className="flex items-center text-xs text-muted">
                   <svg className="me-1 h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v4c0 .3.1.5.3.7l3 3a1 1 0 0 0 1.4-1.4L13 11.6V8Z" clipRule="evenodd" />
                   </svg>
@@ -171,7 +171,7 @@ export function Notifications() {
               </div>
             </div>
             <div>
-              <button id="notification-2-dropdown-button" type="button" data-dropdown-toggle="notification-2-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
+              <button id="notification-2-dropdown-button" type="button" aria-label="Notification options" data-dropdown-toggle="notification-2-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
                 <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeWidth="4" d="M6 12h0m6 0h0m6 0h0" />
                 </svg>
@@ -198,14 +198,14 @@ export function Notifications() {
               </div>
             </div>
           </div>
-          <div className="relative flex items-center justify-between rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
-            <div className="sm:items-cente rme-8 flex items-start">
+          <div className="relative flex items-center justify-between rounded-lg bg-surface p-4 shadow-sm">
+            <div className="me-8 flex items-start sm:items-center">
               <img src="/images/users/avatar-1.png" alt="Avatar" className="me-3 flex h-6 w-6 rounded-full sm:h-8 sm:w-8" />
-              <div className="text-gray-500 dark:text-gray-400">
-                <p className="mb-1 text-sm sm:text-base">
+              <div className="text-muted">
+                <p className="mb-1 text-sm text-ink-2">
                   <a href="#" data-popover-target="popover-bonnie-profile" className="font-medium text-gray-900 dark:text-white underline hover:no-underline cursor-pointer">Bonnie Green</a> and <a href="#" className="underline hover:no-underline font-medium text-gray-900 dark:text-white">141 others</a> love your story. See it and view more stories.
                 </p>
-                <div className="flex items-center text-sm">
+                <div className="flex items-center text-xs text-muted">
                   <svg className="me-1 h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v4c0 .3.1.5.3.7l3 3a1 1 0 0 0 1.4-1.4L13 11.6V8Z" clipRule="evenodd" />
                   </svg>
@@ -250,7 +250,7 @@ export function Notifications() {
               </div>
             </div>
             <div>
-              <button id="notification-3-dropdown-button" type="button" data-dropdown-toggle="notification-3-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
+              <button id="notification-3-dropdown-button" type="button" aria-label="Notification options" data-dropdown-toggle="notification-3-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
                 <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeWidth="4" d="M6 12h0m6 0h0m6 0h0" />
                 </svg>
@@ -277,15 +277,15 @@ export function Notifications() {
               </div>
             </div>
           </div>
-          <div className="relative flex items-center justify-between rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
+          <div className="relative flex items-center justify-between rounded-lg bg-surface p-4 shadow-sm">
             <div className="me-8 flex items-start sm:items-center">
               <img src="/images/users/avatar-2.png" alt="Avatar" className="me-3 flex h-6 w-6 rounded-full sm:h-8 sm:w-8" />
-              <div className="text-gray-500 dark:text-gray-400">
-                <p className="mb-1 text-sm sm:text-base">
+              <div className="text-muted">
+                <p className="mb-1 text-sm text-ink-2">
                   <a href="#" data-popover-target="popover-leslie-profile" className="cursor-pointer font-medium underline hover:no-underline text-gray-900 dark:text-white">Leslie Livingstone</a> mentioned you in a comment: <a href="#" className="font-medium text-primary-700 hover:underline dark:text-primary-500">@bonnie.green</a> what do you
                   say?
                 </p>
-                <div className="flex items-center text-sm">
+                <div className="flex items-center text-xs text-muted">
                   <svg className="me-1 h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v4c0 .3.1.5.3.7l3 3a1 1 0 0 0 1.4-1.4L13 11.6V8Z" clipRule="evenodd" />
                   </svg>
@@ -330,7 +330,7 @@ export function Notifications() {
             </div>
             </div>
             <div>
-              <button id="notification-4-dropdown-button" type="button" data-dropdown-toggle="notification-4-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
+              <button id="notification-4-dropdown-button" type="button" aria-label="Notification options" data-dropdown-toggle="notification-4-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
                 <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeWidth="4" d="M6 12h0m6 0h0m6 0h0" />
                 </svg>
@@ -357,15 +357,15 @@ export function Notifications() {
               </div>
             </div>
           </div>
-          <div className="relative flex items-center justify-between rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
+          <div className="relative flex items-center justify-between rounded-lg bg-surface p-4 shadow-sm">
             <div className="me-8 flex items-start sm:items-center">
               <img src="/images/users/avatar-10.png" alt="Avatar" className="me-3 flex h-6 w-6 rounded-full sm:h-8 sm:w-8" />
-              <div className="text-gray-500 dark:text-gray-400">
-                <p className="mb-1 text-sm sm:text-base">
+              <div className="text-muted">
+                <p className="mb-1 text-sm text-ink-2">
                   <a href="#" data-popover-target="popover-robert-profile" className="underline hover:no-underline font-medium text-gray-900 dark:text-white">Robert Brown</a> posted a new video:
                   <a href="#" className="font-medium text-primary-700 underline hover:no-underline dark:text-primary-500">Glassmorphism - learn how to implement the new design trend.</a>
                 </p>
-                <div className="flex items-center text-sm">
+                <div className="flex items-center text-xs text-muted">
                   <svg className="me-1 h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v4c0 .3.1.5.3.7l3 3a1 1 0 0 0 1.4-1.4L13 11.6V8Z" clipRule="evenodd" />
                   </svg>
@@ -410,7 +410,7 @@ export function Notifications() {
               </div>
             </div>
             <div>
-              <button id="notification-5-dropdown-button" type="button" data-dropdown-toggle="notification-5-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
+              <button id="notification-5-dropdown-button" type="button" aria-label="Notification options" data-dropdown-toggle="notification-5-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
                 <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeWidth="4" d="M6 12h0m6 0h0m6 0h0" />
                 </svg>
@@ -439,13 +439,13 @@ export function Notifications() {
           </div>
         </div>
         <div className="tl-stagger col-span-full space-y-4">
-          <h2 className="mb-4 text-xl text-gray-500 dark:text-gray-400">Yesterday</h2>
-          <div className="relative flex items-center justify-between rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
+          <h2 className="mb-4 text-base font-semibold text-ink">Yesterday</h2>
+          <div className="relative flex items-center justify-between rounded-lg bg-surface p-4 shadow-sm">
             <div className="me-8 flex items-start sm:items-center">
               <img src="/images/users/avatar-6.png" alt="Avatar" className="me-3 flex h-6 w-6 rounded-full sm:h-8 sm:w-8" />
-              <div className="text-gray-500 dark:text-gray-400">
-                <p className="mb-1 text-sm sm:text-base"><a href="#" data-popover-target="popover-roberta-profile" className="underline hover:no-underline font-medium text-gray-900 dark:text-white">Roberta Casas</a> liked your <a href="#" className="underline hover:no-underline font-medium text-gray-900 dark:text-white">comment</a> “Welcome to Flowbite community”</p>
-                <div className="flex items-center text-sm">
+              <div className="text-muted">
+                <p className="mb-1 text-sm text-ink-2"><a href="#" data-popover-target="popover-roberta-profile" className="underline hover:no-underline font-medium text-gray-900 dark:text-white">Roberta Casas</a> liked your <a href="#" className="underline hover:no-underline font-medium text-gray-900 dark:text-white">comment</a> “Welcome to Flowbite community”</p>
+                <div className="flex items-center text-xs text-muted">
                   <svg className="me-1 h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v4c0 .3.1.5.3.7l3 3a1 1 0 0 0 1.4-1.4L13 11.6V8Z" clipRule="evenodd" />
                   </svg>
@@ -490,7 +490,7 @@ export function Notifications() {
               </div>
             </div>
             <div>
-              <button id="notification-6-dropdown-button" type="button" data-dropdown-toggle="notification-6-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
+              <button id="notification-6-dropdown-button" type="button" aria-label="Notification options" data-dropdown-toggle="notification-6-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
                 <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeWidth="4" d="M6 12h0m6 0h0m6 0h0" />
                 </svg>
@@ -517,20 +517,20 @@ export function Notifications() {
               </div>
             </div>
           </div>
-          <div className="relative flex items-center justify-between rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
+          <div className="relative flex items-center justify-between rounded-lg bg-surface p-4 shadow-sm">
             <div className="me-8 flex items-start sm:items-center">
               <img src="/images/users/avatar-4.png" alt="Avatar" className="me-3 flex h-6 w-6 rounded-full sm:h-8 sm:w-8" />
-              <div className="text-gray-500 dark:text-gray-400">
-                <p className="mb-1 text-sm sm:text-base">
+              <div className="text-muted">
+                <p className="mb-1 text-sm text-ink-2">
                   <a href="#" data-popover-target="popover-lana-profile" className="hover:no-underline underline font-medium text-gray-900 dark:text-white">Lana Byrd</a> tagged you in a <a href="#" data-popover-target="popover-image" className="text-primary-700 underline hover:no-underline dark:text-primary-500">photo</a>.
                 </p>
 
-                <div data-popover id="popover-image" role="tooltip" className="dark:border-gray-00 invisible absolute z-10 inline-block w-48 rounded-lg border border-gray-200 bg-white p-3 text-sm text-gray-500 opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
+                <div data-popover id="popover-image" role="tooltip" className="invisible absolute z-10 inline-block w-48 rounded-lg border border-gray-200 bg-white p-3 text-sm text-gray-500 opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
                   <img src="/images/notifications/fundraising-2.png" alt="Avatar" className="rounded-sm" />
                   <div data-popper-arrow></div>
                 </div>
 
-                <div className="flex items-center text-sm">
+                <div className="flex items-center text-xs text-muted">
                   <svg className="me-1 h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v4c0 .3.1.5.3.7l3 3a1 1 0 0 0 1.4-1.4L13 11.6V8Z" clipRule="evenodd" />
                   </svg>
@@ -575,7 +575,7 @@ export function Notifications() {
               </div>
             </div>
             <div>
-              <button id="notification-7-dropdown-button" type="button" data-dropdown-toggle="notification-7-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
+              <button id="notification-7-dropdown-button" type="button" aria-label="Notification options" data-dropdown-toggle="notification-7-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
                 <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeWidth="4" d="M6 12h0m6 0h0m6 0h0" />
                 </svg>
@@ -602,14 +602,14 @@ export function Notifications() {
               </div>
             </div>
           </div>
-          <div className="relative flex items-center justify-between rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
+          <div className="relative flex items-center justify-between rounded-lg bg-surface p-4 shadow-sm">
             <div className="me-8 flex items-start sm:items-center">
               <img src="/images/users/avatar-1.png" alt="Avatar" className="me-3 flex h-6 w-6 rounded-full sm:h-8 sm:w-8" />
-              <div className="text-gray-500 dark:text-gray-400">
-                <p className="mb-1 text-sm sm:text-base">
+              <div className="text-muted">
+                <p className="mb-1 text-sm text-ink-2">
                   <a href="#" data-popover-target="popover-bonnie-profile-2" className="hover:no-underline underline font-medium text-gray-900 dark:text-white">Bonnie Green</a> and <a href="#" className="underline hover:no-underline font-medium text-gray-900 dark:text-white">141 others</a> love your story. See it and view more stories.
                 </p>
-                <div className="flex items-center text-sm">
+                <div className="flex items-center text-xs text-muted">
                   <svg className="me-1 h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v4c0 .3.1.5.3.7l3 3a1 1 0 0 0 1.4-1.4L13 11.6V8Z" clipRule="evenodd" />
                   </svg>
@@ -654,7 +654,7 @@ export function Notifications() {
               </div>
             </div>
             <div>
-              <button id="notification-8-dropdown-button" type="button" data-dropdown-toggle="notification-8-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
+              <button id="notification-8-dropdown-button" type="button" aria-label="Notification options" data-dropdown-toggle="notification-8-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
                 <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeWidth="4" d="M6 12h0m6 0h0m6 0h0" />
                 </svg>
@@ -681,15 +681,15 @@ export function Notifications() {
               </div>
             </div>
           </div>
-          <div className="relative flex items-center justify-between rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
+          <div className="relative flex items-center justify-between rounded-lg bg-surface p-4 shadow-sm">
             <div className="me-8 flex items-start sm:items-center">
               <img src="/images/users/avatar-2.png" alt="Avatar" className="me-3 flex h-6 w-6 rounded-full sm:h-8 sm:w-8" />
-              <div className="text-gray-500 dark:text-gray-400">
-                <p className="mb-1 text-sm sm:text-base">
-                  <a href="#" data-popover-target="popover-leslie-profile-2" className="hover-no-underline underline font-medium text-gray-900 dark:text-white">Leslie Livingstone</a> mentioned you in a comment: <a href="#" className="font-medium text-primary-700 hover:underline dark:text-primary-500">@bonnie.green</a> what do you
+              <div className="text-muted">
+                <p className="mb-1 text-sm text-ink-2">
+                  <a href="#" data-popover-target="popover-leslie-profile-2" className="hover:no-underline underline font-medium text-gray-900 dark:text-white">Leslie Livingstone</a> mentioned you in a comment: <a href="#" className="font-medium text-primary-700 hover:underline dark:text-primary-500">@bonnie.green</a> what do you
                   say?
                 </p>
-                <div className="flex items-center text-sm">
+                <div className="flex items-center text-xs text-muted">
                   <svg className="me-1 h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v4c0 .3.1.5.3.7l3 3a1 1 0 0 0 1.4-1.4L13 11.6V8Z" clipRule="evenodd" />
                   </svg>
@@ -734,7 +734,7 @@ export function Notifications() {
               </div>
             </div>
             <div>
-              <button id="notification-9-dropdown-button" type="button" data-dropdown-toggle="notification-9-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
+              <button id="notification-9-dropdown-button" type="button" aria-label="Notification options" data-dropdown-toggle="notification-9-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
                 <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeWidth="4" d="M6 12h0m6 0h0m6 0h0" />
                 </svg>
@@ -761,15 +761,15 @@ export function Notifications() {
               </div>
             </div>
           </div>
-          <div className="relative flex items-center justify-between rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
+          <div className="relative flex items-center justify-between rounded-lg bg-surface p-4 shadow-sm">
             <div className="me-8 flex items-start sm:items-center">
               <img src="/images/users/avatar-10.png" alt="Avatar" className="me-3 flex h-6 w-6 rounded-full sm:h-8 sm:w-8" />
-              <div className="text-gray-500 dark:text-gray-400">
-                <p className="mb-1 text-sm sm:text-base">
+              <div className="text-muted">
+                <p className="mb-1 text-sm text-ink-2">
                   <a href="#" data-popover-target="popover-robert-profile-2" className="underline hover:no-underline font-medium text-gray-900 dark:text-white">Robert Brown</a> posted a new video:
                   <a href="#" className="font-medium text-primary-700 underline hover:no-underline dark:text-primary-500">Glassmorphism - learn how to implement the new design trend.</a>
                 </p>
-                <div className="flex items-center text-sm">
+                <div className="flex items-center text-xs text-muted">
                   <svg className="me-1 h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v4c0 .3.1.5.3.7l3 3a1 1 0 0 0 1.4-1.4L13 11.6V8Z" clipRule="evenodd" />
                   </svg>
@@ -814,7 +814,7 @@ export function Notifications() {
               </div>
             </div>
             <div>
-              <button id="notification-10-dropdown-button" type="button" data-dropdown-toggle="notification-10-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
+              <button id="notification-10-dropdown-button" type="button" aria-label="Notification options" data-dropdown-toggle="notification-10-dropdown" className="absolute end-1 top-1 inline-flex items-center rounded-md p-1 text-center text-sm font-medium text-gray-500 transition-transform duration-[140ms] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:relative sm:end-0 sm:top-0">
                 <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeWidth="4" d="M6 12h0m6 0h0m6 0h0" />
                 </svg>
@@ -856,8 +856,8 @@ export function Notifications() {
             
               <span className="sr-only">Close modal</span>
             </button>
-            <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">Delete notification</h3>
-            <p className="mb-4 text-gray-500 dark:text-gray-400">Do you want to delete this notification?</p>
+            <h3 className="mb-1 text-base font-semibold text-ink">Delete notification</h3>
+            <p className="mb-4 text-sm text-muted">Do you want to delete this notification?</p>
             <div className="flex items-center space-x-4">
               <button data-modal-toggle="deleteNotificationModal" type="button" className="flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto">
                 Cancel

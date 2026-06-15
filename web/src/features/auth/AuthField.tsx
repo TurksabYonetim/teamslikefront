@@ -30,7 +30,7 @@ export const AuthField = forwardRef<HTMLInputElement, AuthFieldProps>(
       <div>
         <label
           htmlFor={id}
-          className="mb-2 block text-sm font-medium text-ink dark:text-white"
+          className="mb-2 block text-sm font-medium text-ink"
         >
           {label}
         </label>
@@ -46,10 +46,9 @@ export const AuthField = forwardRef<HTMLInputElement, AuthFieldProps>(
               "placeholder:text-muted",
               "transition-[border-color,box-shadow] duration-[140ms] ease-[var(--ease-out)]",
               "focus:border-brand focus:ring-2 focus:ring-brand-soft",
-              "dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400",
               error
                 ? "border-danger focus:border-danger focus:ring-danger/20"
-                : "border-line dark:border-gray-600",
+                : "border-line",
               isPassword && reveal && "pr-11",
               className,
             )}

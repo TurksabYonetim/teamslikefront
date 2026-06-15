@@ -123,7 +123,7 @@ export function DashboardPage() {
       <div className="flex-1 overflow-y-auto bg-surface-2 dark:bg-surface-2 p-4 md:p-6 space-y-6">
         {/* Selamlama */}
         <div>
-          <h2 className="text-xl font-bold text-ink">
+          <h2 className="text-xl font-semibold text-ink">
             {firstName
               ? t("greeting.welcomeNamed", { name: firstName })
               : t("greeting.welcome")}{" "}
@@ -183,13 +183,13 @@ export function DashboardPage() {
                   />
                   <div className="mt-4 flex justify-center gap-6 text-sm">
                     <div className="text-center">
-                      <div className="font-bold text-ink tabular-nums">
+                      <div className="font-semibold text-ink tabular-nums">
                         {taskProgress.done}
                       </div>
                       <div className="text-muted text-xs">{t("task.done")}</div>
                     </div>
                     <div className="text-center">
-                      <div className="font-bold text-ink tabular-nums">
+                      <div className="font-semibold text-ink tabular-nums">
                         {taskProgress.total - taskProgress.done}
                       </div>
                       <div className="text-muted text-xs">
@@ -342,7 +342,7 @@ export function DashboardPage() {
           ) : (
             <div className="-m-5 overflow-x-auto">
               <table className="w-full text-sm text-left text-muted">
-                <thead className="text-xs text-ink-2 uppercase bg-surface-2 dark:bg-surface-3">
+                <thead className="text-xs font-semibold text-muted bg-surface-2 dark:bg-surface-3">
                   <tr>
                     <th scope="col" className="px-5 py-3">{t("table.customer")}</th>
                     <th scope="col" className="px-5 py-3">{t("table.type")}</th>

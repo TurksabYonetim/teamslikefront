@@ -154,7 +154,7 @@ function ChatShell({ section }: { section: Exclude<Section, "inbox"> }) {
               <button
                 type="button"
                 onClick={() => setMobilePane("list")}
-                className="flex items-center gap-2 border-b border-line px-3 py-2 text-sm text-brand dark:border-gray-700"
+                className="flex w-full items-center gap-2 border-b border-line px-3 py-2.5 text-sm font-medium text-brand dark:border-gray-700"
               >
                 <HiOutlineArrowLeft className="h-4 w-4" aria-hidden /> {t("back")}
               </button>

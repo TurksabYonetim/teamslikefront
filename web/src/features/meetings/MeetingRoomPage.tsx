@@ -404,7 +404,7 @@ export function MeetingRoomPage() {
                 key={p.participantId}
                 className="min-w-40 w-40 lg:w-60 min-h-25 h-25 lg:h-40 rounded-lg shadow-sm relative shrink-0 bg-gray-800 flex items-center justify-center pointer-events-auto"
               >
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-700 text-lg font-semibold text-white">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-700 text-base font-semibold text-white">
                   {initials(p.displayName)}
                 </span>
                 <span className="absolute bottom-1 left-2 text-sm font-medium text-white">
@@ -684,7 +684,7 @@ export function MeetingRoomPage() {
           <div className="relative rounded-lg bg-white shadow-sm dark:bg-gray-800">
             {/* Modal header */}
             <div className="flex items-center justify-between p-4 md:p-5">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("room.meetingDetails")}</h3>
+              <h3 className="text-base font-semibold text-gray-900 dark:text-white">{t("room.meetingDetails")}</h3>
               <button type="button" className="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white" data-modal-toggle="details-modal">
                 <svg className="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
@@ -807,14 +807,14 @@ export function MeetingRoomPage() {
                   <span className="sr-only">{t("room.closeMenu")}</span>
               </button>
 
-              <label htmlFor="search-input-participants" className="sr-only">{t("room.yourEmail")}</label>
+              <label htmlFor="search-input-participants" className="sr-only">{t("room.searchPeople")}</label>
               <div className="relative mb-6">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                   <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                       <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
                   </svg>
               </div>
-              <input type="text" id="search-input-participants" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder={t("room.searchPeople")} />
+              <input type="text" id="search-input-participants" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder={t("room.searchPeople")} />
               </div>
           
               <div className="overflow-y-scroll mb-2 space-y-4">
@@ -861,7 +861,7 @@ export function MeetingRoomPage() {
 
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center">
-                  <p className="text-gray-900 text-sm font-bold dark:text-white me-1">{t("room.meetingModeration")}</p>
+                  <p className="text-gray-900 text-sm font-semibold dark:text-white me-1">{t("room.meetingModeration")}</p>
                   <button type="button" data-tooltip-target="tooltip-info-meet" className="cursor-pointer text-gray-400 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
                     <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                       <path fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clipRule="evenodd" />
@@ -872,7 +872,7 @@ export function MeetingRoomPage() {
                       <div className="tooltip-arrow" data-popper-arrow></div>
                   </div>
                 </div>
-                <button type="button" data-moderation-checkbox-toggle="false" className="text-primary-700 dark:text-primary-600 hover:underline text-sm font-medium">{t("room.toggleAll")}</button>
+                <button type="button" data-moderation-checkbox-toggle="false" className="text-primary-700 dark:text-primary-600 hover:underline focus:outline-none focus:underline text-sm font-medium">{t("room.toggleAll")}</button>
               </div>
 
               <p className="text-gray-500 dark:text-gray-400 text-sm mb-5">{t("room.moderationDescription")}</p>
@@ -912,7 +912,7 @@ export function MeetingRoomPage() {
               </div>
 
               <div className="flex items-center mb-5">
-                <p className="text-gray-900 text-sm font-bold dark:text-white me-1">{t("room.accessType")}</p>
+                <p className="text-gray-900 text-sm font-semibold dark:text-white me-1">{t("room.accessType")}</p>
                 <button type="button" data-tooltip-target="tooltip-access-type" className="cursor-pointer text-gray-400 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
                   <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clipRule="evenodd" />
@@ -981,7 +981,7 @@ export function MeetingRoomPage() {
 
       {/* submit feedback drawer */}
       <div id="feedback-drawer" className="fixed right-0 top-0 z-40 h-screen w-full max-w-md translate-x-full overflow-y-auto bg-white p-4 antialiased transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="feedback-drawer-label" aria-hidden="true">
-        <h5 id="feedback-drawer-label" className="mb-6 inline-flex items-center text-sm font-semibold uppercase text-gray-500 dark:text-gray-400">{t("feedback.submitFeedback")}</h5>
+        <h5 id="feedback-drawer-label" className="mb-6 inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">{t("feedback.submitFeedback")}</h5>
         <button type="button" data-drawer-dismiss="feedback-drawer" aria-controls="feedback-drawer" className="absolute right-2.5 top-2.5 inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
           <svg aria-hidden="true" className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path>
@@ -1034,10 +1034,10 @@ export function MeetingRoomPage() {
                   </svg>
                 </button>
               ))}
-              <span className="ms-2 text-lg font-bold text-gray-900 dark:text-white">{stars}/5</span>
+              <span className="ms-2 text-sm font-semibold text-gray-900 dark:text-white">{stars}/5</span>
             </div>
             <div>
-              <label htmlFor="feedback" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{t("feedback.yourFeedback")} <span className="dark:text-gay-400 font-normal text-gray-500">{t("feedback.feedbackChars")}</span></label>
+              <label htmlFor="feedback" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{t("feedback.yourFeedback")} <span className="dark:text-gray-400 font-normal text-gray-500">{t("feedback.feedbackChars")}</span></label>
               <textarea id="feedback" rows={5} value={feedback} onChange={(e) => setFeedback(e.target.value)} className="mb-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" required></textarea>
               <p className="ms-auto text-xs text-gray-500 dark:text-gray-400">{t("feedback.feedbackHint")}</p>
             </div>

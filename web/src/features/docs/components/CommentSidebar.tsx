@@ -96,7 +96,7 @@ export function CommentSidebar() {
           value={blockId}
           onChange={(e) => setBlockId(e.target.value)}
           aria-label={t("comments.anchor")}
-          className="mb-1 h-9 w-full rounded-lg border border-line bg-surface px-2 text-sm text-ink"
+          className="input mb-1"
         >
           <option value="">{t("comments.anchor")}…</option>
           {blocks.map((b) => (

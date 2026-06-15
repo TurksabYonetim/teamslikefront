@@ -52,8 +52,8 @@ export function RateConversationPage() {
             <div className="mb-6">
               <Logo className="h-8" />
             </div>
-            <h1 className="mb-4 text-3xl font-bold leading-none tracking-tight text-gray-900 dark:text-white">{t("rate.title")}</h1>
-            <p className="mb-4 text-lg text-gray-500 dark:text-gray-400 md:mb-6">{t("rate.subtitle")}</p>
+            <h1 className="mb-4 text-xl font-semibold leading-tight text-ink dark:text-white">{t("rate.title")}</h1>
+            <p className="mb-4 text-sm text-muted dark:text-gray-400 md:mb-6">{t("rate.subtitle")}</p>
             <div className="mb-4 w-full items-center space-y-4 border-b border-gray-200 pb-4 dark:border-gray-800 sm:flex sm:space-x-4 sm:space-y-0 md:mb-6 md:pb-6">
               <button type="button" onClick={() => navigate("/lobby")} className="w-full shrink-0 rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-900 transition-transform ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto">
                 {t("rate.rejoin")}
@@ -61,7 +61,7 @@ export function RateConversationPage() {
               <button type="button" onClick={() => navigate("/meetings")} className="inline-flex w-full shrink-0 items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-3 py-2.5 text-center text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:w-auto">
                 {t("rate.returnHome")}
               </button>
-              <button type="button" data-drawer-target="feedback-drawer" data-drawer-show="feedback-drawer" data-drawer-placement="right" className="flex justify-center font-medium text-primary-700 hover:underline dark:text-primary-500 sm:justify-start">
+              <button type="button" data-drawer-target="feedback-drawer" data-drawer-show="feedback-drawer" data-drawer-placement="right" aria-controls="feedback-drawer" aria-expanded="false" className="flex justify-center text-sm font-medium text-primary-700 hover:underline dark:text-primary-500 sm:justify-start">
                 {t("rate.submitFeedback")}
               </button>
             </div>
@@ -77,7 +77,7 @@ export function RateConversationPage() {
 
       {/* submit feedback drawer */}
       <div id="feedback-drawer" className="fixed right-0 top-0 z-40 h-screen w-full max-w-md translate-x-full overflow-y-auto bg-white p-4 antialiased transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="feedback-drawer-label" aria-hidden="true">
-        <h5 id="feedback-drawer-label" className="mb-6 inline-flex items-center text-sm font-semibold uppercase text-gray-500 dark:text-gray-400">{t("feedback.submitFeedback")}</h5>
+        <h5 id="feedback-drawer-label" className="mb-6 inline-flex items-center text-sm font-semibold text-ink dark:text-white">{t("feedback.submitFeedback")}</h5>
         <button type="button" data-drawer-dismiss="feedback-drawer" aria-controls="feedback-drawer" className="absolute right-2.5 top-2.5 inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
           <svg aria-hidden="true" className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path>
@@ -130,17 +130,17 @@ export function RateConversationPage() {
                   </svg>
                 </button>
               ))}
-              <span className="ms-2 text-lg font-bold text-gray-900 dark:text-white">{stars}/5</span>
+              <span className="ms-2 text-sm font-semibold text-ink dark:text-white">{stars}/5</span>
             </div>
             <div>
-              <label htmlFor="feedback" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{t("feedback.yourFeedback")} <span className="dark:text-gay-400 font-normal text-gray-500">{t("feedback.feedbackChars")}</span></label>
+              <label htmlFor="feedback" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{t("feedback.yourFeedback")} <span className="dark:text-gray-400 font-normal text-muted">{t("feedback.feedbackChars")}</span></label>
               <textarea id="feedback" rows={5} value={feedback} onChange={(e) => { setFeedback(e.target.value); setSaved(false); }} className="mb-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" required></textarea>
               <p className="ms-auto text-xs text-gray-500 dark:text-gray-400">{t("feedback.feedbackHint")}</p>
             </div>
             <div>
-              <p className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{t("feedback.addPhotos")} <span className="text-gray-500 dark:text-gray-400">{t("feedback.optional")}</span></p>
+              <label htmlFor="dropzone-file" className="mb-2 block text-sm font-medium text-ink dark:text-white">{t("feedback.addPhotos")} <span className="text-muted dark:text-gray-400">{t("feedback.optional")}</span></label>
               <div className="flex w-full items-center justify-center">
-                <label htmlFor="dropzone-file" className="dark:hover:bg-bray-800 flex h-48 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 transition-colors ease-[var(--ease-out)] hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                <label htmlFor="dropzone-file" className="dark:hover:bg-gray-800 flex h-48 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 transition-colors ease-[var(--ease-out)] hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                   <div className="flex flex-col items-center justify-center pb-6 pt-5">
                     <svg className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />

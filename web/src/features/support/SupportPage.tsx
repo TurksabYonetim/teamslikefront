@@ -132,7 +132,7 @@ export function SupportPage() {
       <div className="flex min-h-0 flex-1 flex-col gap-2">
         <button
           onClick={() => setMobilePane("list")}
-          className="inline-flex w-fit items-center gap-1 rounded-md px-2 py-1 text-base text-muted transition-[background-color,transform] duration-150 ease-[var(--ease-out,ease-out)] hover:bg-surface-2 active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
+          className="inline-flex w-fit items-center gap-1 rounded-md px-2 py-1 text-sm font-medium text-muted transition-[background-color,transform] duration-150 ease-[var(--ease-out,ease-out)] hover:bg-surface-2 active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
         >
           <Icon name="chevronLeft" className="h-4 w-4" aria-hidden /> {t("back")}
         </button>
@@ -154,8 +154,8 @@ export function SupportPage() {
     <div className={clsx("flex h-[calc(100vh-3.5rem)] min-h-0 flex-col", isMobile ? "p-3" : "p-4")}>
       <div className="mb-3 flex flex-col gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-ink">{t("title")}</h1>
-          <p className="text-base text-muted">{t("subtitle")}</p>
+          <h1 className="text-xl font-semibold text-ink">{t("title")}</h1>
+          <p className="text-sm text-muted">{t("subtitle")}</p>
         </div>
         {Switcher}
       </div>

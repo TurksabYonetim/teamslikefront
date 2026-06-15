@@ -81,7 +81,7 @@ function Field({
 const INPUT_CLS =
   "block w-full rounded-lg border border-line bg-surface-2 px-3 py-2.5 text-sm text-ink " +
   "placeholder:text-muted outline-none transition-colors duration-[var(--dur-press)] " +
-  "ease-[var(--ease-out)] focus:border-brand focus:ring-2 focus:ring-brand/30 " +
+  "ease-[var(--ease-out)] focus:border-brand focus:ring-1 focus:ring-brand/30 " +
   "read-only:cursor-default read-only:text-ink-3 disabled:opacity-60";
 
 function fmtDate(iso?: string, locale?: string) {
@@ -178,7 +178,7 @@ function OrganizationTab() {
                     "inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium " +
                     (tenant?.is_active
                       ? "bg-ok/10 text-ok"
-                      : "bg-surface-3 text-muted")
+                      : "bg-surface-3 text-ink-2")
                   }
                 >
                   <span
@@ -445,11 +445,12 @@ function SecurityTab() {
               <Button
                 variant="secondary"
                 className="shrink-0"
+                aria-pressed={shown}
                 onClick={() => setShown((s) => !s)}
                 disabled={!secret}
                 leftIcon={
                   <Icon
-                    name={shown ? "videoOff" : "video"}
+                    name={shown ? "eyeOff" : "eye"}
                     className="h-4 w-4"
                   />
                 }

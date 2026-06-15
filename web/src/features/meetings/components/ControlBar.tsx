@@ -48,12 +48,12 @@ const RoundBtn = React.forwardRef<
     title={label}
     onClick={onClick}
     className={clsx(
-      "inline-flex h-12 w-12 items-center justify-center rounded-full transition-[transform,colors] ease-[var(--ease-out)] duration-[var(--dur-press)] motion-safe:active:scale-[0.97]",
+      "inline-flex h-12 w-12 items-center justify-center rounded-full transition-[transform,colors] ease-[var(--ease-out)] duration-[var(--dur-press)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800 motion-safe:active:scale-[0.97]",
       tone === "danger"
         ? "bg-red-600 text-white hover:opacity-90"
         : tone === "active"
           ? "bg-brand text-white"
-          : "border border-gray-800 bg-gray-800 text-white hover:bg-gray-700",
+          : "bg-gray-800 text-white hover:bg-gray-700",
     )}
     {...rest}
   >
@@ -147,7 +147,7 @@ export function ControlBar() {
       <div
         role="group"
         aria-label={t("react")}
-        className="inline-flex items-center gap-1 rounded-full border border-gray-800 bg-gray-800 px-1"
+        className="inline-flex items-center gap-1 rounded-full bg-gray-800 px-1"
       >
         {MEETING_REACTIONS.map((e) => (
           <button
@@ -155,7 +155,7 @@ export function ControlBar() {
             type="button"
             aria-label={e}
             onClick={() => act().sendReaction(e)}
-            className="cursor-pointer rounded-full px-2 py-1 text-xl outline-none transition-[transform,colors] ease-[var(--ease-out)] duration-[var(--dur-press)] hover:bg-gray-700 motion-safe:active:scale-[0.97]"
+            className="inline-flex h-11 min-w-11 cursor-pointer items-center justify-center rounded-full px-2 text-xl transition-[transform,colors] ease-[var(--ease-out)] duration-[var(--dur-press)] hover:bg-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800 motion-safe:active:scale-[0.97]"
           >
             <span aria-hidden>{e}</span>
           </button>

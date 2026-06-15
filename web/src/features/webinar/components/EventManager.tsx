@@ -14,7 +14,7 @@ const BADGE_FIELDS = ["name", "email", "company", "role"];
 
 const fieldLabel = (id: string) => EVENTS[0].registrationFields.find((f) => f.id === id)?.label ?? id;
 
-const inputCls = "h-11 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
+const inputCls = "h-11 rounded-lg border border-line bg-surface-2 px-2.5 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
 
 export function EventManager() {
   const { t } = useTranslation("webinar");
@@ -48,7 +48,7 @@ export function EventManager() {
       <Card className="lg:col-span-2">
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <Icon name="ticket" className="h-5 w-5 text-brand" />
-          <h2 className="text-lg font-semibold text-ink">{t("events.tickets")}</h2>
+          <h2 className="text-base font-semibold text-ink">{t("events.tickets")}</h2>
           <div className="ml-auto flex flex-wrap gap-1">
             {Object.entries(revenue).map(([cur, amt]) => (
               <Badge key={cur} tone="positive">{formatPrice(amt, cur)}</Badge>
@@ -56,7 +56,7 @@ export function EventManager() {
           </div>
         </div>
         <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-base">
+        <table className="w-full border-collapse text-sm">
           <thead>
             <tr className="text-left text-muted">
               <th className="border-b border-line px-2 py-1 font-semibold">{t("events.tier")}</th>
@@ -116,7 +116,7 @@ export function EventManager() {
       <Card>
         <div className="mb-3 flex items-center gap-2">
           <Icon name="calendar" className="h-5 w-5 text-brand" />
-          <h2 className="text-lg font-semibold text-ink">{t("events.agenda")}</h2>
+          <h2 className="text-base font-semibold text-ink">{t("events.agenda")}</h2>
           {conflicts.length > 0 ? (
             <Badge tone="warning" className="ml-auto">
               <Icon name="warning" className="h-3.5 w-3.5" /> {t("events.conflicts", { n: conflicts.length })}
@@ -125,10 +125,10 @@ export function EventManager() {
         </div>
         {days.map((d) => (
           <div key={d.day} className="mb-3">
-            <h3 className="mb-1 text-base font-semibold text-ink">{d.day}</h3>
+            <h3 className="mb-1 text-sm font-semibold text-ink">{d.day}</h3>
             <ul className="space-y-1">
               {d.items.map((item) => (
-                <li key={item.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-base">
+                <li key={item.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm">
                   <span className="tabular-nums text-muted">{item.start}–{item.end}</span>
                   <span className="font-medium text-ink">{item.title}</span>
                   <span className="text-muted">· {item.track}{item.speaker ? ` · ${item.speaker}` : ""}</span>
@@ -163,23 +163,23 @@ export function EventManager() {
       <Card>
         <div className="mb-3 flex items-center gap-2">
           <Icon name="identification" className="h-5 w-5 text-brand" />
-          <h2 className="text-lg font-semibold text-ink">{t("events.badges")}</h2>
+          <h2 className="text-base font-semibold text-ink">{t("events.badges")}</h2>
         </div>
 
-        <div className="mb-3 rounded-lg border border-l-4 border-line p-3" style={{ borderLeftColor: badge.accent }}>
-          <div className="text-base text-muted">{t("events.badgePreview")}</div>
+        <div className="mb-3 rounded-lg border border-line p-3">
+          <div className="text-xs text-muted">{t("events.badgePreview")}</div>
           {badge.fields.map((f) => (
-            <div key={f} className={f === "name" ? "text-xl font-bold text-ink" : "text-base text-ink"}>
+            <div key={f} className={f === "name" ? "text-xl font-semibold text-ink" : "text-sm text-ink"}>
               {sample.values[f] ?? "—"}
             </div>
           ))}
         </div>
 
         <fieldset className="mb-3">
-          <legend className="mb-1 text-base font-medium text-ink">{t("events.badgeFields")}</legend>
+          <legend className="mb-1 text-sm font-medium text-ink">{t("events.badgeFields")}</legend>
           <div className="flex flex-wrap gap-3">
             {BADGE_FIELDS.map((f) => (
-              <label key={f} className="inline-flex items-center gap-2 text-base text-ink">
+              <label key={f} className="inline-flex items-center gap-2 text-sm text-ink">
                 <input type="checkbox" checked={badge.fields.includes(f)} onChange={() => a.toggleBadgeField(f)} className="h-4 w-4 accent-[var(--color-brand)]" />
                 {fieldLabel(f)}
               </label>

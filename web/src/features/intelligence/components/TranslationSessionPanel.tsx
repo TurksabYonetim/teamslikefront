@@ -36,7 +36,7 @@ export function TranslationSessionPanel() {
               <HiOutlineLockClosed className="h-[13px] w-[13px]" aria-hidden />{" "}
               {session.voicePreserving ? t("session.voiceOn") : t("session.voiceOff")}
             </Badge>
-            <span className="text-base text-muted dark:text-gray-400">
+            <span className="text-xs text-muted dark:text-gray-400">
               {t("session.buffered", { n: session.segments.length })}
             </span>
             <Button
@@ -69,7 +69,7 @@ export function TranslationSessionPanel() {
                   aria-pressed={on}
                   onClick={() => toggleLang(code)}
                   className={clsx(
-                    "rounded-md border px-2 py-1 text-base uppercase",
+                    "rounded-md border px-2 py-1 text-xs font-medium",
                     on
                       ? "border-brand text-brand"
                       : "border-line text-muted hover:bg-surface-3 dark:border-gray-700 dark:text-gray-400",
@@ -86,7 +86,7 @@ export function TranslationSessionPanel() {
             }
             aria-pressed={session.voicePreserving}
             className={clsx(
-              "inline-flex items-center gap-1 rounded-md border px-3 py-1.5 text-base",
+              "inline-flex items-center gap-1 rounded-md border px-3 py-1.5 text-sm font-medium",
               session.voicePreserving
                 ? "border-brand text-brand"
                 : "border-line text-muted hover:bg-surface-3 dark:border-gray-700 dark:text-gray-400",

@@ -9,7 +9,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
 
   return (
     <div
-      className={clsx("inline-flex rounded-lg border border-gray-200 bg-white p-0.5", className)}
+      className={clsx("inline-flex rounded-lg border border-line bg-white p-0.5", className)}
       role="group"
       aria-label={t("lang.label")}
     >
@@ -23,7 +23,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
             "rounded-md px-2.5 py-1 text-xs font-semibold transition-[transform,background-color,color] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
             current === lng
               ? "bg-primary-700 text-white"
-              : "text-gray-500 hover:bg-gray-100 hover:text-gray-900",
+              : "text-muted hover:bg-gray-100 hover:text-ink",
           )}
         >
           {t(`lang.short_${lng}`)}

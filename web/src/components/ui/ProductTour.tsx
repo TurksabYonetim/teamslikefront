@@ -134,7 +134,7 @@ export function ProductTour({ open, steps, onFinish, onStep, labels }: ProductTo
             type="button"
             onClick={onFinish}
             aria-label={L.close}
-            className="rounded-md p-1 text-muted transition-transform active:scale-[0.97] hover:bg-surface-2 dark:hover:bg-gray-700"
+            className="flex min-h-11 min-w-11 items-center justify-center rounded-md p-2.5 text-muted transition-transform active:scale-[0.97] hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 dark:hover:bg-gray-700"
           >
             <HiOutlineXMark className="h-4 w-4" aria-hidden />
           </button>
@@ -147,7 +147,7 @@ export function ProductTour({ open, steps, onFinish, onStep, labels }: ProductTo
           <button
             type="button"
             onClick={onFinish}
-            className="ms-auto rounded-md px-2 py-1 text-sm text-muted transition-transform active:scale-[0.97] hover:bg-surface-2 dark:hover:bg-gray-700"
+            className="ms-auto inline-flex min-h-11 items-center rounded-md px-3 py-2.5 text-sm text-muted transition-transform active:scale-[0.97] hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 dark:hover:bg-gray-700"
           >
             {L.skip}
           </button>
@@ -155,7 +155,7 @@ export function ProductTour({ open, steps, onFinish, onStep, labels }: ProductTo
             <button
               type="button"
               onClick={goBack}
-              className="rounded-md border border-line px-3 py-1 text-sm text-ink hover:bg-surface-2 dark:border-gray-700 dark:text-white"
+              className="inline-flex min-h-11 items-center rounded-md border border-line px-3 py-2.5 text-sm text-ink hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 dark:border-gray-700 dark:text-white"
             >
               {L.back}
             </button>
@@ -163,7 +163,7 @@ export function ProductTour({ open, steps, onFinish, onStep, labels }: ProductTo
           <button
             type="button"
             onClick={goNext}
-            className={clsx("rounded-md bg-brand px-3 py-1 text-sm font-medium text-white transition-transform active:scale-[0.97] hover:bg-brand-600")}
+            className={clsx("inline-flex min-h-11 items-center rounded-md bg-brand px-3 py-2.5 text-sm font-medium text-white transition-transform active:scale-[0.97] hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2")}
           >
             {last ? L.finish : L.next}
           </button>

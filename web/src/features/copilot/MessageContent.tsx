@@ -63,7 +63,7 @@ function renderInline(text: string): React.ReactNode[] {
     parts.push(
       <code
         key={`i${i++}`}
-        className="rounded bg-gray-100 px-1 py-0.5 font-mono text-[0.85em] text-gray-800 dark:bg-gray-700 dark:text-gray-100"
+        className="rounded bg-surface-2 px-1 py-0.5 font-mono text-xs text-ink dark:bg-gray-700 dark:text-gray-100"
       >
         {m[1]}
       </code>,
@@ -88,15 +88,15 @@ export function MessageContent({
         b.type === "code" ? (
           <div
             key={b.key}
-            className="group/code relative my-2 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700"
+            className="group/code relative my-2 overflow-hidden rounded-lg border border-line dark:border-gray-700"
           >
             {b.lang && (
-              <div className="border-b border-gray-200 bg-gray-50 px-3 py-1 font-mono text-xs text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400">
+              <div className="border-b border-line bg-surface-2 px-3 py-1 font-mono text-xs text-muted dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400">
                 {b.lang}
               </div>
             )}
-            <pre className="overflow-x-auto bg-gray-50 p-3 text-xs leading-relaxed dark:bg-gray-900">
-              <code className="font-mono text-gray-800 dark:text-gray-100">
+            <pre className="overflow-x-auto bg-surface-2 p-3 text-xs leading-relaxed dark:bg-gray-900">
+              <code className="font-mono text-ink dark:text-gray-100">
                 {b.code}
               </code>
             </pre>
@@ -106,7 +106,7 @@ export function MessageContent({
                 onClick={() => onCopyCode(b.code)}
                 title={copiedLabel ? `${copyLabel} / ${copiedLabel}` : copyLabel}
                 aria-label={copyLabel}
-                className="absolute right-2 top-2 rounded-md border border-gray-200 bg-white/90 p-1.5 text-gray-500 opacity-0 transition-[opacity,transform] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:text-gray-900 focus:opacity-100 group-hover/code:opacity-100 dark:border-gray-600 dark:bg-gray-800/90 dark:text-gray-400 dark:hover:text-white"
+                className="absolute right-2 top-2 rounded-md border border-line bg-surface/90 p-1.5 text-muted opacity-0 transition-[opacity,transform] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:text-ink focus:opacity-100 focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500 group-hover/code:opacity-100 dark:border-gray-600 dark:bg-gray-800/90 dark:text-gray-400 dark:hover:text-white"
               >
                 <svg
                   className="h-4 w-4"

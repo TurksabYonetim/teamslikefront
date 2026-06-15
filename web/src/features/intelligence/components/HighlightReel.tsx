@@ -28,10 +28,10 @@ export function HighlightReel() {
   };
 
   return (
-    <div className="rounded-card border border-line bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-      <h3 className="mb-2 text-base font-semibold text-gray-900 dark:text-white">{t("highlights")}</h3>
+    <div className="rounded-card border border-line bg-surface p-4 dark:border-gray-700 dark:bg-gray-800">
+      <h3 className="mb-2 text-sm font-semibold text-ink dark:text-white">{t("highlights")}</h3>
       {highlights.length === 0 ? (
-        <p className="text-base text-gray-500 dark:text-gray-400">{t("none")}</p>
+        <p className="text-sm text-muted dark:text-gray-400">{t("none")}</p>
       ) : (
         <ul className="space-y-2">
           {highlights.map((h) => {
@@ -44,10 +44,10 @@ export function HighlightReel() {
                 >
                   <Icon size={18} className={`mt-0.5 ${tone}`} aria-hidden />
                   <span className="min-w-0 flex-1">
-                    <span className="block text-base font-medium text-gray-900 dark:text-white">
+                    <span className="block text-sm font-medium text-ink dark:text-white">
                       {t(`kind.${h.kind}`)}
                     </span>
-                    <span className="block text-base text-gray-500 dark:text-gray-400">{h.text}</span>
+                    <span className="block text-sm text-ink-2 dark:text-gray-400">{h.text}</span>
                   </span>
                   <HiOutlineArrowRight size={16} className="mt-0.5 text-gray-500 dark:text-gray-400" aria-hidden />
                 </button>

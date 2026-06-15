@@ -76,7 +76,7 @@ export function Tabs({
               onClick={() => setActive(it.id)}
               onKeyDown={(e) => onKeyDown(e, i)}
               className={clsx(
-                "relative px-4 py-2.5 text-sm font-medium -mb-px transition-colors motion-safe:active:scale-[0.97] transition-transform ease-[var(--ease-out)]",
+                "relative px-4 py-2.5 text-sm font-medium -mb-px transition-[color,transform] motion-safe:active:scale-[0.97] ease-[var(--ease-out)]",
                 "focus:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-t",
                 selected ? "text-brand" : "text-muted hover:text-ink",
               )}

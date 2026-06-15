@@ -52,7 +52,7 @@ function MeetingCard({ m }: { m: ApiMeeting }) {
           <Icon name="video" className="h-6 w-6" />
         </span>
         <div className="min-w-0 flex-1">
-          <h3 className="truncate font-semibold text-ink">{m.title}</h3>
+          <h3 className="truncate text-sm font-semibold text-ink">{m.title}</h3>
           <p className="text-sm text-muted">
             {formatWhen(m.scheduled_at)} · {m.duration_minutes} {t("list.minutesShort")}
           </p>
@@ -186,7 +186,7 @@ function GuestTokenButton({ meeting }: { meeting: ApiMeeting }) {
             <div className="flex gap-2">
               <input
                 id="guest-link"
-                className="input font-mono text-xs"
+                className="input min-w-0 flex-1 font-mono text-xs"
                 value={shareUrl}
                 readOnly
               />
@@ -302,6 +302,7 @@ function CreateMeetingModal({
               id="meeting-duration"
               className="input"
               type="number"
+              min={1}
               value={duration}
               onChange={(e) => setDuration(Number(e.target.value))}
             />

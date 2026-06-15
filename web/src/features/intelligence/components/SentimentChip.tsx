@@ -15,7 +15,7 @@ export function SentimentChip({ sentiment, className }: { sentiment: Sentiment; 
   const { t } = useTranslation("intelligence");
   const { Icon, tone } = MAP[sentiment];
   return (
-    <span className={clsx("inline-flex items-center gap-1 text-base", tone, className)}>
+    <span className={clsx("inline-flex items-center gap-1 text-xs", tone, className)}>
       <Icon className="h-4 w-4" aria-hidden />
       {t(`sentiment.${sentiment}`)}
     </span>

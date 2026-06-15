@@ -58,7 +58,7 @@ export function StudioView() {
       <Card>
         <div className="mb-2 flex items-center gap-2">
           <Icon name="sparkles" className="h-5 w-5 text-brand" aria-hidden />
-          <h2 className="text-lg font-semibold text-ink">{t("studio.agents")}</h2>
+          <h2 className="text-base font-semibold text-ink">{t("studio.agents")}</h2>
         </div>
         <ul className="mb-3 space-y-1">
           {agents.map((a) => (
@@ -67,7 +67,7 @@ export function StudioView() {
                 onClick={() => act().selectAgent(a.id)}
                 aria-current={a.id === activeId ? "true" : undefined}
                 className={clsx(
-                  "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-base outline-none transition-[transform,background-color] ease-[var(--ease-out)] motion-safe:active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-brand",
+                  "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm outline-none transition-[transform,background-color] ease-[var(--ease-out)] motion-safe:active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-brand",
                   a.id === activeId ? "bg-brand text-white" : "text-ink hover:bg-surface-2",
                 )}
               >
@@ -83,7 +83,7 @@ export function StudioView() {
             onChange={(e) => setNewName(e.target.value)}
             placeholder={t("studio.newAgentPh")}
             aria-label={t("studio.newAgentPh")}
-            className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
           />
           <IconButton
             label={t("studio.create")}
@@ -107,7 +107,7 @@ export function StudioView() {
           id="ag-name"
           value={agent.name}
           onChange={(e) => act().setName(e.target.value)}
-          className="mb-3 w-full rounded-md border border-line bg-surface px-2 py-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+          className="mb-3 w-full rounded-md border border-line bg-surface px-2 py-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
         />
 
         <label className="mb-1 block text-sm font-medium text-ink" htmlFor="ag-goal">
@@ -119,14 +119,14 @@ export function StudioView() {
           value={agent.goal}
           onChange={(e) => act().setGoal(e.target.value)}
           placeholder={t("studio.goalPh")}
-          className="mb-3 w-full rounded-md border border-line bg-surface p-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+          className="mb-3 w-full rounded-md border border-line bg-surface p-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
         />
 
         <fieldset className="mb-3">
           <legend className="mb-1 text-sm font-medium text-ink">{t("studio.channels")}</legend>
           <div className="flex flex-wrap gap-3">
             {CHANNELS.map((c) => (
-              <label key={c} className="inline-flex items-center gap-2 text-base text-ink">
+              <label key={c} className="inline-flex items-center gap-2 text-sm text-ink">
                 <input type="checkbox" checked={agent.channels.includes(c)} onChange={() => act().toggleChannel(c)} className="h-4 w-4 accent-brand" />
                 {t(`studio.channel.${c}`)}
               </label>
@@ -139,7 +139,7 @@ export function StudioView() {
             <legend className="mb-1 text-sm font-medium text-ink">{t("studio.tools")}</legend>
             <div className="flex flex-wrap gap-3">
               {agent.tools.map((tool) => (
-                <label key={tool.id} className="inline-flex items-center gap-2 text-base text-ink">
+                <label key={tool.id} className="inline-flex items-center gap-2 text-sm text-ink">
                   <input type="checkbox" checked={tool.enabled} onChange={() => act().toggleTool(tool.id)} className="h-4 w-4 accent-brand" />
                   {tool.label}
                 </label>
@@ -151,7 +151,7 @@ export function StudioView() {
         <h3 className="mb-2 text-sm font-semibold text-ink">{t("studio.intents")}</h3>
         <ul className="mb-2 space-y-1">
           {agent.intents.map((intent) => (
-            <li key={intent.id} className="flex items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-base">
+            <li key={intent.id} className="flex items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-sm">
               <span className="font-medium text-ink">{intent.label}</span>
               <span className="min-w-0 flex-1 truncate text-muted">{intent.phrases.join(", ")}</span>
               <IconButton label={t("common.delete")} className="ml-auto" onClick={() => act().removeIntent(intent.id)}>
@@ -167,14 +167,14 @@ export function StudioView() {
               onChange={(e) => setIntentLabel(e.target.value)}
               placeholder={t("studio.intentLabelPh")}
               aria-label={t("studio.intentLabelPh")}
-              className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
             />
             <input
               value={intentPhrases}
               onChange={(e) => setIntentPhrases(e.target.value)}
               placeholder={t("studio.intentPhrasesPh")}
               aria-label={t("studio.intentPhrasesPh")}
-              className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
             />
           </div>
           <div className="flex gap-2">
@@ -183,7 +183,7 @@ export function StudioView() {
               onChange={(e) => setIntentReply(e.target.value)}
               placeholder={t("studio.intentReplyPh")}
               aria-label={t("studio.intentReplyPh")}
-              className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
             />
             <Button size="sm" onClick={submitIntent}>
               <Icon name="plus" className="h-4 w-4" aria-hidden /> {t("studio.addIntent")}
@@ -195,7 +195,7 @@ export function StudioView() {
       {/* Test + yayın */}
       <Card>
         <div className="mb-2 flex items-center gap-2">
-          <h2 className="text-lg font-semibold text-ink">{t("studio.sandbox")}</h2>
+          <h2 className="text-base font-semibold text-ink">{t("studio.sandbox")}</h2>
           <Badge tone="accent" className="ml-auto">
             {t("studio.resolution", { n: rate })}
           </Badge>
@@ -211,7 +211,7 @@ export function StudioView() {
                 <span className={clsx("mt-0.5 shrink-0", turn.who === "agent" ? "text-brand" : "text-muted")}>
                   <Icon name={turn.who === "agent" ? "sparkles" : "userCircle"} className="h-4 w-4" aria-hidden />
                 </span>
-                <span className={clsx("max-w-[80%] rounded-lg px-3 py-1.5 text-base", turn.who === "agent" ? "bg-surface-2 text-ink" : "bg-brand text-white")}>
+                <span className={clsx("max-w-[80%] rounded-lg px-3 py-1.5 text-sm", turn.who === "agent" ? "bg-surface-2 text-ink" : "bg-brand text-white")}>
                   {turn.text}
                 </span>
               </li>
@@ -234,7 +234,7 @@ export function StudioView() {
               }
             }}
             placeholder={t("studio.sandboxPh")}
-            className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
           />
           <IconButton label={t("studio.run")} variant="primary" onClick={send} disabled={!utterance.trim()}>
             <Icon name="send" className="h-4 w-4" aria-hidden />

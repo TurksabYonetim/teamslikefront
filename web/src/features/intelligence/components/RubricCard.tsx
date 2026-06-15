@@ -15,14 +15,14 @@ export function RubricCard() {
   return (
     <div className="rounded-card border border-line bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
       <div className="mb-2 flex items-center justify-between">
-        <h3 className="text-base font-semibold text-ink dark:text-white">{t("rubric")}</h3>
+        <h3 className="text-sm font-semibold text-ink dark:text-white">{t("rubric")}</h3>
         <Badge tone={passed === rubric.length ? "positive" : "warning"}>
           {passed}/{rubric.length}
         </Badge>
       </div>
       <ul className="space-y-1.5">
         {rubric.map((r) => (
-          <li key={r.id} className="flex items-start gap-2 text-base">
+          <li key={r.id} className="flex items-start gap-2 text-sm">
             {r.pass ? (
               <HiCheckCircle className="mt-0.5 h-[18px] w-[18px] text-green-600 dark:text-green-400" aria-label={t("pass")} />
             ) : (

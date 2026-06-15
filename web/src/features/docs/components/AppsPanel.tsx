@@ -62,10 +62,10 @@ export function AppsPanel() {
               <span className="min-w-0 flex-1 truncate text-ink">{a.title}</span>
               {a.status === "pending" ? (
                 <>
-                  <IconButton label={t("apps.approve")} className="h-7 w-7 text-ok" onClick={() => decideApproval(a.id, "approved")}>
+                  <IconButton label={t("apps.approve")} className="h-9 w-9 text-ok" onClick={() => decideApproval(a.id, "approved")}>
                     <Icon name="checkCircle" className="h-4 w-4" />
                   </IconButton>
-                  <IconButton label={t("apps.reject")} className="h-7 w-7 text-danger" onClick={() => decideApproval(a.id, "rejected")}>
+                  <IconButton label={t("apps.reject")} className="h-9 w-9 text-danger" onClick={() => decideApproval(a.id, "rejected")}>
                     <Icon name="close" className="h-4 w-4" />
                   </IconButton>
                 </>

@@ -53,16 +53,16 @@ export function CreatePollDialog({ open, onClose }: { open: boolean; onClose: ()
     <Modal open={open} onClose={onClose} title={t("poll.create")}>
       <div className="space-y-3">
         <label className="block">
-          <span className="mb-1 block text-sm text-muted">{t("poll.question")}</span>
+          <span className="mb-1 block text-sm font-medium text-ink-2">{t("poll.question")}</span>
           <input
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            className="h-11 w-full rounded-md border border-line bg-white px-3 text-sm text-ink outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+            className="block h-11 w-full rounded-lg border border-gray-300 bg-surface-2 px-3 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
           />
         </label>
 
         <div className="space-y-2">
-          <span className="block text-sm text-muted">{t("poll.option")}</span>
+          <span className="block text-sm font-medium text-ink-2">{t("poll.option")}</span>
           {options.map((o, i) => (
             <div key={i} className="flex items-center gap-2">
               {quiz ? (
@@ -78,7 +78,7 @@ export function CreatePollDialog({ open, onClose }: { open: boolean; onClose: ()
               <input
                 value={o}
                 onChange={(e) => setOptions(options.map((x, j) => (j === i ? e.target.value : x)))}
-                className="h-11 flex-1 rounded-md border border-line bg-white px-3 text-sm text-ink outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                className="h-11 flex-1 rounded-lg border border-gray-300 bg-surface-2 px-3 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
                 placeholder={`${t("poll.option")} ${i + 1}`}
               />
               {options.length > 2 ? (
@@ -86,7 +86,7 @@ export function CreatePollDialog({ open, onClose }: { open: boolean; onClose: ()
                   type="button"
                   onClick={() => setOptions(options.filter((_, j) => j !== i))}
                   aria-label={t("poll.option")}
-                  className="rounded-md p-2 text-muted hover:bg-surface-2 dark:hover:bg-gray-700"
+                  className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2.5 text-muted hover:bg-surface-2 dark:hover:bg-gray-700"
                 >
                   <HiOutlineTrash className="h-4 w-4" aria-hidden />
                 </button>

@@ -45,14 +45,14 @@ export function CreateMeetingPage() {
   return (
     <>
 
-      <section>
-        <div className="mx-auto grid h-[calc(100vh-8rem)] max-w-7xl place-items-center gap-16 px-4 md:grid-cols-12 xl:px-0">
+      <section aria-labelledby="create-title">
+        <div className="mx-auto grid min-h-[calc(100vh-8rem)] max-w-7xl place-items-center gap-16 px-4 md:grid-cols-12 xl:px-0">
           <div className="col-span-full md:col-span-9 lg:col-span-6">
             <div className="mb-6">
               <Logo className="h-8" />
             </div>
-            <h1 className="mb-4 text-3xl font-bold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl">{t("create.title")}</h1>
-            <p className="mb-4 text-lg text-gray-500 dark:text-gray-400 md:mb-6">{t("create.subtitle")}</p>
+            <h1 id="create-title" className="mb-4 text-xl font-semibold leading-tight text-ink dark:text-white">{t("create.title")}</h1>
+            <p className="mb-4 text-sm text-muted dark:text-gray-400 md:mb-6">{t("create.subtitle")}</p>
             <form action="#" onSubmit={handleJoin} className="mb-4 w-full items-center space-y-4 border-b border-gray-200 pb-4 dark:border-gray-800 sm:flex sm:space-x-4 sm:space-y-0 md:mb-6 md:pb-6">
               <button type="button" onClick={handleNewMeeting} disabled={createMeeting.isPending} id="meetingDropdownButton" data-dropdown-toggle="meetingDropdown" className="inline-flex w-full shrink-0 items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-5 py-3 text-center text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 disabled:opacity-60 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:w-auto">
                 {createMeeting.isPending ? "…" : t("create.newMeeting")}
@@ -96,7 +96,7 @@ export function CreateMeetingPage() {
                       <path fillRule="evenodd" d="M2 7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7Zm5.01 1H5v2.01h2.01V8Zm3 0H8v2.01h2.01V8Zm3 0H11v2.01h2.01V8Zm3 0H14v2.01h2.01V8Zm3 0H17v2.01h2.01V8Zm-12 3H5v2.01h2.01V11Zm3 0H8v2.01h2.01V11Zm3 0H11v2.01h2.01V11Zm3 0H14v2.01h2.01V11Zm3 0H17v2.01h2.01V11Zm-12 3H5v2.01h2.01V14ZM8 14l-.001 2 8.011.01V14H8Zm11.01 0H17v2.01h2.01V14Z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <input type="text" id="input-group-1" value={code} onChange={(e) => setCode(e.target.value)} className="w-full rounded-lg border border-gray-200 bg-white p-3.5 ps-10 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder={t("create.codePlaceholder")} required />
+                  <input type="text" id="input-group-1" value={code} onChange={(e) => setCode(e.target.value)} className="block w-full rounded-lg border border-gray-300 bg-surface-2 p-2.5 ps-10 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder={t("create.codePlaceholder")} required />
                 </div>
               </div>
               <button type="submit" className="w-full shrink-0 rounded-lg border border-gray-200 bg-white px-5 py-3 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto">
@@ -124,8 +124,8 @@ export function CreateMeetingPage() {
             </div>
           </div>
           <div className="col-span-6 hidden lg:grid">
-            <img className="mx-auto mb-4 dark:hidden" src="../../images/communication.svg" alt="illustration" />
-            <img className="mx-auto mb-4 hidden dark:block" src="../../images/communication-dark.svg" alt="illustration" />
+            <img className="mx-auto mb-4 dark:hidden" src="../../images/communication.svg" alt="" aria-hidden="true" />
+            <img className="mx-auto mb-4 hidden dark:block" src="../../images/communication-dark.svg" alt="" aria-hidden="true" />
           </div>
         </div>
       </section>

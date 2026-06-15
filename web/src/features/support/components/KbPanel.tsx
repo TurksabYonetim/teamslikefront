@@ -25,11 +25,11 @@ export function KbPanel() {
           onChange={(e) => setQ(e.target.value)}
           placeholder={t("kb.search")}
           aria-label={t("kb.search")}
-          className="h-10 w-full rounded-md border border-line bg-surface pl-7 pr-2 text-base text-ink outline-none placeholder:text-muted focus-visible:ring-2 focus-visible:ring-brand"
+          className="block h-10 w-full rounded-lg border border-gray-300 bg-surface-2 pl-7 pr-2 text-sm text-ink placeholder:text-muted focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
         />
       </div>
       {results.length === 0 ? (
-        <p className="px-1 py-2 text-base text-muted">{t("kb.empty")}</p>
+        <p className="px-1 py-2 text-sm text-muted">{t("kb.empty")}</p>
       ) : (
         <ul className="space-y-0.5">
           {results.map((a) => {
@@ -39,7 +39,7 @@ export function KbPanel() {
                 <button
                   onClick={() => setOpen((o) => (o === a.id ? null : a.id))}
                   aria-expanded={isOpen}
-                  className="flex w-full items-center gap-1 rounded-md px-2 py-1 text-left text-base text-ink transition-colors hover:bg-surface-2 motion-safe:transition-transform motion-safe:active:scale-[0.97]"
+                  className="flex w-full items-center gap-1 rounded-md px-2 py-1 text-left text-sm text-ink transition-colors hover:bg-surface-2 motion-safe:transition-transform motion-safe:active:scale-[0.97]"
                 >
                   <Icon
                     name="chevronRight"
@@ -52,7 +52,7 @@ export function KbPanel() {
                   <span className="min-w-0 flex-1 truncate">{a.title}</span>
                 </button>
                 {isOpen ? (
-                  <p className="px-2 pb-1.5 pl-7 text-base text-muted animate-[tl-fade-in_180ms_var(--ease-out)]">{a.body}</p>
+                  <p className="px-2 pb-1.5 pl-7 text-sm text-muted animate-[tl-fade-in_180ms_var(--ease-out)]">{a.body}</p>
                 ) : null}
               </li>
             );

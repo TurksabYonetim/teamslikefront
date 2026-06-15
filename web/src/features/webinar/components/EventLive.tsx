@@ -17,9 +17,9 @@ export function EventLive() {
   const exitLive = () => webinarStore.getState().exitLive();
 
   return (
-    <div data-theme="dark" className="space-y-3 rounded-xl bg-slate-950 p-4">
+    <div data-theme="dark" className="space-y-3 rounded-xl bg-surface p-4">
       <div className="flex items-center gap-2">
-        <span className="text-lg font-semibold text-white">{event.title}</span>
+        <h1 className="text-xl font-semibold text-white">{event.title}</h1>
         <Button variant="secondary" className="ml-auto" onClick={exitLive} leftIcon={<Icon name="signOut" className="h-[18px] w-[18px]" />}>
           {t("exitLive")}
         </Button>

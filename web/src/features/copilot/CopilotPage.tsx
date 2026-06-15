@@ -488,7 +488,7 @@ export function CopilotPage() {
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 disabled={!activeId || sendMessage.isPending}
-                className="block w-full border-0 bg-white px-0 text-sm text-gray-800 focus:ring-0 disabled:opacity-50 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400"
               />
               <button type="submit" disabled={!activeId || sendMessage.isPending || !draft.trim()} className="inline-flex cursor-pointer justify-center rounded-full p-2 text-primary-600 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-primary-100 disabled:cursor-not-allowed disabled:opacity-50 dark:text-primary-500 dark:hover:bg-gray-600">
                 <svg className="h-4 w-4 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
@@ -504,7 +504,7 @@ export function CopilotPage() {
       {/* drawer component */}
       <div id="drawer-chat-history" className="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] translate-x-full bg-white w-80 dark:bg-gray-800" tabIndex={-1} aria-labelledby="drawer-right-label">
         <div className="border-b border-gray-200 dark:border-gray-700">
-          <h5 id="drawer-right-label" className="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400">{t("history.title")}</h5>
+          <h5 id="drawer-right-label" className="inline-flex items-center mb-4 text-base font-semibold text-gray-900 dark:text-white">{t("history.title")}</h5>
           <button type="button" data-drawer-hide="drawer-chat-history" aria-controls="drawer-chat-history" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
             <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
@@ -528,7 +528,7 @@ export function CopilotPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("history.searchPlaceholder")}
-              className="block w-full rounded-lg border border-gray-200 bg-gray-50 p-2 ps-9 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-9 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400"
             />
           </div>
         </div>
@@ -550,7 +550,7 @@ export function CopilotPage() {
 
           {groupedSessions.map((group) => (
             <div key={group.key}>
-              <h6 className="inline-flex items-center mb-3 text-sm font-medium text-gray-500 dark:text-gray-400">{t(`history.${group.key}`)}</h6>
+              <h6 className="inline-flex items-center mb-3 text-xs font-semibold text-gray-500 dark:text-gray-400">{t(`history.${group.key}`)}</h6>
               <ul className="space-y-2">
                 {group.items.map((s) => (
                   <li key={s.id} className={`flex items-center justify-between p-1.5 rounded-lg transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 dark:hover:bg-gray-700 ${s.id === activeId ? "bg-gray-100 dark:bg-gray-700" : ""}`}>
@@ -571,7 +571,7 @@ export function CopilotPage() {
                             if (e.key === "Escape") cancelRename();
                           }}
                           onBlur={commitRename}
-                          className="min-w-0 flex-1 rounded-md border border-gray-300 bg-white px-2 py-1 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+                          className="min-w-0 flex-1 rounded-md border border-gray-300 bg-white px-2 py-1 text-sm text-gray-900 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
                         />
                         <button type="submit" className="shrink-0 rounded-md p-1 text-gray-400 hover:text-green-600 dark:hover:text-green-500" aria-label={t("history.renameSave")}>
                           <svg className="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

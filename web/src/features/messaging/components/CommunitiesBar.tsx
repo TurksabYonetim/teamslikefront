@@ -32,7 +32,7 @@ export function CommunitiesBar() {
         onClick={() => navigate("/")}
         aria-label={t("common:nav.home")}
         title={t("common:nav.home")}
-        className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-muted hover:bg-surface-3 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+        className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface text-muted hover:bg-surface-3 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
       >
         <HiOutlineSquares2X2 className="h-5 w-5" aria-hidden />
       </button>
@@ -42,10 +42,10 @@ export function CommunitiesBar() {
           type="button"
           onClick={() => pick(c)}
           aria-label={c.name}
-          aria-current={activeId === c.id}
+          aria-current={activeId === c.id ? "page" : undefined}
           title={c.name}
           className={clsx(
-            "flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold uppercase",
+            "flex h-11 w-11 items-center justify-center rounded-xl text-base font-semibold uppercase",
             activeId === c.id
               ? "bg-brand text-white"
               : "bg-white text-ink hover:bg-surface-3 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700",

@@ -16,33 +16,33 @@ export function Scorecard() {
       <h3 className="mb-2 text-base font-semibold text-ink dark:text-white">{t("scorecard")}</h3>
       <dl className="grid grid-cols-2 gap-3">
         <div>
-          <dt className="text-base text-muted dark:text-gray-400">{t("talkRatio")}</dt>
-          <dd className="text-xl font-semibold text-ink dark:text-white">{sc.talkRatio}%</dd>
+          <dt className="text-xs text-muted dark:text-gray-400">{t("talkRatio")}</dt>
+          <dd className="text-base font-semibold text-ink dark:text-white">{sc.talkRatio}%</dd>
         </div>
         <div>
-          <dt className="text-base text-muted dark:text-gray-400">{t("sentimentAvg")}</dt>
-          <dd className="text-xl font-semibold">
+          <dt className="text-xs text-muted dark:text-gray-400">{t("sentimentAvg")}</dt>
+          <dd className="text-base font-semibold">
             <SentimentChip sentiment={sentimentFromValue(sc.sentiment)} />
           </dd>
         </div>
         <div>
-          <dt className="text-base text-muted dark:text-gray-400">{t("questions")}</dt>
-          <dd className="text-xl font-semibold text-ink dark:text-white">{sc.questions}</dd>
+          <dt className="text-xs text-muted dark:text-gray-400">{t("questions")}</dt>
+          <dd className="text-base font-semibold text-ink dark:text-white">{sc.questions}</dd>
         </div>
         <div>
-          <dt className="text-base text-muted dark:text-gray-400">{t("pace")}</dt>
-          <dd className="text-xl font-semibold text-ink dark:text-white">
+          <dt className="text-xs text-muted dark:text-gray-400">{t("pace")}</dt>
+          <dd className="text-base font-semibold text-ink dark:text-white">
             {sc.pace} {t("wpm")}
           </dd>
         </div>
         <div>
-          <dt className="text-base text-muted dark:text-gray-400">{t("monologue")}</dt>
-          <dd className="text-xl font-semibold text-ink dark:text-white">{fmtClock(sc.monologueSec)}</dd>
+          <dt className="text-xs text-muted dark:text-gray-400">{t("monologue")}</dt>
+          <dd className="text-base font-semibold text-ink dark:text-white">{fmtClock(sc.monologueSec)}</dd>
         </div>
         {sc.csat ? (
           <div>
-            <dt className="text-base text-muted dark:text-gray-400">{t("csat")}</dt>
-            <dd className="flex items-center gap-0.5">
+            <dt className="text-xs text-muted dark:text-gray-400">{t("csat")}</dt>
+            <dd className="flex items-center gap-0.5" aria-label={`${sc.csat} / 5`}>
               {[1, 2, 3, 4, 5].map((nn) =>
                 nn <= sc.csat! ? (
                   <HiStar key={nn} className="h-4 w-4 text-amber-500" aria-hidden />
@@ -57,10 +57,10 @@ export function Scorecard() {
 
       {sc.predictedCsat ? (
         <div className="mt-3 rounded-md border border-line bg-surface-2 p-2 dark:border-gray-700 dark:bg-gray-700">
-          <div className="flex items-center gap-1 text-base font-semibold text-ink dark:text-white">
+          <div className="flex items-center gap-1 text-sm font-semibold text-ink dark:text-white">
             <HiOutlineSparkles className="h-3.5 w-3.5 text-brand" aria-hidden />
             {t("predictedCsat")}
-            <span className="ml-auto flex items-center gap-0.5">
+            <span className="ml-auto flex items-center gap-0.5" aria-label={`${sc.predictedCsat} / 5`}>
               {[1, 2, 3, 4, 5].map((nn) =>
                 nn <= sc.predictedCsat! ? (
                   <HiStar key={nn} className="h-3.5 w-3.5 text-amber-500" aria-hidden />
@@ -70,7 +70,7 @@ export function Scorecard() {
               )}
             </span>
           </div>
-          {sc.csatReason ? <p className="mt-1 text-base text-muted dark:text-gray-400">{sc.csatReason}</p> : null}
+          {sc.csatReason ? <p className="mt-1 text-sm text-muted dark:text-gray-400">{sc.csatReason}</p> : null}
         </div>
       ) : null}
     </div>

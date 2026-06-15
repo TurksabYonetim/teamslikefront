@@ -83,9 +83,9 @@ export function SidePanel() {
   return (
     <aside
       aria-label={t("panel")}
-      className="flex w-80 shrink-0 flex-col border-l border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900"
+      className="flex w-80 shrink-0 flex-col border-l border-line bg-white dark:border-gray-700 dark:bg-gray-900"
     >
-      <div className="flex items-center gap-1 border-b border-gray-200 p-2 dark:border-gray-700" role="tablist">
+      <div className="flex items-center gap-1 border-b border-line p-2 dark:border-gray-700" role="tablist">
         {TABS.map((tb) => (
           <button
             key={tb.key}
@@ -158,7 +158,7 @@ export function SidePanel() {
                     type="button"
                     onClick={() => act().toggleParticipantMute(p.id)}
                     aria-label={p.micOn ? t("muteParticipant") : t("unmuteParticipant")}
-                    className="rounded-md p-1 text-muted hover:bg-surface-2 dark:hover:bg-gray-800"
+                    className="rounded-md p-1.5 text-muted hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-brand dark:hover:bg-gray-800"
                   >
                     {p.micOn ? (
                       <HiOutlineMicrophone className="h-4 w-4" aria-hidden />
@@ -172,7 +172,7 @@ export function SidePanel() {
                         type="button"
                         onClick={() => act().toggleSpotlight(p.id)}
                         aria-label={spotlightId === p.id ? t("unspotlight") : t("spotlight")}
-                        className="rounded-md p-1 text-muted hover:bg-surface-2 dark:hover:bg-gray-800"
+                        className="rounded-md p-1.5 text-muted hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-brand dark:hover:bg-gray-800"
                       >
                         <HiOutlineMapPin className="h-4 w-4" aria-hidden />
                       </button>
@@ -181,7 +181,7 @@ export function SidePanel() {
                           type="button"
                           onClick={() => act().toggleParticipantHand(p.id)}
                           aria-label={t("lowerHand")}
-                          className="rounded-md p-1 text-muted hover:bg-surface-2 dark:hover:bg-gray-800"
+                          className="rounded-md p-1.5 text-muted hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-brand dark:hover:bg-gray-800"
                         >
                           <HiOutlineHandRaised className="h-4 w-4" aria-hidden />
                         </button>
@@ -191,7 +191,7 @@ export function SidePanel() {
                           type="button"
                           onClick={() => act().makeCoHost(p.id)}
                           aria-label={t("makeCoHost")}
-                          className="rounded-md p-1 text-muted hover:bg-surface-2 dark:hover:bg-gray-800"
+                          className="rounded-md p-1.5 text-muted hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-brand dark:hover:bg-gray-800"
                         >
                           <HiOutlineStar className="h-4 w-4" aria-hidden />
                         </button>
@@ -200,7 +200,7 @@ export function SidePanel() {
                         type="button"
                         onClick={() => act().removeParticipant(p.id)}
                         aria-label={t("removeParticipant")}
-                        className="rounded-md p-1 text-red-500 hover:bg-surface-2 dark:hover:bg-gray-800"
+                        className="rounded-md p-1.5 text-red-500 hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-brand dark:hover:bg-gray-800"
                       >
                         <HiOutlineUserMinus className="h-4 w-4" aria-hidden />
                       </button>
@@ -266,7 +266,7 @@ export function SidePanel() {
                 {captionsOn ? t("captionsOn") : t("captionsOff")}
               </Button>
               <div
-                className="inline-flex overflow-hidden rounded-md border border-gray-200 dark:border-gray-700"
+                className="inline-flex overflow-hidden rounded-md border border-line dark:border-gray-700"
                 role="group"
                 aria-label={t("captionLang")}
               >
@@ -277,7 +277,7 @@ export function SidePanel() {
                     aria-pressed={captionLang === l}
                     onClick={() => act().setCaptionLang(l)}
                     className={clsx(
-                      "h-9 px-3 text-sm",
+                      "h-10 px-3 text-sm focus-visible:ring-2 focus-visible:ring-brand",
                       captionLang === l
                         ? "bg-brand text-white"
                         : "bg-surface-2 text-muted hover:bg-surface-3 dark:bg-gray-800 dark:hover:bg-gray-700",
@@ -307,7 +307,7 @@ export function SidePanel() {
       </div>
 
       {tab === "chat" ? (
-        <div className="border-t border-gray-200 p-2 dark:border-gray-700">
+        <div className="border-t border-line p-2 dark:border-gray-700">
           <div className="flex items-end gap-2">
             <label htmlFor="mtg-chat" className="sr-only">
               {t("chatPlaceholder")}
@@ -324,7 +324,7 @@ export function SidePanel() {
                 }
               }}
               placeholder={t("chatPlaceholder")}
-              className="min-h-[2.75rem] flex-1 resize-none rounded-md border border-gray-200 bg-surface-2 p-2 text-sm text-ink outline-none placeholder:text-muted dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
+              className="min-h-[2.75rem] flex-1 resize-none rounded-md border border-gray-300 bg-surface-2 p-2 text-sm text-ink placeholder:text-muted focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
             />
             <IconButton
               label={t("send")}

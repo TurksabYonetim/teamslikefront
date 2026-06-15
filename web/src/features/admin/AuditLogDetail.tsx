@@ -66,13 +66,13 @@ export function AuditLogDetail({
       <dl className="flex flex-col gap-3">
         {rows.map((r) => (
           <div key={r.label} className="flex items-start justify-between gap-3">
-            <dt className="text-[12.5px] text-gray-500 pt-0.5">{r.label}</dt>
+            <dt className="text-xs text-muted pt-0.5">{r.label}</dt>
             <dd className="flex items-center gap-1.5 text-right">
               <span
                 className={
                   r.mono
-                    ? "font-mono text-[12.5px] text-gray-900 break-all"
-                    : "text-sm font-medium text-gray-900 break-words"
+                    ? "font-mono text-sm text-ink break-all"
+                    : "text-sm font-medium text-ink break-words"
                 }
               >
                 {r.value}
@@ -82,7 +82,7 @@ export function AuditLogDetail({
                   type="button"
                   onClick={() => copy(r.value)}
                   title={t("audit.copy")}
-                  className="shrink-0 rounded p-1 text-gray-400 transition-[transform,background-color,color] duration-150 ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                  className="shrink-0 rounded p-1 text-muted transition-[transform,background-color,color] duration-150 ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-surface-2 hover:text-ink-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
                 >
                   <Icon name="copy" className="w-3.5 h-3.5" />
                 </button>

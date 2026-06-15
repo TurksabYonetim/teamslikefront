@@ -337,10 +337,10 @@ export function IntelligencePage() {
                       value={draftTitle}
                       onChange={(e) => setDraftTitle(e.target.value)}
                       placeholder={t("viewer.titlePlaceholder")}
-                      className="text-2xl font-bold text-ink w-full bg-transparent border-0 border-b border-line focus:border-brand/40 focus:outline-none px-0"
+                      className="text-base font-semibold text-ink w-full bg-transparent border-0 border-b border-line focus:border-brand/40 focus:outline-none px-0"
                     />
                   ) : (
-                    <h2 className="text-2xl font-bold text-ink truncate">
+                    <h2 className="text-base font-semibold text-ink truncate">
                       {draftTitle || t("untitled")}
                     </h2>
                   )}
