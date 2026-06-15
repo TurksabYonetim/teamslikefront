@@ -1,0 +1,83 @@
+{
+  "page": {
+    "title": "Kiracı ayarları"
+  },
+  "tabs": {
+    "organization": "Organizasyon",
+    "profile": "Profil",
+    "team": "Ekip",
+    "security": "Güvenlik"
+  },
+  "common": {
+    "save": "Değişiklikleri kaydet",
+    "saved": "Kaydedildi",
+    "saving": "Kaydediliyor…",
+    "loadFailed": "Bilgiler yüklenemedi.",
+    "retry": "Tekrar dene",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "cancel": "Vazgeç"
+  },
+  "organization": {
+    "title": "Organizasyon",
+    "desc": "Kiracınızın temel bilgileri.",
+    "loadFailed": "Kiracı bilgisi yüklenemedi.",
+    "name": "Ad",
+    "namePlaceholder": "Organizasyon adı",
+    "slug": "Slug",
+    "status": "Durum",
+    "active": "Aktif",
+    "inactive": "Pasif",
+    "createdAt": "Oluşturulma",
+    "tenantId": "Kiracı ID",
+    "resetToServer": "Sunucu adına dön",
+    "localOnlyNote": "Bu ad yalnızca bu tarayıcıda saklanır (sunucuda güncelleme ucu yok).",
+    "saveSuccess": "Organizasyon adı kaydedildi.",
+    "resetSuccess": "Sunucu adına dönüldü."
+  },
+  "profile": {
+    "title": "Profil",
+    "desc": "Oturum açan kullanıcı bilgileri.",
+    "loadFailed": "Profil yüklenemedi.",
+    "fullName": "Ad Soyad",
+    "email": "E-posta",
+    "role": "Rol",
+    "userId": "Kullanıcı ID",
+    "unknown": "—"
+  },
+  "team": {
+    "title": "Ekip",
+    "desc": "Bu kiracıdaki kullanıcılar.",
+    "loadFailed": "Ekip yüklenemedi.",
+    "emptyTitle": "Kullanıcı bulunamadı",
+    "emptyDesc": "Bu kiracıda henüz başka kullanıcı yok.",
+    "memberCount": "{{count}} üye",
+    "memberCount_one": "{{count}} üye",
+    "inactive": "pasif",
+    "noName": "—"
+  },
+  "security": {
+    "secretTitle": "İmzalama Anahtarı",
+    "secretDesc": "Son kullanıcı JWT'lerini bu anahtarla imzalarsınız. Yalnızca sunucu tarafında tutun, tarayıcıya bırakmayın.",
+    "secretLoadFailed": "Anahtar yüklenemedi.",
+    "secretLabel": "Anahtar",
+    "show": "Göster",
+    "hide": "Gizle",
+    "codeExampleLabel": "Örnek kullanım",
+    "dangerZone": "Tehlikeli bölge",
+    "rotateTitle": "İmzalama anahtarını yenile",
+    "rotateDesc": "Tüm aktif son kullanıcı token'ları geçersiz olur.",
+    "rotate": "Yenile",
+    "rotating": "Yenileniyor…",
+    "rotateConfirmTitle": "İmzalama anahtarını yenile?",
+    "rotateConfirmMessage": "Bu işlem geri alınamaz. Mevcut anahtarla imzalanmış tüm aktif son kullanıcı token'ları anında geçersiz olur ve yeni anahtarla yeniden imzalamanız gerekir.",
+    "rotateConfirm": "Evet, yenile",
+    "rotateSuccess": "İmzalama anahtarı yenilendi.",
+    "rotateError": "Yenileme başarısız oldu.",
+    "copySuccess": "Anahtar panoya kopyalandı.",
+    "deleteTitle": "Kiracıyı sil",
+    "deleteDesc": "Tüm veriler kalıcı olarak silinir.",
+    "delete": "Sil",
+    "deleteDisabledHint": "Sunucuda silme ucu yok."
+  }
+}

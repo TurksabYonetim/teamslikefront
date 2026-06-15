@@ -1,0 +1,84 @@
+{
+  "topbar": {
+    "badge": "Portal",
+    "identity": "Kimlik",
+    "guest": "Misafir"
+  },
+  "home": {
+    "title": "Size nasıl yardımcı olabiliriz?",
+    "subtitle": "Bir temsilciyle sohbet başlatın. Mesajlarınız yalnızca seçtiğiniz kişiye iletilir.",
+    "activeTitle": "Aktif sohbetleriniz",
+    "activeSubtitle": "Devam eden görüşmelerinize buradan ulaşın.",
+    "goToChats": "Sohbetlerime git",
+    "sellersTitle": "Temsilciler"
+  },
+  "gate": {
+    "title": "Portal erişimi gerekli",
+    "subtitle": "Bilgilerinizi girin; portal erişim anahtarınız (JWT) otomatik oluşturulur.",
+    "tenant": "Tenant",
+    "tenantPlaceholder": "teamslike-demo",
+    "email": "E-posta",
+    "emailPlaceholder": "siz@ornek.com",
+    "name": "Ad",
+    "namePlaceholder": "Adınız",
+    "secret": "Signing secret",
+    "secretPlaceholder": "tenant signing_secret",
+    "secretHint": "Yalnızca demo içindir; üretimde JWT sunucu tarafında imzalanır.",
+    "error": "Bağlanılamadı. Bilgileri kontrol edin.",
+    "connect": "Bağlan",
+    "connecting": "Bağlanıyor…"
+  },
+  "sellers": {
+    "online": "Çevrimiçi",
+    "chat": "Sohbet",
+    "emptyTitle": "Henüz temsilci yok",
+    "emptyDesc": "Şu an görüntülenecek bir temsilci bulunmuyor. Daha sonra tekrar deneyin.",
+    "errorTitle": "Temsilciler alınamadı",
+    "retry": "Tekrar dene",
+    "changeKey": "Portal anahtarını değiştir"
+  },
+  "chat": {
+    "myChats": "Sohbetlerim",
+    "newChat": "Yeni sohbet",
+    "backToPortal": "Portala dön",
+    "agent": "Temsilci",
+    "you": "Siz",
+    "messagePlaceholder": "Mesajınızı yazın...",
+    "send": "Gönder",
+    "sendError": "Mesaj gönderilemedi. Tekrar deneyin.",
+    "threadsEmptyTitle": "Henüz sohbetiniz yok",
+    "threadsEmptyDesc": "Bir temsilci seçip ilk mesajınızı gönderin.",
+    "threadsErrorTitle": "Sohbetler yüklenemedi",
+    "messagesEmptyTitle": "Henüz mesaj yok",
+    "messagesEmptyDesc": "İlk mesajı siz gönderin; temsilci en kısa sürede yanıtlar.",
+    "messagesErrorTitle": "Mesajlar yüklenemedi",
+    "noActiveTitle": "Bir sohbet seçin",
+    "noActiveDesc": "Görüntülemek için soldan bir sohbet seçin veya yeni bir sohbet başlatın.",
+    "startNew": "Yeni sohbet başlat",
+    "retry": "Tekrar dene",
+    "gateTitle": "Portal erişimi gerekli",
+    "gateDesc": "Sohbetlerinizi görmek için portala bağlanın.",
+    "goToPortal": "Portala git",
+    "backToList": "Sohbetler"
+  },
+  "newThread": {
+    "title": "Yeni sohbet başlat",
+    "selectSeller": "Temsilci seç",
+    "loadingSellers": "Temsilciler yükleniyor…",
+    "noSellers": "Seçilebilecek temsilci yok.",
+    "firstMessage": "İlk mesaj",
+    "defaultMessage": "Merhaba, bir konuda yardıma ihtiyacım var.",
+    "error": "Sohbet başlatılamadı. Tekrar deneyin.",
+    "cancel": "İptal",
+    "start": "Başlat",
+    "starting": "Başlatılıyor…"
+  },
+  "whoami": {
+    "title": "Kimlik (whoami)",
+    "subtitle": "doğrulanan JWT claim'leri.",
+    "loading": "Yükleniyor…",
+    "noKey": "Portal anahtarı girilmedi.",
+    "hint": "Bu token sizin backend'inizde signing_secret ile imzalanır; TeamsLike yalnızca doğrular.",
+    "logout": "Çıkış"
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "page": {
+    "title": "Tenant settings"
+  },
+  "tabs": {
+    "organization": "Organization",
+    "profile": "Profile",
+    "team": "Team",
+    "security": "Security"
+  },
+  "common": {
+    "save": "Save changes",
+    "saved": "Saved",
+    "saving": "Saving…",
+    "loadFailed": "Failed to load.",
+    "retry": "Retry",
+    "copy": "Copy",
+    "copied": "Copied",
+    "cancel": "Cancel"
+  },
+  "organization": {
+    "title": "Organization",
+    "desc": "Your tenant's core information.",
+    "loadFailed": "Failed to load tenant info.",
+    "name": "Name",
+    "namePlaceholder": "Organization name",
+    "slug": "Slug",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "createdAt": "Created",
+    "tenantId": "Tenant ID",
+    "resetToServer": "Reset to server name",
+    "localOnlyNote": "This name is stored only in this browser (no server update endpoint).",
+    "saveSuccess": "Organization name saved.",
+    "resetSuccess": "Reset to server name."
+  },
+  "profile": {
+    "title": "Profile",
+    "desc": "Signed-in user details.",
+    "loadFailed": "Failed to load profile.",
+    "fullName": "Full name",
+    "email": "Email",
+    "role": "Role",
+    "userId": "User ID",
+    "unknown": "—"
+  },
+  "team": {
+    "title": "Team",
+    "desc": "Users in this tenant.",
+    "loadFailed": "Failed to load team.",
+    "emptyTitle": "No users found",
+    "emptyDesc": "There are no other users in this tenant yet.",
+    "memberCount": "{{count}} members",
+    "memberCount_one": "{{count}} member",
+    "inactive": "inactive",
+    "noName": "—"
+  },
+  "security": {
+    "secretTitle": "Signing Secret",
+    "secretDesc": "You sign end-user JWTs with this secret. Keep it server-side only, never expose it to the browser.",
+    "secretLoadFailed": "Failed to load secret.",
+    "secretLabel": "Secret",
+    "show": "Show",
+    "hide": "Hide",
+    "codeExampleLabel": "Example usage",
+    "dangerZone": "Danger zone",
+    "rotateTitle": "Rotate signing secret",
+    "rotateDesc": "All active end-user tokens will be invalidated.",
+    "rotate": "Rotate",
+    "rotating": "Rotating…",
+    "rotateConfirmTitle": "Rotate signing secret?",
+    "rotateConfirmMessage": "This action cannot be undone. All active end-user tokens signed with the current secret will be invalidated immediately, and you will need to re-sign them with the new secret.",
+    "rotateConfirm": "Yes, rotate",
+    "rotateSuccess": "Signing secret rotated.",
+    "rotateError": "Rotation failed.",
+    "copySuccess": "Secret copied to clipboard.",
+    "deleteTitle": "Delete tenant",
+    "deleteDesc": "All data is permanently deleted.",
+    "delete": "Delete",
+    "deleteDisabledHint": "No delete endpoint on the server."
+  }
+}

@@ -1,0 +1,344 @@
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import {
+  HiOutlineXMark,
+  HiOutlineMicrophone,
+  HiOutlineVideoCamera,
+  HiOutlineHandRaised,
+  HiOutlinePaperAirplane,
+  HiOutlineUsers,
+  HiOutlineMapPin,
+  HiOutlineStar,
+  HiOutlineUserMinus,
+  HiOutlineArrowTopRightOnSquare,
+  HiOutlineLink,
+} from "react-icons/hi2";
+import { MdMicOff, MdClosedCaption } from "react-icons/md";
+import clsx from "clsx";
+import { meetingStore, useMeeting } from "../meetings.store";
+import { memberName } from "@/features/messaging/members";
+import { useMessaging, messagingStore } from "@/features/messaging/store";
+import { Avatar, Badge, Button, IconButton } from "@/components/ui";
+import { BreakoutManager } from "./BreakoutManager";
+import type { CaptionLang, SidePanelTab } from "../meetings.store.types";
+
+const TABS: { key: Exclude<SidePanelTab, "none" | "host" | "engage">; labelKey: string }[] = [
+  { key: "participants", labelKey: "participants" },
+  { key: "chat", labelKey: "chat" },
+  { key: "captions", labelKey: "captions" },
+];
+
+const relTime = (t: (k: string, o?: Record<string, unknown>) => string, tMin: number) =>
+  tMin === 0 ? t("now") : t("minAgo", { n: tMin });
+
+export function SidePanel() {
+  const { t } = useTranslation("meetings");
+  const sidePanel = useMeeting((s) => s.sidePanel);
+  const participants = useMeeting((s) => s.participants);
+  const lobbyQueue = useMeeting((s) => s.lobbyQueue);
+  const spotlightId = useMeeting((s) => s.spotlightId);
+  const chat = useMeeting((s) => s.chat);
+  const captions = useMeeting((s) => s.captions);
+  const captionsOn = useMeeting((s) => s.captionsOn);
+  const captionLang = useMeeting((s) => s.captionLang);
+  // Meeting↔kanal köprüsü: bağlı topic varsa sohbet o kanaldan okunur/yazılır.
+  const linkedTopicId = useMeeting((s) => s.linkedTopicId);
+  const linkedMessages = useMessaging((s) =>
+    linkedTopicId ? s.messages.filter((m) => m.topicId === linkedTopicId && !m.parentId) : [],
+  );
+
+  const navigate = useNavigate();
+  const [chatText, setChatText] = React.useState("");
+  const [breakoutOpen, setBreakoutOpen] = React.useState(false);
+  const captionsRef = React.useRef<HTMLDivElement>(null);
+
+  const act = () => meetingStore.getState();
+  const linked = Boolean(linkedTopicId);
+
+  const submitChat = () => {
+    if (!chatText.trim()) return;
+    if (linked) act().postToLinkedChannel(chatText);
+    else act().sendChat(chatText);
+    setChatText("");
+  };
+
+  const openFullChat = () => {
+    const channelId = meetingStore.getState().linkedChannelId;
+    if (channelId) messagingStore.getState().setChannel(channelId);
+    if (linkedTopicId) messagingStore.getState().setTopic(linkedTopicId);
+    navigate("/inbox");
+  };
+
+  React.useEffect(() => {
+    const el = captionsRef.current;
+    if (el && typeof el.scrollIntoView === "function") el.scrollIntoView({ block: "end" });
+  }, [captions]);
+
+  if (sidePanel === "none" || sidePanel === "host" || sidePanel === "engage") return null;
+  const tab = sidePanel;
+  const self = participants.find((p) => p.isSelf);
+  const isHost = self?.role === "host" || self?.role === "cohost";
+
+  return (
+    <aside
+      aria-label={t("panel")}
+      className="flex w-80 shrink-0 flex-col border-l border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900"
+    >
+      <div className="flex items-center gap-1 border-b border-gray-200 p-2 dark:border-gray-700" role="tablist">
+        {TABS.map((tb) => (
+          <button
+            key={tb.key}
+            type="button"
+            role="tab"
+            aria-selected={tab === tb.key}
+            onClick={() => act().setSidePanel(tb.key)}
+            className={clsx(
+              "h-10 flex-1 rounded-md text-sm font-medium",
+              tab === tb.key
+                ? "bg-brand text-white"
+                : "text-ink-2 hover:bg-surface-2 dark:text-gray-300 dark:hover:bg-gray-800",
+            )}
+          >
+            {t(tb.labelKey)}
+          </button>
+        ))}
+        <IconButton label={t("closePanel")} onClick={() => act().setSidePanel("none")}>
+          <HiOutlineXMark className="h-5 w-5" aria-hidden />
+        </IconButton>
+      </div>
+
+      <div className="min-h-0 flex-1 overflow-y-auto p-3">
+        {tab === "participants" ? (
+          <div className="space-y-3">
+            {lobbyQueue.length > 0 ? (
+              <div className="rounded-md border border-amber-300 bg-amber-50 p-2 dark:border-amber-700 dark:bg-amber-950">
+                <div className="mb-1 text-sm font-semibold text-ink dark:text-gray-100">
+                  {t("lobbyWaiting")}
+                </div>
+                {lobbyQueue.map((l) => (
+                  <div key={l.id} className="flex items-center gap-2 py-1">
+                    <Avatar name={l.name} size="sm" />
+                    <span className="flex-1 truncate text-sm text-ink dark:text-gray-100">{l.name}</span>
+                    <Button size="sm" onClick={() => act().admit(l.id)}>
+                      {t("admit")}
+                    </Button>
+                    <Button size="sm" variant="ghost" onClick={() => act().denyLobby(l.id)}>
+                      {t("deny")}
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+
+            <Button variant="secondary" className="w-full" leftIcon={<HiOutlineUsers className="h-4 w-4" aria-hidden />} onClick={() => setBreakoutOpen(true)}>
+              {t("breakouts")}
+            </Button>
+
+            <ul className="space-y-1">
+              {participants.map((p) => (
+                <li key={p.id} className="flex items-center gap-2 rounded-md px-1 py-1">
+                  <Avatar name={p.name} size="sm" />
+                  <span className="flex-1 truncate text-sm text-ink dark:text-gray-100">
+                    {p.isSelf ? `${p.name} (${t("you")})` : p.name}
+                  </span>
+                  {p.role !== "attendee" ? (
+                    <Badge tone="accent">{t(`role.${p.role}`)}</Badge>
+                  ) : null}
+                  {p.handRaised ? (
+                    <HiOutlineHandRaised className="h-4 w-4 text-amber-500" aria-label={t("handRaised")} />
+                  ) : null}
+                  {p.camOn ? (
+                    <HiOutlineVideoCamera className="h-4 w-4 text-muted" aria-hidden />
+                  ) : null}
+                  {spotlightId === p.id ? (
+                    <HiOutlineMapPin className="h-3.5 w-3.5 text-amber-500" aria-label={t("spotlighted")} />
+                  ) : null}
+                  <button
+                    type="button"
+                    onClick={() => act().toggleParticipantMute(p.id)}
+                    aria-label={p.micOn ? t("muteParticipant") : t("unmuteParticipant")}
+                    className="rounded-md p-1 text-muted hover:bg-surface-2 dark:hover:bg-gray-800"
+                  >
+                    {p.micOn ? (
+                      <HiOutlineMicrophone className="h-4 w-4" aria-hidden />
+                    ) : (
+                      <MdMicOff className="h-4 w-4 text-red-500" aria-hidden />
+                    )}
+                  </button>
+                  {isHost && !p.isSelf ? (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => act().toggleSpotlight(p.id)}
+                        aria-label={spotlightId === p.id ? t("unspotlight") : t("spotlight")}
+                        className="rounded-md p-1 text-muted hover:bg-surface-2 dark:hover:bg-gray-800"
+                      >
+                        <HiOutlineMapPin className="h-4 w-4" aria-hidden />
+                      </button>
+                      {p.handRaised ? (
+                        <button
+                          type="button"
+                          onClick={() => act().toggleParticipantHand(p.id)}
+                          aria-label={t("lowerHand")}
+                          className="rounded-md p-1 text-muted hover:bg-surface-2 dark:hover:bg-gray-800"
+                        >
+                          <HiOutlineHandRaised className="h-4 w-4" aria-hidden />
+                        </button>
+                      ) : null}
+                      {p.role === "attendee" ? (
+                        <button
+                          type="button"
+                          onClick={() => act().makeCoHost(p.id)}
+                          aria-label={t("makeCoHost")}
+                          className="rounded-md p-1 text-muted hover:bg-surface-2 dark:hover:bg-gray-800"
+                        >
+                          <HiOutlineStar className="h-4 w-4" aria-hidden />
+                        </button>
+                      ) : null}
+                      <button
+                        type="button"
+                        onClick={() => act().removeParticipant(p.id)}
+                        aria-label={t("removeParticipant")}
+                        className="rounded-md p-1 text-red-500 hover:bg-surface-2 dark:hover:bg-gray-800"
+                      >
+                        <HiOutlineUserMinus className="h-4 w-4" aria-hidden />
+                      </button>
+                    </>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        {tab === "chat" ? (
+          <div className="flex h-full flex-col">
+            {linked ? (
+              <div className="mb-2 flex items-center gap-2 rounded-md border border-brand/30 bg-brand/5 p-2">
+                <HiOutlineLink className="h-4 w-4 shrink-0 text-brand" aria-hidden />
+                <span className="flex-1 truncate text-xs text-ink-2 dark:text-gray-300">
+                  {t("linkedChannelNote")}
+                </span>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  leftIcon={<HiOutlineArrowTopRightOnSquare className="h-4 w-4" aria-hidden />}
+                  onClick={openFullChat}
+                >
+                  {t("openFullChat")}
+                </Button>
+              </div>
+            ) : null}
+            <ul className="flex-1 space-y-2">
+              {linked
+                ? linkedMessages.map((m) => (
+                    <li key={m.id}>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-sm font-semibold text-ink dark:text-gray-100">{memberName(m.authorId)}</span>
+                        <span className="text-xs text-muted">{relTime(t, m.tMinutes)}</span>
+                      </div>
+                      <div className="text-sm text-ink dark:text-gray-100">{m.body}</div>
+                    </li>
+                  ))
+                : chat.map((c) => (
+                    <li key={c.id}>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-sm font-semibold text-ink dark:text-gray-100">{memberName(c.authorId)}</span>
+                        <span className="text-xs text-muted">{relTime(t, c.tMin)}</span>
+                      </div>
+                      <div className="text-sm text-ink dark:text-gray-100">{c.body}</div>
+                    </li>
+                  ))}
+            </ul>
+          </div>
+        ) : null}
+
+        {tab === "captions" ? (
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Button
+                variant={captionsOn ? "primary" : "secondary"}
+                size="sm"
+                leftIcon={<MdClosedCaption className="h-4 w-4" aria-hidden />}
+                onClick={() => act().toggleCaptions()}
+              >
+                {captionsOn ? t("captionsOn") : t("captionsOff")}
+              </Button>
+              <div
+                className="inline-flex overflow-hidden rounded-md border border-gray-200 dark:border-gray-700"
+                role="group"
+                aria-label={t("captionLang")}
+              >
+                {(["en", "tr"] as CaptionLang[]).map((l) => (
+                  <button
+                    key={l}
+                    type="button"
+                    aria-pressed={captionLang === l}
+                    onClick={() => act().setCaptionLang(l)}
+                    className={clsx(
+                      "h-9 px-3 text-sm",
+                      captionLang === l
+                        ? "bg-brand text-white"
+                        : "bg-surface-2 text-muted hover:bg-surface-3 dark:bg-gray-800 dark:hover:bg-gray-700",
+                    )}
+                  >
+                    {l.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <p className="text-xs text-muted">{t("captionsNote")}</p>
+            <div className="space-y-2" aria-live="polite">
+              {captions.length === 0 ? (
+                <p className="text-sm text-muted">{t("captionsEmpty")}</p>
+              ) : (
+                captions.map((c) => (
+                  <div key={c.id} className="text-sm">
+                    <span className="font-semibold text-brand">{c.speaker}: </span>
+                    <span className="text-ink dark:text-gray-100">{c.text}</span>
+                  </div>
+                ))
+              )}
+              <div ref={captionsRef} />
+            </div>
+          </div>
+        ) : null}
+      </div>
+
+      {tab === "chat" ? (
+        <div className="border-t border-gray-200 p-2 dark:border-gray-700">
+          <div className="flex items-end gap-2">
+            <label htmlFor="mtg-chat" className="sr-only">
+              {t("chatPlaceholder")}
+            </label>
+            <textarea
+              id="mtg-chat"
+              rows={1}
+              value={chatText}
+              onChange={(e) => setChatText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  submitChat();
+                }
+              }}
+              placeholder={t("chatPlaceholder")}
+              className="min-h-[2.75rem] flex-1 resize-none rounded-md border border-gray-200 bg-surface-2 p-2 text-sm text-ink outline-none placeholder:text-muted dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
+            />
+            <IconButton
+              label={t("send")}
+              variant="primary"
+              disabled={!chatText.trim()}
+              onClick={submitChat}
+            >
+              <HiOutlinePaperAirplane className="h-4 w-4" aria-hidden />
+            </IconButton>
+          </div>
+        </div>
+      ) : null}
+
+      <BreakoutManager open={breakoutOpen} onClose={() => setBreakoutOpen(false)} />
+    </aside>
+  );
+}

@@ -1,0 +1,86 @@
+{
+  "title": "Team & Users",
+  "subtitle_one": "{{count}} user",
+  "subtitle_other": "{{count}} users",
+  "addUser": "Add user",
+  "searchPlaceholder": "Search people...",
+  "filter": {
+    "all": "All",
+    "owner": "Owner",
+    "admin": "Admin",
+    "member": "Member"
+  },
+  "table": {
+    "user": "User",
+    "role": "Role",
+    "status": "Status",
+    "email": "Email",
+    "actions": "Actions"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "role": {
+    "owner": "Owner",
+    "admin": "Admin",
+    "member": "Member"
+  },
+  "actions": {
+    "edit": "Edit",
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "delete": "Delete",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "loading": "Loading…",
+  "loadError": "Could not load users.",
+  "empty": {
+    "title": "No team members yet",
+    "description": "Get started by adding your first team member.",
+    "action": "Add user"
+  },
+  "noResults": {
+    "title": "No matching users",
+    "description": "Try changing your search or filter."
+  },
+  "create": {
+    "title": "Add user",
+    "fullName": "Full name",
+    "fullNamePlaceholder": "Full Name",
+    "email": "Email",
+    "emailPlaceholder": "name@acme.com",
+    "role": "Role",
+    "password": "Temporary password",
+    "submit": "Create",
+    "submitting": "Creating…",
+    "success": "{{name}} added"
+  },
+  "detail": {
+    "title": "User details",
+    "role": "Role",
+    "status": "Status",
+    "createdAt": "Created",
+    "userId": "User ID"
+  },
+  "edit": {
+    "title": "Edit user",
+    "localNote": "Note: edits are stored locally only (no backend update endpoint).",
+    "fullName": "Full name",
+    "email": "Email",
+    "role": "Role",
+    "success": "{{name}} updated"
+  },
+  "delete": {
+    "title": "Delete user",
+    "message": "Delete {{name}} permanently? This action cannot be undone.",
+    "confirm": "Delete",
+    "success": "{{name}} deleted"
+  },
+  "toggle": {
+    "activated": "{{name}} activated",
+    "deactivated": "{{name}} deactivated"
+  }
+}

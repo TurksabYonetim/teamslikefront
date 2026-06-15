@@ -1,0 +1,151 @@
+{
+  "title": "Docs & WorkHub",
+  "subtitle": "Dokümanlar, panolar, tablolar, iş akışları, klipler ve uygulamalar",
+  "tabs": {
+    "canvas": "Canvas",
+    "board": "Pano",
+    "table": "Tablo",
+    "workflows": "İş Akışları",
+    "clips": "Klipler",
+    "apps": "Uygulamalar"
+  },
+  "canvas": {
+    "selectDoc": "Doküman seç",
+    "editBlock": "Bloğu düzenle",
+    "progress": "{{done}}/{{total}} tamam",
+    "blockTypeLabel": "Blok tipi",
+    "blockPh": "Bir şeyler yazın…",
+    "addBlock": "Blok ekle",
+    "blockType": {
+      "text": "Metin",
+      "heading": "Başlık",
+      "todo": "Yapılacak",
+      "divider": "Ayraç"
+    }
+  },
+  "board": {
+    "addCard": "Kart ekle",
+    "moveLeft": "Sola taşı",
+    "moveRight": "Sağa taşı"
+  },
+  "table": {
+    "view": "Görünüm",
+    "grid": "Tablo",
+    "calendar": "Takvim",
+    "gantt": "Gantt",
+    "hill": "Hill",
+    "addRow": "Satır ekle",
+    "newColumn": "Yeni sütun",
+    "addColumn": "Sütun ekle",
+    "deleteRow": "Satırı sil",
+    "deleteColumn": "Sütunu sil",
+    "noDate": "Tarih kolonu yok",
+    "noStatus": "Durum kolonu yok"
+  },
+  "workflows": {
+    "name": "İş akışı adı",
+    "triggerLabel": "Tetikleyici",
+    "add": "İş akışı ekle",
+    "run": "Çalıştır",
+    "runLog": "Çalıştırma günlüğü",
+    "noSteps": "Henüz adım yok",
+    "trigger": {
+      "message": "Mesaj",
+      "schedule": "Zamanlama",
+      "reaction": "Tepki"
+    },
+    "stepKind": {
+      "send_message": "Mesaj gönder",
+      "assign": "Ata",
+      "add_label": "Etiket ekle",
+      "wait": "Bekle"
+    }
+  },
+  "clip": {
+    "newClip": "Adsız klip",
+    "record": "Kaydet",
+    "searchPh": "Klip ara…",
+    "showArchived": "Arşivlenenleri göster",
+    "empty": "Klip bulunamadı",
+    "selectClip": "Bir klip seçin",
+    "views": "{{n}} görüntülenme",
+    "completion": "Tamamlanma",
+    "removeFiller": "Dolgu kelimeleri kaldır",
+    "fillerDone": "Dolgu kaldırıldı",
+    "removeSilence": "Sessizlikleri kaldır",
+    "silenceDone": "Sessizlik kaldırıldı",
+    "archive": "Arşivle",
+    "unarchive": "Arşivden çıkar",
+    "archived": "Arşivli",
+    "ai": "AI",
+    "generateAi": "AI ile üret",
+    "toDoc": "Dokümana",
+    "toTicket": "İş öğesine",
+    "toMessage": "Mesaja",
+    "output": "Üretilen çıktı",
+    "transcript": "Transkript",
+    "comments": "Yorumlar",
+    "commentPh": "Yorum ekle…",
+    "addComment": "Yorum yap",
+    "sharing": "Paylaşım",
+    "expired": "Bağlantı süresi doldu",
+    "privacyLabel": "Gizlilik",
+    "password": "Parola",
+    "passwordPh": "Bir parola belirleyin",
+    "setPassword": "Kaydet",
+    "expiry": "Bağlantı süresi",
+    "expire7d": "7 gün",
+    "noExpiry": "Süre yok",
+    "cta": "Eylem çağrısı",
+    "ctaClicks": "{{n}} tıklama",
+    "ctaLabelPh": "Buton etiketi",
+    "ctaUrlPh": "https://…",
+    "setCta": "CTA kaydet",
+    "variables": "Kişiselleştirilmiş kopyalar",
+    "createVariables": "Üret",
+    "copies": "{{n}} kopya",
+    "privacy": {
+      "link": "Bağlantısı olan herkes",
+      "workspace": "Çalışma alanı",
+      "people": "Belirli kişiler"
+    },
+    "recordMode": {
+      "screen": "Ekran",
+      "cam": "Kamera",
+      "bubble": "Balon",
+      "screen_cam": "Ekran + kamera"
+    }
+  },
+  "comments": {
+    "title": "Yorumlar",
+    "viewing": "Şu an görüntüleyenler",
+    "simulate": "Takım arkadaşı düzenlemesini simüle et",
+    "remoteEdit": "Bir ekip arkadaşı bu dokümanı düzenledi",
+    "empty": "Henüz yorum yok",
+    "resolved": "Çözüldü",
+    "resolve": "Çözümle",
+    "anchor": "Bloğa bağla",
+    "placeholder": "Yorum ekle…",
+    "post": "Yorum gönder"
+  },
+  "apps": {
+    "approvals": "Onaylar",
+    "pending": "{{n}} bekleyen",
+    "request": "Yeni talep",
+    "requestPh": "Talep başlığı…",
+    "approve": "Onayla",
+    "reject": "Reddet",
+    "status": {
+      "pending": "Bekliyor",
+      "approved": "Onaylandı",
+      "rejected": "Reddedildi"
+    },
+    "shifts": "Vardiyalar",
+    "weeklyHours": "Bu hafta {{n}} saat",
+    "conflict": "Vardiya çakışması",
+    "claim": "Üstlen",
+    "noOpenShifts": "Açık vardiya yok",
+    "forms": "Formlar",
+    "days": ["Paz", "Pzt", "Sal", "Çar", "Per", "Cum", "Cmt"]
+  }
+}

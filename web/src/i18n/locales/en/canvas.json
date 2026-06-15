@@ -1,0 +1,90 @@
+{
+  "title": "Canvas",
+  "subtitle": "AI block board",
+  "add": "Add block",
+  "untitled": "Untitled block",
+  "emptyContent": "No content",
+  "blocks_one": "{{count}} block",
+  "blocks_other": "{{count}} blocks",
+  "collaborators_one": "{{count}} collaborator",
+  "collaborators_other": "{{count}} collaborators",
+  "prompt": {
+    "placeholder": "Describe a block to generate… (e.g. checklist for launch)",
+    "aria": "Block prompt",
+    "run": "Generate"
+  },
+  "suggestions": {
+    "summary": "Summarize the meeting",
+    "checklist": "Checklist for launch",
+    "action": "Action item to follow up",
+    "metric": "Key metric to track",
+    "table": "Comparison table"
+  },
+  "renameModal": {
+    "title": "Rename board",
+    "label": "Board title",
+    "placeholder": "Board title…"
+  },
+  "types": {
+    "summary": "Summary",
+    "action": "Action",
+    "table": "Table",
+    "checklist": "Checklist",
+    "metric": "Metric",
+    "note": "Note"
+  },
+  "actions": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "drag": "Drag",
+    "pin": "Pin",
+    "unpin": "Unpin",
+    "rename": "Rename board"
+  },
+  "typeHints": {
+    "summary": "Free-form summary. Capture meeting or conversation takeaways in a few paragraphs.",
+    "action": "A single action item or decision to follow up on.",
+    "table": "Row/column data. Separate cells with `|` or commas; the first row becomes the header.",
+    "checklist": "A to-do list. Use `- [ ]` and `- [x]` for items; tap on the card to complete them.",
+    "metric": "A single big number. First line is the value, second line the label.",
+    "note": "A quick note or reminder."
+  },
+  "contentHints": {
+    "summary": "Write free-form text.",
+    "action": "Describe the action item.",
+    "table": "Separate cells with `|` or commas. First row is the header.",
+    "checklist": "Each line as `- [ ] item` or `- [x] item`.",
+    "metric": "Line 1: value (e.g. 1,250 or 42% ↑12). Line 2: label.",
+    "note": "Write free-form text."
+  },
+  "addModal": {
+    "title": "New block",
+    "typeLabel": "Block type",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Block title…",
+    "confirm": "Create"
+  },
+  "editModal": {
+    "title": "Edit block",
+    "contentLabel": "Content",
+    "contentPlaceholder": "Write content…"
+  },
+  "toast": {
+    "created": "Block created",
+    "saved": "Block saved",
+    "deleted": "Block deleted",
+    "generated": "Block generated",
+    "renamed": "Board renamed",
+    "undo": "Undo"
+  },
+  "state": {
+    "errorTitle": "Failed to load blocks",
+    "errorDescription": "Something went wrong. Please try again later.",
+    "emptyTitle": "No blocks yet",
+    "emptyDescription": "Get started by creating your first block."
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "title": "Dashboard",
+  "subtitle": "Acme Inc.",
+  "actions": {
+    "report": "Report",
+    "newMeeting": "New meeting"
+  },
+  "greeting": {
+    "welcome": "Welcome back",
+    "welcomeNamed": "Welcome back, {{name}}",
+    "summary": "Here is today's overview."
+  },
+  "stats": {
+    "openInbox": "Open inbox",
+    "openInboxDelta": "{{count}} total",
+    "upcomingMeetings": "Upcoming meetings",
+    "upcomingMeetingsDelta": "{{count}} total",
+    "weekAppointments": "Appointments this week",
+    "weekAppointmentsDelta": "{{count}} total",
+    "teamMembers": "Team members",
+    "teamMembersDelta": "{{count}} active"
+  },
+  "sections": {
+    "weeklyActivity": "Weekly activity",
+    "thisWeek": "This week",
+    "taskProgress": "Task progress",
+    "upcomingMeetings": "Upcoming meetings",
+    "recentActivity": "Recent activity",
+    "recentBookings": "Recent bookings",
+    "team": "Team"
+  },
+  "links": {
+    "all": "View all",
+    "manage": "Manage"
+  },
+  "task": {
+    "done": "Completed",
+    "remaining": "Remaining",
+    "unit": "{{done}}/{{total}} tasks"
+  },
+  "chart": {
+    "messages": "Messages",
+    "meetings": "Meetings"
+  },
+  "meeting": {
+    "join": "Join",
+    "durationMin": "{{count}} min"
+  },
+  "table": {
+    "customer": "Customer",
+    "type": "Type",
+    "date": "Date",
+    "status": "Status"
+  },
+  "status": {
+    "onaylı": "Confirmed",
+    "bekliyor": "Pending",
+    "iptal": "Cancelled"
+  },
+  "presence": {
+    "available": "Online",
+    "busy": "Busy",
+    "away": "Away",
+    "offline": "Offline"
+  },
+  "empty": {
+    "meetingsTitle": "No upcoming meetings",
+    "meetingsDesc": "Scheduled meetings will appear here.",
+    "activityTitle": "No activity yet",
+    "activityDesc": "Team activity will be listed here as it happens.",
+    "bookingsTitle": "No bookings yet",
+    "bookingsDesc": "Booked appointments will appear here.",
+    "teamTitle": "No team members",
+    "teamDesc": "Invited members will be listed here."
+  },
+  "error": {
+    "title": "Couldn't load data",
+    "desc": "Something went wrong while fetching dashboard data.",
+    "retry": "Try again"
+  }
+}

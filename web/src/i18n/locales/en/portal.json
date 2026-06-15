@@ -1,0 +1,84 @@
+{
+  "topbar": {
+    "badge": "Portal",
+    "identity": "Identity",
+    "guest": "Guest"
+  },
+  "home": {
+    "title": "How can we help you?",
+    "subtitle": "Start a chat with a representative. Your messages are delivered only to the person you choose.",
+    "activeTitle": "Your active chats",
+    "activeSubtitle": "Reach your ongoing conversations from here.",
+    "goToChats": "Go to my chats",
+    "sellersTitle": "Representatives"
+  },
+  "gate": {
+    "title": "Portal access required",
+    "subtitle": "Enter your details; your portal access key (JWT) is generated automatically.",
+    "tenant": "Tenant",
+    "tenantPlaceholder": "teamslike-demo",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "secret": "Signing secret",
+    "secretPlaceholder": "tenant signing_secret",
+    "secretHint": "For demo only; in production the JWT is signed server-side.",
+    "error": "Could not connect. Please check your details.",
+    "connect": "Connect",
+    "connecting": "Connecting…"
+  },
+  "sellers": {
+    "online": "Online",
+    "chat": "Chat",
+    "emptyTitle": "No representatives yet",
+    "emptyDesc": "There are no representatives to show right now. Please try again later.",
+    "errorTitle": "Could not load representatives",
+    "retry": "Try again",
+    "changeKey": "Change portal key"
+  },
+  "chat": {
+    "myChats": "My chats",
+    "newChat": "New chat",
+    "backToPortal": "Back to portal",
+    "agent": "Representative",
+    "you": "You",
+    "messagePlaceholder": "Type your message...",
+    "send": "Send",
+    "sendError": "Could not send message. Please try again.",
+    "threadsEmptyTitle": "No chats yet",
+    "threadsEmptyDesc": "Pick a representative and send your first message.",
+    "threadsErrorTitle": "Could not load chats",
+    "messagesEmptyTitle": "No messages yet",
+    "messagesEmptyDesc": "Send the first message; the representative will reply shortly.",
+    "messagesErrorTitle": "Could not load messages",
+    "noActiveTitle": "Select a chat",
+    "noActiveDesc": "Pick a chat from the left to view it, or start a new one.",
+    "startNew": "Start a new chat",
+    "retry": "Try again",
+    "gateTitle": "Portal access required",
+    "gateDesc": "Connect to the portal to see your chats.",
+    "goToPortal": "Go to portal",
+    "backToList": "Chats"
+  },
+  "newThread": {
+    "title": "Start a new chat",
+    "selectSeller": "Select representative",
+    "loadingSellers": "Loading representatives…",
+    "noSellers": "No representatives available.",
+    "firstMessage": "First message",
+    "defaultMessage": "Hi, I need help with something.",
+    "error": "Could not start chat. Please try again.",
+    "cancel": "Cancel",
+    "start": "Start",
+    "starting": "Starting…"
+  },
+  "whoami": {
+    "title": "Identity (whoami)",
+    "subtitle": "verified JWT claims.",
+    "loading": "Loading…",
+    "noKey": "No portal key entered.",
+    "hint": "This token is signed with signing_secret on your backend; TeamsLike only verifies it.",
+    "logout": "Sign out"
+  }
+}

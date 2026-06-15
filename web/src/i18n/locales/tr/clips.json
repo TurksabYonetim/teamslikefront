@@ -1,0 +1,79 @@
+{
+  "title": "Clips",
+  "subtitle": "Async ekran-video mesajları",
+  "newClip": "Yeni klip",
+  "toolbar": {
+    "searchPlaceholder": "Kliplerde ara…",
+    "sortLabel": "Sırala",
+    "sort": {
+      "newest": "En yeni",
+      "oldest": "En eski",
+      "longest": "En uzun",
+      "shortest": "En kısa",
+      "title": "Başlığa göre (A-Z)"
+    }
+  },
+  "empty": {
+    "title": "Henüz klip yok",
+    "description": "İlk ekran-video mesajını ekleyerek başla.",
+    "action": "Klip ekle"
+  },
+  "noResults": {
+    "title": "Eşleşen klip yok",
+    "description": "Arama veya sıralamayı değiştirmeyi dene.",
+    "clear": "Aramayı temizle"
+  },
+  "player": {
+    "prev": "Önceki klip",
+    "next": "Sonraki klip",
+    "close": "Kapat",
+    "speed": "Hız",
+    "copyShare": "Bağlantıyı kopyala"
+  },
+  "form": {
+    "createTitle": "Yeni klip",
+    "editTitle": "Klibi düzenle",
+    "title": "Başlık",
+    "titlePlaceholder": "Klip başlığı",
+    "description": "Açıklama",
+    "descriptionPlaceholder": "Kısa açıklama (opsiyonel)",
+    "videoUrl": "Video URL",
+    "videoUrlPlaceholder": "https://…",
+    "thumbnailUrl": "Kapak görseli URL",
+    "thumbnailUrlPlaceholder": "https://… (opsiyonel)",
+    "durationS": "Süre (sn)",
+    "durationPlaceholder": "Örn. 222",
+    "save": "Kaydet",
+    "create": "Ekle",
+    "cancel": "İptal",
+    "requiredTitle": "Başlık zorunludur.",
+    "requiredVideoUrl": "Video URL zorunludur.",
+    "invalidVideoUrl": "Geçerli bir video URL'si gir (http/https).",
+    "thumbnailPreview": "Kapak önizleme",
+    "thumbnailBroken": "Görsel yüklenemedi"
+  },
+  "card": {
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "play": "Oynat",
+    "noThumbnail": "Kapak yok"
+  },
+  "confirmDelete": {
+    "title": "Klibi sil",
+    "message": "Bu klip kalıcı olarak silinecek. Devam edilsin mi?",
+    "confirm": "Sil",
+    "cancel": "Vazgeç"
+  },
+  "toast": {
+    "created": "Klip eklendi.",
+    "updated": "Klip güncellendi.",
+    "deleted": "Klip silindi.",
+    "undo": "Geri al",
+    "restored": "Klip geri alındı.",
+    "linkCopied": "Paylaşım bağlantısı kopyalandı.",
+    "loadError": "Klipler yüklenemedi.",
+    "createError": "Klip eklenemedi.",
+    "updateError": "Klip güncellenemedi.",
+    "deleteError": "Klip silinemedi."
+  }
+}

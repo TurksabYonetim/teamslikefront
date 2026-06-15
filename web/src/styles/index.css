@@ -1,0 +1,284 @@
+@import "tailwindcss";
+@source "../../node_modules/flowbite/**/*.js";
+
+/* dark: varyantı yalnızca <html class="dark"> varken aktif olsun (OS temasıyla değil).
+   Çevrilen Flowbite sayfaları dark: class'ları içerir; uygulama tek tip AÇIK tema
+   olduğu için bunlar varsayılanda devre dışı kalır ve tüm site tutarlı görünür. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ==========================================================================
+   TeamsLike design tokens (Tailwind v4 CSS-first config)
+   Kullanım: bg-brand, text-ink, border-line, rounded-card vb.
+   ========================================================================== */
+@theme {
+  /* brand = Flowbite primary (blue). brand=blue-700 birincil aksiyon rengi */
+  --color-brand: #1d4ed8; /* blue-700 */
+  --color-brand-600: #1e40af; /* blue-800 (hover) */
+  --color-brand-700: #1e3a8a; /* blue-900 */
+  --color-brand-soft: #dbeafe; /* blue-100 */
+  --color-brand-softer: #eff6ff; /* blue-50 */
+
+  /* Flowbite primary (mavi) paleti — primary-50..950 */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+  --color-primary-950: #172554;
+
+  /* nötrler = Flowbite gray ölçeği */
+  --color-ink: #111827; /* gray-900 */
+  --color-ink-2: #374151; /* gray-700 */
+  --color-ink-3: #4b5563; /* gray-600 */
+  --color-muted: #6b7280; /* gray-500 */
+  --color-line: #e5e7eb; /* gray-200 */
+  --color-line-2: #f3f4f6; /* gray-100 */
+  --color-surface: #ffffff;
+  --color-surface-2: #f9fafb; /* gray-50 */
+  --color-surface-3: #f3f4f6; /* gray-100 */
+  --color-rail: #111827; /* gray-900 — koyu ikon rail */
+
+  --color-ok: #16a34a; /* green-600 */
+  --color-danger: #dc2626; /* red-600 */
+  --color-warn: #d97706; /* amber-600 */
+  --color-teal: #0d9488; /* teal-600 */
+
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue",
+    Arial, sans-serif;
+
+  --radius-card: 12px;
+
+  /* ---- Animasyon token'ları (emil-design-eng) ---- */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-press: 140ms;
+  --dur-pop: 180ms;
+  --dur-modal: 240ms;
+  --dur-toast: 260ms;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-surface-2);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* thin scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #c9c9d4;
+  border-radius: 99px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* kaydırma çubuğunu gizle (rail, drawer panelleri vb.) */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* ---- small reusable component classes (Tailwind @apply) ---------------- */
+@layer components {
+  /* --- Buttons (Flowbite: rounded-lg · px-5 py-2.5 · text-sm font-medium) -- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
+      text-sm font-medium cursor-pointer transition-colors border
+      border-gray-200 bg-white text-gray-900 hover:bg-gray-100 hover:text-blue-700
+      focus:outline-none focus:ring-4 focus:ring-gray-100
+      disabled:opacity-60 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply border-transparent bg-blue-700 text-white hover:bg-blue-800
+      hover:text-white focus:ring-blue-300;
+  }
+  .btn-outline {
+    @apply border-gray-200 bg-white text-gray-900 hover:bg-gray-100;
+  }
+  .btn-ghost {
+    @apply border-transparent bg-transparent text-blue-700 hover:bg-blue-50;
+  }
+  .btn-danger {
+    @apply border-transparent bg-red-600 text-white hover:bg-red-700
+      hover:text-white focus:ring-red-300;
+  }
+  .btn-sm {
+    @apply px-3 py-2 text-xs;
+  }
+
+  /* --- Inputs (Flowbite gray field) -------------------------------------- */
+  .input {
+    @apply block w-full p-2.5 text-sm rounded-lg border border-gray-300
+      bg-gray-50 text-gray-900 placeholder-gray-400 outline-none
+      focus:border-blue-500 focus:ring-1 focus:ring-blue-500;
+  }
+  .label {
+    @apply block mb-2 text-sm font-medium text-gray-900;
+  }
+
+  /* --- Card --------------------------------------------------------------- */
+  .card {
+    @apply bg-white border border-gray-200 rounded-lg shadow-sm;
+  }
+
+  /* --- Badges (Flowbite) -------------------------------------------------- */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs
+      font-medium bg-blue-100 text-blue-800;
+  }
+  .badge-gray {
+    @apply bg-gray-100 text-gray-800;
+  }
+  .badge-green {
+    @apply bg-green-100 text-green-800;
+  }
+  .badge-red {
+    @apply bg-red-100 text-red-800;
+  }
+  .badge-yellow {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+}
+
+/* ---- FullCalendar teması (Flowbite app.css yerine; marka mavisi + açık yüzey) ---- */
+.fc {
+  --fc-border-color: #e5e7eb; /* gray-200 */
+  --fc-page-bg-color: #ffffff;
+  --fc-neutral-bg-color: #f9fafb; /* gray-50 */
+  --fc-today-bg-color: #eff6ff; /* blue-50 */
+  --fc-button-bg-color: #1d4ed8; /* blue-700 */
+  --fc-button-border-color: #1d4ed8;
+  --fc-button-hover-bg-color: #1e40af; /* blue-800 */
+  --fc-button-hover-border-color: #1e40af;
+  --fc-button-active-bg-color: #1e3a8a; /* blue-900 */
+  --fc-button-active-border-color: #1e3a8a;
+  --fc-event-bg-color: #2563eb; /* blue-600 */
+  --fc-event-border-color: #2563eb;
+}
+.fc .fc-button {
+  @apply rounded-lg text-sm font-medium capitalize shadow-none focus:ring-4 focus:ring-blue-300;
+}
+.fc .fc-toolbar-title {
+  @apply text-xl font-semibold text-gray-900;
+}
+.fc .fc-col-header-cell-cushion,
+.fc .fc-daygrid-day-number {
+  @apply text-gray-700 no-underline;
+}
+.fc-theme-standard .fc-scrollgrid,
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border-color: var(--fc-border-color);
+}
+/* event renk varyantları (Flowbite fc-event-* sınıfları) */
+.fc-event-primary { background-color: #2563eb; border-color: #2563eb; color: #fff; }
+.fc-event-indigo { background-color: #6366f1; border-color: #6366f1; color: #fff; }
+.fc-event-teal { background-color: #0d9488; border-color: #0d9488; color: #fff; }
+.fc-event-yellow { background-color: #f59e0b; border-color: #f59e0b; color: #fff; }
+.fc-event-pink { background-color: #ec4899; border-color: #ec4899; color: #fff; }
+.fc-event-primary .fc-event-title,
+.fc-event-indigo .fc-event-title,
+.fc-event-teal .fc-event-title,
+.fc-event-yellow .fc-event-title,
+.fc-event-pink .fc-event-title { color: #fff; }
+
+/* Hareketi azalt: konum/transform animasyonları kalkar, opacity/renk kalır. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Liste girişlerinde stagger için yardımcı: data-stagger-index ile gecikme. */
+@keyframes tl-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.tl-stagger > * {
+  opacity: 0;
+  animation: tl-fade-in 300ms var(--ease-out) forwards;
+}
+.tl-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.tl-stagger > *:nth-child(2) { animation-delay: 50ms; }
+.tl-stagger > *:nth-child(3) { animation-delay: 100ms; }
+.tl-stagger > *:nth-child(4) { animation-delay: 150ms; }
+.tl-stagger > *:nth-child(5) { animation-delay: 200ms; }
+.tl-stagger > *:nth-child(n + 6) { animation-delay: 240ms; }
+
+@keyframes tl-modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Origin-aware popover/dropdown girişi. transform-origin çağıran tarafta
+   (origin-top-right vb.) ayarlanır; tetikleyiciden ölçeklenerek açılır. */
+@keyframes tl-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Saf opacity geçişi — tam ekran backdrop'lar için (translate kayması yok). */
+@keyframes tl-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Sağ kenardan kayan drawer girişi (mobil panel). LTR varsayımı. */
+@keyframes tl-drawer-in-end {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

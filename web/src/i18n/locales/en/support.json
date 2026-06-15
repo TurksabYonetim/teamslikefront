@@ -1,0 +1,203 @@
+{
+  "nav": "Support",
+  "title": "Support",
+  "subtitle": "Omnichannel inbox",
+  "inboxesHeader": "Inboxes",
+  "allInboxes": "All inboxes",
+  "filterHeader": "Status",
+  "assigneeHeader": "Assignee",
+  "back": "Back to list",
+  "filters": {
+    "all": "All",
+    "mine": "Assigned to me",
+    "unassigned": "Unassigned"
+  },
+  "status": { "open": "Open", "pending": "Pending", "snoozed": "Snoozed", "resolved": "Resolved" },
+  "priority": { "urgent": "Urgent", "high": "High", "medium": "Medium", "low": "Low", "none": "None" },
+  "channel": { "livechat": "Live chat", "email": "Email", "whatsapp": "WhatsApp", "instagram": "Instagram", "facebook": "Facebook", "telegram": "Telegram", "sms": "SMS" },
+  "sla": { "ok": "SLA on track", "due_soon": "SLA due soon", "breached": "SLA breached" },
+  "list": {
+    "search": "Search conversations…",
+    "empty": "No conversations",
+    "emptyHint": "No conversations match this filter.",
+    "unreadOne": "1 unread",
+    "minutesAgo": "{{n}}m ago"
+  },
+  "conversation": {
+    "noneTitle": "No conversation selected",
+    "noneHint": "Pick a conversation from the left.",
+    "replyPlaceholder": "Write a reply…",
+    "send": "Send",
+    "notePlaceholder": "Add an internal note…",
+    "addNote": "Add note",
+    "reply": "Reply",
+    "note": "Note",
+    "replyMode": "Switch to reply",
+    "noteMode": "Switch to internal note",
+    "internalNote": "Internal note",
+    "macro": "Macro",
+    "applyMacro": "Apply macro",
+    "assign": "Assign",
+    "assignToMe": "Assign to me",
+    "assignNext": "Assign next",
+    "assignedTo": "Assigned to {{name}}",
+    "statusLabel": "Status",
+    "priorityLabel": "Priority",
+    "resolve": "Resolve",
+    "reopen": "Reopen",
+    "csat": "Satisfaction (CSAT)",
+    "csatThanks": "Feedback recorded",
+    "aiSuggest": "Suggest a reply (AI)",
+    "aiDraft": "AI draft",
+    "insertDraft": "Insert draft",
+    "dismiss": "Dismiss"
+  },
+  "contact": {
+    "title": "Contact",
+    "details": "Details",
+    "email": "Email",
+    "phone": "Phone",
+    "social": "Social",
+    "labels": "Labels",
+    "addLabel": "Add label",
+    "noLabels": "No labels yet",
+    "removeLabel": "Remove label {{label}}",
+    "assignee": "Assignee",
+    "unassigned": "Unassigned",
+    "attributes": "Attributes",
+    "conversations": "Conversations",
+    "csatAvg": "Team avg {{n}}",
+    "csatRate": "Rate {{n}} out of 5"
+  },
+  "kb": {
+    "title": "Knowledge base",
+    "search": "Search articles…",
+    "empty": "No articles found"
+  },
+  "views": {
+    "inbox": "Inbox",
+    "automation": "Automation",
+    "workforce": "Workforce",
+    "studio": "Agent Studio",
+    "switcher": "Support views"
+  },
+  "channels": {
+    "title": "Channels",
+    "subtitle": "Connect messaging channels via Meta Embedded Signup. WhatsApp Cloud API supports Coexistence — keep your WhatsApp Business app while running on the API.",
+    "connected": "{{n}} live",
+    "coexistence": "Coexistence",
+    "advance": "Continue setup",
+    "advanceFor": "Continue setup for {{name}}",
+    "reset": "Reset",
+    "resetFor": "Reset {{name}}",
+    "embeddedSignup": "Meta Embedded Signup",
+    "step": {
+      "connect": "Connect",
+      "verifying": "Verifying number",
+      "migrating": "Migrating (Coexistence)",
+      "live": "Live"
+    }
+  },
+  "flow": {
+    "title": "Flow builder",
+    "subtitle": "No-code chatbot flows. Collect nodes render as WhatsApp Flows (in-chat forms).",
+    "start": "Start",
+    "waFlow": "WhatsApp Flow",
+    "remove": "Remove node",
+    "simulate": "Simulate",
+    "path": "Path",
+    "noPath": "Run the simulation to preview the path.",
+    "dangling": "{{n}} edge(s) point to a missing node.",
+    "unreachable": "{{n}} node(s) are unreachable.",
+    "addNode": "Add node",
+    "kind": {
+      "message": "Message",
+      "question": "Question",
+      "collect": "Collect",
+      "condition": "Condition",
+      "handoff": "Handoff",
+      "end": "End"
+    }
+  },
+  "cost": {
+    "title": "Messaging cost",
+    "subtitle": "Predictable per-message billing across the WhatsApp rate card and 24h service window.",
+    "region": "Region",
+    "category": "Category",
+    "rate": "Rate / msg",
+    "free": "Free",
+    "window": "Time since last inbound",
+    "windowOpen": "Service window open · ~{{n}}h left",
+    "windowClosed": "Service window closed",
+    "estimate": "Estimated monthly spend: ${{total}} across {{n}} messages",
+    "breakdown": "By category",
+    "cat": {
+      "marketing": "Marketing",
+      "utility": "Utility",
+      "authentication": "Authentication",
+      "service": "Service"
+    }
+  },
+  "wfo": {
+    "forecast": "Forecast & staffing",
+    "interval": "Interval",
+    "volume": "Volume",
+    "required": "Required",
+    "scheduled": "Scheduled",
+    "gap": "Gap",
+    "regenerate": "Regenerate forecast",
+    "understaffed": "{{n}} interval(s) understaffed",
+    "serviceLevel": "Service level {{n}}%",
+    "selfHeal": "Add agent",
+    "adherence": "Schedule adherence",
+    "quality": "Quality scorecard",
+    "agent": "Agent",
+    "total": "Total",
+    "saveScore": "Save score",
+    "evaluations": "Recent evaluations"
+  },
+  "studio": {
+    "agents": "Agents",
+    "newAgentPh": "New agent name",
+    "create": "Create agent",
+    "name": "Name",
+    "goal": "Goal",
+    "goalPh": "Describe what this agent should do…",
+    "channels": "Channels",
+    "tools": "Tools",
+    "intents": "Intents",
+    "intentLabelPh": "Intent label",
+    "intentPhrasesPh": "Trigger phrases (comma-separated)",
+    "intentReplyPh": "Reply",
+    "addIntent": "Add intent",
+    "sandbox": "Sandbox",
+    "sandboxPh": "Type a customer message…",
+    "sandboxEmpty": "Send a message to test the agent.",
+    "run": "Run",
+    "resolution": "Resolution {{n}}%",
+    "runs": "{{n}} runs",
+    "publish": "Publish",
+    "published": "Published",
+    "missing": "Complete before publishing",
+    "channel": {
+      "webchat": "Web chat",
+      "whatsapp": "WhatsApp",
+      "voice": "Voice",
+      "email": "Email"
+    },
+    "status": {
+      "draft": "Draft",
+      "testing": "Testing",
+      "published": "Published"
+    },
+    "req": {
+      "name": "name",
+      "goal": "goal",
+      "channels": "channels",
+      "intents": "intents"
+    }
+  },
+  "common": {
+    "delete": "Delete"
+  }
+}

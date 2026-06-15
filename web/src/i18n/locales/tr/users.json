@@ -1,0 +1,86 @@
+{
+  "title": "Ekip & Kullanıcılar",
+  "subtitle_one": "{{count}} kullanıcı",
+  "subtitle_other": "{{count}} kullanıcı",
+  "addUser": "Kullanıcı ekle",
+  "searchPlaceholder": "Kişi ara...",
+  "filter": {
+    "all": "Tümü",
+    "owner": "Sahip",
+    "admin": "Yönetici",
+    "member": "Üye"
+  },
+  "table": {
+    "user": "Kullanıcı",
+    "role": "Rol",
+    "status": "Durum",
+    "email": "E-posta",
+    "actions": "İşlem"
+  },
+  "status": {
+    "active": "Aktif",
+    "inactive": "Pasif"
+  },
+  "role": {
+    "owner": "Sahip",
+    "admin": "Yönetici",
+    "member": "Üye"
+  },
+  "actions": {
+    "edit": "Düzenle",
+    "activate": "Aktifleştir",
+    "deactivate": "Pasifleştir",
+    "delete": "Sil",
+    "retry": "Tekrar dene",
+    "cancel": "İptal",
+    "save": "Kaydet"
+  },
+  "loading": "Yükleniyor…",
+  "loadError": "Kullanıcılar yüklenemedi.",
+  "empty": {
+    "title": "Henüz ekip üyesi yok",
+    "description": "İlk ekip üyenizi ekleyerek başlayın.",
+    "action": "Kullanıcı ekle"
+  },
+  "noResults": {
+    "title": "Eşleşen kullanıcı yok",
+    "description": "Arama veya filtreyi değiştirip tekrar deneyin."
+  },
+  "create": {
+    "title": "Kullanıcı ekle",
+    "fullName": "Ad soyad",
+    "fullNamePlaceholder": "Ad Soyad",
+    "email": "E-posta",
+    "emailPlaceholder": "ad@acme.com",
+    "role": "Rol",
+    "password": "Geçici parola",
+    "submit": "Oluştur",
+    "submitting": "Oluşturuluyor…",
+    "success": "{{name}} eklendi"
+  },
+  "detail": {
+    "title": "Kullanıcı detayı",
+    "role": "Rol",
+    "status": "Durum",
+    "createdAt": "Oluşturulma",
+    "userId": "Kullanıcı ID"
+  },
+  "edit": {
+    "title": "Kullanıcı düzenle",
+    "localNote": "Not: Düzenleme yalnızca yerel olarak saklanır (backend güncelleme ucu yok).",
+    "fullName": "Ad soyad",
+    "email": "E-posta",
+    "role": "Rol",
+    "success": "{{name}} güncellendi"
+  },
+  "delete": {
+    "title": "Kullanıcıyı sil",
+    "message": "{{name}} kalıcı olarak silinsin mi? Bu işlem geri alınamaz.",
+    "confirm": "Sil",
+    "success": "{{name}} silindi"
+  },
+  "toggle": {
+    "activated": "{{name}} aktifleştirildi",
+    "deactivated": "{{name}} pasifleştirildi"
+  }
+}

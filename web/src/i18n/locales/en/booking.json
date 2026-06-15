@@ -1,0 +1,204 @@
+{
+  "et": {
+    "tabs": { "eventTypes": "Meeting types", "availability": "Availability", "bookings": "Bookings" },
+    "list": { "title": "Meeting types", "count": "{{count}} type", "count_plural": "{{count}} types", "new": "New meeting type" },
+    "table": { "name": "Name", "slug": "Link", "duration": "Duration", "status": "Status", "actions": "Actions" },
+    "status": { "active": "Active", "hidden": "Hidden" },
+    "minutes": "{{count}} min",
+    "empty": { "title": "No meeting types yet", "description": "Create your first meeting type to start taking bookings." },
+    "form": {
+      "create": "New meeting type",
+      "update": "Edit meeting type",
+      "name": "Name",
+      "namePlaceholder": "e.g. Intro call",
+      "slug": "URL slug",
+      "slugPlaceholder": "intro-15",
+      "slugHint": "Lowercase letters, numbers and dashes only.",
+      "duration": "Duration (minutes)",
+      "description": "Description",
+      "descriptionPlaceholder": "What is this meeting about?",
+      "active": "Visible on public page",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "availability": {
+      "title": "Weekly availability",
+      "description": "Set the hours invitees can book each day.",
+      "open": "Open",
+      "start": "Start",
+      "end": "End",
+      "timezone": "Timezone",
+      "save": "Save availability",
+      "saved": "Availability saved",
+      "weekdays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "bookings": {
+      "title": "Bookings",
+      "empty": "No bookings yet.",
+      "invitee": "Invitee",
+      "type": "Type",
+      "when": "When",
+      "status": "Status"
+    },
+    "toast": {
+      "created": "Meeting type created",
+      "updated": "Meeting type updated",
+      "deleted": "Meeting type deleted",
+      "undo": "Undo",
+      "error": "Operation failed"
+    },
+    "deleteModal": { "title": "Delete meeting type?", "message": "This will remove the meeting type. Existing bookings are kept.", "cancel": "Cancel", "confirm": "Delete" }
+  },
+  "pub": {
+    "badge": "Booking",
+    "pickTitle": "Pick a meeting type",
+    "pickSubtitle": "Schedule a time with the {{name}} team.",
+    "loadError": "This booking page is unavailable.",
+    "noTypes": "No bookable meeting types right now.",
+    "back": "Back",
+    "minutes": "{{count}} min",
+    "pickDate": "Pick a date",
+    "pickSlot": "Select a time",
+    "nameLabel": "Full name *",
+    "emailLabel": "Email *",
+    "confirm": "Confirm booking",
+    "confirming": "Confirming...",
+    "doneTitle": "Booking confirmed",
+    "doneSubtitle": "A calendar invite has been sent to your email.",
+    "another": "Book another time",
+    "addToCalendar": "Add to calendar",
+    "error": "Could not complete the booking. The slot may no longer be available."
+  },
+  "breadcrumb": {
+    "ariaLabel": "Breadcrumb",
+    "home": "Home",
+    "events": "Events",
+    "allEvents": "All events"
+  },
+  "header": {
+    "allEvents": "All events",
+    "results": "{{count}} Results",
+    "moreInfo": "More info",
+    "resultsTooltip": "Showing 1-15 of 1567 results",
+    "createEvent": "Create event",
+    "export": "Export"
+  },
+  "sort": {
+    "label": "Sort:",
+    "currentYear": "Current year",
+    "pastMonth": "Past month",
+    "last30Days": "Last 30 days",
+    "last7Days": "Last 7 days",
+    "moreOptions": "More options",
+    "byDate": "Date",
+    "bySeats": "Remaining seats",
+    "byTitle": "Title (A-Z)"
+  },
+  "search": {
+    "placeholder": "Search events",
+    "label": "Search for events"
+  },
+  "empty": {
+    "title": "No events found",
+    "description": "Try adjusting your search or create a new event."
+  },
+  "actions": {
+    "actions": "Actions",
+    "edit": "Edit",
+    "archive": "Archive",
+    "delete": "Delete",
+    "view": "View"
+  },
+  "table": {
+    "checkbox": "checkbox",
+    "event": "Event",
+    "speakers": "Speakers",
+    "remainingSeats": "Remaining Seats",
+    "googleMeet": "Google meet",
+    "date": "Date",
+    "duration": "Duration",
+    "actions": "Actions",
+    "none": "None"
+  },
+  "duration": {
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} days",
+    "hours_one": "{{count}} hour",
+    "hours_other": "{{count}} hours",
+    "weeks_one": "{{count}} week",
+    "weeks_other": "{{count}} weeks"
+  },
+  "pagination": {
+    "showing": "Showing",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "create": {
+    "title": "New Event"
+  },
+  "update": {
+    "title": "Update Event"
+  },
+  "fields": {
+    "title": "Title",
+    "titlePlaceholder": "Add title here",
+    "description": "Description",
+    "descriptionPlaceholder": "Enter event description here",
+    "descriptionPlaceholderDots": "Enter event description here...",
+    "startDate": "Start date",
+    "startDatePlaceholder": "Start date",
+    "endDate": "End date",
+    "endDatePlaceholder": "End date",
+    "location": "Location",
+    "locationPlaceholder": "Enter location",
+    "addGuests": "Add guests",
+    "guestEmailPlaceholder": "Add guest email",
+    "tagColor": "Tag Color",
+    "guestPermissions": "Guest Permissions"
+  },
+  "permissions": {
+    "modifyEvent": "Modify event",
+    "inviteOthers": "Invite others",
+    "seeGuestList": "See guest list"
+  },
+  "drawerActions": {
+    "add": "Add",
+    "addEvent": "Add event",
+    "close": "Close",
+    "updateEvent": "Update event",
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "read": {
+    "details": "Details",
+    "remainingSeats": "Remaining seats",
+    "participants": "Participants",
+    "online": "Online",
+    "duration": "Duration",
+    "allDay": "All day",
+    "notification": "Notification"
+  },
+  "deleteModal": {
+    "title": "Remove this event?",
+    "message": "If you delete this event, all notifications, reservations and payments for this event may be deleted.",
+    "confirmText": "Also delete all posts, photos and videos on Flowbite that this event may have published on your behalf.",
+    "cancel": "Cancel",
+    "confirm": "Yes, delete"
+  },
+  "archiveModal": {
+    "message": "Are you sure you want to archive this event?",
+    "cancel": "No, cancel",
+    "confirm": "Yes, I do"
+  },
+  "sr": {
+    "closeMenu": "Close menu",
+    "closeModal": "Close modal",
+    "removeUser": "Remove user",
+    "date": "Date",
+    "location": "Location",
+    "previous": "Previous",
+    "next": "Next",
+    "tableNavigation": "Table navigation"
+  }
+}

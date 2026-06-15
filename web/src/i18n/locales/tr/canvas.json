@@ -1,0 +1,90 @@
+{
+  "title": "Kanvas",
+  "subtitle": "AI blok panosu",
+  "add": "Blok ekle",
+  "untitled": "Başlıksız blok",
+  "emptyContent": "İçerik yok",
+  "blocks_one": "{{count}} blok",
+  "blocks_other": "{{count}} blok",
+  "collaborators_one": "{{count}} kişi",
+  "collaborators_other": "{{count}} kişi",
+  "prompt": {
+    "placeholder": "Üretilecek bloğu tarif edin… (örn. lansman için yapılacaklar)",
+    "aria": "Blok komutu",
+    "run": "Üret"
+  },
+  "suggestions": {
+    "summary": "Toplantıyı özetle",
+    "checklist": "Lansman için yapılacaklar",
+    "action": "Takip edilecek aksiyon",
+    "metric": "İzlenecek metrik",
+    "table": "Karşılaştırma tablosu"
+  },
+  "renameModal": {
+    "title": "Panoyu yeniden adlandır",
+    "label": "Pano başlığı",
+    "placeholder": "Pano başlığı…"
+  },
+  "types": {
+    "summary": "Özet",
+    "action": "Aksiyon",
+    "table": "Tablo",
+    "checklist": "Yapılacak",
+    "metric": "Metrik",
+    "note": "Not"
+  },
+  "actions": {
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "save": "Kaydet",
+    "cancel": "Vazgeç",
+    "moveUp": "Yukarı taşı",
+    "moveDown": "Aşağı taşı",
+    "drag": "Sürükle",
+    "pin": "Sabitle",
+    "unpin": "Sabitlemeyi kaldır",
+    "rename": "Panoyu yeniden adlandır"
+  },
+  "typeHints": {
+    "summary": "Serbest metin özeti. Toplantı veya konuşma çıktısını birkaç paragrafta toparlayın.",
+    "action": "Yapılması gereken tek bir aksiyon veya karar.",
+    "table": "Satır/sütun verisi. İçerikte `|` veya virgülle hücreleri ayırın; ilk satır başlık olur.",
+    "checklist": "Yapılacaklar listesi. `- [ ]` ve `- [x]` ile maddeleri işaretleyin; karttan tıklayarak tamamlanır.",
+    "metric": "Tek bir büyük sayı. İlk satır değer, ikinci satır etiket.",
+    "note": "Hızlı not veya hatırlatma."
+  },
+  "contentHints": {
+    "summary": "Serbest metin yazın.",
+    "action": "Aksiyon açıklamasını yazın.",
+    "table": "Hücreleri `|` veya virgülle ayırın. İlk satır başlık.",
+    "checklist": "Her satır `- [ ] madde` veya `- [x] madde` biçiminde.",
+    "metric": "1. satır: değer (örn. 1.250 veya %42 ↑12). 2. satır: etiket.",
+    "note": "Serbest metin yazın."
+  },
+  "addModal": {
+    "title": "Yeni blok",
+    "typeLabel": "Blok tipi",
+    "titleLabel": "Başlık",
+    "titlePlaceholder": "Blok başlığı…",
+    "confirm": "Oluştur"
+  },
+  "editModal": {
+    "title": "Bloğu düzenle",
+    "contentLabel": "İçerik",
+    "contentPlaceholder": "İçerik yazın…"
+  },
+  "toast": {
+    "created": "Blok oluşturuldu",
+    "saved": "Blok kaydedildi",
+    "deleted": "Blok silindi",
+    "generated": "Blok üretildi",
+    "renamed": "Pano yeniden adlandırıldı",
+    "undo": "Geri al"
+  },
+  "state": {
+    "errorTitle": "Bloklar yüklenemedi",
+    "errorDescription": "Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.",
+    "emptyTitle": "Henüz blok yok",
+    "emptyDescription": "İlk bloğunuzu oluşturarak başlayın."
+  }
+}

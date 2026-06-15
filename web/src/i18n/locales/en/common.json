@@ -1,0 +1,55 @@
+{
+  "forbidden": {
+    "title": "Access denied",
+    "message": "You don't have permission to view this. Contact your administrator if you think this is a mistake."
+  },
+  "nav": {
+    "home": "Home",
+    "messaging": "Messaging",
+    "channels": "Channels",
+    "dm": "Chat",
+    "inbox": "Inbox",
+    "meetingsAppointments": "Meetings & Appointments",
+    "meetings": "Meetings",
+    "room": "Meeting room",
+    "appointments": "Appointments",
+    "booking": "Booking",
+    "webinar": "Webinar",
+    "content": "Content",
+    "clips": "Clips",
+    "docs": "Docs",
+    "tasks": "Tasks",
+    "phone": "Phone",
+    "copilot": "Copilot",
+    "intelligence": "Intelligence",
+    "canvas": "Canvas",
+    "support": "Support",
+    "admin": "Admin",
+    "team": "Team",
+    "settings": "Settings",
+    "logout": "Sign out"
+  },
+  "panel": {
+    "hide": "Hide panel",
+    "show": "Show panel"
+  },
+  "lang": {
+    "label": "Language",
+    "tr": "Turkish",
+    "en": "English",
+    "short_tr": "TR",
+    "short_en": "EN"
+  },
+  "actions": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "preview": "Preview",
+    "send": "Send",
+    "search": "Search",
+    "today": "today",
+    "newEvent": "New event"
+  }
+}

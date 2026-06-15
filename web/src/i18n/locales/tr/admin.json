@@ -1,0 +1,164 @@
+{
+  "title": "Yönetim",
+  "subtitle": "Denetim günlüğü ve güvenlik politikaları",
+  "tabs": {
+    "overview": "Genel Bakış",
+    "audit": "Denetim Günlüğü",
+    "policies": "Güvenlik Politikaları",
+    "security": "Uyumluluk",
+    "federation": "Federasyon",
+    "billing": "Faturalama",
+    "governanceAudit": "Yönetişim Günlüğü"
+  },
+  "overview": {
+    "auditLogCount": "Denetim kaydı",
+    "policyCount": "Politika sayısı",
+    "lastAudit": "Son kayıt",
+    "byActionTitle": "Eyleme göre dağılım",
+    "shareTitle": "Eylem payı",
+    "timelineTitle": "Son 14 gün olay sayısı",
+    "otherActions": "Diğer",
+    "noTimeline": "Zaman çizelgesi için yeterli veri yok"
+  },
+  "audit": {
+    "from": "Başlangıç",
+    "to": "Bitiş",
+    "actionFilter": "Eylem filtresi (örn. login)",
+    "searchPlaceholder": "Eylem, hedef, aktör veya IP ara",
+    "clearFilters": "Filtreleri temizle",
+    "export": "CSV indir",
+    "exported": "CSV indirildi",
+    "resultCount_one": "{{count}} kayıt",
+    "resultCount_other": "{{count}} kayıt",
+    "emptyTitle": "Kayıt yok",
+    "emptyDescription": "Filtrelere uyan denetim kaydı bulunamadı.",
+    "detailTitle": "Denetim kaydı detayı",
+    "copy": "Kopyala",
+    "copied": "Panoya kopyalandı",
+    "close": "Kapat",
+    "col": {
+      "createdAt": "Zaman",
+      "action": "Eylem",
+      "target": "Hedef",
+      "actor": "Aktör",
+      "ip": "IP",
+      "id": "Kayıt no"
+    }
+  },
+  "policies": {
+    "key": "Anahtar",
+    "keyPlaceholder": "Politika anahtarı (örn. password.min_length)",
+    "valuePlaceholder": "Değer",
+    "save": "Kaydet",
+    "cancel": "Vazgeç",
+    "edit": "Düzenle",
+    "add": "Ekle",
+    "saved": "Politika kaydedildi",
+    "emptyValue": "(boş)",
+    "updatedAt": "Güncellendi: {{date}}",
+    "emptyTitle": "Politika yok",
+    "emptyDescription": "Henüz bir güvenlik politikası tanımlanmadı."
+  },
+  "state": {
+    "errorTitle": "Veri yüklenemedi",
+    "errorDescription": "Bir hata oluştu. Lütfen daha sonra tekrar deneyin."
+  },
+
+  "plan": "Plan",
+  "seats": "{{n}} koltuk",
+  "planName": {
+    "free": "Ücretsiz",
+    "pro": "Pro",
+    "business": "Business",
+    "enterprise": "Enterprise"
+  },
+  "billingStatus": {
+    "active": "Aktif",
+    "past_due": "Gecikmiş",
+    "trialing": "Deneme"
+  },
+  "quota": {
+    "ok": "Uygun",
+    "warn": "Uyarı",
+    "exceeded": "Aşıldı"
+  },
+  "quotaKey": {
+    "storage_gb": "Depolama (GB)",
+    "ai_actions": "AI işlemleri",
+    "seats": "Koltuklar"
+  },
+
+  "audit2": "Denetim günlüğü",
+  "filterAction": "Eylem filtrele",
+  "filterActor": "Aktör filtrele",
+  "allActors": "Tüm aktörler",
+  "residency": "Veri ikameti",
+  "retention": "Saklama",
+  "purged": "{{n}} temizlendi",
+  "noAudit": "Denetim kaydı yok.",
+  "col": {
+    "action": "Eylem",
+    "actor": "Aktör",
+    "resource": "Kaynak",
+    "ip": "IP",
+    "time": "Zaman"
+  },
+
+  "security": "Güvenlik politikaları",
+  "policy": {
+    "residency": "Veri ikameti",
+    "retention": "Saklama",
+    "e2ee": "Uçtan uca şifreleme",
+    "dlp": "Veri kaybı önleme (DLP)",
+    "sensitivity": "Hassasiyet etiketleri",
+    "legalHold": "Yasal saklama",
+    "infoBarrier": "Bilgi bariyerleri",
+    "commCompliance": "İletişim uyumluluğu",
+    "conditionalAccess": "Koşullu erişim"
+  },
+  "enabled": "Açık",
+  "disabled": "Kapalı",
+  "enable": "Aç",
+  "disable": "Kapat",
+
+  "tester": {
+    "title": "Politika test aracı",
+    "text": "Örnek metin",
+    "dlp": "DLP bulguları: {{n}}",
+    "flagged": "İşaretli terim: {{n}}",
+    "from": "Kaynak grup",
+    "to": "Hedef grup",
+    "barrierBlocked": "İletişim engellendi",
+    "barrierOk": "İletişime izinli",
+    "label": "Hassasiyet",
+    "rank": "Sıra: {{n}}",
+    "sens": {
+      "public": "Herkese açık",
+      "general": "Genel",
+      "confidential": "Gizli",
+      "restricted": "Kısıtlı"
+    }
+  },
+
+  "connected": "Bağlı",
+  "disconnected": "Bağlı değil",
+  "noBridges": "Henüz köprü yok.",
+  "bridgePh": "Köprü adı (örn. slack)",
+  "addBridge": "Ekle",
+
+  "billing": "Faturalama",
+  "paymentNote": "Tehlikeli aksiyonlar (ödeme, plan değişimi) yalnızca UI akışıdır ve yürütülmeden önce onaylanır.",
+  "aiCredits": {
+    "title": "AI kredileri",
+    "rate": "${{cost}} / kredi",
+    "overage": "aşım ${{cost}}"
+  },
+  "changePlan": "Plan değiştir",
+  "upgrade": "Planı yükselt",
+  "invoices": "Faturalar",
+  "total": "Toplam",
+
+  "typeToConfirm": "Onaylamak için \"{{word}}\" yazın",
+  "confirm": "Onayla",
+  "cancel": "Vazgeç"
+}

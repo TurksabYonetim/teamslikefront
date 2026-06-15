@@ -1,0 +1,164 @@
+{
+  "title": "Administration",
+  "subtitle": "Audit log and security policies",
+  "tabs": {
+    "overview": "Overview",
+    "audit": "Audit Log",
+    "policies": "Security Policies",
+    "security": "Compliance",
+    "federation": "Federation",
+    "billing": "Billing",
+    "governanceAudit": "Governance Log"
+  },
+  "overview": {
+    "auditLogCount": "Audit entries",
+    "policyCount": "Policies",
+    "lastAudit": "Last entry",
+    "byActionTitle": "Distribution by action",
+    "shareTitle": "Action share",
+    "timelineTitle": "Events over the last 14 days",
+    "otherActions": "Other",
+    "noTimeline": "Not enough data for a timeline"
+  },
+  "audit": {
+    "from": "From",
+    "to": "To",
+    "actionFilter": "Action filter (e.g. login)",
+    "searchPlaceholder": "Search action, target, actor or IP",
+    "clearFilters": "Clear filters",
+    "export": "Export CSV",
+    "exported": "CSV downloaded",
+    "resultCount_one": "{{count}} entry",
+    "resultCount_other": "{{count}} entries",
+    "emptyTitle": "No entries",
+    "emptyDescription": "No audit entries match the current filters.",
+    "detailTitle": "Audit entry detail",
+    "copy": "Copy",
+    "copied": "Copied to clipboard",
+    "close": "Close",
+    "col": {
+      "createdAt": "Time",
+      "action": "Action",
+      "target": "Target",
+      "actor": "Actor",
+      "ip": "IP",
+      "id": "Entry ID"
+    }
+  },
+  "policies": {
+    "key": "Key",
+    "keyPlaceholder": "Policy key (e.g. password.min_length)",
+    "valuePlaceholder": "Value",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "add": "Add",
+    "saved": "Policy saved",
+    "emptyValue": "(empty)",
+    "updatedAt": "Updated: {{date}}",
+    "emptyTitle": "No policies",
+    "emptyDescription": "No security policy has been defined yet."
+  },
+  "state": {
+    "errorTitle": "Failed to load data",
+    "errorDescription": "Something went wrong. Please try again later."
+  },
+
+  "plan": "Plan",
+  "seats": "{{n}} seats",
+  "planName": {
+    "free": "Free",
+    "pro": "Pro",
+    "business": "Business",
+    "enterprise": "Enterprise"
+  },
+  "billingStatus": {
+    "active": "Active",
+    "past_due": "Past due",
+    "trialing": "Trialing"
+  },
+  "quota": {
+    "ok": "OK",
+    "warn": "Warning",
+    "exceeded": "Exceeded"
+  },
+  "quotaKey": {
+    "storage_gb": "Storage (GB)",
+    "ai_actions": "AI actions",
+    "seats": "Seats"
+  },
+
+  "audit2": "Audit log",
+  "filterAction": "Filter action",
+  "filterActor": "Filter actor",
+  "allActors": "All actors",
+  "residency": "Residency",
+  "retention": "Retention",
+  "purged": "{{n}} purged",
+  "noAudit": "No audit entries.",
+  "col": {
+    "action": "Action",
+    "actor": "Actor",
+    "resource": "Resource",
+    "ip": "IP",
+    "time": "Time"
+  },
+
+  "security": "Security policies",
+  "policy": {
+    "residency": "Data residency",
+    "retention": "Retention",
+    "e2ee": "End-to-end encryption",
+    "dlp": "Data loss prevention (DLP)",
+    "sensitivity": "Sensitivity labels",
+    "legalHold": "Legal hold",
+    "infoBarrier": "Information barriers",
+    "commCompliance": "Communication compliance",
+    "conditionalAccess": "Conditional access"
+  },
+  "enabled": "Enabled",
+  "disabled": "Disabled",
+  "enable": "Enable",
+  "disable": "Disable",
+
+  "tester": {
+    "title": "Policy tester",
+    "text": "Sample text",
+    "dlp": "DLP findings: {{n}}",
+    "flagged": "Flagged terms: {{n}}",
+    "from": "From group",
+    "to": "To group",
+    "barrierBlocked": "Communication blocked",
+    "barrierOk": "Communication allowed",
+    "label": "Sensitivity",
+    "rank": "Rank: {{n}}",
+    "sens": {
+      "public": "Public",
+      "general": "General",
+      "confidential": "Confidential",
+      "restricted": "Restricted"
+    }
+  },
+
+  "connected": "Connected",
+  "disconnected": "Disconnected",
+  "noBridges": "No bridges yet.",
+  "bridgePh": "Bridge name (e.g. slack)",
+  "addBridge": "Add",
+
+  "billing": "Billing",
+  "paymentNote": "Dangerous actions (payment, plan change) are UI-flow only and confirmed before execution.",
+  "aiCredits": {
+    "title": "AI credits",
+    "rate": "${{cost}} / credit",
+    "overage": "overage ${{cost}}"
+  },
+  "changePlan": "Change plan",
+  "upgrade": "Upgrade plan",
+  "invoices": "Invoices",
+  "total": "Total",
+
+  "typeToConfirm": "Type \"{{word}}\" to confirm",
+  "confirm": "Confirm",
+  "cancel": "Cancel"
+}

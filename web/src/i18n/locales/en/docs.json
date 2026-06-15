@@ -1,0 +1,151 @@
+{
+  "title": "Docs & WorkHub",
+  "subtitle": "Documents, boards, tables, workflows, clips and apps",
+  "tabs": {
+    "canvas": "Canvas",
+    "board": "Board",
+    "table": "Table",
+    "workflows": "Workflows",
+    "clips": "Clips",
+    "apps": "Apps"
+  },
+  "canvas": {
+    "selectDoc": "Select document",
+    "editBlock": "Edit block",
+    "progress": "{{done}}/{{total}} done",
+    "blockTypeLabel": "Block type",
+    "blockPh": "Type some text…",
+    "addBlock": "Add block",
+    "blockType": {
+      "text": "Text",
+      "heading": "Heading",
+      "todo": "To-do",
+      "divider": "Divider"
+    }
+  },
+  "board": {
+    "addCard": "Add a card",
+    "moveLeft": "Move left",
+    "moveRight": "Move right"
+  },
+  "table": {
+    "view": "View",
+    "grid": "Grid",
+    "calendar": "Calendar",
+    "gantt": "Gantt",
+    "hill": "Hill",
+    "addRow": "Add row",
+    "newColumn": "New column",
+    "addColumn": "Add column",
+    "deleteRow": "Delete row",
+    "deleteColumn": "Delete column",
+    "noDate": "No date column",
+    "noStatus": "No status column"
+  },
+  "workflows": {
+    "name": "Workflow name",
+    "triggerLabel": "Trigger",
+    "add": "Add workflow",
+    "run": "Run",
+    "runLog": "Run log",
+    "noSteps": "No steps yet",
+    "trigger": {
+      "message": "Message",
+      "schedule": "Schedule",
+      "reaction": "Reaction"
+    },
+    "stepKind": {
+      "send_message": "Send message",
+      "assign": "Assign",
+      "add_label": "Add label",
+      "wait": "Wait"
+    }
+  },
+  "clip": {
+    "newClip": "Untitled clip",
+    "record": "Record",
+    "searchPh": "Search clips…",
+    "showArchived": "Show archived",
+    "empty": "No clips found",
+    "selectClip": "Select a clip",
+    "views": "{{n}} views",
+    "completion": "Completion",
+    "removeFiller": "Remove filler words",
+    "fillerDone": "Filler removed",
+    "removeSilence": "Remove silences",
+    "silenceDone": "Silence removed",
+    "archive": "Archive",
+    "unarchive": "Unarchive",
+    "archived": "Archived",
+    "ai": "AI",
+    "generateAi": "Generate with AI",
+    "toDoc": "To doc",
+    "toTicket": "To work item",
+    "toMessage": "To message",
+    "output": "Generated output",
+    "transcript": "Transcript",
+    "comments": "Comments",
+    "commentPh": "Add a comment…",
+    "addComment": "Comment",
+    "sharing": "Sharing",
+    "expired": "Link expired",
+    "privacyLabel": "Privacy",
+    "password": "Password",
+    "passwordPh": "Set a password",
+    "setPassword": "Save",
+    "expiry": "Link expiry",
+    "expire7d": "7 days",
+    "noExpiry": "No expiry",
+    "cta": "Call to action",
+    "ctaClicks": "{{n}} clicks",
+    "ctaLabelPh": "Button label",
+    "ctaUrlPh": "https://…",
+    "setCta": "Save CTA",
+    "variables": "Personalized copies",
+    "createVariables": "Generate",
+    "copies": "{{n}} copies",
+    "privacy": {
+      "link": "Anyone with link",
+      "workspace": "Workspace",
+      "people": "Specific people"
+    },
+    "recordMode": {
+      "screen": "Screen",
+      "cam": "Camera",
+      "bubble": "Bubble",
+      "screen_cam": "Screen + camera"
+    }
+  },
+  "comments": {
+    "title": "Comments",
+    "viewing": "Viewing now",
+    "simulate": "Simulate teammate edit",
+    "remoteEdit": "A teammate edited this doc",
+    "empty": "No comments yet",
+    "resolved": "Resolved",
+    "resolve": "Resolve",
+    "anchor": "Anchor to block",
+    "placeholder": "Add a comment…",
+    "post": "Post comment"
+  },
+  "apps": {
+    "approvals": "Approvals",
+    "pending": "{{n}} pending",
+    "request": "New request",
+    "requestPh": "Request title…",
+    "approve": "Approve",
+    "reject": "Reject",
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "shifts": "Shifts",
+    "weeklyHours": "{{n}}h this week",
+    "conflict": "Schedule conflict",
+    "claim": "Claim",
+    "noOpenShifts": "No open shifts",
+    "forms": "Forms",
+    "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  }
+}

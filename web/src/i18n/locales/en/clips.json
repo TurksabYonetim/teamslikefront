@@ -1,0 +1,79 @@
+{
+  "title": "Clips",
+  "subtitle": "Async screen-video messages",
+  "newClip": "New clip",
+  "toolbar": {
+    "searchPlaceholder": "Search clips…",
+    "sortLabel": "Sort",
+    "sort": {
+      "newest": "Newest",
+      "oldest": "Oldest",
+      "longest": "Longest",
+      "shortest": "Shortest",
+      "title": "Title (A-Z)"
+    }
+  },
+  "empty": {
+    "title": "No clips yet",
+    "description": "Get started by adding your first screen-video message.",
+    "action": "Add clip"
+  },
+  "noResults": {
+    "title": "No matching clips",
+    "description": "Try changing your search or sorting.",
+    "clear": "Clear search"
+  },
+  "player": {
+    "prev": "Previous clip",
+    "next": "Next clip",
+    "close": "Close",
+    "speed": "Speed",
+    "copyShare": "Copy link"
+  },
+  "form": {
+    "createTitle": "New clip",
+    "editTitle": "Edit clip",
+    "title": "Title",
+    "titlePlaceholder": "Clip title",
+    "description": "Description",
+    "descriptionPlaceholder": "Short description (optional)",
+    "videoUrl": "Video URL",
+    "videoUrlPlaceholder": "https://…",
+    "thumbnailUrl": "Thumbnail URL",
+    "thumbnailUrlPlaceholder": "https://… (optional)",
+    "durationS": "Duration (s)",
+    "durationPlaceholder": "e.g. 222",
+    "save": "Save",
+    "create": "Add",
+    "cancel": "Cancel",
+    "requiredTitle": "Title is required.",
+    "requiredVideoUrl": "Video URL is required.",
+    "invalidVideoUrl": "Enter a valid video URL (http/https).",
+    "thumbnailPreview": "Thumbnail preview",
+    "thumbnailBroken": "Image failed to load"
+  },
+  "card": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "play": "Play",
+    "noThumbnail": "No thumbnail"
+  },
+  "confirmDelete": {
+    "title": "Delete clip",
+    "message": "This clip will be permanently deleted. Continue?",
+    "confirm": "Delete",
+    "cancel": "Cancel"
+  },
+  "toast": {
+    "created": "Clip added.",
+    "updated": "Clip updated.",
+    "deleted": "Clip deleted.",
+    "undo": "Undo",
+    "restored": "Clip restored.",
+    "linkCopied": "Share link copied.",
+    "loadError": "Failed to load clips.",
+    "createError": "Failed to add clip.",
+    "updateError": "Failed to update clip.",
+    "deleteError": "Failed to delete clip."
+  }
+}

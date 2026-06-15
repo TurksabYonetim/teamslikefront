@@ -1,0 +1,57 @@
+// web/src/features/webinar/components/StageView.tsx
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Icon } from "@/components/Icon";
+import { Badge } from "@/components/ui";
+import { useStore } from "@/lib/createStore";
+import { webinarStore } from "../webinar.store";
+import { simulivePosition } from "../webinar.dom";
+
+const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+
+export function StageView() {
+  const { t } = useTranslation("webinar");
+  const event = useStore(webinarStore, (s) => s.events.find((e) => e.id === s.activeEventId)!);
+  const mode = useStore(webinarStore, (s) => s.mode);
+  const attendees = useStore(webinarStore, (s) => s.attendees);
+  const [now, setNow] = useState(Date.now());
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const pos = simulivePosition(event.startsAt, now, event.durationSec);
+  const liveBadge = mode === "live";
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden rounded-lg border border-slate-700 bg-slate-900">
+      <div className="flex items-center gap-2 border-b border-slate-700 px-3 py-2">
+        <Badge tone={pos.live ? "danger" : "neutral"}>
+          <Icon name="broadcast" className="h-3.5 w-3.5" /> {liveBadge ? t("live") : t(`modeLabel.${mode}`)}
+        </Badge>
+        <span className="ml-auto inline-flex items-center gap-1 text-base text-slate-300">
+          <Icon name="usersThree" className="h-4 w-4" /> {attendees.toLocaleString()}
+        </span>
+      </div>
+
+      <div className="flex flex-1 flex-col items-center justify-center gap-3 p-6 text-center">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand text-white">
+          <Icon name="play" className="h-7 w-7" />
+        </div>
+        <div className="text-xl font-semibold text-white">{event.title}</div>
+        <div className="text-base text-slate-300">{event.sessions[0]?.title}</div>
+      </div>
+
+      <div className="border-t border-slate-700 px-3 py-2" aria-label={t("timeline")}>
+        <div className="h-2 w-full overflow-hidden rounded-full bg-slate-700">
+          <div className="h-full bg-brand" style={{ width: `${pos.pct}%` }} aria-hidden />
+        </div>
+        <div className="mt-1 flex justify-between text-base text-slate-400">
+          <span>{fmt(pos.elapsedSec)}</span>
+          <span>{fmt(event.durationSec)}</span>
+        </div>
+      </div>
+    </div>
+  );
+}

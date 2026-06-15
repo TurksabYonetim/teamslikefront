@@ -1,0 +1,204 @@
+{
+  "et": {
+    "tabs": { "eventTypes": "Görüşme türleri", "availability": "Müsaitlik", "bookings": "Rezervasyonlar" },
+    "list": { "title": "Görüşme türleri", "count": "{{count}} tür", "count_plural": "{{count}} tür", "new": "Yeni görüşme türü" },
+    "table": { "name": "Ad", "slug": "Bağlantı", "duration": "Süre", "status": "Durum", "actions": "İşlemler" },
+    "status": { "active": "Aktif", "hidden": "Gizli" },
+    "minutes": "{{count}} dk",
+    "empty": { "title": "Henüz görüşme türü yok", "description": "Rezervasyon almaya başlamak için ilk görüşme türünüzü oluşturun." },
+    "form": {
+      "create": "Yeni görüşme türü",
+      "update": "Görüşme türünü düzenle",
+      "name": "Ad",
+      "namePlaceholder": "örn. Tanışma görüşmesi",
+      "slug": "URL kısaltması",
+      "slugPlaceholder": "intro-15",
+      "slugHint": "Yalnızca küçük harf, rakam ve tire.",
+      "duration": "Süre (dakika)",
+      "description": "Açıklama",
+      "descriptionPlaceholder": "Bu görüşme ne hakkında?",
+      "active": "Genel sayfada görünür",
+      "save": "Kaydet",
+      "cancel": "Vazgeç"
+    },
+    "availability": {
+      "title": "Haftalık müsaitlik",
+      "description": "Davetlilerin her gün rezervasyon yapabileceği saatleri belirleyin.",
+      "open": "Açık",
+      "start": "Başlangıç",
+      "end": "Bitiş",
+      "timezone": "Saat dilimi",
+      "save": "Müsaitliği kaydet",
+      "saved": "Müsaitlik kaydedildi",
+      "weekdays": ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"]
+    },
+    "bookings": {
+      "title": "Rezervasyonlar",
+      "empty": "Henüz rezervasyon yok.",
+      "invitee": "Davetli",
+      "type": "Tür",
+      "when": "Zaman",
+      "status": "Durum"
+    },
+    "toast": {
+      "created": "Görüşme türü oluşturuldu",
+      "updated": "Görüşme türü güncellendi",
+      "deleted": "Görüşme türü silindi",
+      "undo": "Geri al",
+      "error": "İşlem başarısız"
+    },
+    "deleteModal": { "title": "Görüşme türü silinsin mi?", "message": "Bu görüşme türünü kaldıracaktır. Mevcut rezervasyonlar korunur.", "cancel": "Vazgeç", "confirm": "Sil" }
+  },
+  "pub": {
+    "badge": "Randevu",
+    "pickTitle": "Bir görüşme türü seçin",
+    "pickSubtitle": "{{name}} ekibiyle uygun bir zaman ayarlayın.",
+    "loadError": "Bu randevu sayfası kullanılamıyor.",
+    "noTypes": "Şu anda rezervasyona açık görüşme türü yok.",
+    "back": "Geri",
+    "minutes": "{{count}} dk",
+    "pickDate": "Bir tarih seçin",
+    "pickSlot": "Bir saat seçin",
+    "nameLabel": "Ad soyad *",
+    "emailLabel": "E-posta *",
+    "confirm": "Rezervasyonu onayla",
+    "confirming": "Onaylanıyor...",
+    "doneTitle": "Rezervasyon onaylandı",
+    "doneSubtitle": "Takvim daveti e-postanıza gönderildi.",
+    "another": "Başka randevu al",
+    "addToCalendar": "Takvime ekle",
+    "error": "Rezervasyon tamamlanamadı. Seçilen saat artık uygun olmayabilir."
+  },
+  "breadcrumb": {
+    "ariaLabel": "Gezinti yolu",
+    "home": "Ana Sayfa",
+    "events": "Etkinlikler",
+    "allEvents": "Tüm etkinlikler"
+  },
+  "header": {
+    "allEvents": "Tüm etkinlikler",
+    "results": "{{count}} Sonuç",
+    "moreInfo": "Daha fazla bilgi",
+    "resultsTooltip": "1567 sonuçtan 1-15 arası gösteriliyor",
+    "createEvent": "Etkinlik oluştur",
+    "export": "Dışa aktar"
+  },
+  "sort": {
+    "label": "Sırala:",
+    "currentYear": "Bu yıl",
+    "pastMonth": "Geçen ay",
+    "last30Days": "Son 30 gün",
+    "last7Days": "Son 7 gün",
+    "moreOptions": "Daha fazla seçenek",
+    "byDate": "Tarih",
+    "bySeats": "Kalan koltuk",
+    "byTitle": "Başlık (A-Z)"
+  },
+  "search": {
+    "placeholder": "Etkinlik ara",
+    "label": "Etkinliklerde ara"
+  },
+  "empty": {
+    "title": "Etkinlik bulunamadı",
+    "description": "Aramanızı değiştirin veya yeni bir etkinlik oluşturun."
+  },
+  "actions": {
+    "actions": "İşlemler",
+    "edit": "Düzenle",
+    "archive": "Arşivle",
+    "delete": "Sil",
+    "view": "Görüntüle"
+  },
+  "table": {
+    "checkbox": "onay kutusu",
+    "event": "Etkinlik",
+    "speakers": "Konuşmacılar",
+    "remainingSeats": "Kalan Koltuk",
+    "googleMeet": "Google meet",
+    "date": "Tarih",
+    "duration": "Süre",
+    "actions": "İşlemler",
+    "none": "Yok"
+  },
+  "duration": {
+    "days_one": "{{count}} gün",
+    "days_other": "{{count}} gün",
+    "hours_one": "{{count}} saat",
+    "hours_other": "{{count}} saat",
+    "weeks_one": "{{count}} hafta",
+    "weeks_other": "{{count}} hafta"
+  },
+  "pagination": {
+    "showing": "Gösterilen",
+    "of": "/",
+    "previous": "Önceki",
+    "next": "Sonraki"
+  },
+  "create": {
+    "title": "Yeni Etkinlik"
+  },
+  "update": {
+    "title": "Etkinliği Güncelle"
+  },
+  "fields": {
+    "title": "Başlık",
+    "titlePlaceholder": "Başlığı buraya ekleyin",
+    "description": "Açıklama",
+    "descriptionPlaceholder": "Etkinlik açıklamasını buraya girin",
+    "descriptionPlaceholderDots": "Etkinlik açıklamasını buraya girin...",
+    "startDate": "Başlangıç tarihi",
+    "startDatePlaceholder": "Başlangıç tarihi",
+    "endDate": "Bitiş tarihi",
+    "endDatePlaceholder": "Bitiş tarihi",
+    "location": "Konum",
+    "locationPlaceholder": "Konum girin",
+    "addGuests": "Misafir ekle",
+    "guestEmailPlaceholder": "Misafir e-postası ekleyin",
+    "tagColor": "Etiket Rengi",
+    "guestPermissions": "Misafir İzinleri"
+  },
+  "permissions": {
+    "modifyEvent": "Etkinliği düzenle",
+    "inviteOthers": "Başkalarını davet et",
+    "seeGuestList": "Misafir listesini gör"
+  },
+  "drawerActions": {
+    "add": "Ekle",
+    "addEvent": "Etkinlik ekle",
+    "close": "Kapat",
+    "updateEvent": "Etkinliği güncelle",
+    "delete": "Sil",
+    "edit": "Düzenle"
+  },
+  "read": {
+    "details": "Ayrıntılar",
+    "remainingSeats": "Kalan koltuk",
+    "participants": "Katılımcılar",
+    "online": "Çevrimiçi",
+    "duration": "Süre",
+    "allDay": "Tüm gün",
+    "notification": "Bildirim"
+  },
+  "deleteModal": {
+    "title": "Bu etkinlik kaldırılsın mı?",
+    "message": "Bu etkinliği silerseniz, etkinliğe ait tüm bildirimler, rezervasyonlar ve ödemeler silinebilir.",
+    "confirmText": "Ayrıca bu etkinliğin sizin adınıza Flowbite'ta yayınlamış olabileceği tüm gönderileri, fotoğrafları ve videoları da sil.",
+    "cancel": "Vazgeç",
+    "confirm": "Evet, sil"
+  },
+  "archiveModal": {
+    "message": "Bu etkinliği arşivlemek istediğinizden emin misiniz?",
+    "cancel": "Hayır, vazgeç",
+    "confirm": "Evet, istiyorum"
+  },
+  "sr": {
+    "closeMenu": "Menüyü kapat",
+    "closeModal": "Pencereyi kapat",
+    "removeUser": "Kullanıcıyı kaldır",
+    "date": "Tarih",
+    "location": "Konum",
+    "previous": "Önceki",
+    "next": "Sonraki",
+    "tableNavigation": "Tablo gezintisi"
+  }
+}

@@ -1,0 +1,203 @@
+{
+  "nav": "Destek",
+  "title": "Destek",
+  "subtitle": "Omnichannel gelen kutusu",
+  "inboxesHeader": "Gelen kutuları",
+  "allInboxes": "Tüm kutular",
+  "filterHeader": "Durum",
+  "assigneeHeader": "Atama",
+  "back": "Listeye dön",
+  "filters": {
+    "all": "Tümü",
+    "mine": "Bana atanan",
+    "unassigned": "Atanmamış"
+  },
+  "status": { "open": "Açık", "pending": "Beklemede", "snoozed": "Ertelendi", "resolved": "Çözüldü" },
+  "priority": { "urgent": "Acil", "high": "Yüksek", "medium": "Orta", "low": "Düşük", "none": "Yok" },
+  "channel": { "livechat": "Canlı sohbet", "email": "E-posta", "whatsapp": "WhatsApp", "instagram": "Instagram", "facebook": "Facebook", "telegram": "Telegram", "sms": "SMS" },
+  "sla": { "ok": "SLA uygun", "due_soon": "SLA yakın", "breached": "SLA aşıldı" },
+  "list": {
+    "search": "Konuşma ara…",
+    "empty": "Konuşma yok",
+    "emptyHint": "Bu filtreyle eşleşen konuşma yok.",
+    "unreadOne": "1 okunmamış",
+    "minutesAgo": "{{n}} dk önce"
+  },
+  "conversation": {
+    "noneTitle": "Konuşma seçili değil",
+    "noneHint": "Soldan bir konuşma seç.",
+    "replyPlaceholder": "Yanıt yaz…",
+    "send": "Gönder",
+    "notePlaceholder": "İç not ekle…",
+    "addNote": "Not ekle",
+    "reply": "Yanıt",
+    "note": "Not",
+    "replyMode": "Yanıt moduna geç",
+    "noteMode": "İç not moduna geç",
+    "internalNote": "İç not",
+    "macro": "Makro",
+    "applyMacro": "Makro uygula",
+    "assign": "Ata",
+    "assignToMe": "Bana ata",
+    "assignNext": "Sıradakine ata",
+    "assignedTo": "{{name}} adlı temsilciye atandı",
+    "statusLabel": "Durum",
+    "priorityLabel": "Öncelik",
+    "resolve": "Çöz",
+    "reopen": "Yeniden aç",
+    "csat": "Memnuniyet (CSAT)",
+    "csatThanks": "Geri bildirim kaydedildi",
+    "aiSuggest": "Yanıt öner (AI)",
+    "aiDraft": "AI taslağı",
+    "insertDraft": "Taslağı ekle",
+    "dismiss": "Kapat"
+  },
+  "contact": {
+    "title": "Kişi",
+    "details": "Detaylar",
+    "email": "E-posta",
+    "phone": "Telefon",
+    "social": "Sosyal",
+    "labels": "Etiketler",
+    "addLabel": "Etiket ekle",
+    "noLabels": "Henüz etiket yok",
+    "removeLabel": "{{label}} etiketini kaldır",
+    "assignee": "Atanan",
+    "unassigned": "Atanmamış",
+    "attributes": "Öznitelikler",
+    "conversations": "Konuşmalar",
+    "csatAvg": "Ekip ort. {{n}}",
+    "csatRate": "5 üzerinden {{n}} puan"
+  },
+  "kb": {
+    "title": "Bilgi bankası",
+    "search": "Makale ara…",
+    "empty": "Makale bulunamadı"
+  },
+  "views": {
+    "inbox": "Gelen kutusu",
+    "automation": "Otomasyon",
+    "workforce": "İşgücü",
+    "studio": "Agent Studio",
+    "switcher": "Destek görünümleri"
+  },
+  "channels": {
+    "title": "Kanallar",
+    "subtitle": "Mesajlaşma kanallarını Meta Embedded Signup ile bağlayın. WhatsApp Cloud API, Coexistence'ı destekler — WhatsApp Business uygulamanızı korurken API üzerinde çalışın.",
+    "connected": "{{n}} canlı",
+    "coexistence": "Coexistence",
+    "advance": "Kuruluma devam et",
+    "advanceFor": "{{name}} için kuruluma devam et",
+    "reset": "Sıfırla",
+    "resetFor": "{{name}} sıfırla",
+    "embeddedSignup": "Meta Embedded Signup",
+    "step": {
+      "connect": "Bağlan",
+      "verifying": "Numara doğrulanıyor",
+      "migrating": "Taşınıyor (Coexistence)",
+      "live": "Canlı"
+    }
+  },
+  "flow": {
+    "title": "Akış tasarımcısı",
+    "subtitle": "No-code chatbot akışları. Collect düğümleri WhatsApp Flow (sohbet-içi form) olarak render edilir.",
+    "start": "Başlangıç",
+    "waFlow": "WhatsApp Flow",
+    "remove": "Düğümü sil",
+    "simulate": "Simüle et",
+    "path": "Yol",
+    "noPath": "Yolu görmek için simülasyonu çalıştır.",
+    "dangling": "{{n}} kenar eksik bir düğüme işaret ediyor.",
+    "unreachable": "{{n}} düğüme ulaşılamıyor.",
+    "addNode": "Düğüm ekle",
+    "kind": {
+      "message": "Mesaj",
+      "question": "Soru",
+      "collect": "Topla",
+      "condition": "Koşul",
+      "handoff": "Devret",
+      "end": "Bitir"
+    }
+  },
+  "cost": {
+    "title": "Mesajlaşma maliyeti",
+    "subtitle": "WhatsApp rate card ve 24s hizmet penceresi üzerinden öngörülebilir mesaj-başına faturalama.",
+    "region": "Bölge",
+    "category": "Kategori",
+    "rate": "Oran / mesaj",
+    "free": "Ücretsiz",
+    "window": "Son gelen mesajdan beri geçen süre",
+    "windowOpen": "Hizmet penceresi açık · ~{{n}}s kaldı",
+    "windowClosed": "Hizmet penceresi kapalı",
+    "estimate": "Tahmini aylık harcama: ${{total}} ({{n}} mesaj üzerinden)",
+    "breakdown": "Kategoriye göre",
+    "cat": {
+      "marketing": "Pazarlama",
+      "utility": "Yardımcı",
+      "authentication": "Kimlik doğrulama",
+      "service": "Hizmet"
+    }
+  },
+  "wfo": {
+    "forecast": "Tahmin & personel",
+    "interval": "Aralık",
+    "volume": "Hacim",
+    "required": "Gereken",
+    "scheduled": "Vardiyada",
+    "gap": "Fark",
+    "regenerate": "Tahmini yenile",
+    "understaffed": "{{n}} aralıkta personel açığı",
+    "serviceLevel": "Hizmet seviyesi %{{n}}",
+    "selfHeal": "Temsilci ekle",
+    "adherence": "Program uyumu",
+    "quality": "Kalite skorkartı",
+    "agent": "Temsilci",
+    "total": "Toplam",
+    "saveScore": "Puanı kaydet",
+    "evaluations": "Son değerlendirmeler"
+  },
+  "studio": {
+    "agents": "Agent'lar",
+    "newAgentPh": "Yeni agent adı",
+    "create": "Agent oluştur",
+    "name": "Ad",
+    "goal": "Hedef",
+    "goalPh": "Bu agent'ın ne yapması gerektiğini açıkla…",
+    "channels": "Kanallar",
+    "tools": "Araçlar",
+    "intents": "Intent'ler",
+    "intentLabelPh": "Intent etiketi",
+    "intentPhrasesPh": "Tetikleyici ifadeler (virgülle)",
+    "intentReplyPh": "Yanıt",
+    "addIntent": "Intent ekle",
+    "sandbox": "Kumbara",
+    "sandboxPh": "Bir müşteri mesajı yaz…",
+    "sandboxEmpty": "Agent'ı test etmek için bir mesaj gönder.",
+    "run": "Çalıştır",
+    "resolution": "Çözüm %{{n}}",
+    "runs": "{{n}} çalıştırma",
+    "publish": "Yayınla",
+    "published": "Yayınlandı",
+    "missing": "Yayınlamadan önce tamamla",
+    "channel": {
+      "webchat": "Web sohbet",
+      "whatsapp": "WhatsApp",
+      "voice": "Sesli",
+      "email": "E-posta"
+    },
+    "status": {
+      "draft": "Taslak",
+      "testing": "Test",
+      "published": "Yayında"
+    },
+    "req": {
+      "name": "ad",
+      "goal": "hedef",
+      "channels": "kanallar",
+      "intents": "intent'ler"
+    }
+  },
+  "common": {
+    "delete": "Sil"
+  }
+}

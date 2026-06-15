@@ -1,0 +1,81 @@
+{
+  "title": "Gösterge Paneli",
+  "subtitle": "Acme Inc.",
+  "actions": {
+    "report": "Rapor",
+    "newMeeting": "Yeni toplantı"
+  },
+  "greeting": {
+    "welcome": "Tekrar hoş geldin",
+    "welcomeNamed": "Tekrar hoş geldin, {{name}}",
+    "summary": "İşte bugünün özeti."
+  },
+  "stats": {
+    "openInbox": "Açık inbox",
+    "openInboxDelta": "{{count}} toplam",
+    "upcomingMeetings": "Yaklaşan toplantı",
+    "upcomingMeetingsDelta": "{{count}} toplam",
+    "weekAppointments": "Bu hafta randevu",
+    "weekAppointmentsDelta": "{{count}} toplam",
+    "teamMembers": "Ekip üyesi",
+    "teamMembersDelta": "{{count}} aktif"
+  },
+  "sections": {
+    "weeklyActivity": "Haftalık aktivite",
+    "thisWeek": "Bu hafta",
+    "taskProgress": "Görev ilerlemesi",
+    "upcomingMeetings": "Yaklaşan toplantılar",
+    "recentActivity": "Son aktivite",
+    "recentBookings": "Son rezervasyonlar",
+    "team": "Ekip"
+  },
+  "links": {
+    "all": "Tümü",
+    "manage": "Yönet"
+  },
+  "task": {
+    "done": "Tamamlanan",
+    "remaining": "Kalan",
+    "unit": "{{done}}/{{total}} görev"
+  },
+  "chart": {
+    "messages": "Mesaj",
+    "meetings": "Toplantı"
+  },
+  "meeting": {
+    "join": "Katıl",
+    "durationMin": "{{count}} dk"
+  },
+  "table": {
+    "customer": "Müşteri",
+    "type": "Tür",
+    "date": "Tarih",
+    "status": "Durum"
+  },
+  "status": {
+    "onaylı": "Onaylı",
+    "bekliyor": "Bekliyor",
+    "iptal": "İptal"
+  },
+  "presence": {
+    "available": "Çevrimiçi",
+    "busy": "Meşgul",
+    "away": "Uzakta",
+    "offline": "Çevrimdışı"
+  },
+  "empty": {
+    "meetingsTitle": "Yaklaşan toplantı yok",
+    "meetingsDesc": "Planlanan toplantılar burada görünecek.",
+    "activityTitle": "Henüz aktivite yok",
+    "activityDesc": "Ekip etkinliği oluştukça burada listelenir.",
+    "bookingsTitle": "Henüz randevu yok",
+    "bookingsDesc": "Alınan randevular burada görünecek.",
+    "teamTitle": "Ekip üyesi yok",
+    "teamDesc": "Davet edilen üyeler burada listelenir."
+  },
+  "error": {
+    "title": "Veriler yüklenemedi",
+    "desc": "Gösterge paneli verisi alınırken bir sorun oluştu.",
+    "retry": "Tekrar dene"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "forbidden": {
+    "title": "Erişim reddedildi",
+    "message": "Bunu görüntüleme yetkiniz yok. Bir hata olduğunu düşünüyorsanız yöneticinizle iletişime geçin."
+  },
+  "nav": {
+    "home": "Ana sayfa",
+    "messaging": "Mesajlaşma",
+    "channels": "Kanallar",
+    "dm": "Sohbet",
+    "inbox": "Inbox",
+    "meetingsAppointments": "Toplantı & Randevu",
+    "meetings": "Toplantı",
+    "room": "Toplantı odası",
+    "appointments": "Randevu",
+    "booking": "Booking",
+    "webinar": "Webinar",
+    "content": "İçerik",
+    "clips": "Clips",
+    "docs": "Docs",
+    "tasks": "Görevler",
+    "phone": "Telefon",
+    "copilot": "Copilot",
+    "intelligence": "Konuşma Zekâsı",
+    "canvas": "Kanvas",
+    "support": "Destek",
+    "admin": "Yönetim",
+    "team": "Ekip",
+    "settings": "Ayarlar",
+    "logout": "Çıkış yap"
+  },
+  "panel": {
+    "hide": "Paneli gizle",
+    "show": "Paneli göster"
+  },
+  "lang": {
+    "label": "Dil",
+    "tr": "Türkçe",
+    "en": "İngilizce",
+    "short_tr": "TR",
+    "short_en": "EN"
+  },
+  "actions": {
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "close": "Kapat",
+    "preview": "Önizleme",
+    "send": "Gönder",
+    "search": "Ara",
+    "today": "Bugün",
+    "newEvent": "Yeni etkinlik"
+  }
+}
