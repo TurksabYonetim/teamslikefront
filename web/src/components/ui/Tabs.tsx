@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { KeyboardEvent, ReactNode } from "react";
 import clsx from "clsx";
 
@@ -17,6 +17,23 @@ export function Tabs({
 }) {
   const [active, setActive] = useState(defaultId ?? items[0]?.id);
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  // emil: tek bir alt-çizgi göstergesi aktif sekmeye SAF transform ile kayar
+  // (translateX + scaleX, GPU). width/left layout animasyonu yok.
+  const [indicator, setIndicator] = useState({ left: 0, width: 0 });
+
+  useLayoutEffect(() => {
+    const el = tabRefs.current[active];
+    if (el) setIndicator({ left: el.offsetLeft, width: el.offsetWidth });
+  }, [active, items]);
+
+  useEffect(() => {
+    const measure = () => {
+      const el = tabRefs.current[active];
+      if (el) setIndicator({ left: el.offsetLeft, width: el.offsetWidth });
+    };
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [active]);
 
   const onKeyDown = (e: KeyboardEvent, index: number) => {
     let next = index;
@@ -35,8 +52,16 @@ export function Tabs({
     <div>
       <div
         role="tablist"
-        className="flex gap-1 border-b border-line"
+        className="relative flex gap-1 border-b border-line"
       >
+        {/* emil: origin-left 1px bar; scaleX=genişlik, translateX=konum (saf transform) */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute bottom-0 left-0 h-0.5 w-px origin-left bg-brand motion-safe:transition-transform duration-[var(--dur-pop)] ease-[var(--ease-out)]"
+          style={{
+            transform: `translateX(${indicator.left}px) scaleX(${indicator.width})`,
+          }}
+        />
         {items.map((it, i) => {
           const selected = it.id === active;
           return (
@@ -53,9 +78,7 @@ export function Tabs({
               className={clsx(
                 "relative px-4 py-2.5 text-sm font-medium -mb-px transition-colors motion-safe:active:scale-[0.97] transition-transform ease-[var(--ease-out)]",
                 "focus:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-t",
-                selected
-                  ? "text-brand border-b-2 border-brand"
-                  : "text-muted hover:text-ink",
+                selected ? "text-brand" : "text-muted hover:text-ink",
               )}
             >
               {it.label}

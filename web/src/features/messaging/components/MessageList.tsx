@@ -18,7 +18,7 @@ function MessageListSkeleton() {
             key={i}
             className={mine ? "flex justify-end" : "flex items-start gap-2"}
             style={{
-              animation: "tl-msg-skeleton-in var(--dur-toast) var(--ease-out) both",
+              animation: "tl-fade-in var(--dur-toast) var(--ease-out) both",
               animationDelay: `${i * 45}ms`,
             }}
           >
@@ -31,8 +31,6 @@ function MessageListSkeleton() {
           </div>
         );
       })}
-      <style>{`@keyframes tl-msg-skeleton-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion: reduce){[style*="tl-msg-skeleton-in"]{animation:none!important}}`}</style>
     </div>
   );
 }

@@ -98,7 +98,7 @@ export function ChannelHeader() {
         <div
           data-testid="ongoing-meeting-bar"
           className="flex items-center gap-2 border-b border-line bg-brand/10 px-4 py-2 text-sm text-brand dark:border-gray-700"
-          style={{ animation: "tl-ongoing-in var(--dur-pop) var(--ease-out) both" }}
+          style={{ animation: "tl-bar-in var(--dur-pop) var(--ease-out) both" }}
         >
           <span className="relative flex h-2 w-2" aria-hidden>
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75 motion-reduce:hidden" />
@@ -113,8 +113,6 @@ export function ChannelHeader() {
           >
             {t("ongoingMeeting.join")}
           </Button>
-          <style>{`@keyframes tl-ongoing-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion: reduce){[style*="tl-ongoing-in"]{animation:none!important}}`}</style>
         </div>
       ) : null}
       <header className="flex items-center gap-3 border-b border-line bg-surface-2 px-4 py-3 dark:border-gray-700 dark:bg-gray-700">

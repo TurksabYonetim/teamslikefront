@@ -136,7 +136,7 @@ function OverviewSection() {
         ))}
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="tl-stagger grid gap-4 lg:grid-cols-2">
         <div className="rounded-xl border border-line bg-surface p-4">
           <div className="mb-2 text-sm font-semibold text-ink">
             {t("overview.byActionTitle")}
@@ -159,7 +159,7 @@ function OverviewSection() {
         </div>
       </div>
 
-      <div className="rounded-xl border border-line bg-surface p-4">
+      <div className="rounded-xl border border-line bg-surface p-4 motion-safe:[animation:tl-fade-in_var(--dur-toast)_var(--ease-out)_both]">
         <div className="mb-2 text-sm font-semibold text-ink">
           {t("overview.timelineTitle")}
         </div>
