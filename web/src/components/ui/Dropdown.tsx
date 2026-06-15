@@ -39,7 +39,7 @@ export function Dropdown({ trigger, label, align = "end", triggerClassName, chil
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className={triggerClassName}
+        className={clsx("transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]", triggerClassName)}
       >
         {trigger}
       </button>
@@ -70,7 +70,7 @@ export function DropdownItem({ onSelect, children }: { onSelect: () => void; chi
         onSelect();
         ctx?.close();
       }}
-      className="flex h-10 w-full cursor-pointer items-center gap-2 rounded-md px-2 text-start text-sm text-ink outline-none hover:bg-surface-2 dark:text-white dark:hover:bg-gray-700"
+      className="flex h-10 w-full cursor-pointer items-center gap-2 rounded-md px-2 text-start text-sm text-ink outline-none transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-surface-2 dark:text-white dark:hover:bg-gray-700"
     >
       {children}
     </button>

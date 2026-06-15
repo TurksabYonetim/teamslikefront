@@ -95,7 +95,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
           <button
             type="button"
             onClick={() => navigate("/room")}
-            className="rounded-md bg-brand px-3 py-1 text-sm font-medium text-white"
+            className="rounded-md bg-brand px-3 py-1 text-sm font-medium text-white transition-transform motion-safe:active:scale-[0.97]"
           >
             {t("joinCall")}
           </button>
@@ -118,7 +118,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
         <button
           type="button"
           onClick={() => { editMessage(message.id, draft); setEditing(false); }}
-          className="rounded-md bg-brand px-3 py-1 text-sm font-medium text-white"
+          className="rounded-md bg-brand px-3 py-1 text-sm font-medium text-white transition-transform motion-safe:active:scale-[0.97]"
         >
           {t("saveEdit")}
         </button>
@@ -138,7 +138,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
   ) : message.kind === "file" ? (
     <FileMessage file={message.file!} />
   ) : message.kind === "sticker" ? (
-    <div className="text-5xl leading-none" role="img" aria-label="sticker">{message.sticker}</div>
+    <div className="motion-safe:tl-pop-in text-5xl leading-none" role="img" aria-label="sticker">{message.sticker}</div>
   ) : (
     <div className="space-y-1">
       <RichText text={message.body} className="text-sm text-ink dark:text-white" />
@@ -170,7 +170,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
               aria-pressed={mine}
               aria-label={r.emoji}
               className={clsx(
-                "inline-flex h-7 items-center gap-1 rounded-full border px-2 text-sm",
+                "inline-flex h-7 items-center gap-1 rounded-full border px-2 text-sm transition-transform motion-safe:active:scale-[0.97]",
                 mine
                   ? "border-brand bg-brand/10 text-brand"
                   : "border-line bg-surface-2 text-ink dark:border-gray-700 dark:text-white",
@@ -207,14 +207,14 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
   // ── Hover/focus toolbar ───────────────────────────────────────────────
   const toolbar = (
     <>
-    <div className="absolute -top-3 end-2 z-10 flex items-center gap-0.5 rounded-md border border-line bg-white p-0.5 opacity-0 shadow-sm transition-opacity pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100 dark:border-gray-700 dark:bg-gray-800 [@media(pointer:coarse)]:pointer-events-auto [@media(pointer:coarse)]:opacity-100">
+    <div className="absolute -top-3 end-2 z-10 flex items-center gap-0.5 rounded-md border border-line bg-white p-0.5 opacity-0 shadow-sm transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100 dark:border-gray-700 dark:bg-gray-800 [@media(pointer:coarse)]:pointer-events-auto [@media(pointer:coarse)]:opacity-100">
       {QUICK_REACTIONS.slice(0, 6).map((emoji) => (
         <button
           key={emoji}
           type="button"
           aria-label={emoji}
           onClick={() => toggleReaction(message.id, emoji, ME_ID)}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-base hover:bg-surface-2 dark:hover:bg-gray-700"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-base transition-transform motion-safe:active:scale-[0.97] hover:bg-surface-2 dark:hover:bg-gray-700"
         >
           <span aria-hidden>{emoji}</span>
         </button>
@@ -224,7 +224,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
         type="button"
         onClick={() => setReplyTarget(message.id)}
         aria-label={t("reply")}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted hover:bg-surface-2 hover:text-ink dark:hover:bg-gray-700"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted transition-transform motion-safe:active:scale-[0.97] hover:bg-surface-2 hover:text-ink dark:hover:bg-gray-700"
       >
         <HiOutlineArrowUturnLeft className="h-4 w-4" aria-hidden />
       </button>
@@ -232,7 +232,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
         type="button"
         onClick={() => openThread(message.id)}
         aria-label={t("replyInThread")}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted hover:bg-surface-2 hover:text-ink dark:hover:bg-gray-700"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted transition-transform motion-safe:active:scale-[0.97] hover:bg-surface-2 hover:text-ink dark:hover:bg-gray-700"
       >
         <HiOutlineChatBubbleLeftRight className="h-4 w-4" aria-hidden />
       </button>
@@ -240,7 +240,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
         type="button"
         onClick={() => messagingStore.getState().translate(message.id)}
         aria-label={t("translate")}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted hover:bg-surface-2 hover:text-ink dark:hover:bg-gray-700"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted transition-transform motion-safe:active:scale-[0.97] hover:bg-surface-2 hover:text-ink dark:hover:bg-gray-700"
       >
         <HiOutlineLanguage className="h-4 w-4" aria-hidden />
       </button>
@@ -341,7 +341,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
         {!grouped ? (
           <Avatar name={name} color={colorFor(message.authorId)} size="md" className="mt-0.5" />
         ) : (
-          <span className="block pt-1 text-right text-xs text-muted opacity-0 group-hover:opacity-100">{relTime(t, message.tMinutes)}</span>
+          <span className="block pt-1 text-right text-xs text-muted opacity-0 transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] group-hover:opacity-100">{relTime(t, message.tMinutes)}</span>
         )}
       </div>
       <div className="min-w-0 flex-1">

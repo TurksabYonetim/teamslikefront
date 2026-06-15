@@ -58,7 +58,7 @@ function TabBtn({
       aria-selected={active}
       onClick={onClick}
       className={clsx(
-        "inline-flex items-center gap-1.5 border-b-2 px-4 py-2.5 text-sm font-medium",
+        "inline-flex items-center gap-1.5 border-b-2 px-4 py-2.5 text-sm font-medium transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:transition-transform motion-safe:active:scale-[0.97]",
         active
           ? "border-brand text-brand"
           : "border-transparent text-muted hover:border-gray-300 hover:text-ink dark:text-gray-400 dark:hover:text-white",
@@ -247,21 +247,21 @@ export function IntelligenceDashboard() {
           <button
             type="button"
             onClick={() => runCopilot("summarize")}
-            className="inline-flex h-9 items-center gap-1 rounded-md border border-line px-3 text-sm text-ink transition-transform hover:bg-surface-3 active:scale-[0.97] dark:border-gray-700 dark:text-white"
+            className="inline-flex h-9 items-center gap-1 rounded-md border border-line px-3 text-sm text-ink transition-[background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:transition-[transform,background-color] motion-safe:active:scale-[0.97] hover:bg-surface-3 dark:border-gray-700 dark:text-white"
           >
             <HiOutlineSparkles className="h-4 w-4" aria-hidden /> {t("summarize")}
           </button>
           <button
             type="button"
             onClick={() => runCopilot("actions")}
-            className="inline-flex h-9 items-center gap-1 rounded-md border border-line px-3 text-sm text-ink transition-transform hover:bg-surface-3 active:scale-[0.97] dark:border-gray-700 dark:text-white"
+            className="inline-flex h-9 items-center gap-1 rounded-md border border-line px-3 text-sm text-ink transition-[background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:transition-[transform,background-color] motion-safe:active:scale-[0.97] hover:bg-surface-3 dark:border-gray-700 dark:text-white"
           >
             <HiOutlineClipboardDocumentCheck className="h-4 w-4" aria-hidden /> {t("actionItems")}
           </button>
           <button
             type="button"
             onClick={exportRecap}
-            className="inline-flex h-9 items-center gap-1 rounded-md border border-line px-3 text-sm text-ink hover:bg-surface-3 dark:border-gray-700 dark:text-white"
+            className="inline-flex h-9 items-center gap-1 rounded-md border border-line px-3 text-sm text-ink transition-[background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:transition-[transform,background-color] motion-safe:active:scale-[0.97] hover:bg-surface-3 dark:border-gray-700 dark:text-white"
           >
             <HiOutlineArrowDownTray className="h-4 w-4" aria-hidden /> {t("export")}
           </button>
@@ -272,7 +272,7 @@ export function IntelligenceDashboard() {
             onClick={() => intelStore.getState().toggleLive()}
             aria-pressed={live}
             className={clsx(
-              "inline-flex h-9 items-center gap-1 rounded-md px-3 text-sm",
+              "inline-flex h-9 items-center gap-1 rounded-md px-3 text-sm transition-[background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:transition-[transform,background-color] motion-safe:active:scale-[0.97]",
               live
                 ? "bg-red-600 text-white"
                 : "bg-surface-2 text-ink dark:bg-gray-700 dark:text-white",

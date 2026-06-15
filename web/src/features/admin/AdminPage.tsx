@@ -327,7 +327,7 @@ function AuditLogSection() {
                       setSelected(r);
                     }
                   }}
-                  className="cursor-pointer border-b border-line transition-colors duration-150 ease-out last:border-0 hover:bg-surface-2 focus:outline-none focus-visible:bg-surface-2"
+                  className="cursor-pointer border-b border-line transition-colors duration-150 ease-out last:border-0 hover:bg-surface-2 motion-safe:active:bg-surface-3 focus:outline-none focus-visible:bg-surface-2"
                 >
                   <td className="px-3 py-2 whitespace-nowrap text-muted">
                     {fmtDate(r.created_at)}
@@ -519,7 +519,7 @@ function PolicySection() {
           icon={<Icon name="settings" className="w-6 h-6" />}
         />
       ) : (
-        <div className="flex flex-col gap-3">
+        <div className="tl-stagger flex flex-col gap-3">
           {(data ?? []).map((p) => (
             <PolicyRow key={p.id} policy={p} />
           ))}

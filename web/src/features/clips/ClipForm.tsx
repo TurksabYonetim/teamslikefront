@@ -111,7 +111,7 @@ export function ClipForm({ form, onChange }: ClipFormProps) {
           }`}
         />
         {videoInvalid && (
-          <span className="text-xs text-red-600 inline-flex items-center gap-1">
+          <span className="text-xs text-red-600 inline-flex items-center gap-1 motion-safe:animate-[tl-fade-in_var(--dur-press)_var(--ease-out)]">
             <Icon name="info" className="w-3.5 h-3.5" />
             {t("form.invalidVideoUrl")}
           </span>
@@ -133,7 +133,7 @@ export function ClipForm({ form, onChange }: ClipFormProps) {
         />
         {/* Kapak önizleme */}
         {thumb !== "" && (
-          <div className="mt-1 w-40 aspect-video rounded-md overflow-hidden border border-gray-200 bg-gray-100 grid place-items-center">
+          <div className="mt-1 w-40 aspect-video rounded-md overflow-hidden border border-gray-200 bg-gray-100 grid place-items-center motion-safe:animate-[tl-pop-in_var(--dur-pop)_var(--ease-out)] origin-top-left">
             {thumbBroken ? (
               <span className="text-[11px] text-gray-400 inline-flex flex-col items-center gap-1">
                 <Icon name="photo" className="w-5 h-5" />

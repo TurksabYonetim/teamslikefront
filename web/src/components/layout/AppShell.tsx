@@ -46,7 +46,7 @@ export function AppShell() {
       {/* backdrop (yalnızca mobil, drawer açıkken) */}
       {open && (
         <div
-          className="fixed inset-0 z-30 bg-gray-900/50 md:hidden"
+          className="fixed inset-0 z-30 bg-gray-900/50 md:hidden motion-safe:animate-[tl-fade_var(--dur-drawer,240ms)_var(--ease-out)]"
           onClick={() => setOpen(false)}
         />
       )}
@@ -54,7 +54,7 @@ export function AppShell() {
       {/* sidebarlar: mobilde drawer, md+ akış içinde */}
       <div
         className={clsx(
-          "fixed inset-y-0 left-0 z-40 flex shadow-2xl transition-transform duration-200 ease-out md:static md:z-auto md:translate-x-0 md:shadow-none",
+          "fixed inset-y-0 left-0 z-40 flex shadow-2xl motion-safe:transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] md:static md:z-auto md:translate-x-0 md:shadow-none",
           open ? "translate-x-0" : "-translate-x-full",
           hideSidebarDesktop && "md:hidden",
         )}

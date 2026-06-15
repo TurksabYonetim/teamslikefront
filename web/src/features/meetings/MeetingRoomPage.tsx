@@ -427,63 +427,63 @@ export function MeetingRoomPage() {
           </span>
         </div>
         <div className="mx-auto flex items-center justify-center">
-          <button onClick={() => run("toggleAudio")} data-tooltip-target="tooltip-microphone" type="button" className={`group me-4 rounded-full p-2.5 focus:outline-none focus:ring-4 ${audioMuted ? "bg-red-600 hover:bg-red-700 focus:ring-red-200 dark:focus:ring-red-800" : "bg-gray-100 hover:bg-gray-200 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"}`}>
+          <button onClick={() => run("toggleAudio")} data-tooltip-target="tooltip-microphone" type="button" className={`group me-4 rounded-full p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] focus:outline-none focus:ring-4 ${audioMuted ? "bg-red-600 hover:bg-red-700 focus:ring-red-200 dark:focus:ring-red-800" : "bg-gray-100 hover:bg-gray-200 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"}`}>
             <svg className={`h-4 w-4 ${audioMuted ? "text-white" : "text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white"}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 19">
               <path d="M15 5a1 1 0 0 0-1 1v3a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V6a1 1 0 0 0-2 0v3a6.006 6.006 0 0 0 6 6h1v2H5a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2H9v-2h1a6.006 6.006 0 0 0 6-6V6a1 1 0 0 0-1-1Z" />
               <path d="M9 0H7a3 3 0 0 0-3 3v5a3 3 0 0 0 3 3h2a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3Z" />
             </svg>
             <span className="sr-only">{audioMuted ? t("room.unmuteMicrophone") : t("room.muteMicrophone")}</span>
           </button>
-          <div id="tooltip-microphone" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+          <div id="tooltip-microphone" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
             {t("room.muteMicrophone")}
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
-          <button data-tooltip-target="tooltip-volume" type="button" className="group me-4 rounded-full bg-gray-100 p-2.5 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+          <button data-tooltip-target="tooltip-volume" type="button" className="group me-4 rounded-full bg-gray-100 p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
             <svg className="h-4 w-4 text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
               <path d="M10.836.357a1.978 1.978 0 0 0-2.138.3L3.63 5H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h1.63l5.07 4.344a1.985 1.985 0 0 0 2.142.299A1.98 1.98 0 0 0 12 15.826V2.174A1.98 1.98 0 0 0 10.836.357Zm2.728 4.695a1.001 1.001 0 0 0-.29 1.385 4.887 4.887 0 0 1 0 5.126 1 1 0 0 0 1.674 1.095A6.645 6.645 0 0 0 16 9a6.65 6.65 0 0 0-1.052-3.658 1 1 0 0 0-1.384-.29Zm4.441-2.904a1 1 0 0 0-1.664 1.11A10.429 10.429 0 0 1 18 9a10.465 10.465 0 0 1-1.614 5.675 1 1 0 1 0 1.674 1.095A12.325 12.325 0 0 0 20 9a12.457 12.457 0 0 0-1.995-6.852Z" />
             </svg>
             <span className="sr-only">{t("room.adjustVolume")}</span>
           </button>
-          <div id="tooltip-volume" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+          <div id="tooltip-volume" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
             {t("room.adjustVolume")}
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
-          <button onClick={() => run("toggleVideo")} data-tooltip-target="tooltip-camera" type="button" className={`group me-4 rounded-full p-2.5 focus:outline-none focus:ring-4 ${videoMuted ? "bg-red-600 hover:bg-red-700 focus:ring-red-200 dark:focus:ring-red-800" : "bg-gray-100 hover:bg-gray-200 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"}`}>
+          <button onClick={() => run("toggleVideo")} data-tooltip-target="tooltip-camera" type="button" className={`group me-4 rounded-full p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] focus:outline-none focus:ring-4 ${videoMuted ? "bg-red-600 hover:bg-red-700 focus:ring-red-200 dark:focus:ring-red-800" : "bg-gray-100 hover:bg-gray-200 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"}`}>
             <svg className={`h-4 w-4 ${videoMuted ? "text-white" : "text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white"}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
               <path d="M11 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm8.585 1.189a.994.994 0 0 0-.9-.138l-2.965.983a1 1 0 0 0-.685.949v8a1 1 0 0 0 .675.946l2.965 1.02a1.013 1.013 0 0 0 1.032-.242A1 1 0 0 0 20 12V2a1 1 0 0 0-.415-.811Z" />
             </svg>
             <span className="sr-only">{videoMuted ? t("room.showCamera") : t("room.hideCamera")}</span>
           </button>
-          <div id="tooltip-camera" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+          <div id="tooltip-camera" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
             {t("room.hideCamera")}
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
           {/* Ekran paylaş */}
-          <button onClick={() => run("toggleShareScreen")} data-tooltip-target="tooltip-screenshare" type="button" className={`group me-4 rounded-full p-2.5 focus:outline-none focus:ring-4 ${screenSharing ? "bg-primary-600 hover:bg-primary-700 focus:ring-primary-200 dark:focus:ring-primary-800" : "bg-gray-100 hover:bg-gray-200 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"}`}>
+          <button onClick={() => run("toggleShareScreen")} data-tooltip-target="tooltip-screenshare" type="button" className={`group me-4 rounded-full p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] focus:outline-none focus:ring-4 ${screenSharing ? "bg-primary-600 hover:bg-primary-700 focus:ring-primary-200 dark:focus:ring-primary-800" : "bg-gray-100 hover:bg-gray-200 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"}`}>
             <svg className={`h-4 w-4 ${screenSharing ? "text-white" : "text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white"}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
               <path d="M18 0H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h7v1H6a1 1 0 0 0 0 2h8a1 1 0 0 0 0-2h-3v-1h7a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm0 13H2V2h16v11Z" />
             </svg>
             <span className="sr-only">{screenSharing ? t("room.stopShareScreen") : t("room.shareScreenAction")}</span>
           </button>
-          <div id="tooltip-screenshare" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+          <div id="tooltip-screenshare" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
             {screenSharing ? t("room.stopShareScreen") : t("room.shareScreenAction")}
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
           {/* Reaksiyon */}
-          <button id="reactionsDropdownButton" data-dropdown-toggle="reactionsDropdown" data-dropdown-placement="top" type="button" className="group me-4 rounded-full bg-gray-100 p-2.5 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+          <button id="reactionsDropdownButton" data-dropdown-toggle="reactionsDropdown" data-dropdown-placement="top" type="button" className="group me-4 rounded-full bg-gray-100 p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
             <svg className="h-4 w-4 text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM7 9a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm7-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-.464 5.535a1 1 0 1 0-1.415-1.414 3 3 0 0 1-4.242 0 1 1 0 0 0-1.415 1.414 5 5 0 0 0 7.072 0Z" clipRule="evenodd" />
             </svg>
             <span className="sr-only">{t("room.reactions")}</span>
           </button>
-          <div id="reactionsDropdown" className="z-10 hidden rounded-lg bg-white p-1 shadow-sm dark:bg-gray-700">
+          <div id="reactionsDropdown" className="z-10 hidden rounded-lg bg-white p-1 shadow-sm dark:bg-gray-700 motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)] origin-bottom">
             <div className="flex items-center gap-1">
               {JITSI_REACTIONS.map((r) => (
                 <button
                   key={r.key}
                   type="button"
                   onClick={() => sendReaction(r.key)}
-                  className="rounded-full p-2 text-xl leading-none hover:bg-gray-100 dark:hover:bg-gray-600"
+                  className="rounded-full p-2 text-xl leading-none transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 dark:hover:bg-gray-600"
                   aria-label={r.key}
                 >
                   {r.emoji}
@@ -492,13 +492,13 @@ export function MeetingRoomPage() {
             </div>
           </div>
           {/* Sanal arka plan */}
-          <button id="backgroundDropdownButton" data-dropdown-toggle="backgroundDropdown" data-dropdown-placement="top" type="button" className={`group me-4 rounded-full p-2.5 focus:outline-none focus:ring-4 ${backgroundId !== "none" ? "bg-primary-600 hover:bg-primary-700 focus:ring-primary-200 dark:focus:ring-primary-800" : "bg-gray-100 hover:bg-gray-200 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"}`}>
+          <button id="backgroundDropdownButton" data-dropdown-toggle="backgroundDropdown" data-dropdown-placement="top" type="button" className={`group me-4 rounded-full p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] focus:outline-none focus:ring-4 ${backgroundId !== "none" ? "bg-primary-600 hover:bg-primary-700 focus:ring-primary-200 dark:focus:ring-primary-800" : "bg-gray-100 hover:bg-gray-200 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"}`}>
             <svg className={`h-4 w-4 ${backgroundId !== "none" ? "text-white" : "text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white"}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path fillRule="evenodd" d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6Zm6 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm-2 9 3.5-4.5 2.5 3 3.5-4.5L20 17H6Z" clipRule="evenodd" />
             </svg>
             <span className="sr-only">{t("room.virtualBackground")}</span>
           </button>
-          <div id="backgroundDropdown" className="z-10 hidden w-48 rounded-lg bg-white p-2 shadow-sm dark:bg-gray-700">
+          <div id="backgroundDropdown" className="z-10 hidden w-48 rounded-lg bg-white p-2 shadow-sm dark:bg-gray-700 motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)] origin-bottom">
             <ul className="space-y-1 text-sm text-gray-700 dark:text-gray-200">
               {JITSI_BACKGROUNDS.map((b) => (
                 <li key={b.id}>
@@ -519,47 +519,47 @@ export function MeetingRoomPage() {
             </ul>
           </div>
           {/* Tile view */}
-          <button onClick={() => run("toggleTileView")} data-tooltip-target="tooltip-tileview" type="button" className={`group me-4 rounded-full p-2.5 focus:outline-none focus:ring-4 ${tileView ? "bg-primary-600 hover:bg-primary-700 focus:ring-primary-200 dark:focus:ring-primary-800" : "bg-gray-100 hover:bg-gray-200 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"}`}>
+          <button onClick={() => run("toggleTileView")} data-tooltip-target="tooltip-tileview" type="button" className={`group me-4 rounded-full p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] focus:outline-none focus:ring-4 ${tileView ? "bg-primary-600 hover:bg-primary-700 focus:ring-primary-200 dark:focus:ring-primary-800" : "bg-gray-100 hover:bg-gray-200 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"}`}>
             <svg className={`h-4 w-4 ${tileView ? "text-white" : "text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white"}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
               <path d="M7 0H2a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm9 0h-5a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM7 9H2a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2Zm9 0h-5a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2Z" />
             </svg>
             <span className="sr-only">{t("room.tileView")}</span>
           </button>
-          <div id="tooltip-tileview" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+          <div id="tooltip-tileview" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
             {t("room.tileView")}
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
           {/* El kaldır */}
-          <button onClick={() => run("toggleRaiseHand")} data-tooltip-target="tooltip-raisehand" type="button" className="group me-4 rounded-full bg-gray-100 p-2.5 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+          <button onClick={() => run("toggleRaiseHand")} data-tooltip-target="tooltip-raisehand" type="button" className="group me-4 rounded-full bg-gray-100 p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
             <svg className="h-4 w-4 text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
               <path d="M11 8.5V5a1.5 1.5 0 0 1 3 0v2.5h.5V4a1.5 1.5 0 0 1 3 0v6.5c0 4-2.5 7.5-7 7.5a6.5 6.5 0 0 1-6.4-5.3l-.6-3.1a1.5 1.5 0 0 1 2.9-.8l.6 2V2a1.5 1.5 0 0 1 3 0v6.5H11Z" />
             </svg>
             <span className="sr-only">{t("room.raiseHand")}</span>
           </button>
-          <div id="tooltip-raisehand" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+          <div id="tooltip-raisehand" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
             {t("room.raiseHand")}
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
-          <button onClick={leave} data-tooltip-target="tooltip-end-call" type="button" className="group me-4 rounded-full bg-red-600 p-2.5 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-200 dark:bg-red-600 dark:hover:bg-red-600 dark:focus:ring-red-800 md:me-0">
+          <button onClick={leave} data-tooltip-target="tooltip-end-call" type="button" className="group me-4 rounded-full bg-red-600 p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-200 dark:bg-red-600 dark:hover:bg-red-600 dark:focus:ring-red-800 md:me-0">
             <svg className="h-4 w-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12.017 6.995c-2.306 0-4.534.408-6.215 1.507-1.737 1.135-2.788 2.944-2.797 5.451a4.8 4.8 0 0 0 .01.62c.015.193.047.512.138.763a2.557 2.557 0 0 0 2.579 1.677H7.31a2.685 2.685 0 0 0 2.685-2.684v-.645a.684.684 0 0 1 .684-.684h2.647a.686.686 0 0 1 .686.687v.645c0 .712.284 1.395.787 1.898.478.478 1.101.787 1.847.787h1.647a2.555 2.555 0 0 0 2.575-1.674c.09-.25.123-.57.137-.763.015-.2.022-.433.01-.617-.002-2.508-1.049-4.32-2.785-5.458-1.68-1.1-3.907-1.51-6.213-1.51Z" />
             </svg>
             <span className="sr-only">{t("room.endCall")}</span>
           </button>
-          <div id="tooltip-end-call" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+          <div id="tooltip-end-call" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
             {t("room.endCall")}
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
-          <button id="moreOptionsDropdownButton" data-dropdown-toggle="moreOptionsDropdown" type="button" className="group rounded-full bg-gray-100 p-2.5 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-800 md:hidden">
+          <button id="moreOptionsDropdownButton" data-dropdown-toggle="moreOptionsDropdown" type="button" className="group rounded-full bg-gray-100 p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-800 md:hidden">
             <svg className="h-4 w-4 text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
               <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
             </svg>
             <span className="sr-only">{t("room.showOptions")}</span>
           </button>
-          <div id="moreOptionsDropdown" className="z-10 hidden w-44 divide-y divide-gray-100 rounded-lg bg-white shadow-sm dark:divide-gray-600 dark:bg-gray-700">
+          <div id="moreOptionsDropdown" className="z-10 hidden w-44 divide-y divide-gray-100 rounded-lg bg-white shadow-sm dark:divide-gray-600 dark:bg-gray-700 motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)] origin-top">
             <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="moreOptionsDropdownButton">
               <li>
-                  <button type="button" data-drawer-target="drawer-participants" data-drawer-show="drawer-participants" data-drawer-placement="right" className="flex items-center w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <button type="button" data-drawer-target="drawer-participants" data-drawer-show="drawer-participants" data-drawer-placement="right" className="flex items-center w-full px-4 py-2 text-left transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                     <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                       <path fillRule="evenodd" d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.25-2.095c.478-.86.75-1.85.75-2.905a5.973 5.973 0 0 0-.75-2.906 4 4 0 1 1 0 5.811ZM15.466 20c.34-.588.535-1.271.535-2v-1a5.978 5.978 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.535Z" clipRule="evenodd" />
                     </svg>
@@ -567,7 +567,7 @@ export function MeetingRoomPage() {
                   </button>
               </li>
               <li>
-                <button type="button" data-drawer-target="drawer-messages" data-drawer-show="drawer-messages" data-drawer-placement="right" className="flex items-center w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                <button type="button" data-drawer-target="drawer-messages" data-drawer-show="drawer-messages" data-drawer-placement="right" className="flex items-center w-full px-4 py-2 text-left transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                   <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M4 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h1v2a1 1 0 0 0 1.707.707L9.414 13H15a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4Z" clipRule="evenodd" />
                     <path fillRule="evenodd" d="M8.023 17.215c.033-.03.066-.062.098-.094L10.243 15H15a3 3 0 0 0 3-3V8h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-1v2a1 1 0 0 1-1.707.707L14.586 18H9a1 1 0 0 1-.977-.785Z" clipRule="evenodd" />
@@ -576,14 +576,14 @@ export function MeetingRoomPage() {
                 </button>
               </li>
               <li>
-                <button type="button" data-drawer-target="feedback-drawer" data-drawer-show="feedback-drawer" data-drawer-placement="right" className="flex items-center w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                <button type="button" data-drawer-target="feedback-drawer" data-drawer-show="feedback-drawer" data-drawer-placement="right" className="flex items-center w-full px-4 py-2 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                   <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2ZM7.99 9a1 1 0 0 1 1-1H9a1 1 0 0 1 0 2h-.01a1 1 0 0 1-1-1ZM14 9a1 1 0 0 1 1-1h.01a1 1 0 1 1 0 2H15a1 1 0 0 1-1-1Zm-5.506 7.216A5.5 5.5 0 0 1 6.6 13h10.81a5.5 5.5 0 0 1-8.916 3.216Z" clipRule="evenodd" />
                   </svg>
                   {t("room.shareFeedback")}</button>
               </li>
               <li>
-                <button type="button" data-dropdown-toggle="reactionsDropdown" className="flex items-center w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                <button type="button" data-dropdown-toggle="reactionsDropdown" className="flex items-center w-full px-4 py-2 text-left transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                   <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM7 9a1 1 1 1 1 0-2 1 1 0 0 1 0 2Zm7-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-.464 5.535a1 1 0 1 0-1.415-1.414 3 3 0 0 1-4.242 0 1 1 0 0 0-1.415 1.414 5 5 0 0 0 7.072 0Z" clipRule="evenodd" />
                   </svg>
@@ -591,7 +591,7 @@ export function MeetingRoomPage() {
                 </button>
               </li>
               <li>
-                <button type="button" data-dropdown-toggle="backgroundDropdown" className="flex items-center w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                <button type="button" data-dropdown-toggle="backgroundDropdown" className="flex items-center w-full px-4 py-2 text-left transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                   <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6Zm6 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm-2 9 3.5-4.5 2.5 3 3.5-4.5L20 17H6Z" clipRule="evenodd" />
                   </svg>
@@ -600,7 +600,7 @@ export function MeetingRoomPage() {
               </li>
               {isModerator && (
                 <li>
-                  <button type="button" data-drawer-target="settings-drawer" data-drawer-show="settings-drawer" className="flex items-center w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <button type="button" data-drawer-target="settings-drawer" data-drawer-show="settings-drawer" className="flex items-center w-full px-4 py-2 text-left transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                     <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                       <path fillRule="evenodd" d="M9.586 2.586A2 2 0 0 1 11 2h2a2 2 0 0 1 2 2v.089l.473.196.063-.063a2.002 2.002 0 0 1 2.828 0l1.414 1.414a2 2 0 0 1 0 2.827l-.063.064.196.473H20a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-.089l-.196.473.063.063a2.002 2.002 0 0 1 0 2.828l-1.414 1.414a2 2 0 0 1-2.828 0l-.063-.063-.473.196V20a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-.089l-.473-.196-.063.063a2.002 2.002 0 0 1-2.828 0l-1.414-1.414a2 2 0 0 1 0-2.827l.063-.064L4.089 15H4a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h.09l.195-.473-.063-.063a2 2 0 0 1 0-2.828l1.414-1.414a2 2 0 0 1 2.827 0l.064.063L9 4.089V4a2 2 0 0 1 .586-1.414ZM8 12a4 4 0 1 1 8 0 4 4 0 0 1-8 0Z" clipRule="evenodd" />
                     </svg>
@@ -609,7 +609,7 @@ export function MeetingRoomPage() {
                 </li>
               )}
               <li>
-                <button type="button" data-modal-toggle="details-modal" className="flex items-center w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                <button type="button" data-modal-toggle="details-modal" className="flex items-center w-full px-4 py-2 text-left transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                   <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clipRule="evenodd" />
                   </svg>
@@ -619,58 +619,58 @@ export function MeetingRoomPage() {
           </div>
         </div>
         <div className="ms-auto hidden items-center justify-center md:flex">
-          <button data-tooltip-target="tooltip-participants" data-drawer-show="drawer-participants" type="button" className="group me-1 rounded-full p-2.5 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+          <button data-tooltip-target="tooltip-participants" data-drawer-show="drawer-participants" type="button" className="group me-1 rounded-full p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:hover:bg-gray-600 dark:focus:ring-gray-600">
             <svg className="h-4 w-4 text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
               <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
             </svg>
             <span className="sr-only">{t("room.showParticipants")}</span>
           </button>
-          <div id="tooltip-participants" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+          <div id="tooltip-participants" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
             {t("room.showParticipants")}
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
-          <button data-tooltip-target="tooltip-messages" data-drawer-init="drawer-messages" data-drawer-show="drawer-messages" type="button" className="group me-1 rounded-full p-2.5 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+          <button data-tooltip-target="tooltip-messages" data-drawer-init="drawer-messages" data-drawer-show="drawer-messages" type="button" className="group me-1 rounded-full p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:hover:bg-gray-600 dark:focus:ring-gray-600">
             <svg className="h-5 w-5 text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path fillRule="evenodd" d="M4 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h1v2a1 1 0 0 0 1.707.707L9.414 13H15a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4Z" clipRule="evenodd" />
               <path fillRule="evenodd" d="M8.023 17.215c.033-.03.066-.062.098-.094L10.243 15H15a3 3 0 0 0 3-3V8h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-1v2a1 1 0 0 1-1.707.707L14.586 18H9a1 1 0 0 1-.977-.785Z" clipRule="evenodd" />
             </svg>
             <span className="sr-only">{t("room.messages")}</span>
           </button>
-          <div id="tooltip-messages" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+          <div id="tooltip-messages" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
             {t("room.messages")}
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
-          <button data-tooltip-target="tooltip-feedback" data-drawer-show="feedback-drawer" type="button" className="group me-1 rounded-full p-2.5 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+          <button data-tooltip-target="tooltip-feedback" data-drawer-show="feedback-drawer" type="button" className="group me-1 rounded-full p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:hover:bg-gray-600 dark:focus:ring-gray-600">
             <svg className="h-4 w-4 text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM13.5 6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm-7 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm3.5 9.5A5.5 5.5 0 0 1 4.6 11h10.81A5.5 5.5 0 0 1 10 15.5Z" />
             </svg>
             <span className="sr-only">{t("room.shareFeedback")}</span>
           </button>
-          <div id="tooltip-feedback" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+          <div id="tooltip-feedback" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
             {t("room.shareFeedback")}
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
           {isModerator && (
             <>
-              <button data-tooltip-target="tooltip-host" data-drawer-target="settings-drawer" data-drawer-show="settings-drawer" type="button" className="group me-1 rounded-full p-2.5 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+              <button data-tooltip-target="tooltip-host" data-drawer-target="settings-drawer" data-drawer-show="settings-drawer" type="button" className="group me-1 rounded-full p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                 <svg className="h-4 w-4 text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                   <path fillRule="evenodd" d="M9.586 2.586A2 2 0 0 1 11 2h2a2 2 0 0 1 2 2v.089l.473.196.063-.063a2.002 2.002 0 0 1 2.828 0l1.414 1.414a2 2 0 0 1 0 2.827l-.063.064.196.473H20a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-.089l-.196.473.063.063a2.002 2.002 0 0 1 0 2.828l-1.414 1.414a2 2 0 0 1-2.828 0l-.063-.063-.473.196V20a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-.089l-.473-.196-.063.063a2.002 2.002 0 0 1-2.828 0l-1.414-1.414a2 2 0 0 1 0-2.827l.063-.064L4.089 15H4a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h.09l.195-.473-.063-.063a2 2 0 0 1 0-2.828l1.414-1.414a2 2 0 0 1 2.827 0l.064.063L9 4.089V4a2 2 0 0 1 .586-1.414ZM8 12a4 4 0 1 1 8 0 4 4 0 0 1-8 0Z" clipRule="evenodd" />
                 </svg>
                 <span className="sr-only">{t("room.hostControls")}</span>
               </button>
-              <div id="tooltip-host" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+              <div id="tooltip-host" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
                 {t("room.hostControls")}
                 <div className="tooltip-arrow" data-popper-arrow></div>
               </div>
             </>
           )}
-          <button data-tooltip-target="tooltip-information" data-modal-target="details-modal" data-modal-toggle="details-modal" type="button" className="group rounded-full p-2.5 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+          <button data-tooltip-target="tooltip-information" data-modal-target="details-modal" data-modal-toggle="details-modal" type="button" className="group rounded-full p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:hover:bg-gray-600 dark:focus:ring-gray-600">
             <svg className="h-4 w-4 text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
             </svg>
             <span className="sr-only">{t("room.showInformation")}</span>
           </button>
-          <div id="tooltip-information" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+          <div id="tooltip-information" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
             {t("room.meetingDetails")}
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
@@ -709,7 +709,7 @@ export function MeetingRoomPage() {
                     </svg>
                   </span>
                 </button>
-                <div id="tooltip-link-url" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+                <div id="tooltip-link-url" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
                   <span id="default-tooltip-message-link-url">{t("room.copyToClipboard")}</span>
                   <span id="success-tooltip-message-link-url" className="hidden">{t("room.copied")}</span>
                   <div className="tooltip-arrow" data-popper-arrow></div>
@@ -724,7 +724,7 @@ export function MeetingRoomPage() {
       </div>
 
       {/* messages drawer */}
-      <div id="drawer-messages" className="fixed right-0 top-0 z-40 h-[calc(100vh-4rem)] w-80 translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-gray-800 flex justify-between flex-col" tabIndex={-1} aria-labelledby="drawer-messages-label">
+      <div id="drawer-messages" className="fixed right-0 top-0 z-40 h-[calc(100vh-4rem)] w-80 translate-x-full overflow-y-auto bg-white p-4 transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800 flex justify-between flex-col" tabIndex={-1} aria-labelledby="drawer-messages-label">
           <div>
               <h5 id="drawer-messages-label" className="mb-4 inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">{t("room.messagesTitle")}</h5>
               <button type="button" data-drawer-hide="drawer-messages" aria-controls="drawer-messages" className="absolute end-2.5 top-2.5 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -797,7 +797,7 @@ export function MeetingRoomPage() {
 
 
       {/* participants drawer */}
-      <div id="drawer-participants" className="fixed right-0 top-0 z-40 h-[calc(100vh-4rem)] w-80 translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-gray-800" tabIndex={-1} aria-labelledby="drawer-participants-label">
+      <div id="drawer-participants" className="fixed right-0 top-0 z-40 h-[calc(100vh-4rem)] w-80 translate-x-full overflow-y-auto bg-white p-4 transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="drawer-participants-label">
           <div>
               <h5 id="drawer-participants-label" className="mb-4 inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">{t("room.participantsTitle")}</h5>
               <button type="button" data-drawer-hide="drawer-participants" aria-controls="drawer-participants" className="absolute end-2.5 top-2.5 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -836,7 +836,7 @@ export function MeetingRoomPage() {
                       </div>
                     </div>
                   ))}
-                  <button type="button" onClick={() => shareUrl && navigator.clipboard?.writeText(shareUrl)} className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:w-auto">
+                  <button type="button" onClick={() => shareUrl && navigator.clipboard?.writeText(shareUrl)} className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white transition-[transform,colors] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:w-auto">
                       <svg className="-ms-0.5 me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                           <path fillRule="evenodd" d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z" clipRule="evenodd" />
                       </svg>
@@ -849,7 +849,7 @@ export function MeetingRoomPage() {
 
       {/* settings drawer */}
       {isModerator && (
-      <div id="settings-drawer" className="fixed right-0 top-0 z-40 h-[calc(100vh-4rem)] w-80 translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-gray-800" tabIndex={-1} aria-labelledby="settings-drawer-label">
+      <div id="settings-drawer" className="fixed right-0 top-0 z-40 h-[calc(100vh-4rem)] w-80 translate-x-full overflow-y-auto bg-white p-4 transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="settings-drawer-label">
           <div>
               <h5 id="settings-drawer-label" className="mb-4 inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">{t("room.hostControls")}</h5>
               <button type="button" data-drawer-hide="settings-drawer" aria-controls="settings-drawer" className="absolute end-2.5 top-2.5 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -867,7 +867,7 @@ export function MeetingRoomPage() {
                       <path fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clipRule="evenodd" />
                     </svg>
                   </button>
-                  <div id="tooltip-info-meet" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700">
+                  <div id="tooltip-info-meet" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700">
                       {t("room.moderationTooltip")}
                       <div className="tooltip-arrow" data-popper-arrow></div>
                   </div>
@@ -918,7 +918,7 @@ export function MeetingRoomPage() {
                     <path fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clipRule="evenodd" />
                   </svg>
                 </button>
-                <div id="tooltip-access-type" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700">
+                <div id="tooltip-access-type" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700">
                     {t("room.accessTooltip")}
                     <div className="tooltip-arrow" data-popper-arrow></div>
                 </div>
@@ -980,7 +980,7 @@ export function MeetingRoomPage() {
 
 
       {/* submit feedback drawer */}
-      <div id="feedback-drawer" className="fixed right-0 top-0 z-40 h-screen w-full max-w-md translate-x-full overflow-y-auto bg-white p-4 antialiased transition-transform dark:bg-gray-800" tabIndex={-1} aria-labelledby="feedback-drawer-label" aria-hidden="true">
+      <div id="feedback-drawer" className="fixed right-0 top-0 z-40 h-screen w-full max-w-md translate-x-full overflow-y-auto bg-white p-4 antialiased transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="feedback-drawer-label" aria-hidden="true">
         <h5 id="feedback-drawer-label" className="mb-6 inline-flex items-center text-sm font-semibold uppercase text-gray-500 dark:text-gray-400">{t("feedback.submitFeedback")}</h5>
         <button type="button" data-drawer-dismiss="feedback-drawer" aria-controls="feedback-drawer" className="absolute right-2.5 top-2.5 inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
           <svg aria-hidden="true" className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -1018,7 +1018,7 @@ export function MeetingRoomPage() {
                   type="button"
                   onClick={() => setStars(n)}
                   aria-label={`${n} ${t("feedback.happy")}`}
-                  className={n === 1 ? "" : "ms-2"}
+                  className={(n === 1 ? "" : "ms-2 ") + "transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.92]"}
                 >
                   <svg
                     className={

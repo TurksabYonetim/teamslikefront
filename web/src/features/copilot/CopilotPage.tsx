@@ -273,7 +273,7 @@ export function CopilotPage() {
                 </svg>
               </button>
 
-              <div id="tooltip-chat-settings" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+              <div id="tooltip-chat-settings" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
                 {t("header.chatSettings")}
                 <div className="tooltip-arrow" data-popper-arrow></div>
               </div>
@@ -286,7 +286,7 @@ export function CopilotPage() {
                 </svg>
               </button>
 
-              <div id="tooltip-chat-share" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+              <div id="tooltip-chat-share" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
                 {t("header.shareConversation")}
                 <div className="tooltip-arrow" data-popper-arrow></div>
               </div>
@@ -330,7 +330,7 @@ export function CopilotPage() {
                 </svg>
               </button>
 
-              <div id="tooltip-chat-history" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700">
+              <div id="tooltip-chat-history" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
                 {t("header.viewChatHistory")}
                 <div className="tooltip-arrow" data-popper-arrow></div>
               </div>
@@ -383,7 +383,7 @@ export function CopilotPage() {
                         type="button"
                         onClick={() => handleSamplePrompt(p)}
                         disabled={sendMessage.isPending}
-                        className="rounded-lg border border-gray-200 bg-white px-4 py-3 text-left text-sm text-gray-700 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:border-primary-400 hover:bg-primary-50 hover:text-primary-700 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-primary-500 dark:hover:bg-gray-700 dark:hover:text-white"
+                        className="rounded-lg border border-gray-200 bg-white px-4 py-3 text-left text-sm text-gray-700 transition-[transform,colors] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:border-primary-400 hover:bg-primary-50 hover:text-primary-700 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-primary-500 dark:hover:bg-gray-700 dark:hover:text-white"
                       >
                         {p}
                       </button>
@@ -429,7 +429,7 @@ export function CopilotPage() {
                       onCopyCode={(code) => handleCopy(code)}
                     />
                     <div className="space-x-2 flex items-center">
-                      <button type="button" onClick={() => handleCopy(m.content, m.id)} className="inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
+                      <button type="button" onClick={() => handleCopy(m.content, m.id)} className="inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-500 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
                         {copiedId === m.id ? (
                           <svg className="w-5 h-5 text-green-600 dark:text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 11.917 9.724 16.5 19 7.5" />
@@ -441,13 +441,13 @@ export function CopilotPage() {
                         )}
                         <span className="sr-only">{t("message.copyText")}</span>
                       </button>
-                      <button type="button" className="inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
+                      <button type="button" className="inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-500 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
                         <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                           <path fillRule="evenodd" d="M15.03 9.684h3.965c.322 0 .64.08.925.232.286.153.532.374.717.645a2.109 2.109 0 0 1 .242 1.883l-2.36 7.201c-.288.814-.48 1.355-1.884 1.355-2.072 0-4.276-.677-6.157-1.256-.472-.145-.924-.284-1.348-.404h-.115V9.478a25.485 25.485 0 0 0 4.238-5.514 1.8 1.8 0 0 1 .901-.83 1.74 1.74 0 0 1 1.21-.048c.396.13.736.397.96.757.225.36.32.788.269 1.211l-1.562 4.63ZM4.177 10H7v8a2 2 0 1 1-4 0v-6.823C3 10.527 3.527 10 4.176 10Z" clipRule="evenodd" />
                         </svg>
                         <span className="sr-only">{t("message.likeResponse")}</span>
                       </button>
-                      <button type="button" className="inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
+                      <button type="button" className="inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-500 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
                         <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                           <path fillRule="evenodd" d="M8.97 14.316H5.004c-.322 0-.64-.08-.925-.232a2.022 2.022 0 0 1-.717-.645 2.108 2.108 0 0 1-.242-1.883l2.36-7.201C5.769 3.54 5.96 3 7.365 3c2.072 0 4.276.678 6.156 1.256.473.145.925.284 1.35.404h.114v9.862a25.485 25.485 0 0 0-4.238 5.514c-.197.376-.516.67-.901.83a1.74 1.74 0 0 1-1.21.048 1.79 1.79 0 0 1-.96-.757 1.867 1.867 0 0 1-.269-1.211l1.562-4.63ZM19.822 14H17V6a2 2 0 1 1 4 0v6.823c0 .65-.527 1.177-1.177 1.177Z" clipRule="evenodd" />
                         </svg>
@@ -490,7 +490,7 @@ export function CopilotPage() {
                 disabled={!activeId || sendMessage.isPending}
                 className="block w-full border-0 bg-white px-0 text-sm text-gray-800 focus:ring-0 disabled:opacity-50 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400"
               />
-              <button type="submit" disabled={!activeId || sendMessage.isPending || !draft.trim()} className="inline-flex cursor-pointer justify-center rounded-full p-2 text-primary-600 hover:bg-primary-100 disabled:cursor-not-allowed disabled:opacity-50 dark:text-primary-500 dark:hover:bg-gray-600">
+              <button type="submit" disabled={!activeId || sendMessage.isPending || !draft.trim()} className="inline-flex cursor-pointer justify-center rounded-full p-2 text-primary-600 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-primary-100 disabled:cursor-not-allowed disabled:opacity-50 dark:text-primary-500 dark:hover:bg-gray-600">
                 <svg className="h-4 w-4 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                   <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
                 </svg>
@@ -502,7 +502,7 @@ export function CopilotPage() {
       </div>
 
       {/* drawer component */}
-      <div id="drawer-chat-history" className="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80 dark:bg-gray-800" tabIndex={-1} aria-labelledby="drawer-right-label">
+      <div id="drawer-chat-history" className="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] translate-x-full bg-white w-80 dark:bg-gray-800" tabIndex={-1} aria-labelledby="drawer-right-label">
         <div className="border-b border-gray-200 dark:border-gray-700">
           <h5 id="drawer-right-label" className="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400">{t("history.title")}</h5>
           <button type="button" data-drawer-hide="drawer-chat-history" aria-controls="drawer-chat-history" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -736,7 +736,7 @@ export function CopilotPage() {
                           <div className="shrink-0">
                             <label className="inline-flex items-center cursor-pointer">
                               <input type="checkbox" value="" className="sr-only peer" defaultChecked />
-                              <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary-600"></div>
+                              <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 motion-safe:after:transition-transform after:duration-[var(--dur-press)] after:ease-[var(--ease-out)] dark:border-gray-600 peer-checked:bg-primary-600"></div>
                             </label>
                           </div>
                       </div>
@@ -783,7 +783,7 @@ export function CopilotPage() {
                           <div className="shrink-0">
                             <label className="inline-flex items-center cursor-pointer">
                               <input type="checkbox" value="" className="sr-only peer" />
-                              <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary-600"></div>
+                              <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 motion-safe:after:transition-transform after:duration-[var(--dur-press)] after:ease-[var(--ease-out)] dark:border-gray-600 peer-checked:bg-primary-600"></div>
                             </label>
                           </div>
                       </div>

@@ -185,7 +185,7 @@ export function MessageComposer() {
             aria-selected={mode === m}
             onClick={() => setMode(m)}
             className={clsx(
-              "h-8 px-3 text-sm",
+              "h-8 px-3 text-sm transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
               mode === m
                 ? m === "note"
                   ? "bg-amber-500 text-white"
@@ -252,7 +252,7 @@ export function MessageComposer() {
                   <button
                     type="button"
                     onClick={() => pickMention(mm.name)}
-                    className="flex w-full items-center rounded-md px-2 py-1.5 text-start text-sm text-ink hover:bg-surface-2 dark:text-white dark:hover:bg-gray-700"
+                    className="flex w-full items-center rounded-md px-2 py-1.5 text-start text-sm text-ink transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-surface-2 dark:text-white dark:hover:bg-gray-700"
                   >
                     @{mm.name}
                   </button>
@@ -270,7 +270,7 @@ export function MessageComposer() {
                   <button
                     type="button"
                     onClick={() => pickSlash(c)}
-                    className="flex w-full items-center rounded-md px-2 py-1.5 text-start text-sm text-ink hover:bg-surface-2 dark:text-white dark:hover:bg-gray-700"
+                    className="flex w-full items-center rounded-md px-2 py-1.5 text-start text-sm text-ink transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-surface-2 dark:text-white dark:hover:bg-gray-700"
                   >
                     /{c} <span className="ml-2 text-xs text-muted">{t(`slash.${c}`)}</span>
                   </button>
@@ -375,7 +375,7 @@ function FmtBtn({ label, onClick, children }: { label: string; onClick: () => vo
       onClick={onClick}
       aria-label={label}
       title={label}
-      className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted hover:bg-surface-2 hover:text-ink dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-surface-2 hover:text-ink motion-safe:active:scale-[0.97] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
     >
       {children}
     </button>

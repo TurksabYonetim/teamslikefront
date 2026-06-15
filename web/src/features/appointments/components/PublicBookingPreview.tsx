@@ -84,7 +84,7 @@ export function PublicBookingPreview() {
                   onClick={() => setSelected(et)}
                   aria-pressed={selected?.id === et.id}
                   className={clsx(
-                    "flex w-full items-center gap-3 rounded-lg border px-3 py-2.5 text-left transition-[background-color,border-color] duration-150 active:scale-[0.99]",
+                    "flex w-full items-center gap-3 rounded-lg border px-3 py-2.5 text-left transition-[background-color,border-color,transform] duration-150 ease-[var(--ease-out)] motion-safe:active:scale-[0.99]",
                     selected?.id === et.id ? "border-brand bg-surface-2" : "border-line hover:bg-surface-2",
                   )}
                 >
@@ -112,7 +112,7 @@ export function PublicBookingPreview() {
                 <Icon name="calendar" className="h-3.5 w-3.5" /> {dateLabel}
               </div>
               {slots.length > 0 ? (
-                <div className="mt-3 grid grid-cols-3 gap-2">
+                <div className="tl-stagger mt-3 grid grid-cols-3 gap-2">
                   {slots.map((s) => (
                     <span
                       key={s.startMs}

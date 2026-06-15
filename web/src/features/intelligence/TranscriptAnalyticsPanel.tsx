@@ -120,7 +120,7 @@ export function TranscriptAnalyticsPanel({ content }: { content: string }) {
                 </div>
                 <div className="h-2 rounded-full bg-surface-2 overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-brand"
+                    className="h-full rounded-full bg-brand motion-reduce:transition-none"
                     style={{
                       width: `${sp.share}%`,
                       transition: "width 280ms var(--ease-out)",

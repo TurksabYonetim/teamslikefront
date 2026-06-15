@@ -10,7 +10,7 @@ const STATUSES: StatusFilter[] = ["all", "open", "pending", "snoozed", "resolved
 const ASSIGNEES: AssigneeFilter[] = ["all", "mine", "unassigned"];
 
 const chip = (active: boolean) =>
-  clsx("rounded-md border px-2 py-0.5 text-base", active ? "border-brand text-brand" : "border-line text-muted hover:bg-surface-2");
+  clsx("rounded-md border px-2 py-0.5 text-base transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] motion-safe:transition-[transform,background-color,color]", active ? "border-brand text-brand" : "border-line text-muted hover:bg-surface-2");
 
 export function InboxNav() {
   const { t } = useTranslation("support");
@@ -21,7 +21,7 @@ export function InboxNav() {
   const act = inboxStore.getState;
 
   const inboxBtn = (active: boolean) =>
-    clsx("flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-base", active ? "bg-surface-2 text-ink" : "text-muted hover:bg-surface-2");
+    clsx("flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-base transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.98] motion-safe:transition-[transform,background-color,color]", active ? "bg-surface-2 text-ink" : "text-muted hover:bg-surface-2");
 
   return (
     <div className="flex flex-col gap-3 overflow-y-auto rounded-xl border border-line bg-surface p-3">

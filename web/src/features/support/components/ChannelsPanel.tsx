@@ -42,7 +42,7 @@ export function ChannelsPanel() {
       </div>
       <p className="mb-3 text-sm text-muted">{t("channels.subtitle")}</p>
 
-      <ul className="space-y-1.5">
+      <ul className="tl-stagger space-y-1.5">
         {inboxes.map((ib) => {
           const c = connOf(ib);
           const step = channelOnboardingState(c);

@@ -132,7 +132,7 @@ export function Dialer({
         <button
           type="button"
           onClick={onSimulateIncoming}
-          className="mt-4 text-sm font-medium text-primary-600 hover:underline dark:text-primary-400"
+          className="mt-4 text-sm font-medium text-primary-600 transition-transform duration-150 ease-[var(--ease-out)] hover:underline motion-safe:active:scale-[0.97] dark:text-primary-400"
         >
           {t("dialer.simulateIncoming")}
         </button>

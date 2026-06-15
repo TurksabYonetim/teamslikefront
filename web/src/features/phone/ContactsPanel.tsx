@@ -353,14 +353,13 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
       {/* Kişi detayı */}
       {detail && (
         <div
-          className="fixed inset-0 z-40 flex items-end justify-center bg-black/40 p-4 sm:items-center"
+          className="fixed inset-0 z-40 flex items-end justify-center bg-black/40 p-4 sm:items-center motion-safe:[animation:tl-fade_var(--dur-modal)_var(--ease-out)]"
           role="dialog"
           aria-modal="true"
           onClick={() => setDetail(null)}
         >
           <div
-            className="w-full max-w-sm rounded-xl bg-white p-5 shadow-xl dark:bg-gray-800"
-            style={{ animation: "tl-modal-in 200ms var(--ease-out)" }}
+            className="w-full max-w-sm rounded-xl bg-white p-5 shadow-xl dark:bg-gray-800 motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-4 flex flex-col items-center text-center">

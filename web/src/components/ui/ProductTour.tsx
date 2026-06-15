@@ -110,7 +110,7 @@ export function ProductTour({ open, steps, onFinish, onStep, labels }: ProductTo
       {/* Karartma + spotlight (box-shadow ile delik) */}
       {rect ? (
         <div
-          className="pointer-events-none fixed rounded-lg ring-2 ring-brand transition-all"
+          className="pointer-events-none fixed rounded-lg ring-2 ring-brand motion-safe:transition-[top,left,width,height] motion-safe:duration-[var(--dur-modal)] motion-safe:ease-[var(--ease-out)]"
           style={{
             top: rect.top - 6,
             left: rect.left - 6,
@@ -120,12 +120,12 @@ export function ProductTour({ open, steps, onFinish, onStep, labels }: ProductTo
           }}
         />
       ) : (
-        <div className="fixed inset-0 bg-slate-900/55" />
+        <div className="fixed inset-0 bg-slate-900/55 motion-safe:[animation:tl-fade_var(--dur-modal)_var(--ease-out)]" />
       )}
 
       {/* Popover */}
       <div
-        className="fixed z-[61] w-80 max-w-[calc(100vw-1.5rem)] rounded-lg border border-line bg-white p-4 shadow-2xl dark:border-gray-700 dark:bg-gray-800"
+        className="fixed z-[61] w-80 max-w-[calc(100vw-1.5rem)] rounded-lg border border-line bg-white p-4 shadow-2xl dark:border-gray-700 dark:bg-gray-800 origin-top-left motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)]"
         style={popStyle}
       >
         <div className="mb-1 flex items-start gap-2">
@@ -134,7 +134,7 @@ export function ProductTour({ open, steps, onFinish, onStep, labels }: ProductTo
             type="button"
             onClick={onFinish}
             aria-label={L.close}
-            className="rounded-md p-1 text-muted hover:bg-surface-2 dark:hover:bg-gray-700"
+            className="rounded-md p-1 text-muted transition-transform active:scale-[0.97] hover:bg-surface-2 dark:hover:bg-gray-700"
           >
             <HiOutlineXMark className="h-4 w-4" aria-hidden />
           </button>
@@ -147,7 +147,7 @@ export function ProductTour({ open, steps, onFinish, onStep, labels }: ProductTo
           <button
             type="button"
             onClick={onFinish}
-            className="ms-auto rounded-md px-2 py-1 text-sm text-muted hover:bg-surface-2 dark:hover:bg-gray-700"
+            className="ms-auto rounded-md px-2 py-1 text-sm text-muted transition-transform active:scale-[0.97] hover:bg-surface-2 dark:hover:bg-gray-700"
           >
             {L.skip}
           </button>
@@ -163,7 +163,7 @@ export function ProductTour({ open, steps, onFinish, onStep, labels }: ProductTo
           <button
             type="button"
             onClick={goNext}
-            className={clsx("rounded-md bg-brand px-3 py-1 text-sm font-medium text-white hover:bg-brand-600")}
+            className={clsx("rounded-md bg-brand px-3 py-1 text-sm font-medium text-white transition-transform active:scale-[0.97] hover:bg-brand-600")}
           >
             {last ? L.finish : L.next}
           </button>

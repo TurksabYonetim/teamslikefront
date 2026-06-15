@@ -204,7 +204,7 @@ export function PublicBookingPage() {
                 title={t("pub.noTypes")}
               />
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 tl-stagger">
                 {data.event_types.map((e) => (
                   <button
                     key={e.id}
@@ -212,7 +212,7 @@ export function PublicBookingPage() {
                       setEt(e);
                       setStep("slots");
                     }}
-                    className="card p-5 text-left flex items-start gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all"
+                    className="card p-5 text-left flex items-start gap-4 hover:shadow-md motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.99] transition-[transform,box-shadow,colors] duration-[var(--dur-press)] ease-[var(--ease-out)]"
                   >
                     <span className="w-1 self-stretch rounded-full bg-blue-600" />
                     <div className="flex-1">
@@ -241,7 +241,7 @@ export function PublicBookingPage() {
             <div className="p-6 border-b md:border-b-0 md:border-r border-gray-100">
               <button
                 onClick={() => setStep("pick")}
-                className="text-sm text-gray-500 hover:text-gray-900 inline-flex items-center gap-1 mb-4"
+                className="text-sm text-gray-500 hover:text-gray-900 inline-flex items-center gap-1 mb-4 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
               >
                 <Icon name="chevronLeft" className="w-4 h-4" /> {t("pub.back")}
               </button>
@@ -285,7 +285,7 @@ export function PublicBookingPage() {
                         setTime(null);
                       }}
                       className={
-                        "aspect-square rounded-lg text-sm font-semibold grid place-items-center " +
+                        "aspect-square rounded-lg text-sm font-semibold grid place-items-center transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:enabled:active:scale-[0.97] " +
                         (day === d
                           ? "bg-blue-600 text-white"
                           : has
@@ -313,7 +313,7 @@ export function PublicBookingPage() {
                           setTime(s);
                           setStep("form");
                         }}
-                        className="w-full h-10 rounded-lg border border-blue-600 text-blue-700 font-semibold text-sm hover:bg-blue-600 hover:text-white transition-colors"
+                        className="w-full h-10 rounded-lg border border-blue-600 text-blue-700 font-semibold text-sm hover:bg-blue-600 hover:text-white transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
                       >
                         {s}
                       </button>

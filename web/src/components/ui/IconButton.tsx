@@ -14,7 +14,7 @@ export function IconButton({ label, variant = "ghost", className, children, ...r
       title={label}
       aria-pressed={primary}
       className={clsx(
-        "inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors",
+        "inline-flex h-9 w-9 items-center justify-center rounded-md transition-[transform,colors] motion-safe:active:scale-[0.97] ease-[var(--ease-out)]",
         primary
           ? "bg-brand text-white"
           : "text-muted hover:bg-surface-2 dark:text-gray-400 dark:hover:bg-gray-700",

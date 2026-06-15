@@ -128,7 +128,7 @@ export function PortalChatPage() {
             </h2>
             <button
               type="button"
-              className="p-1.5 rounded-lg text-muted hover:bg-surface-3 dark:hover:bg-gray-800 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]"
+              className="p-1.5 rounded-lg text-muted hover:bg-surface-3 dark:hover:bg-gray-800 transition-[transform,background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
               onClick={() => setNewOpen(true)}
               aria-label={t("chat.newChat")}
               title={t("chat.newChat")}
@@ -192,7 +192,7 @@ export function PortalChatPage() {
                   onClick={() => selectThread(th.conversation_id)}
                   aria-current={activeRow ? "true" : undefined}
                   className={
-                    "w-full flex items-center gap-3 p-2 rounded-lg text-left transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] " +
+                    "w-full flex items-center gap-3 p-2 rounded-lg text-left transition-[transform,background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.99] " +
                     (activeRow
                       ? "bg-brand-softer dark:bg-blue-500/15"
                       : "hover:bg-surface-2 dark:hover:bg-gray-800")
@@ -240,7 +240,7 @@ export function PortalChatPage() {
               <header className="flex items-center gap-3 px-4 md:px-5 h-14 border-b border-line dark:border-gray-800">
                 <button
                   type="button"
-                  className="md:hidden -ml-1 p-1.5 rounded-lg text-muted hover:bg-surface-3 dark:hover:bg-gray-800"
+                  className="md:hidden -ml-1 p-1.5 rounded-lg text-muted hover:bg-surface-3 dark:hover:bg-gray-800 transition-[transform,background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
                   onClick={() => setMobileView("list")}
                   aria-label={t("chat.backToList")}
                 >

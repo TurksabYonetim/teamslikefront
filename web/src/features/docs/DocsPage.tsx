@@ -76,7 +76,7 @@ export function DocsPage() {
                 onClick={() => setTab(id)}
                 onKeyDown={(e) => onTabKey(e, i)}
                 className={
-                  "inline-flex h-11 items-center gap-2 rounded-t-md border-b-2 px-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none " +
+                  "inline-flex h-11 items-center gap-2 rounded-t-md border-b-2 px-3 text-sm transition-[color,transform] motion-safe:active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none " +
                   (tab === id ? "border-brand text-brand" : "border-transparent text-muted hover:text-ink")
                 }
               >

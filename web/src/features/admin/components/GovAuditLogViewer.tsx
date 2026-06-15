@@ -6,7 +6,7 @@ import { filterAudit, retentionExpired } from "../admin.governance";
 
 const REGIONS = ["global", "eu", "us", "tr"] as const;
 const INPUT_CLASS =
-  "h-10 rounded-lg border border-line bg-surface px-3 text-sm text-ink transition-colors duration-150 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-brand";
+  "h-10 rounded-lg border border-line bg-surface px-3 text-sm text-ink transition-colors duration-150 ease-[var(--ease-out)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand";
 
 const fmt = (ms: number) =>
   new Date(ms).toLocaleString([], {

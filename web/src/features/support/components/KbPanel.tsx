@@ -39,7 +39,7 @@ export function KbPanel() {
                 <button
                   onClick={() => setOpen((o) => (o === a.id ? null : a.id))}
                   aria-expanded={isOpen}
-                  className="flex w-full items-center gap-1 rounded-md px-2 py-1 text-left text-base text-ink transition-colors hover:bg-surface-2"
+                  className="flex w-full items-center gap-1 rounded-md px-2 py-1 text-left text-base text-ink transition-colors hover:bg-surface-2 motion-safe:transition-transform motion-safe:active:scale-[0.97]"
                 >
                   <Icon
                     name="chevronRight"

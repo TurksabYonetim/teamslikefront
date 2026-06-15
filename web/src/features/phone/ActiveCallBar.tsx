@@ -153,14 +153,14 @@ export function ActiveCallBar() {
             <button
               type="button"
               onClick={() => callStore.getState().answer()}
-              className="inline-flex h-11 items-center gap-2 rounded-full bg-green-600 px-4 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300"
+              className="inline-flex h-11 items-center gap-2 rounded-full bg-green-600 px-4 text-sm font-medium text-white transition-transform duration-150 ease-[var(--ease-out)] hover:bg-green-700 motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300"
             >
               <HiOutlinePhone size={18} aria-hidden /> {t("bar.accept")}
             </button>
             <button
               type="button"
               onClick={() => callStore.getState().decline()}
-              className="inline-flex h-11 items-center gap-2 rounded-full bg-red-600 px-4 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
+              className="inline-flex h-11 items-center gap-2 rounded-full bg-red-600 px-4 text-sm font-medium text-white transition-transform duration-150 ease-[var(--ease-out)] hover:bg-red-700 motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
             >
               <HiOutlinePhoneXMark size={18} aria-hidden /> {t("bar.decline")}
             </button>
@@ -171,7 +171,7 @@ export function ActiveCallBar() {
             type="button"
             onClick={() => callStore.getState().hangup()}
             aria-label={t("bar.cancel")}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-red-600 text-white hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-red-600 text-white transition-transform duration-150 ease-[var(--ease-out)] hover:bg-red-700 motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
           >
             <HiOutlinePhoneXMark size={20} aria-hidden />
           </button>
@@ -237,7 +237,7 @@ export function ActiveCallBar() {
             <button
               type="button"
               onClick={() => callStore.getState().hangup()}
-              className="inline-flex h-11 items-center gap-2 rounded-full bg-red-600 px-4 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
+              className="inline-flex h-11 items-center gap-2 rounded-full bg-red-600 px-4 text-sm font-medium text-white transition-transform duration-150 ease-[var(--ease-out)] hover:bg-red-700 motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
             >
               <HiOutlinePhoneXMark size={18} aria-hidden /> {t("bar.hangup")}
             </button>
@@ -247,7 +247,7 @@ export function ActiveCallBar() {
               <div
                 role="dialog"
                 aria-label={t("consult.title")}
-                style={{ animation: "tl-modal-in 180ms var(--ease-out)" }}
+                style={{ animation: "tl-pop-in var(--dur-pop) var(--ease-out)" }}
                 className="absolute bottom-14 right-0 z-10 w-64 origin-bottom-right rounded-xl border border-line bg-white p-3 shadow-xl dark:border-gray-700 dark:bg-gray-800"
               >
                 <label className="mb-1 block text-xs font-medium text-muted" htmlFor="consult-target">
@@ -458,7 +458,7 @@ function BarButton({ label, onClick, Icon, active }: BarButtonProps) {
       aria-label={label}
       aria-pressed={active}
       className={
-        "inline-flex h-11 w-11 items-center justify-center rounded-full border transition-[transform,colors] duration-150 ease-[var(--ease-out)] active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand " +
+        "inline-flex h-11 w-11 items-center justify-center rounded-full border transition-[transform,color,background-color,border-color] duration-150 ease-[var(--ease-out)] motion-safe:active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand " +
         (active
           ? "border-brand bg-brand/10 text-brand"
           : "border-line text-muted hover:text-ink dark:border-gray-700")

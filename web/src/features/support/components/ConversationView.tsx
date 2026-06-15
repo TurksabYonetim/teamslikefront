@@ -171,7 +171,7 @@ export function ConversationView() {
 
       {/* AI suggestion (human-approved) */}
       {suggestion ? (
-        <div className="mx-3 mb-2 rounded-md border border-brand bg-surface-2 p-2 animate-[tl-fade-in_200ms_var(--ease-out)]">
+        <div className="mx-3 mb-2 rounded-md border border-brand bg-surface-2 p-2 origin-bottom motion-safe:animate-[tl-pop-in_var(--dur-pop)_var(--ease-out)]">
           <div className="mb-1 flex items-center gap-1 text-base text-brand">
             <Icon name="sparkles" className="h-3.5 w-3.5" aria-hidden /> {t("conversation.aiDraft")}
           </div>

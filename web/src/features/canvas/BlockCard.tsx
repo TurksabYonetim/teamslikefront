@@ -78,7 +78,7 @@ export const BlockCard = forwardRef<HTMLDivElement, BlockCardProps>(
             title={t("actions.drag")}
             disabled={reorderDisabled}
             onPointerDown={(e) => onPointerDownHandle(e, index)}
-            className="-ml-1 p-1 rounded text-muted/60 hover:text-ink hover:bg-surface-3 cursor-grab active:cursor-grabbing touch-none disabled:opacity-30 disabled:pointer-events-none"
+            className="-ml-1 p-1 rounded text-muted/60 hover:text-ink hover:bg-surface-3 transition-colors duration-[160ms] ease-[var(--ease-out)] cursor-grab active:cursor-grabbing touch-none disabled:opacity-30 disabled:pointer-events-none"
           >
             <Icon name="selector" className="w-4 h-4" />
           </button>
@@ -112,12 +112,12 @@ export const BlockCard = forwardRef<HTMLDivElement, BlockCardProps>(
 
           <div className="flex-1" />
 
-          <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity">
+          <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-[160ms] ease-[var(--ease-out)]">
             <button
               type="button"
               title={t("actions.moveUp")}
               disabled={index === 0 || reorderDisabled}
-              className="p-1 rounded text-muted hover:text-ink hover:bg-surface-3 disabled:opacity-30 disabled:pointer-events-none"
+              className="p-1 rounded text-muted hover:text-ink hover:bg-surface-3 transition-[transform,color,background-color] duration-[160ms] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] disabled:opacity-30 disabled:pointer-events-none"
               onClick={() => onMove(index, -1)}
             >
               <Icon name="chevronDown" className="w-4 h-4 rotate-180" />
@@ -126,7 +126,7 @@ export const BlockCard = forwardRef<HTMLDivElement, BlockCardProps>(
               type="button"
               title={t("actions.moveDown")}
               disabled={index === count - 1 || reorderDisabled}
-              className="p-1 rounded text-muted hover:text-ink hover:bg-surface-3 disabled:opacity-30 disabled:pointer-events-none"
+              className="p-1 rounded text-muted hover:text-ink hover:bg-surface-3 transition-[transform,color,background-color] duration-[160ms] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] disabled:opacity-30 disabled:pointer-events-none"
               onClick={() => onMove(index, 1)}
             >
               <Icon name="chevronDown" className="w-4 h-4" />
@@ -134,7 +134,7 @@ export const BlockCard = forwardRef<HTMLDivElement, BlockCardProps>(
             <button
               type="button"
               title={t("actions.edit")}
-              className="p-1 rounded text-muted hover:text-ink hover:bg-surface-3"
+              className="p-1 rounded text-muted hover:text-ink hover:bg-surface-3 transition-[transform,color,background-color] duration-[160ms] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
               onClick={() => onEdit(block)}
             >
               <Icon name="pencil" className="w-4 h-4" />
@@ -142,7 +142,7 @@ export const BlockCard = forwardRef<HTMLDivElement, BlockCardProps>(
             <button
               type="button"
               title={t("actions.delete")}
-              className="p-1 rounded text-muted hover:text-danger hover:bg-surface-3"
+              className="p-1 rounded text-muted hover:text-danger hover:bg-surface-3 transition-[transform,color,background-color] duration-[160ms] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
               onClick={() => onDelete(block)}
             >
               <Icon name="trash" className="w-4 h-4" />
@@ -152,7 +152,7 @@ export const BlockCard = forwardRef<HTMLDivElement, BlockCardProps>(
 
         <button
           type="button"
-          className="text-left"
+          className="text-left transition-transform duration-[140ms] ease-[var(--ease-out)] motion-safe:active:scale-[0.98]"
           onClick={() => onEdit(block)}
         >
           <div className="font-medium text-ink text-sm">

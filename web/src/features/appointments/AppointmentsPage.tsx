@@ -109,7 +109,7 @@ export function AppointmentsPage() {
             onClick={() => setSurface(id)}
             onKeyDown={(e) => onSurfaceKey(e, i)}
             className={clsx(
-              "inline-flex h-9 items-center gap-2 rounded-md px-3 text-base transition-[background-color,color] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand active:scale-[0.98]",
+              "inline-flex h-9 items-center gap-2 rounded-md px-3 text-base transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.98]",
               surface === id ? "bg-surface text-ink shadow-sm" : "text-muted hover:text-ink",
             )}
           >
@@ -131,7 +131,7 @@ export function AppointmentsPage() {
                 onClick={() => setTab(id)}
                 onKeyDown={(e) => onTabKey(e, i)}
                 className={clsx(
-                  "inline-flex h-11 items-center gap-2 rounded-t-md border-b-2 px-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand",
+                  "inline-flex h-11 items-center gap-2 rounded-t-md border-b-2 px-3 text-base transition-[color,border-color] duration-150 ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.98]",
                   tab === id ? "border-brand text-brand" : "border-transparent text-muted hover:text-ink",
                 )}
               >
@@ -140,16 +140,18 @@ export function AppointmentsPage() {
             ))}
           </div>
 
-          {tab === "eventTypes" ? (
-            <div className="grid gap-4 lg:grid-cols-2">
-              <EventTypeList />
-              <EventTypeEditor />
-            </div>
-          ) : tab === "availability" ? (
-            <AvailabilityEditor />
-          ) : (
-            <BookingsCalendar />
-          )}
+          <div key={tab} className="tl-fade">
+            {tab === "eventTypes" ? (
+              <div className="grid gap-4 lg:grid-cols-2">
+                <EventTypeList />
+                <EventTypeEditor />
+              </div>
+            ) : tab === "availability" ? (
+              <AvailabilityEditor />
+            ) : (
+              <BookingsCalendar />
+            )}
+          </div>
         </>
       ) : surface === "public" ? (
         <PublicBookingPreview />

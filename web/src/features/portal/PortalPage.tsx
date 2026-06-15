@@ -193,7 +193,7 @@ function SellerCard({ seller }: { seller: PortalSeller }) {
       </div>
       <Link
         to={`/portal/chat?seller=${encodeURIComponent(seller.user_id)}`}
-        className="btn btn-primary btn-sm shrink-0"
+        className="btn btn-primary btn-sm shrink-0 transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)]"
         aria-label={`${t("sellers.chat")} — ${seller.full_name}`}
       >
         <Icon name="chat" className="w-4 h-4" />
@@ -236,7 +236,7 @@ export function PortalPage() {
               </div>
               <Link
                 to="/portal/chat"
-                className="btn btn-primary shrink-0 w-full sm:w-auto"
+                className="btn btn-primary shrink-0 w-full sm:w-auto transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)]"
               >
                 {t("home.goToChats")}
                 <Icon name="arrow" className="w-4 h-4" />

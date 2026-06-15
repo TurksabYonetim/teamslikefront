@@ -109,7 +109,7 @@ export function PhoneLayout() {
               onClick={() => select(id)}
               onKeyDown={(e) => onKeyDown(e, i)}
               className={clsx(
-                "inline-flex h-11 items-center gap-2 rounded-t px-3 text-sm font-medium -mb-px transition-colors",
+                "inline-flex h-11 items-center gap-2 rounded-t px-3 text-sm font-medium -mb-px transition-[transform,color] motion-safe:active:scale-[0.97]",
                 "focus:outline-none focus-visible:ring-2 focus-visible:ring-brand",
                 selected ? "border-b-2 border-brand text-brand" : "text-muted hover:text-ink",
               )}

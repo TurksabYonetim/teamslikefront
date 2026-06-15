@@ -35,7 +35,7 @@ export class ErrorBoundary extends Component<Props, State> {
             </p>
             <button
               onClick={this.handleReset}
-              className="text-sm font-medium text-brand hover:underline"
+              className="text-sm font-medium text-brand hover:underline transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
             >
               Tekrar dene
             </button>

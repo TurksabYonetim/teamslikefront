@@ -60,7 +60,7 @@ export function CommentSidebar() {
         <Icon name="usersThree" className="h-4 w-4" /> {t("comments.simulate")}
       </Button>
 
-      <ul className="space-y-2">
+      <ul className="tl-stagger space-y-2">
         {docComments.length === 0 ? <li className="text-sm text-muted">{t("comments.empty")}</li> : null}
         {docComments.map((c) => (
           <li
@@ -79,7 +79,7 @@ export function CommentSidebar() {
                 <button
                   type="button"
                   onClick={() => resolveComment(c.id)}
-                  className="ml-auto inline-flex items-center gap-1 text-xs text-brand hover:underline"
+                  className="ml-auto inline-flex items-center gap-1 text-xs text-brand transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] hover:underline motion-safe:active:scale-[0.97]"
                 >
                   <Icon name="check" className="h-3.5 w-3.5" /> {t("comments.resolve")}
                 </button>

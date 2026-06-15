@@ -32,7 +32,7 @@ export function KanbanBoard() {
               {col.title}
               <span className="text-xs text-muted">{cards.length}</span>
             </h3>
-            <ul className="space-y-2">
+            <ul className="tl-stagger space-y-2">
               {cards.map((cd) => (
                 <li
                   key={cd.id}
@@ -49,7 +49,7 @@ export function KanbanBoard() {
                       <IconButton
                         label={t("board.moveLeft")}
                         disabled={idx === 0}
-                        className="h-7 w-7 disabled:opacity-40"
+                        className="h-7 w-7 transition-transform motion-safe:active:scale-[0.97] disabled:opacity-40 motion-reduce:transform-none"
                         onClick={() => moveCard(cd.id, board.columns[idx - 1].id)}
                       >
                         <Icon name="chevronLeft" className="h-4 w-4" />
@@ -57,7 +57,7 @@ export function KanbanBoard() {
                       <IconButton
                         label={t("board.moveRight")}
                         disabled={idx === board.columns.length - 1}
-                        className="h-7 w-7 disabled:opacity-40"
+                        className="h-7 w-7 transition-transform motion-safe:active:scale-[0.97] disabled:opacity-40 motion-reduce:transform-none"
                         onClick={() => moveCard(cd.id, board.columns[idx + 1].id)}
                       >
                         <Icon name="chevronRight" className="h-4 w-4" />

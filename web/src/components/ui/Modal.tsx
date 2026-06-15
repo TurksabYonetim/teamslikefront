@@ -34,7 +34,7 @@ export function Modal({ open, onClose, title, children, footer }: ModalProps) {
           <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-900"
+            className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)]"
           >
             <Icon name="close" className="w-5 h-5" />
           </button>

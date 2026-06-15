@@ -82,7 +82,7 @@ export function AuditLogDetail({
                   type="button"
                   onClick={() => copy(r.value)}
                   title={t("audit.copy")}
-                  className="shrink-0 rounded p-1 text-gray-400 transition-colors duration-150 ease-out hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                  className="shrink-0 rounded p-1 text-gray-400 transition-[transform,background-color,color] duration-150 ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
                 >
                   <Icon name="copy" className="w-3.5 h-3.5" />
                 </button>

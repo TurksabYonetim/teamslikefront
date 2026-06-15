@@ -155,7 +155,7 @@ export function ClipDetail({ clip }: { clip: Clip }) {
                   onClick={() => toggleReaction(clip.id, e)}
                   aria-pressed={!!hit}
                   className={
-                    "rounded-full border px-2 py-0.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none " +
+                    "rounded-full border px-2 py-0.5 text-sm transition-[transform,background-color,border-color,color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none " +
                     (hit ? "border-brand bg-brand-softer text-ink" : "border-line text-muted hover:bg-surface-2")
                   }
                 >

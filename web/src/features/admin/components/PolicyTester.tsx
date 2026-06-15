@@ -42,7 +42,7 @@ export function PolicyTester() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           rows={2}
-          className="w-full rounded-lg border border-line bg-surface p-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+          className="w-full rounded-lg border border-line bg-surface p-2 text-sm text-ink outline-none transition-colors duration-150 ease-[var(--ease-out)] focus-visible:ring-2 focus-visible:ring-brand"
         />
       </label>
 
@@ -79,7 +79,7 @@ export function PolicyTester() {
             aria-pressed={label === l}
             onClick={() => setLabel(l)}
             className={clsx(
-              "rounded-lg border px-2 py-1 text-sm transition-colors duration-150 ease-out",
+              "rounded-lg border px-2 py-1 text-sm transition-[transform,color,background-color,border-color] duration-150 ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
               label === l
                 ? "border-brand text-brand"
                 : "border-line text-muted hover:bg-surface-2",

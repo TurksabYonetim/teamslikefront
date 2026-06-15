@@ -18,7 +18,7 @@ function MessageListSkeleton() {
             key={i}
             className={mine ? "flex justify-end" : "flex items-start gap-2"}
             style={{
-              animation: "tl-msg-skeleton-in 220ms cubic-bezier(0.23,1,0.32,1) both",
+              animation: "tl-msg-skeleton-in var(--dur-toast) var(--ease-out) both",
               animationDelay: `${i * 45}ms`,
             }}
           >
@@ -98,7 +98,7 @@ export function MessageList() {
   }
 
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto py-3">
+    <div className="min-h-0 flex-1 overflow-y-auto py-3 tl-stagger">
       {topLevel.map((m, i) => {
         const prev = topLevel[i - 1];
         const grouped =

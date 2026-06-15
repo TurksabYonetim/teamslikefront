@@ -93,7 +93,7 @@ export function DetailsPanel() {
                     onClick={() => setPriority(channel.id, p)}
                     aria-pressed={channel.priority === p}
                     className={clsx(
-                      "h-9 rounded-md border px-2 text-sm",
+                      "h-9 rounded-md border px-2 text-sm transition-[transform,background-color,color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
                       channel.priority === p
                         ? "border-brand bg-surface-2 text-brand"
                         : "border-line text-muted hover:bg-surface-2 dark:border-gray-700",
@@ -118,7 +118,7 @@ export function DetailsPanel() {
                   onClick={() => setDisappearing(channel.id, d)}
                   aria-pressed={(channel.disappearing ?? "off") === d}
                   className={clsx(
-                    "h-9 flex-1 rounded-md border text-sm",
+                    "h-9 flex-1 rounded-md border text-sm transition-[transform,background-color,color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
                     (channel.disappearing ?? "off") === d
                       ? "border-brand bg-surface-2 text-brand"
                       : "border-line text-muted hover:bg-surface-2 dark:border-gray-700",
@@ -162,7 +162,7 @@ export function DetailsPanel() {
                     onClick={() => submitCsat(channel.id, n)}
                     aria-label={t("detailsPanel.csat")}
                     aria-pressed={(channel.csat ?? 0) >= n}
-                    className="rounded-md p-1 hover:bg-surface-2 dark:hover:bg-gray-700"
+                    className="rounded-md p-1 transition-[transform,background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-surface-2 motion-safe:active:scale-[0.97] dark:hover:bg-gray-700"
                   >
                     <HiOutlineStar
                       className={clsx("h-5 w-5", (channel.csat ?? 0) >= n ? "text-amber-400" : "text-muted")}

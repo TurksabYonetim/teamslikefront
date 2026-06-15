@@ -49,7 +49,7 @@ export function ClipCard({ clip, onPlay, onEdit, onDelete }: ClipCardProps) {
         type="button"
         onClick={() => onPlay(clip)}
         title={t("card.play")}
-        className="w-full aspect-video grid place-items-center relative cursor-pointer bg-gray-900 overflow-hidden"
+        className="w-full aspect-video grid place-items-center relative cursor-pointer bg-gray-900 overflow-hidden motion-safe:active:scale-[0.98] motion-safe:transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)]"
       >
         {showThumb ? (
           <img
@@ -106,14 +106,14 @@ export function ClipCard({ clip, onPlay, onEdit, onDelete }: ClipCardProps) {
             )}
           </div>
           <button
-            className="p-1 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-700 duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color]"
+            className="p-1 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-700 duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform] motion-safe:active:scale-[0.97]"
             title={t("card.edit")}
             onClick={() => onEdit(clip)}
           >
             <Icon name="pencil" className="w-4 h-4" />
           </button>
           <button
-            className="p-1 rounded hover:bg-gray-100 text-gray-400 hover:text-red-600 duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color]"
+            className="p-1 rounded hover:bg-gray-100 text-gray-400 hover:text-red-600 duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform] motion-safe:active:scale-[0.97]"
             title={t("card.delete")}
             onClick={() => onDelete(clip)}
           >

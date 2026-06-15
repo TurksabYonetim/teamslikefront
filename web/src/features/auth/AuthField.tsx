@@ -64,6 +64,7 @@ export const AuthField = forwardRef<HTMLInputElement, AuthFieldProps>(
               className={clsx(
                 "absolute inset-y-0 right-0 flex w-11 items-center justify-center",
                 "text-muted hover:text-ink-2 dark:hover:text-white",
+                "transition-[color,transform] duration-[140ms] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
                 "rounded-r-lg outline-none focus-visible:ring-2 focus-visible:ring-brand",
               )}
             >

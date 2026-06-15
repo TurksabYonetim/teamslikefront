@@ -228,7 +228,7 @@ body {
 }
 .tl-stagger > * {
   opacity: 0;
-  animation: tl-fade-in 300ms var(--ease-out) forwards;
+  animation: tl-fade-in var(--dur-modal) var(--ease-out) forwards;
 }
 .tl-stagger > *:nth-child(1) { animation-delay: 0ms; }
 .tl-stagger > *:nth-child(2) { animation-delay: 50ms; }

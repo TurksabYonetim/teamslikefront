@@ -70,7 +70,7 @@ export function CanvasEditor() {
                 value={b.content}
                 onChange={(e) => editBlock(doc.id, b.id, e.target.value)}
                 aria-label={t("canvas.editBlock")}
-                className="w-full rounded-md bg-transparent px-1 text-lg font-semibold text-ink outline-none focus:bg-surface-2"
+                className="w-full rounded-md bg-transparent px-1 text-lg font-semibold text-ink outline-none transition-colors duration-[140ms] ease-[var(--ease-out)] focus:bg-surface-2 motion-reduce:transition-none"
               />
             );
           if (b.type === "divider") return <hr key={b.id} className="border-line" />;
@@ -97,7 +97,7 @@ export function CanvasEditor() {
               value={b.content}
               onChange={(e) => editBlock(doc.id, b.id, e.target.value)}
               aria-label={t("canvas.editBlock")}
-              className="w-full rounded-md bg-transparent px-1 text-sm text-ink outline-none focus:bg-surface-2"
+              className="w-full rounded-md bg-transparent px-1 text-sm text-ink outline-none transition-colors duration-[140ms] ease-[var(--ease-out)] focus:bg-surface-2 motion-reduce:transition-none"
             />
           );
         })}

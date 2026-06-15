@@ -43,7 +43,7 @@ export function GovOverviewDashboard() {
               </div>
               <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-surface-3">
                 <div
-                  className={clsx("h-full transition-[width] duration-300 ease-[var(--ease-out)]", bar)}
+                  className={clsx("h-full transition-[width] duration-[var(--dur-modal)] ease-[var(--ease-out)]", bar)}
                   style={{ width: `${Math.min(100, pct)}%` }}
                   aria-hidden
                 />

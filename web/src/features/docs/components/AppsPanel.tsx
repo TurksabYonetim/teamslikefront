@@ -122,7 +122,7 @@ export function AppsPanel() {
                   key={o.id}
                   type="button"
                   onClick={() => respondForm(f.id, o.id)}
-                  className="block w-full rounded-md border border-line px-3 py-1.5 text-left text-sm text-ink transition-colors hover:bg-surface-2 motion-reduce:transition-none"
+                  className="block w-full rounded-md border border-line px-3 py-1.5 text-left text-sm text-ink transition-colors hover:bg-surface-2 motion-safe:active:scale-[0.99] motion-reduce:transition-none"
                 >
                   <div className="flex items-center gap-2">
                     <span className="flex-1">{o.text}</span>

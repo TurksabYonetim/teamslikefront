@@ -132,7 +132,7 @@ export function CallHistory({
             type="button"
             onClick={() => setQuery("")}
             aria-label={t("history.clearSearch")}
-            className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+            className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 transition-colors duration-150 ease-[var(--ease-out)] hover:text-gray-600 motion-safe:active:scale-[0.97] dark:hover:text-gray-200"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 17.94 6M18 18 6.06 6" />
@@ -153,7 +153,7 @@ export function CallHistory({
               aria-selected={selected}
               onClick={() => setFilter(f)}
               className={
-                "shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-150 ease-[var(--ease-out)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 " +
+                "shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition-[transform,color,background-color] duration-150 ease-[var(--ease-out)] motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 " +
                 (selected
                   ? "bg-primary-600 text-white"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600")

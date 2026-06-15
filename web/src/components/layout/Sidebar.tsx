@@ -47,7 +47,7 @@ const GROUPS: { labelKey: string; icon: string; items: Item[] }[] = [
 
 /* ---- stiller (Flowbite) ----------------------------------------------- */
 const ITEM =
-  "flex items-center p-2 text-base font-normal rounded-lg group transition-[background-color,color,transform] duration-150 ease-out active:scale-[0.98]";
+  "flex items-center p-2 text-base font-normal rounded-lg group transition-[background-color,color,transform] duration-[var(--dur-press)] ease-[var(--ease-out)] active:scale-[0.98]";
 const itemCls = (active: boolean, collapsed?: boolean) =>
   clsx(
     ITEM,
@@ -65,7 +65,7 @@ function Badge({ n }: { n?: number }) {
 }
 
 const iconCls = (active: boolean) =>
-  clsx("w-5 h-5 shrink-0 transition-colors duration-150 ease-out", active ? "text-primary-700" : "text-gray-400 group-hover:text-gray-900");
+  clsx("w-5 h-5 shrink-0 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]", active ? "text-primary-700" : "text-gray-400 group-hover:text-gray-900");
 
 /** Tek satır (ikon + etiket), aktifken ikon+metin mavi. */
 function Leaf({ to, icon, labelKey, end, collapsed }: { to: string; icon: string; labelKey: string; end?: boolean; collapsed?: boolean }) {
@@ -114,18 +114,18 @@ function Group({ labelKey, icon, items, collapsed, onExpand }: { labelKey: strin
         aria-expanded={!collapsed && open}
         className={clsx(ITEM, "w-full hover:bg-gray-100", collapsed && "justify-center", active ? "text-primary-700" : "text-gray-900")}
       >
-        <Icon name={icon} className={clsx("w-5 h-5 shrink-0 transition-colors duration-150 ease-out", active ? "text-primary-700" : "text-gray-400 group-hover:text-gray-900")} />
+        <Icon name={icon} className={clsx("w-5 h-5 shrink-0 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]", active ? "text-primary-700" : "text-gray-400 group-hover:text-gray-900")} />
         {!collapsed && (
           <>
             <span className="flex-1 ml-3 text-left whitespace-nowrap">{t(labelKey)}</span>
-            <Icon name="chevronDown" className={clsx("w-5 h-5 text-gray-400 transition-transform duration-200 ease-out", open && "rotate-180")} />
+            <Icon name="chevronDown" className={clsx("w-5 h-5 text-gray-400 motion-safe:transition-transform duration-[var(--dur-pop)] ease-[var(--ease-out)]", open && "rotate-180")} />
           </>
         )}
       </button>
       {!collapsed && (
         <div
           className={clsx(
-            "grid transition-[grid-template-rows] duration-200 ease-out",
+            "grid motion-safe:transition-[grid-template-rows] duration-[var(--dur-pop)] ease-[var(--ease-out)]",
             open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
           )}
         >
@@ -133,7 +133,7 @@ function Group({ labelKey, icon, items, collapsed, onExpand }: { labelKey: strin
           <div className="overflow-hidden min-h-0">
             <ul
               className={clsx(
-                "py-1 space-y-1 transition-opacity duration-200 ease-out",
+                "py-1 space-y-1 transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)]",
                 open ? "opacity-100" : "opacity-0",
               )}
             >
@@ -204,7 +204,7 @@ export function Sidebar() {
               title={collapsed ? t("nav.logout") : undefined}
               className={clsx(ITEM, "w-full text-gray-500 hover:bg-gray-100 hover:text-gray-900", collapsed && "justify-center")}
             >
-              <Icon name="logout" className="w-5 h-5 shrink-0 text-gray-400 group-hover:text-gray-900" />
+              <Icon name="logout" className="w-5 h-5 shrink-0 text-gray-400 group-hover:text-gray-900 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]" />
               {!collapsed && <span className="flex-1 ml-3 text-left whitespace-nowrap">{t("nav.logout")}</span>}
             </button>
           </li>

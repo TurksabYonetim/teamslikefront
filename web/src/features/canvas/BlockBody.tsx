@@ -28,7 +28,7 @@ export function BlockBody({ block, onChecklistToggle, onOpen }: BlockBodyProps) 
       <button
         type="button"
         onClick={onOpen}
-        className="text-left w-full text-sm text-muted/70 italic"
+        className="text-left w-full text-sm text-muted/70 italic transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
       >
         {t("emptyContent")}
       </button>
@@ -49,7 +49,7 @@ export function BlockBody({ block, onChecklistToggle, onOpen }: BlockBodyProps) 
         <button
           type="button"
           onClick={onOpen}
-          className="text-left w-full text-sm text-muted leading-relaxed whitespace-pre-wrap line-clamp-6"
+          className="text-left w-full text-sm text-muted leading-relaxed whitespace-pre-wrap line-clamp-6 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
         >
           {block.content}
         </button>
@@ -96,7 +96,7 @@ function ChecklistBody({
                   it.index,
                 )
               }
-              className="flex items-start gap-2 text-left w-full group/check"
+              className="flex items-start gap-2 text-left w-full group/check transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.99]"
             >
               <span
                 className={
@@ -144,7 +144,7 @@ function TableBody({ block, onOpen }: Pick<BlockBodyProps, "block" | "onOpen">) 
     <button
       type="button"
       onClick={onOpen}
-      className="block w-full overflow-x-auto text-left"
+      className="block w-full overflow-x-auto text-left transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.99]"
     >
       <table className="w-full text-sm border-collapse">
         <thead>
@@ -191,7 +191,7 @@ function MetricBody({
     <button
       type="button"
       onClick={onOpen}
-      className="text-left w-full flex flex-col items-start"
+      className="text-left w-full flex flex-col items-start transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
     >
       <div className="flex items-baseline gap-2">
         <span className="text-3xl font-semibold text-ink tabular-nums leading-none">

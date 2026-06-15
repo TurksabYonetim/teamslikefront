@@ -48,7 +48,7 @@ const RoundBtn = React.forwardRef<
     title={label}
     onClick={onClick}
     className={clsx(
-      "inline-flex h-12 w-12 items-center justify-center rounded-full transition-colors",
+      "inline-flex h-12 w-12 items-center justify-center rounded-full transition-[transform,colors] ease-[var(--ease-out)] duration-[var(--dur-press)] motion-safe:active:scale-[0.97]",
       tone === "danger"
         ? "bg-red-600 text-white hover:opacity-90"
         : tone === "active"
@@ -155,7 +155,7 @@ export function ControlBar() {
             type="button"
             aria-label={e}
             onClick={() => act().sendReaction(e)}
-            className="cursor-pointer rounded-full px-2 py-1 text-xl outline-none hover:bg-gray-700"
+            className="cursor-pointer rounded-full px-2 py-1 text-xl outline-none transition-[transform,colors] ease-[var(--ease-out)] duration-[var(--dur-press)] hover:bg-gray-700 motion-safe:active:scale-[0.97]"
           >
             <span aria-hidden>{e}</span>
           </button>

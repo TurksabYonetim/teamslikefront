@@ -111,7 +111,7 @@ export function ClipPlayerModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/70 motion-safe:[animation:tl-fade-in_180ms_var(--ease-out)]"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/70 motion-safe:[animation:tl-fade_var(--dur-modal)_var(--ease-out)]"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -129,7 +129,7 @@ export function ClipPlayerModal({
           <button
             onClick={onClose}
             title={t("player.close")}
-            className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-900 shrink-0"
+            className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-900 shrink-0 motion-safe:active:scale-[0.97] duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform]"
           >
             <Icon name="close" className="w-5 h-5" />
           </button>
@@ -151,7 +151,7 @@ export function ClipPlayerModal({
               type="button"
               onClick={onPrev}
               title={t("player.prev")}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 grid place-items-center rounded-full bg-black/50 text-white hover:bg-black/70 duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:background-color]"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 grid place-items-center rounded-full bg-black/50 text-white hover:bg-black/70 motion-safe:active:scale-[0.97] duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform]"
             >
               <Icon name="chevronLeft" className="w-5 h-5" />
             </button>
@@ -161,7 +161,7 @@ export function ClipPlayerModal({
               type="button"
               onClick={onNext}
               title={t("player.next")}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 grid place-items-center rounded-full bg-black/50 text-white hover:bg-black/70 duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:background-color]"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 grid place-items-center rounded-full bg-black/50 text-white hover:bg-black/70 motion-safe:active:scale-[0.97] duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform]"
             >
               <Icon name="chevronRight" className="w-5 h-5" />
             </button>
@@ -187,7 +187,7 @@ export function ClipPlayerModal({
                 onClick={() => setSpeed(s)}
                 className={[
                   "px-2 py-1 rounded text-xs font-medium tabular-nums",
-                  "duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color]",
+                  "motion-safe:active:scale-[0.97] duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform]",
                   speed === s
                     ? "bg-brand text-white"
                     : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-100",
@@ -203,7 +203,7 @@ export function ClipPlayerModal({
             type="button"
             onClick={handleCopyShare}
             title={t("player.copyShare")}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium bg-white text-gray-700 border border-gray-200 hover:bg-gray-100 duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:background-color]"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium bg-white text-gray-700 border border-gray-200 hover:bg-gray-100 motion-safe:active:scale-[0.97] duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:color,background-color,transform]"
           >
             <Icon name="link" className="w-4 h-4" />
             {t("player.copyShare")}

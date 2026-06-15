@@ -179,7 +179,7 @@ function GuestTokenButton({ meeting }: { meeting: ApiMeeting }) {
           </p>
         )}
         {ready && (
-          <div className="mt-4 motion-safe:[animation:tl-fade-in_180ms_var(--ease-out)]">
+          <div className="mt-4 motion-safe:[animation:tl-fade-in_var(--dur-pop)_var(--ease-out)]">
             <label htmlFor="guest-link" className="label">
               {t("list.guestModal.link")}
             </label>

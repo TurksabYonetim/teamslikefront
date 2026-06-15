@@ -94,7 +94,7 @@ export function TableGridView() {
               onClick={() => setView(v.id)}
               aria-pressed={view === v.id}
               className={
-                "inline-flex h-9 items-center gap-1 px-3 text-sm transition-colors motion-reduce:transition-none " +
+                "inline-flex h-9 items-center gap-1 px-3 text-sm transition-colors motion-safe:active:scale-[0.97] motion-reduce:transition-none " +
                 (view === v.id ? "bg-brand text-white" : "bg-surface text-muted hover:bg-surface-2")
               }
             >
@@ -128,7 +128,7 @@ export function TableGridView() {
                         type="button"
                         onClick={() => deleteTableColumn(table.id, c.id)}
                         aria-label={t("table.deleteColumn")}
-                        className="rounded text-muted hover:text-danger focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                        className="rounded text-muted transition-colors hover:text-danger focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97] motion-reduce:transition-none"
                       >
                         <Icon name="close" className="h-3 w-3" />
                       </button>
@@ -151,7 +151,7 @@ export function TableGridView() {
                       type="button"
                       onClick={() => deleteTableRow(table.id, r.id)}
                       aria-label={t("table.deleteRow")}
-                      className="rounded p-1 text-muted transition-colors hover:text-danger focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none"
+                      className="rounded p-1 text-muted transition-colors hover:text-danger focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97] motion-reduce:transition-none"
                     >
                       <Icon name="trash" className="h-3.5 w-3.5" />
                     </button>

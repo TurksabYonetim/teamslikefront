@@ -98,7 +98,7 @@ export function ChannelHeader() {
         <div
           data-testid="ongoing-meeting-bar"
           className="flex items-center gap-2 border-b border-line bg-brand/10 px-4 py-2 text-sm text-brand dark:border-gray-700"
-          style={{ animation: "tl-ongoing-in 200ms cubic-bezier(0.23,1,0.32,1) both" }}
+          style={{ animation: "tl-ongoing-in var(--dur-pop) var(--ease-out) both" }}
         >
           <span className="relative flex h-2 w-2" aria-hidden>
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75 motion-reduce:hidden" />
@@ -142,7 +142,7 @@ export function ChannelHeader() {
               <Dropdown
                 label={t(`status.${channel.status}`)}
                 align="start"
-                triggerClassName="inline-flex items-center gap-1 rounded-sm border border-line px-2 py-0.5 text-sm dark:border-gray-700"
+                triggerClassName="inline-flex items-center gap-1 rounded-sm border border-line px-2 py-0.5 text-sm transition-transform ease-[var(--ease-out)] motion-safe:active:scale-[0.97] dark:border-gray-700"
                 trigger={
                   <>
                     <Badge tone={statusTone[channel.status]}>{t(`status.${channel.status}`)}</Badge>

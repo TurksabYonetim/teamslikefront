@@ -243,7 +243,7 @@ function EventTypesTab() {
                       <button
                         type="button"
                         onClick={() => openEdit(et)}
-                        className="p-1.5 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-900"
+                        className="p-1.5 rounded-lg text-gray-500 transition-transform motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-900"
                         aria-label={t("drawerActions.edit")}
                       >
                         <Icon name="pencil" className="w-4 h-4" />
@@ -251,7 +251,7 @@ function EventTypesTab() {
                       <button
                         type="button"
                         onClick={() => setDeleteId(et.id)}
-                        className="p-1.5 rounded-lg text-red-600 hover:bg-red-50"
+                        className="p-1.5 rounded-lg text-red-600 transition-transform motion-safe:active:scale-[0.97] hover:bg-red-50"
                         aria-label={t("drawerActions.delete")}
                       >
                         <Icon name="trash" className="w-4 h-4" />
@@ -269,11 +269,11 @@ function EventTypesTab() {
       {drawerOpen && (
         <>
           <div
-            className="fixed inset-0 z-30 bg-gray-900/50"
+            className="fixed inset-0 z-30 bg-gray-900/50 motion-safe:[animation:tl-fade_var(--dur-drawer,240ms)_var(--ease-drawer)_both]"
             onClick={() => setDrawerOpen(false)}
             aria-hidden="true"
           />
-          <div className="fixed right-0 top-0 z-40 h-screen w-full max-w-sm overflow-y-auto bg-white p-4">
+          <div className="fixed right-0 top-0 z-40 h-screen w-full max-w-sm overflow-y-auto bg-white p-4 motion-safe:[animation:tl-drawer-in-end_var(--dur-modal)_var(--ease-drawer)_both]">
             <div className="mb-4 flex items-center justify-between">
               <h4 className="text-sm font-semibold uppercase text-gray-500">
                 {editId ? t("et.form.update") : t("et.form.create")}
@@ -281,7 +281,7 @@ function EventTypesTab() {
               <button
                 type="button"
                 onClick={() => setDrawerOpen(false)}
-                className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100"
+                className="p-1.5 rounded-lg text-gray-400 transition-transform motion-safe:active:scale-[0.97] hover:bg-gray-100"
               >
                 <Icon name="close" className="w-5 h-5" />
               </button>

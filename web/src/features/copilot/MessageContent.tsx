@@ -106,7 +106,7 @@ export function MessageContent({
                 onClick={() => onCopyCode(b.code)}
                 title={copiedLabel ? `${copyLabel} / ${copiedLabel}` : copyLabel}
                 aria-label={copyLabel}
-                className="absolute right-2 top-2 rounded-md border border-gray-200 bg-white/90 p-1.5 text-gray-500 opacity-0 transition-opacity duration-[var(--dur-press)] ease-[var(--ease-out)] hover:text-gray-900 focus:opacity-100 group-hover/code:opacity-100 dark:border-gray-600 dark:bg-gray-800/90 dark:text-gray-400 dark:hover:text-white"
+                className="absolute right-2 top-2 rounded-md border border-gray-200 bg-white/90 p-1.5 text-gray-500 opacity-0 transition-[opacity,transform] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:text-gray-900 focus:opacity-100 group-hover/code:opacity-100 dark:border-gray-600 dark:bg-gray-800/90 dark:text-gray-400 dark:hover:text-white"
               >
                 <svg
                   className="h-4 w-4"

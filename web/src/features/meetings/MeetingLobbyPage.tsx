@@ -273,7 +273,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
 
   // Aktif yuvarlak buton stili (toggle görsel geri bildirimi).
   const ctrlBtn = (active: boolean) =>
-    "group me-4 rounded-full p-2.5 focus:outline-none focus:ring-4 " +
+    "group me-4 rounded-full p-2.5 transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)] focus:outline-none focus:ring-4 " +
     (active
       ? "bg-primary-700 text-white hover:bg-primary-800 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
       : "bg-gray-100 hover:bg-gray-200 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700");
@@ -314,7 +314,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
                 </svg>
                 <span className="sr-only">{t("lobby.muteMicrophone")}</span>
               </button>
-              <div id="tooltip-microphone" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700" data-popper-placement="top">
+              <div id="tooltip-microphone" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700" data-popper-placement="top">
                 {t("lobby.muteMicrophone")}
                 <div className="tooltip-arrow" data-popper-arrow=""></div>
               </div>
@@ -324,7 +324,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
                 </svg>
                 <span className="sr-only">{t("lobby.hideCamera")}</span>
               </button>
-              <div id="tooltip-camera" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700" data-popper-placement="top">
+              <div id="tooltip-camera" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700" data-popper-placement="top">
                 {t("lobby.hideCamera")}
                 <div className="tooltip-arrow" data-popper-arrow=""></div>
               </div>
@@ -335,11 +335,11 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
                 </svg>
                 <span className="sr-only">{t("lobby.visualEffects")}</span>
               </button>
-              <div id="tooltip-visual-effects" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700" data-popper-placement="top">
+              <div id="tooltip-visual-effects" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700" data-popper-placement="top">
                 {t("lobby.visualEffectsTooltip")}
                 <div className="tooltip-arrow" data-popper-arrow=""></div>
               </div>
-              <button id="moreOptionsDropdownButton" data-dropdown-toggle="moreOptionsDropdown" type="button" className="group me-4 rounded-full bg-gray-100 p-2.5 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+              <button id="moreOptionsDropdownButton" data-dropdown-toggle="moreOptionsDropdown" type="button" className="group me-4 rounded-full bg-gray-100 p-2.5 transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)] hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
                 <svg className="h-4 w-4 text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
                   <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"></path>
                 </svg>
@@ -381,17 +381,17 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
             </div>
             <h1 className="mb-4 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white md:text-start">{t("lobby.readyToJoin")}</h1>
             <div className="flex w-full items-center justify-center space-x-4 dark:border-gray-800 md:justify-start lg:mb-6 lg:border-b lg:border-gray-200 lg:pb-6">
-              <button type="button" onClick={askToJoin} disabled={guestToken.isPending} className="inline-flex shrink-0 items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-3 py-2.5 text-center text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 disabled:opacity-60 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+              <button type="button" onClick={askToJoin} disabled={guestToken.isPending} className="inline-flex shrink-0 items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-3 py-2.5 text-center text-sm font-medium text-white transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)] hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 disabled:opacity-60 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                 {guestToken.isPending ? "…" : t("lobby.askToJoin")}
               </button>
-              <button type="button" onClick={() => setPresenting((v) => !v)} aria-pressed={presenting} className={"hidden shrink-0 items-center rounded-lg px-3 py-2.5 text-base font-medium focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 lg:flex " + (presenting ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300" : "text-primary-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-white")}>
+              <button type="button" onClick={() => setPresenting((v) => !v)} aria-pressed={presenting} className={"hidden shrink-0 items-center rounded-lg px-3 py-2.5 text-base font-medium transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)] focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 lg:flex " + (presenting ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300" : "text-primary-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-white")}>
                 <svg className="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v5m-3 0h6M4 11h16M5 15h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1Z" />
                 </svg>
 
                 {presenting ? t("lobby.presenting") : t("lobby.present")}
               </button>
-              <button type="button" onClick={() => setCompanionMode((v) => !v)} aria-pressed={companionMode} className={"flex shrink-0 items-center rounded-lg px-3 py-2.5 text-base font-medium focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 " + (companionMode ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300" : "text-primary-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-white")}>
+              <button type="button" onClick={() => setCompanionMode((v) => !v)} aria-pressed={companionMode} className={"flex shrink-0 items-center rounded-lg px-3 py-2.5 text-base font-medium transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)] focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 " + (companionMode ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300" : "text-primary-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-white")}>
                 <svg className="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                   <path fillRule="evenodd" d="M8 5a1 1 0 0 1 1-1h11a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1a1 1 0 1 1 0-2h1V6H9a1 1 0 0 1-1-1Z" clipRule="evenodd" />
                   <path fillRule="evenodd" d="M4 7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H4Zm0 11v-5.5h11V18H4Z" clipRule="evenodd" />
@@ -539,8 +539,8 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
 
       {/* --- Sorun bildir modalı --- */}
       {reportOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-gray-900/50 p-4">
-          <div className="relative max-h-full w-full max-w-lg">
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-gray-900/50 p-4 motion-safe:animate-[tl-fade_var(--dur-modal)_var(--ease-out)]">
+          <div className="relative max-h-full w-full max-w-lg motion-safe:animate-[tl-modal-in_var(--dur-modal)_var(--ease-out)]">
             <div className="relative rounded-lg bg-white shadow dark:bg-gray-700">
               <div className="flex items-center justify-between rounded-t border-b border-gray-200 p-4 dark:border-gray-600 md:p-5">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("lobby.report.title")}</h3>
@@ -611,8 +611,8 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
 
       {/* --- Sorun giderme / tanılama modalı --- */}
       {diagOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-gray-900/50 p-4">
-          <div className="relative max-h-full w-full max-w-lg">
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-gray-900/50 p-4 motion-safe:animate-[tl-fade_var(--dur-modal)_var(--ease-out)]">
+          <div className="relative max-h-full w-full max-w-lg motion-safe:animate-[tl-modal-in_var(--dur-modal)_var(--ease-out)]">
             <div className="relative rounded-lg bg-white shadow dark:bg-gray-700">
               <div className="flex items-center justify-between rounded-t border-b border-gray-200 p-4 dark:border-gray-600 md:p-5">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("lobby.diag.title")}</h3>

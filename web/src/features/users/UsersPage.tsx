@@ -131,7 +131,7 @@ export function UsersPage() {
                     onClick={() => setRole(r)}
                     className={
                       "px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap shrink-0 " +
-                      "transition-colors duration-[140ms] ease-[var(--ease-out)] " +
+                      "transition-[transform,background-color,color] duration-[140ms] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] " +
                       (selected
                         ? "bg-brand/10 text-brand"
                         : "text-muted hover:bg-surface-3 hover:text-ink-2")
@@ -370,7 +370,7 @@ function RowActions({
 }) {
   const iconBtn =
     "p-1.5 rounded-lg text-muted hover:bg-surface-3 hover:text-ink-2 " +
-    "transition-colors duration-[120ms] ease-[var(--ease-out)] " +
+    "transition-[transform,background-color,color] duration-[120ms] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] " +
     "focus:outline-none focus-visible:ring-2 focus-visible:ring-brand";
   return (
     <div className="inline-flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
@@ -393,7 +393,7 @@ function RowActions({
         onClick={onDelete}
         className={
           "p-1.5 rounded-lg text-muted hover:bg-danger/10 hover:text-danger " +
-          "transition-colors duration-[120ms] ease-[var(--ease-out)] " +
+          "transition-[transform,background-color,color] duration-[120ms] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] " +
           "focus:outline-none focus-visible:ring-2 focus-visible:ring-danger"
         }
       >

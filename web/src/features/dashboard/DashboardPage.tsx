@@ -354,7 +354,7 @@ export function DashboardPage() {
                   {recentBookings.map((b, i) => (
                     <tr
                       key={i}
-                      className="bg-surface border-b border-line dark:border-line hover:bg-surface-2 dark:hover:bg-surface-3 transition-colors"
+                      className="bg-surface border-b border-line dark:border-line hover:bg-surface-2 dark:hover:bg-surface-3 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]"
                     >
                       <td className="px-5 py-3">
                         <div className="font-medium text-ink">{b.who}</div>
@@ -412,7 +412,7 @@ export function DashboardPage() {
               {team.map((u) => (
                 <div
                   key={u.id}
-                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-2 dark:hover:bg-surface-3 transition-colors"
+                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-2 dark:hover:bg-surface-3 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]"
                 >
                   <div className="relative">
                     <Avatar initials={u.initials} color={u.color} />

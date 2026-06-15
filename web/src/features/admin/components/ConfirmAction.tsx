@@ -42,8 +42,7 @@ export function ConfirmAction({
 
   return (
     <div
-      className="flex flex-wrap items-end gap-2 rounded-lg border border-danger bg-surface p-2"
-      style={{ animation: "tl-fade-in 180ms var(--ease-out) both" }}
+      className="flex flex-wrap items-end gap-2 rounded-lg border border-danger bg-surface p-2 origin-top-left motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)_both]"
     >
       <Icon name="warning" className="h-[18px] w-[18px] text-danger" />
       <label className="flex flex-col gap-1 text-sm text-ink">

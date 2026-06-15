@@ -32,7 +32,7 @@ export function WorkflowBuilder() {
                 onClick={() => setSel(w.id)}
                 aria-current={wf?.id === w.id ? "true" : undefined}
                 className={
-                  "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors motion-reduce:transition-none " +
+                  "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] motion-reduce:transition-none " +
                   (wf?.id === w.id ? "bg-surface-3 text-ink" : "text-muted hover:bg-surface-2")
                 }
               >
@@ -84,7 +84,7 @@ export function WorkflowBuilder() {
                 <Icon name="play" className="h-4 w-4" /> {t("workflows.run")}
               </Button>
             </div>
-            <ol className="space-y-1">
+            <ol className="space-y-1 tl-stagger">
               {wf.steps.map((s, i) => (
                 <li key={s.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm">
                   <span className="text-muted">{i + 1}.</span>
@@ -98,7 +98,7 @@ export function WorkflowBuilder() {
             {lastRun ? (
               <div className="mt-3 rounded-lg border border-ok/40 bg-ok/5 p-2">
                 <div className="mb-1 text-sm font-medium text-ok">{t("workflows.runLog")}</div>
-                <ul className="space-y-0.5">
+                <ul className="space-y-0.5 tl-stagger">
                   {lastRun.map((r) => (
                     <li key={r.id} className="flex items-center gap-1 text-sm text-ink">
                       <Icon name="check" className="h-3.5 w-3.5 text-ok" /> {r.label}

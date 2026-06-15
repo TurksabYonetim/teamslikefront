@@ -75,7 +75,7 @@ export function PromptBar({ onRun, disabled }: PromptBarProps) {
             className="prompt-chip inline-flex items-center gap-1 rounded-full border border-line bg-surface-2 px-2.5 py-1 text-xs font-medium text-muted hover:text-ink hover:border-brand/40 hover:bg-brand/5 active:scale-[0.97] motion-reduce:active:scale-100 disabled:opacity-40 disabled:pointer-events-none"
             style={{
               transition:
-                "color 160ms var(--ease-out), background-color 160ms var(--ease-out), border-color 160ms var(--ease-out), transform 120ms var(--ease-out)",
+                "color var(--dur-press) var(--ease-out), background-color var(--dur-press) var(--ease-out), border-color var(--dur-press) var(--ease-out), transform var(--dur-press) var(--ease-out)",
             }}
           >
             <Icon name="plus" className="w-3 h-3" />

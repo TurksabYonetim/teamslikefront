@@ -128,7 +128,7 @@ export function KanbanBoard() {
           forceFallback: true,
           dragClass: "drag-card",
           ghostClass: "ghost-card",
-          easing: "cubic-bezier(0, 0.55, 0.45, 1)",
+          easing: "cubic-bezier(0.23, 1, 0.32, 1)", // matches --ease-out
           onStart: () => {
             document.body.style.userSelect = "none";
           },
@@ -398,62 +398,62 @@ export function KanbanBoard() {
                   <h6 className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">{t("filter.assignee")}</h6>
                   <div className="flex flex-wrap gap-1.5">
                     <a href="#" data-tooltip-target="user-1" className="shrink-0"><img className="h-6 w-6 rounded-full" src="/images/users/bonnie-green.png" alt="Bonnie avatar" /></a>
-                    <div id="user-1" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-600">
+                    <div id="user-1" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:bg-gray-600">
                       Bonnie Green
                       <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                     <a href="#" data-tooltip-target="user-2" className="shrink-0"><img className="h-6 w-6 rounded-full" src="/images/users/helene-engels.png" alt="Helene avatar" /></a>
-                    <div id="user-2" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-600">
+                    <div id="user-2" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:bg-gray-600">
                       Helene Engels
                       <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                     <a href="#" data-tooltip-target="user-3" className="shrink-0"><img className="h-6 w-6 rounded-full" src="/images/users/jese-leos.png" alt="Jese avatar" /></a>
-                    <div id="user-3" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-600">
+                    <div id="user-3" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:bg-gray-600">
                       Jese Leos
                       <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                     <a href="#" data-tooltip-target="user-4" className="shrink-0"><img className="h-6 w-6 rounded-full" src="/images/users/joseph-mcfall.png" alt="Joseph avatar" /></a>
-                    <div id="user-4" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-600">
+                    <div id="user-4" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:bg-gray-600">
                       Joseph McFall
                       <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                     <a href="#" data-tooltip-target="user-5" className="shrink-0"><img className="h-6 w-6 rounded-full" src="/images/users/sofia-mcguire.png" alt="Sofia avatar" /></a>
-                    <div id="user-5" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-600">
+                    <div id="user-5" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:bg-gray-600">
                       Sofia Mcguire
                       <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                     <a href="#" data-tooltip-target="user-6" className="shrink-0"><img className="h-6 w-6 rounded-full" src="/images/users/thomas-lean.png" alt="Thomas avatar" /></a>
-                    <div id="user-6" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-600">
+                    <div id="user-6" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:bg-gray-600">
                       Thomas Lean
                       <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                     <a href="#" data-tooltip-target="user-7" className="shrink-0"><img className="h-6 w-6 rounded-full" src="/images/users/michael-gough.png" alt="Micheal avatar" /></a>
-                    <div id="user-7" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-600">
+                    <div id="user-7" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:bg-gray-600">
                       Micheal Gough
                       <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                     <a href="#" data-tooltip-target="user-8" className="shrink-0"><img className="h-6 w-6 rounded-full" src="/images/users/neil-sims.png" alt="Neil avatar" /></a>
-                    <div id="user-8" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-600">
+                    <div id="user-8" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:bg-gray-600">
                       Neil Sims
                       <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                     <a href="#" data-tooltip-target="user-9" className="shrink-0"><img className="h-6 w-6 rounded-full" src="/images/users/roberta-casas.png" alt="Roberta avatar" /></a>
-                    <div id="user-9" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-600">
+                    <div id="user-9" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:bg-gray-600">
                       Roberta Casas
                       <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                     <a href="#" data-tooltip-target="user-10" className="shrink-0"><img className="h-6 w-6 rounded-full" src="/images/users/karen-nelson.png" alt="Karen avatar" /></a>
-                    <div id="user-10" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-600">
+                    <div id="user-10" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:bg-gray-600">
                       Karen Nelson
                       <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                     <a href="#" data-tooltip-target="user-11" className="shrink-0"><img className="h-6 w-6 rounded-full" src="/images/users/thomas-lean.png" alt="Thomas avatar" /></a>
-                    <div id="user-11" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-600">
+                    <div id="user-11" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:bg-gray-600">
                       Thomas
                       <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                     <a href="#" data-tooltip-target="user-12" className="shrink-0"><img className="h-6 w-6 rounded-full" src="/images/users/neil-sims.png" alt="Neil avatar" /></a>
-                    <div id="user-12" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-600">
+                    <div id="user-12" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:bg-gray-600">
                       Neil Sims
                       <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
@@ -463,7 +463,7 @@ export function KanbanBoard() {
                       </svg>
                       <span className="sr-only">{t("filter.addNewUser")}</span>
                     </a>
-                    <div id="user-13" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-600">
+                    <div id="user-13" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[180ms] ease-[var(--ease-out)] dark:bg-gray-600">
                       {t("filter.addNewUser")}
                       <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
@@ -741,10 +741,10 @@ export function KanbanBoard() {
                               : cards.map((task) => {
                                   const due = formatDue(task.due_date);
                                   return (
-                                    <div key={task.id} data-task-id={task.id} className="flex max-w-md cursor-move flex-col rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
+                                    <div key={task.id} data-task-id={task.id} className="tl-stagger flex max-w-md cursor-move flex-col rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
                                       <div className="flex items-center justify-between pb-4">
                                         <div className="text-base font-semibold text-gray-900 dark:text-white">{task.title}</div>
-                                        <button type="button" onClick={() => openEditTask(task)} className="rounded-lg p-1.5 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+                                        <button type="button" onClick={() => openEditTask(task)} className="rounded-lg p-1.5 text-sm text-gray-500 transition-transform motion-safe:active:scale-[0.97] hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
                                           <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                             <path fillRule="evenodd" d="M11.3 6.2H5a2 2 0 0 0-2 2V19a2 2 0 0 0 2 2h11c1.1 0 2-1 2-2.1V11l-4 4.2c-.3.3-.7.6-1.2.7l-2.7.6c-1.7.3-3.3-1.3-3-3.1l.6-2.9c.1-.5.4-1 .7-1.3l3-3.1Z" clipRule="evenodd" />
                                             <path fillRule="evenodd" d="M19.8 4.3a2.1 2.1 0 0 0-1-1.1 2 2 0 0 0-2.2.4l-.6.6 2.9 3 .5-.6a2.1 2.1 0 0 0 .6-1.5c0-.2 0-.5-.2-.8Zm-2.4 4.4-2.8-3-4.8 5-.1.3-.7 3c0 .3.3.7.6.6l2.7-.6.3-.1 4.7-5Z" clipRule="evenodd" />
@@ -772,7 +772,7 @@ export function KanbanBoard() {
                                 })}
                         </div>
 
-                        <button type="button" onClick={() => openNewTask(column.status)} className="flex w-full items-center justify-center rounded-lg border border-dashed border-gray-300 bg-gray-100 py-2 font-medium text-gray-500 hover:border-primary-700 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <button type="button" onClick={() => openNewTask(column.status)} className="flex w-full items-center justify-center rounded-lg border border-dashed border-gray-300 bg-gray-100 py-2 font-medium text-gray-500 transition-transform motion-safe:active:scale-[0.97] hover:border-primary-700 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:hover:text-white">
                           <svg className="-ms-0.5 me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h14m-7 7V5" />
                           </svg>
@@ -817,7 +817,7 @@ export function KanbanBoard() {
                 </div>
               </div>
               <div className="flex items-center space-x-4">
-                <button type="submit" className="inline-flex items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                <button type="submit" className="inline-flex items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white transition-transform motion-safe:active:scale-[0.97] hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                   <svg className="-ms-0.5 me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h14m-7 7V5" />
                   </svg>
@@ -870,7 +870,7 @@ export function KanbanBoard() {
                 </div>
               </div>
               <div className="flex items-center space-x-4">
-                <button type="submit" className="inline-flex items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                <button type="submit" className="inline-flex items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white transition-transform motion-safe:active:scale-[0.97] hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                   {t("taskModal.editTask")}
                 </button>
                 <button type="button" onClick={() => editModalRef.current?.hide()} className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">

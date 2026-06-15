@@ -30,7 +30,7 @@ function Toggle({
       aria-pressed={on}
       aria-label={label}
       className={clsx(
-        "inline-flex h-12 w-12 items-center justify-center rounded-full transition-colors",
+        "inline-flex h-12 w-12 items-center justify-center rounded-full transition-[transform,background-color,border-color,color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
         on
           ? "border border-gray-600 bg-gray-700 text-white hover:bg-gray-600"
           : "bg-danger text-white",
@@ -57,12 +57,13 @@ export function PreJoin() {
         <p className="mb-4 text-base text-gray-400">{t("prejoinSubtitle")}</p>
 
         <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-xl border border-gray-700 bg-gray-800">
-          {camOn ? (
-            <div
-              className="absolute inset-0 bg-gradient-to-br from-brand/40 to-gray-800"
-              aria-hidden
-            />
-          ) : null}
+          <div
+            className={clsx(
+              "absolute inset-0 bg-gradient-to-br from-brand/40 to-gray-800 transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)]",
+              camOn ? "opacity-100" : "opacity-0",
+            )}
+            aria-hidden
+          />
           <Avatar name={name} size="lg" className="relative z-10 !h-26 !w-26 text-2xl" />
           {!camOn ? (
             <div className="absolute bottom-3 left-3 z-10 rounded-md bg-black/60 px-3 py-1 text-base text-white">
@@ -129,7 +130,7 @@ export function PreJoin() {
           onClick={() => meetingStore.getState().toggleAiCompanion()}
           aria-pressed={aiCompanion}
           className={clsx(
-            "mt-3 flex w-full items-center gap-2 rounded-md border px-3 py-2 text-left text-base",
+            "mt-3 flex w-full items-center gap-2 rounded-md border px-3 py-2 text-left text-base transition-[transform,background-color,border-color,color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
             aiCompanion
               ? "border-brand bg-gray-800 text-white"
               : "border-gray-700 bg-gray-800/60 text-gray-400",

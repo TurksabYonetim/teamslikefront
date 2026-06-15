@@ -61,7 +61,7 @@ export function ClipsList() {
         {list.length === 0 ? (
           <EmptyState title={t("clip.empty")} />
         ) : (
-          <ul className="space-y-2">
+          <ul className="tl-stagger space-y-2">
             {list.map((c) => (
               <li key={c.id}>
                 <button
@@ -69,7 +69,7 @@ export function ClipsList() {
                   onClick={() => setSelectedId(c.id)}
                   aria-current={selected?.id === c.id ? "true" : undefined}
                   className={
-                    "flex w-full items-center gap-2 rounded-lg border p-2 text-left transition-colors duration-150 ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none " +
+                    "flex w-full items-center gap-2 rounded-lg border p-2 text-left transition-[transform,background-color,border-color] duration-150 ease-[var(--ease-out)] motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none " +
                     (selected?.id === c.id ? "border-brand bg-brand-softer" : "border-line hover:bg-surface-2")
                   }
                 >

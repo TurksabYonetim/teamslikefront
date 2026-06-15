@@ -85,7 +85,7 @@ export function ContactPanel() {
               <button
                 onClick={() => conversationStore.getState().removeLabel(conv.id, l)}
                 aria-label={t("contact.removeLabel", { label: l })}
-                className="text-muted transition-colors hover:text-danger"
+                className="text-muted transition-colors hover:text-danger active:scale-[0.97] motion-safe:transition-transform"
               >
                 <Icon name="close" className="h-3 w-3" aria-hidden />
               </button>
@@ -123,7 +123,7 @@ export function ContactPanel() {
                 key={n}
                 onClick={() => conversationStore.getState().submitCsat(conv.id, n)}
                 aria-label={t("contact.csatRate", { n })}
-                className="transition-transform duration-150 ease-out hover:scale-110 active:scale-95 motion-reduce:transition-none motion-reduce:hover:scale-100"
+                className="transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] hover:scale-110 active:scale-95 motion-reduce:transition-none motion-reduce:hover:scale-100"
               >
                 <Icon name="star" className={clsx("h-5 w-5", filled ? "text-amber-400" : "text-muted")} aria-hidden />
               </button>

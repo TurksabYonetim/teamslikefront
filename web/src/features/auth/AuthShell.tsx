@@ -28,19 +28,6 @@ export function AuthShell({ children }: { children: ReactNode }) {
 
   return (
     <section className="flex min-h-screen items-center bg-surface-2 dark:bg-gray-900">
-      {/* Karta özgü zarif giriş animasyonu (reduced-motion'da devre dışı, scope'lu). */}
-      <style>{`
-        @keyframes tl-auth-card-in {
-          from { opacity: 0; transform: translateY(12px) scale(0.985); }
-          to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .tl-auth-card {
-          animation: tl-auth-card-in 280ms var(--ease-out) both;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .tl-auth-card { animation: none; }
-        }
-      `}</style>
       <div className="mx-auto w-full max-w-screen-xl px-4 py-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-20">
         {/* Sol tanıtım paneli */}
         <div className="hidden lg:col-span-5 lg:mr-auto lg:flex lg:flex-col lg:justify-between xl:col-span-6 xl:mb-0">
@@ -82,7 +69,7 @@ export function AuthShell({ children }: { children: ReactNode }) {
         </div>
 
         {/* Sağ kart */}
-        <div className="tl-auth-card mx-auto w-full rounded-card bg-surface shadow-sm sm:max-w-lg lg:col-span-7 xl:col-span-6 xl:p-0 dark:bg-gray-800">
+        <div className="motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)_both] mx-auto w-full rounded-card bg-surface shadow-sm sm:max-w-lg lg:col-span-7 xl:col-span-6 xl:p-0 dark:bg-gray-800">
           <div className="space-y-5 p-6 sm:p-8">{children}</div>
         </div>
       </div>

@@ -74,7 +74,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[90] flex items-start justify-center px-4 pt-[14vh] bg-gray-900/40 motion-safe:[animation:tl-fade-in_140ms_var(--ease-out)]"
+      className="fixed inset-0 z-[90] flex items-start justify-center px-4 pt-[14vh] bg-gray-900/40 motion-safe:[animation:tl-fade_var(--dur-modal)_var(--ease-out)]"
       onClick={onClose}
       role="presentation"
     >
@@ -116,7 +116,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
                 onMouseMove={() => setActive(i)}
                 onClick={() => go(it.to)}
                 className={clsx(
-                  "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors duration-[120ms] ease-[var(--ease-out)]",
+                  "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-[transform,colors] duration-[120ms] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
                   i === active
                     ? "bg-brand text-white"
                     : "text-ink hover:bg-surface-2",

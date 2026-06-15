@@ -46,9 +46,11 @@ export function ThreadPanel() {
           <div className="my-2 border-t border-line px-4 pt-2 text-sm text-muted dark:border-gray-700">
             {t("thread.replies", { n: replies.length })}
           </div>
-          {replies.map((r) => (
-            <MessageBubble key={r.id} message={r} />
-          ))}
+          <div className="tl-stagger">
+            {replies.map((r) => (
+              <MessageBubble key={r.id} message={r} />
+            ))}
+          </div>
         </div>
 
         <div className="border-t border-line p-3 dark:border-gray-700">

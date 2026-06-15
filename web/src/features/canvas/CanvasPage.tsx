@@ -264,7 +264,7 @@ export function CanvasPage() {
                 aria-label={t("actions.rename")}
                 onClick={openRename}
                 className="shrink-0 rounded p-1 text-muted hover:bg-surface-3 hover:text-ink active:scale-[0.95] motion-reduce:active:scale-100"
-                style={{ transition: "color 160ms var(--ease-out), transform 120ms var(--ease-out)" }}
+                style={{ transition: "color 160ms var(--ease-out), transform var(--dur-press) var(--ease-out)" }}
               >
                 <Icon name="pencil" className="h-3.5 w-3.5" />
               </button>
@@ -398,12 +398,12 @@ export function CanvasPage() {
                   type="button"
                   onClick={() => setNewType(type)}
                   className={
-                    "flex flex-col items-center gap-1 p-2 rounded-lg border text-xs font-medium " +
+                    "flex flex-col items-center gap-1 p-2 rounded-lg border text-xs font-medium motion-safe:active:scale-[0.97] " +
                     (newType === type
                       ? "border-brand bg-brand/5 text-brand"
                       : "border-line text-muted hover:bg-surface-2")
                   }
-                  style={{ transition: "background-color 160ms var(--ease-out), border-color 160ms var(--ease-out)" }}
+                  style={{ transition: "background-color var(--dur-press) var(--ease-out), border-color var(--dur-press) var(--ease-out)" }}
                 >
                   <Icon name={TYPE_ICONS[type]} className="w-4 h-4" />
                   {t(`types.${type}`)}

@@ -20,7 +20,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
           onClick={() => i18n.changeLanguage(lng)}
           aria-pressed={current === lng}
           className={clsx(
-            "rounded-md px-2.5 py-1 text-xs font-semibold transition-colors",
+            "rounded-md px-2.5 py-1 text-xs font-semibold transition-[transform,background-color,color] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
             current === lng
               ? "bg-primary-700 text-white"
               : "text-gray-500 hover:bg-gray-100 hover:text-gray-900",
