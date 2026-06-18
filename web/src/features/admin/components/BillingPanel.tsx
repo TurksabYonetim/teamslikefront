@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
-import { Badge } from "@/components/ui";
+import { Badge, Select } from "@/components/ui";
 import { useAdminStore } from "../governance.store";
 import { aiCreditState, creditOverage } from "../admin.governance";
 import { ConfirmAction } from "./ConfirmAction";
 import type { Plan } from "../governance.types";
 
 const PLANS: Plan[] = ["free", "pro", "business", "enterprise"];
-const SELECT_CLASS =
-  "block h-11 rounded-lg border border-gray-300 bg-surface-2 px-2.5 text-sm text-ink outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500";
 
 export function BillingPanel() {
   const { t } = useTranslation("admin");
@@ -51,20 +49,16 @@ export function BillingPanel() {
         </div>
 
         <div className="flex flex-wrap items-end gap-2">
-          <label className="flex flex-col gap-1 text-sm text-muted">
-            {t("changePlan")}
-            <select
-              value={target}
-              onChange={(e) => setTarget(e.target.value as Plan)}
-              className={SELECT_CLASS}
-            >
-              {PLANS.map((p) => (
-                <option key={p} value={p}>
-                  {t(`planName.${p}`)}
-                </option>
-              ))}
-            </select>
-          </label>
+          <Select<Plan>
+            value={target}
+            onChange={setTarget}
+            label={t("changePlan")}
+            options={PLANS.map((p) => ({
+              value: p,
+              label: t(`planName.${p}`),
+            }))}
+            className="w-56"
+          />
           <ConfirmAction
             label={t("upgrade")}
             verifyWord={target.toUpperCase()}

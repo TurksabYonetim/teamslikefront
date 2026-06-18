@@ -1,10 +1,28 @@
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { HiOutlinePaperClip, HiOutlinePaperAirplane, HiOutlineClock, HiOutlineDocumentText } from "react-icons/hi2";
+import { HiOutlinePaperClip, HiOutlinePaperAirplane, HiOutlineClock, HiOutlineDocumentText, HiOutlineCheck, HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 import { Button, Dropdown, DropdownItem, EmptyState, Modal } from "@/components/ui";
 import { useSms, smsStore } from "./smsStore";
 import { formatNumber } from "./routing";
 import type { SmsMedia } from "./phone.types";
+
+/** İki kelimeye kadar baş harflerden monogram üretir (avatar için). */
+function initials(name: string, lang: string): string {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  const chars = parts.slice(0, 2).map((p) => p[0] ?? "");
+  return (chars.join("") || name.slice(0, 2)).toLocaleUpperCase(lang);
+}
+
+/** İki zaman damgası aynı takvim gününde mi? (gün ayıracı için) */
+function sameDay(a: number, b: number): boolean {
+  const da = new Date(a);
+  const db = new Date(b);
+  return (
+    da.getFullYear() === db.getFullYear() &&
+    da.getMonth() === db.getMonth() &&
+    da.getDate() === db.getDate()
+  );
+}
 
 /** SMS/MMS sekmesi: thread listesi (sol) + sohbet & composer (sağ). */
 export function MessagesPane() {
@@ -26,6 +44,11 @@ export function MessagesPane() {
 
   const timeFmt = useMemo(
     () => new Intl.DateTimeFormat(i18n.language, { hour: "2-digit", minute: "2-digit" }),
+    [i18n.language],
+  );
+
+  const dayFmt = useMemo(
+    () => new Intl.DateTimeFormat(i18n.language, { day: "numeric", month: "long" }),
     [i18n.language],
   );
 
@@ -60,7 +83,7 @@ export function MessagesPane() {
   };
 
   return (
-    <div className="mx-auto flex h-full w-full max-w-5xl gap-4 p-4">
+    <div className="messages-pane mx-auto flex h-full w-full max-w-5xl gap-4 p-4">
       <aside className="flex w-full max-w-xs shrink-0 flex-col">
         <h2 className="mb-3 text-base font-semibold text-ink">{t("messages.threads")}</h2>
         {threads.length === 0 ? (
@@ -76,16 +99,17 @@ export function MessagesPane() {
                     onClick={() => smsStore.getState().selectThread(th.id)}
                     aria-current={selected ? "true" : undefined}
                     className={
-                      "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left transition-colors motion-safe:active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 " +
+                      "msg-thread flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left transition-colors motion-safe:active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 " +
                       (selected ? "bg-primary-50 dark:bg-gray-700" : "hover:bg-gray-100 dark:hover:bg-gray-800")
                     }
                   >
+                    <span className="msg-avatar" aria-hidden="true">{initials(th.contact, i18n.language)}</span>
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium text-ink">{th.contact}</p>
                       <p className="truncate text-xs text-muted">{lastPreview(th.id)}</p>
                     </div>
                     {th.unread > 0 && (
-                      <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary-600 px-1.5 text-xs font-semibold text-white">
+                      <span className="msg-badge inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary-600 px-1.5 text-xs font-semibold text-white">
                         {th.unread}
                       </span>
                     )}
@@ -99,39 +123,53 @@ export function MessagesPane() {
 
       <section className="flex min-w-0 flex-1 flex-col rounded-lg border border-line bg-surface dark:border-gray-700 dark:bg-gray-800">
         {!active ? (
-          <div className="flex h-full items-center justify-center p-6 text-center text-sm text-muted dark:text-gray-400">
-            {t("messages.selectThread")}
+          <div className="msg-empty flex h-full flex-col items-center justify-center gap-3 p-6 text-center">
+            <HiOutlineChatBubbleLeftRight className="msg-empty-illus" size={56} aria-hidden />
+            <p className="max-w-xs text-sm text-muted dark:text-gray-400">{t("messages.selectThread")}</p>
           </div>
         ) : (
           <>
-            <header className="border-b border-line px-4 py-3 dark:border-gray-700">
-              <p className="text-sm font-semibold text-ink">{active.contact}</p>
-              <p className="text-xs text-muted">{formatNumber(active.e164)}</p>
+            <header className="flex items-center gap-2.5 border-b border-line px-4 py-3 dark:border-gray-700">
+              <span className="msg-avatar" aria-hidden="true">{initials(active.contact, i18n.language)}</span>
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold text-ink">{active.contact}</p>
+                <p className="text-xs text-muted">{formatNumber(active.e164)}</p>
+              </div>
             </header>
 
-            <div className="flex flex-1 flex-col gap-2 overflow-y-auto p-4">
-              {active.messages.map((m) => (
-                <div key={m.id} className={"flex " + (m.outbound ? "justify-end" : "justify-start")}>
-                  <div
-                    className={
-                      "max-w-[75%] rounded-2xl px-3 py-2 text-sm " +
-                      (m.outbound
-                        ? "bg-primary-600 text-white"
-                        : "bg-surface-2 text-ink dark:bg-gray-700 dark:text-gray-100")
-                    }
-                  >
-                    {m.media?.map((md) => (
-                      <span key={md.name} className="mb-1 flex items-center gap-1 text-xs opacity-90">
-                        <HiOutlinePaperClip size={14} aria-hidden /> {md.name}
+            <div className="flex flex-1 flex-col gap-1.5 overflow-y-auto p-4">
+              {active.messages.map((m, i) => {
+                const prev = active.messages[i - 1];
+                const showDay = !prev || !sameDay(prev.sentAt, m.sentAt);
+                const showSender = !m.outbound && (!prev || prev.outbound || showDay);
+                return (
+                  <Fragment key={m.id}>
+                    {showDay && <span className="msg-daysep">{dayFmt.format(new Date(m.sentAt))}</span>}
+                    <div className={"msg-row flex flex-col " + (m.outbound ? "items-end" : "items-start")}>
+                      {showSender && <p className="msg-sender">{active.contact}</p>}
+                      <div
+                        className={
+                          "max-w-[75%] rounded-2xl px-3 py-2 text-sm " +
+                          (m.outbound
+                            ? "msg-bubble-out bg-primary-600 text-white"
+                            : "msg-bubble-in bg-surface-2 text-ink dark:bg-gray-700 dark:text-gray-100")
+                        }
+                      >
+                        {m.media?.map((md) => (
+                          <span key={md.name} className="mb-1 flex items-center gap-1 text-xs opacity-90">
+                            <HiOutlinePaperClip size={14} aria-hidden /> {md.name}
+                          </span>
+                        ))}
+                        <p className="whitespace-pre-wrap break-words">{m.body}</p>
+                      </div>
+                      <span className={"msg-meta " + (m.outbound ? "justify-end" : "")}>
+                        <span className="tabular-nums">{timeFmt.format(new Date(m.sentAt))}</span>
+                        {m.outbound && <HiOutlineCheck className="msg-check" aria-label={t("messages.delivered")} />}
                       </span>
-                    ))}
-                    <p className="whitespace-pre-wrap break-words">{m.body}</p>
-                    <p className={"mt-0.5 text-xs " + (m.outbound ? "text-primary-100" : "text-muted")}>
-                      {timeFmt.format(new Date(m.sentAt))}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                    </div>
+                  </Fragment>
+                );
+              })}
             </div>
 
             <div className="border-t border-line p-3 dark:border-gray-700">
@@ -168,7 +206,7 @@ export function MessagesPane() {
                   placeholder={t("messages.composerPlaceholder")}
                   aria-label={t("messages.composerPlaceholder")}
                   rows={1}
-                  className="input min-h-[2.5rem] flex-1 resize-none"
+                  className="msg-input input min-h-[2.5rem] flex-1 resize-none"
                 />
 
                 <button
@@ -181,13 +219,14 @@ export function MessagesPane() {
                   <HiOutlineClock size={20} aria-hidden />
                 </button>
 
-                <Button onClick={send} disabled={!draft.trim()}>
+                <Button className="msg-send" onClick={send} disabled={!draft.trim()}>
                   <HiOutlinePaperAirplane size={16} aria-hidden /> <span className="ml-1">{t("messages.send")}</span>
                 </Button>
               </div>
 
               {scheduled.length > 0 && (
-                <p className="mt-2 text-xs text-muted dark:text-gray-400">
+                <p className="msg-sched mt-2 text-xs text-muted dark:text-gray-400">
+                  <HiOutlineClock size={14} aria-hidden />
                   {t("messages.scheduledCount", { count: scheduled.length })}
                 </p>
               )}
@@ -207,7 +246,7 @@ export function MessagesPane() {
             aria-label={t("messages.scheduleAt")}
             value={scheduleAt}
             onChange={(e) => setScheduleAt(e.target.value)}
-            className="input w-full"
+            className="input"
           />
           <div className="flex justify-end gap-2">
             <Button onClick={confirmSchedule} disabled={!scheduleAt}>

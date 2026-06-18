@@ -312,7 +312,7 @@ function CreateMeetingModal({
           <input
             type="checkbox"
             defaultChecked
-            className="h-4 w-4 rounded accent-brand"
+            className="checkbox"
           />
           {t("list.createMeeting.moderatorJwt")}
         </label>

@@ -31,11 +31,14 @@
   --color-primary-900: #1e3a8a;
   --color-primary-950: #172554;
 
-  /* nötrler = Flowbite gray ölçeği */
-  --color-ink: #111827; /* gray-900 */
-  --color-ink-2: #374151; /* gray-700 */
-  --color-ink-3: #4b5563; /* gray-600 */
-  --color-muted: #6b7280; /* gray-500 */
+  /* nötrler = Flowbite gray ölçeği. Kontrast değerleri beyaz (#fff) üstünde. */
+  --color-ink: #111827; /* gray-900 — başlık/birincil metin (17.7:1) */
+  --color-ink-2: #374151; /* gray-700 — gövde metni (10.3:1, AAA) */
+  --color-ink-3: #4b5563; /* gray-600 — koyu ikincil (7.6:1, AAA) */
+  /* muted = ikincil/yardımcı metin. WCAG 2.2 AAA için gray-500 (#6b7280, 4.8:1)
+     yetersizdi → gray-600'e çekildi (7.6:1). Metin-DIŞI dekoratif gri gerekirse
+     gray-400/500 sınıfını doğrudan kullanın, token'ı değil. */
+  --color-muted: #4b5563; /* gray-600 (7.6:1, AAA) */
   --color-line: #e5e7eb; /* gray-200 */
   --color-line-2: #f3f4f6; /* gray-100 */
   --color-surface: #ffffff;
@@ -60,7 +63,9 @@
   --dur-press: 140ms;
   --dur-pop: 180ms;
   --dur-modal: 240ms;
-  --dur-toast: 260ms;
+  /* Sonner kohezyonu: tipik UI'dan biraz yavaş, ease-out değil `ease`. */
+  --dur-toast: 400ms;
+  --ease-toast: ease;
 }
 
 html,
@@ -105,7 +110,7 @@ body {
   .btn {
     @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
       text-sm font-medium cursor-pointer transition-colors border
-      border-gray-200 bg-white text-gray-900 hover:bg-gray-100 hover:text-blue-700
+      border-gray-200 bg-white text-gray-900 hover:bg-gray-100 hover:text-blue-800
       focus:outline-none focus:ring-4 focus:ring-gray-100
       disabled:opacity-60 disabled:pointer-events-none;
   }
@@ -117,7 +122,7 @@ body {
     @apply border-gray-200 bg-white text-gray-900 hover:bg-gray-100;
   }
   .btn-ghost {
-    @apply border-transparent bg-transparent text-blue-700 hover:bg-blue-50;
+    @apply border-transparent bg-transparent text-blue-800 hover:bg-blue-50;
   }
   .btn-danger {
     @apply border-transparent bg-red-600 text-white hover:bg-red-700
@@ -130,11 +135,24 @@ body {
   /* --- Inputs (Flowbite gray field) -------------------------------------- */
   .input {
     @apply block w-full p-2.5 text-sm rounded-lg border border-gray-300
-      bg-gray-50 text-gray-900 placeholder-gray-400 outline-none
+      bg-gray-50 text-gray-900 placeholder-gray-500 outline-none
       focus:border-blue-500 focus:ring-1 focus:ring-blue-500;
   }
   .label {
     @apply block mb-2 text-sm font-medium text-gray-900;
+  }
+
+  /* --- Checkbox / Radio (Flowbite gray field eşi) ----------------------- */
+  /* Tüm onay/seçim kutuları tek tip: 16px kutu, gri kenar, marka mavisi
+     işaret, mavi odak halkası. Konum/margin sınıflarını (mr-2, me-2 vb.)
+     çağıran tarafta ekleyin. */
+  .checkbox {
+    @apply h-4 w-4 rounded-sm border border-gray-300 bg-gray-50 text-blue-700
+      focus:ring-2 focus:ring-blue-500;
+  }
+  .radio {
+    @apply h-4 w-4 border border-gray-300 bg-gray-50 text-blue-700
+      focus:ring-2 focus:ring-blue-500;
   }
 
   /* --- Card --------------------------------------------------------------- */
@@ -203,14 +221,15 @@ body {
 .fc-event-yellow .fc-event-title,
 .fc-event-pink .fc-event-title { color: #fff; }
 
-/* Hareketi azalt: konum/transform animasyonları kalkar, opacity/renk kalır. */
+/* Hareketi azalt: konum/transform keyframe animasyonları anında biter; opacity/renk
+   geçişleri korunur (Emil: reduced motion = fewer & gentler, not zero). Hareketli
+   transition'lar bileşen düzeyinde `motion-reduce:*` ile zaten kapalı. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 }
@@ -226,16 +245,20 @@ body {
     transform: translateY(0);
   }
 }
-.tl-stagger > * {
-  opacity: 0;
-  animation: tl-fade-in var(--dur-modal) var(--ease-out) forwards;
+/* Reveal yalnızca hareket OK iken görünürlüğü animasyona kilitler; aksi halde
+   (reduced-motion / animasyon çalışmayan headless render) içerik görünür kalır. */
+@media (prefers-reduced-motion: no-preference) {
+  .tl-stagger > * {
+    opacity: 0;
+    animation: tl-fade-in var(--dur-modal) var(--ease-out) forwards;
+  }
+  .tl-stagger > *:nth-child(1) { animation-delay: 0ms; }
+  .tl-stagger > *:nth-child(2) { animation-delay: 50ms; }
+  .tl-stagger > *:nth-child(3) { animation-delay: 100ms; }
+  .tl-stagger > *:nth-child(4) { animation-delay: 150ms; }
+  .tl-stagger > *:nth-child(5) { animation-delay: 200ms; }
+  .tl-stagger > *:nth-child(n + 6) { animation-delay: 240ms; }
 }
-.tl-stagger > *:nth-child(1) { animation-delay: 0ms; }
-.tl-stagger > *:nth-child(2) { animation-delay: 50ms; }
-.tl-stagger > *:nth-child(3) { animation-delay: 100ms; }
-.tl-stagger > *:nth-child(4) { animation-delay: 150ms; }
-.tl-stagger > *:nth-child(5) { animation-delay: 200ms; }
-.tl-stagger > *:nth-child(n + 6) { animation-delay: 240ms; }
 
 @keyframes tl-modal-in {
   from {
@@ -293,4 +316,618 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* KPI sparkline (Konuşma Zekâsı metrik kartları). Çizgi varsayılanda tam görünür;
+   hareket OK iken soldan sağa "çizilir" (dekoratif — veri sayıda, çizgide değil). */
+@keyframes tl-spark-draw {
+  from {
+    stroke-dashoffset: 220;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.kpi-spark {
+  display: block;
+  width: 100%;
+  height: 26px;
+}
+.kpi-spark polyline {
+  fill: none;
+  stroke: var(--color-brand);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .kpi-spark polyline {
+    stroke-dasharray: 220;
+    animation: tl-spark-draw 0.9s var(--ease-out);
+  }
+}
+
+/* Konuşma Zekâsı — Özet (RecapPanel): karar akışı zaman çizelgesi + aksiyon satırı
+   (Emil hareket: transform/opacity, ease-out, <250ms, press/hover feedback). */
+@keyframes tl-flow-dot {
+  from { transform: scale(0.6); opacity: 0.4; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes tl-flow-line {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+.rp-flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.rp-flow-item {
+  position: relative;
+  padding-left: 1.25rem;
+  padding-bottom: 0.6rem;
+}
+.rp-flow-item:last-child {
+  padding-bottom: 0;
+}
+.rp-flow-dot {
+  position: absolute;
+  left: 0;
+  top: 0.35rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 99px;
+  background: var(--color-brand);
+  box-shadow: 0 0 0 3px var(--color-brand-softer);
+}
+.rp-flow-line {
+  position: absolute;
+  left: 0.25rem;
+  top: 0.9rem;
+  bottom: -0.15rem;
+  width: 2px;
+  background: var(--color-line);
+  transform-origin: top;
+}
+.rp-flow-item:last-child .rp-flow-line {
+  display: none;
+}
+.rp-action {
+  transition: transform var(--dur-pop) var(--ease-out), border-color var(--dur-press) var(--ease-out);
+}
+.rp-action:active {
+  transform: scale(0.99);
+}
+.rp-send {
+  transition: transform var(--dur-press) var(--ease-out);
+}
+.rp-send:active {
+  transform: scale(0.96);
+}
+.rp-send-ic {
+  transition: transform var(--dur-pop) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .rp-action:hover {
+    transform: translateY(-1px);
+    border-color: var(--color-brand);
+    box-shadow: 0 6px 16px -12px rgba(29, 78, 216, 0.4);
+  }
+  .rp-send:hover .rp-send-ic {
+    transform: translate(2px, -2px);
+  }
+}
+
+/* Konuşma Zekâsı — Önemli anlar (HighlightReel): editöryel an kartları.
+   "Transkripte git" bağlantısı hover/odakta belirir; dokunmatikte hep görünür. */
+.hl-card {
+  transition: transform var(--dur-pop) var(--ease-out), border-color var(--dur-press) var(--ease-out);
+}
+.hl-card:active {
+  transform: scale(0.99);
+}
+.hl-jump {
+  transition: opacity var(--dur-press) var(--ease-out), transform var(--dur-press) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .hl-card:hover {
+    border-color: var(--color-brand);
+  }
+  .hl-jump {
+    opacity: 0;
+    transform: translateX(4px);
+  }
+  .hl-card:hover .hl-jump,
+  .hl-card:focus-within .hl-jump {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Konuşma Zekâsı — Niyetler (IntentList): segmentli güven ölçeri. Dolu segmentler
+   sıralı (stagger) belirir; gecikme segment başına inline `animation-delay` ile.
+   Varsayılan görünür; animasyon yalnızca hareket OK iken çalışır (Emil). */
+@keyframes il-seg-pop {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .il-seg-on {
+    animation: il-seg-pop var(--dur-pop) var(--ease-out) both;
+  }
+}
+
+/* Konuşma Zekâsı başlığı — "Canlıya geç" aktifken kayıt noktası nabzı (durum bildirimi). */
+@keyframes il-rec-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .il-rec {
+    animation: il-rec-pulse 1.6s ease-in-out infinite;
+  }
+}
+
+/* Konuşma Zekâsı — Transkript satırı: hover'da yumuşak zemin (Emil, motion-safe). */
+.tr-seg {
+  transition: background-color var(--dur-press) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tr-seg:hover {
+    background: var(--color-surface);
+  }
+}
+
+/* Konuşma Zekâsı — Çeviri kontrolleri: premium toggle anahtarı (Emil yumuşak kayma).
+   Durum aria-checked + thumb konumuyla taşınır (renk tek taşıyıcı değil). */
+.tc-switch {
+  transition: background-color var(--dur-press) var(--ease-out);
+}
+.tc-switch[data-on="true"] {
+  background: var(--color-brand);
+}
+.tc-thumb {
+  transition: transform var(--dur-pop) var(--ease-out);
+}
+.tc-switch[data-on="true"] .tc-thumb {
+  transform: translateX(1.25rem);
+}
+
+/* Konuşma Zekâsı — Karne (Scorecard): tonlu metrik paneli, hover'da hafif kalkış (Emil). */
+.sc-cell {
+  transition: box-shadow var(--dur-pop) var(--ease-out), transform var(--dur-pop) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .sc-cell:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px -12px rgba(17, 24, 39, 0.4);
+  }
+}
+
+/* Konuşma Zekâsı — Konuşmacılar (SpeakerAnalytics): paylaşım çubuğu soldan dolar
+   (Emil, motion-safe; oran metni hep görünür) + satır hover. */
+@keyframes sa-grow {
+  from { width: 0; }
+  to { width: var(--w); }
+}
+.sa-fill {
+  width: var(--w);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sa-fill {
+    animation: sa-grow var(--dur-modal) var(--ease-out);
+  }
+}
+.sa-row {
+  transition: background-color var(--dur-press) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .sa-row:hover {
+    background: var(--color-surface-2);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rp-flow-dot {
+    animation: tl-flow-dot var(--dur-pop) var(--ease-out) both;
+  }
+  .rp-flow-line {
+    animation: tl-flow-line var(--dur-modal) var(--ease-out) both;
+  }
+  .rp-flow-item:nth-child(1) .rp-flow-dot { animation-delay: 40ms; }
+  .rp-flow-item:nth-child(2) .rp-flow-dot { animation-delay: 100ms; }
+  .rp-flow-item:nth-child(3) .rp-flow-dot { animation-delay: 160ms; }
+  .rp-flow-item:nth-child(n + 4) .rp-flow-dot { animation-delay: 220ms; }
+}
+
+/* Konuşma Zekâsı — İzleyiciler (Trackers): hover'da türüne göre canlanan ikonlar
+   (Emil; hareket yalnızca prefers-reduced-motion: no-preference iken) + satır hover. */
+.trackers-ic { display: inline-flex; transform-origin: center; }
+.trackers-ic--competitor { transform-origin: bottom left; }
+.trackers-row {
+  border-radius: 0.5rem;
+  transition: background-color var(--dur-press) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .trackers-row:hover { background: var(--color-surface-2); }
+}
+@keyframes trackers-scan {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(1px, 1px) scale(1.08); }
+}
+@keyframes trackers-wave {
+  0%, 100% { transform: rotate(0deg); }
+  35% { transform: rotate(-9deg); }
+  70% { transform: rotate(6deg); }
+}
+@keyframes trackers-tilt {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-10deg); }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .trackers-row:hover .trackers-ic--keyword { animation: trackers-scan 900ms var(--ease-out) infinite; }
+  .trackers-row:hover .trackers-ic--competitor { animation: trackers-wave 900ms var(--ease-out) infinite; }
+  .trackers-row:hover .trackers-ic--topic { animation: trackers-tilt 900ms var(--ease-out) infinite; }
+}
+
+/* Konuşma Zekâsı — Toplantı notları (MeetingNotes): bölümler kademeli açılır,
+   wpm şeritleri soldan dolar (Emil; hareket yalnızca prefers-reduced-motion:
+   no-preference iken — gövde her zaman görünür). */
+.mnotes { --mn-e: cubic-bezier(0.23, 1, 0.32, 1); }
+.mnotes-list { display: flex; flex-direction: column; gap: 0.375rem; }
+.mnotes-track { height: 0.375rem; }
+.mnotes-fill { width: var(--w); }
+@keyframes mnotes-grow { from { width: 0; } to { width: var(--w); } }
+@keyframes mnotes-up { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes mnotes-pop { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .mnotes-fill { animation: mnotes-grow 640ms var(--mn-e) both; }
+  .mnotes-item { animation: mnotes-up 400ms var(--mn-e) both; }
+  .mnotes-chip { animation: mnotes-pop 320ms var(--mn-e) both; }
+  .mnotes-act { animation: mnotes-up 400ms var(--mn-e) both; }
+  .mnotes-item:nth-child(2) { animation-delay: 70ms; }
+  .mnotes-item:nth-child(3) { animation-delay: 140ms; }
+  .mnotes-item:nth-child(n + 4) { animation-delay: 210ms; }
+  .mnotes-chip:nth-child(2) { animation-delay: 40ms; }
+  .mnotes-chip:nth-child(3) { animation-delay: 80ms; }
+  .mnotes-chip:nth-child(n + 4) { animation-delay: 120ms; }
+  .mnotes-act:nth-child(2) { animation-delay: 90ms; }
+}
+
+/* Zengin metin editörü (compose) — Tailwind preflight reset'i biçimleri
+   sıfırladığı için editör içeriğindeki başlık/liste/alıntı/kod görünür olsun. */
+.tl-rte h1 { font-size: 1.75rem; font-weight: 700; line-height: 1.25; margin: 0.5rem 0; }
+.tl-rte h2 { font-size: 1.5rem; font-weight: 700; line-height: 1.3; margin: 0.5rem 0; }
+.tl-rte h3 { font-size: 1.25rem; font-weight: 600; line-height: 1.35; margin: 0.5rem 0; }
+.tl-rte h4 { font-size: 1.125rem; font-weight: 600; margin: 0.5rem 0; }
+.tl-rte h5 { font-size: 1rem; font-weight: 600; margin: 0.5rem 0; }
+.tl-rte h6 { font-size: 0.875rem; font-weight: 600; margin: 0.5rem 0; }
+.tl-rte ul { list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0; }
+.tl-rte ol { list-style: decimal; padding-left: 1.5rem; margin: 0.5rem 0; }
+.tl-rte li { margin: 0.125rem 0; }
+.tl-rte blockquote {
+  border-left: 3px solid var(--color-line, #e5e7eb);
+  padding-left: 0.75rem;
+  margin: 0.5rem 0;
+  color: #6b7280;
+  font-style: italic;
+}
+.tl-rte pre {
+  background: #f3f4f6;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font-family: ui-monospace, monospace;
+  font-size: 0.8125rem;
+  white-space: pre-wrap;
+  margin: 0.5rem 0;
+}
+.dark .tl-rte pre { background: #374151; }
+.tl-rte a { color: #1a56db; text-decoration: underline; }
+.dark .tl-rte a { color: #8da2fb; }
+.tl-rte hr { border: 0; border-top: 1px solid var(--color-line, #e5e7eb); margin: 0.75rem 0; }
+.tl-rte img { max-width: 100%; border-radius: 0.375rem; margin: 0.25rem 0; }
+
+/* ---- Support — V1 konuşma listesi satırı + çipler (kalıcı) ------------- */
+.sp-conv {
+  display: grid;
+  gap: 0.3rem;
+  width: 100%;
+  padding: 0.6rem;
+  text-align: left;
+  border: 1px solid transparent;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: background 0.14s ease;
+}
+.sp-conv:hover { background: var(--color-surface-2); }
+.sp-conv--on { background: var(--color-brand-softer); border-color: var(--color-brand-soft); }
+.sp-conv-top { display: flex; align-items: center; gap: 0.5rem; }
+.sp-name {
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--color-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sp-when { flex: none; font-size: 0.6875rem; color: var(--color-muted); }
+.sp-prev {
+  font-size: 0.78rem;
+  color: var(--color-ink-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sp-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; }
+.sp-prio { width: 8px; height: 8px; border-radius: 99px; flex: none; }
+.sp-prio-urgent { background: #dc2626; }
+.sp-prio-high { background: #d97706; }
+.sp-prio-medium { background: var(--color-brand); }
+.sp-prio-low,
+.sp-prio-none { background: #9ca3af; }
+.sp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.45rem;
+  font-weight: 500;
+  font-size: 0.6875rem;
+  line-height: 1;
+  border-radius: 99px;
+}
+.sp-chip-open { color: var(--color-brand-600); background: var(--color-brand-softer); }
+.sp-chip-wait { color: #b45309; background: #fef3c7; }
+.sp-chip-res { color: #15803d; background: #dcfce7; }
+.sp-chip-snooze { color: var(--color-ink-3); background: var(--color-surface-3); }
+.sp-chip-sla { color: #b91c1c; background: #fee2e2; }
+.sp-chip-tag { color: var(--color-ink-3); background: var(--color-surface-3); }
+
+/* ---- Copilot mesaj kompozeri — düşünen AI kıvılcımı + ambiyans nefesi (impeccable delight) ---- */
+@keyframes composer-breathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.08); }
+}
+@keyframes composer-twinkle {
+  0%, 100% { opacity: 0.55; transform: scale(0.9) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.14) rotate(9deg); }
+}
+.copilot-composer {
+  position: relative;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  transition: border-color var(--dur-pop) var(--ease-out);
+}
+.copilot-composer:focus-within { border-color: var(--color-primary-600); }
+.copilot-spark { transform-origin: center; }
+@media (prefers-reduced-motion: no-preference) {
+  .copilot-composer { animation: composer-breathe 3.6s ease-in-out infinite; }
+  .copilot-spark { animation: composer-twinkle 2.4s var(--ease-out) infinite; }
+  .copilot-composer:focus-within .copilot-spark { animation-duration: 1.3s; }
+}
+
+/* ---- Copilot sohbet akışı — konuşma balonları (impeccable delight) ---- */
+@keyframes copilot-msg-in-right {
+  from { opacity: 0; transform: translateX(14px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes copilot-msg-in-left {
+  from { opacity: 0; transform: translateX(-14px); }
+  to { opacity: 1; transform: none; }
+}
+.copilot-thread .msg-card { max-width: 85%; box-shadow: 0 1px 2px rgba(17, 24, 39, 0.06); }
+.copilot-thread [data-role="user"] {
+  margin-left: auto;
+  background: var(--color-brand-softer);
+  border: 1px solid var(--color-brand-soft);
+}
+.copilot-thread [data-role="assistant"] { margin-right: auto; }
+@media (prefers-reduced-motion: no-preference) {
+  .copilot-thread [data-role="user"] { animation: copilot-msg-in-right 320ms var(--ease-out) both; }
+  .copilot-thread [data-role="assistant"] { animation: copilot-msg-in-left 320ms var(--ease-out) both; }
+}
+
+/* ---- Telefon sekme çubuğu — aktif ikon vurgusu (impeccable delight) ---- */
+.phone-tabs .phone-tab { color: var(--color-muted); }
+.phone-tabs .phone-tab:hover { color: var(--color-ink); }
+.phone-tabs .phone-tab[aria-selected="true"] {
+  color: var(--color-brand-600);
+  border-bottom: 2px solid var(--color-brand);
+}
+.phone-tabs .phone-tab-ic { transition: transform var(--dur-pop) var(--ease-out); }
+.phone-tabs .phone-tab[aria-selected="true"] .phone-tab-ic {
+  transform: scale(1.15);
+  background: var(--color-brand-soft);
+  color: var(--color-brand-600);
+  border-radius: 9999px;
+  padding: 0.25rem;
+  margin: -0.25rem 0.125rem -0.25rem -0.25rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .phone-tabs .phone-tab-ic { transition: none; }
+}
+
+/* ---- Telefon tuş takımı — yükselen fayans tuşlar (impeccable delight) ---- */
+.dial-pad .dial-key {
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.08);
+  transition: transform var(--dur-press) var(--ease-out), box-shadow var(--dur-pop) var(--ease-out);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .dial-pad .dial-key:hover { transform: translateY(-2px); box-shadow: 0 6px 14px -6px rgba(17, 24, 39, 0.18); }
+  .dial-pad .dial-key:active { transform: translateY(0) scale(0.96); box-shadow: 0 1px 2px rgba(17, 24, 39, 0.1); }
+}
+
+/* ---- Telefon arama geçmişi — durum girişi + AAA filtre pill'i (impeccable delight) ---- */
+@keyframes call-history-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.call-history .ch-filter[aria-selected="true"] { background: var(--color-brand-600); } /* blue-800, beyaz metin AAA 9:1 */
+.call-history .ch-filter[aria-selected="false"] { color: var(--color-ink-2); }
+@media (prefers-reduced-motion: no-preference) {
+  .call-history .ch-state { animation: call-history-rise 320ms var(--ease-out) both; }
+}
+
+/* ---- Telefon gelen çağrı çubuğu — arayan avatarı + çalma halkası (impeccable delight) ---- */
+@keyframes call-bar-ring {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+  50% { box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.18); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .call-bar .call-avatar { animation: call-bar-ring 1.8s ease-in-out infinite; }
+}
+
+/* ---- Telefon rehber paneli — durum girişi (impeccable delight) ---- */
+@keyframes contacts-state-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .contacts-panel .contacts-state { animation: contacts-state-rise 320ms var(--ease-out) both; }
+}
+
+/* ---- Telefon sesli mesaj — karşılama kartı odağı + giriş (impeccable delight) ---- */
+@keyframes voicemail-greeting-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.voicemail-inbox .vm-greeting-card .input {
+  transition: box-shadow var(--dur-pop) var(--ease-out), border-color var(--dur-pop) var(--ease-out);
+}
+.voicemail-inbox .vm-greeting-card .input:focus { box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.153); }
+@media (prefers-reduced-motion: no-preference) {
+  .voicemail-inbox .vm-greeting-card { animation: voicemail-greeting-rise 300ms var(--ease-out) both; }
+}
+
+/* ---- Telefon SMS panosu — mesaj koreografisi + konuşma ritmi + sıcak avatarlar + dokunsal geri bildirim (impeccable delight) ---- */
+@keyframes msg-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes msg-badge-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+
+/* Sıcak avatar — monogram (blue-100 zemin / blue-800 metin: AAA) */
+.messages-pane .msg-avatar {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.125rem; height: 2.125rem; flex-shrink: 0;
+  border-radius: 9999px;
+  font-size: 0.8125rem; font-weight: 600;
+  color: var(--color-blue-800, #1e40af);
+  background: var(--color-blue-100, #dbeafe);
+}
+
+/* Konuşma ritmi — gün ayıracı, gönderen etiketi, balon kuyruğu, tabular zaman damgası */
+.messages-pane .msg-daysep {
+  align-self: center; margin: 0.25rem 0 0.5rem;
+  padding: 0.1875rem 0.625rem; border-radius: 9999px;
+  font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--color-muted, #4b5563);
+  background: var(--color-surface-2, #f3f4f6);
+}
+.messages-pane .msg-sender {
+  margin: 0 0 0.125rem 0.25rem;
+  font-size: 0.6875rem; font-weight: 600;
+  color: var(--color-muted, #4b5563);
+}
+.messages-pane .msg-bubble-in { border-bottom-left-radius: 0.25rem; }
+.messages-pane .msg-bubble-out { border-bottom-right-radius: 0.25rem; }
+.messages-pane .msg-meta {
+  display: inline-flex; align-items: center; gap: 0.3125rem;
+  margin-top: 0.1875rem; padding: 0 0.125rem;
+  font-size: 0.6875rem; color: var(--color-muted, #4b5563);
+  font-variant-numeric: tabular-nums;
+}
+.messages-pane .msg-meta.justify-end { justify-content: flex-end; }
+.messages-pane .msg-check { width: 0.875rem; height: 0.875rem; }
+
+/* Sıcak boş durum — illüstratif sohbet balonu */
+.messages-pane .msg-empty-illus { color: var(--color-blue-600, #2563eb); opacity: 0.65; }
+
+/* Dokunsal & sonik composer — nefes alan focus, kalkan uçak */
+.messages-pane .msg-input {
+  transition: box-shadow var(--dur-pop, 220ms) var(--ease-out), border-color var(--dur-pop, 220ms) var(--ease-out);
+}
+.messages-pane .msg-input:focus { box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.153); }
+.messages-pane .msg-send { position: relative; }
+.messages-pane .msg-send svg { transition: transform var(--dur-pop, 220ms) var(--ease-out); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .messages-pane .msg-row { animation: msg-rise 320ms var(--ease-out) both; }
+  .messages-pane .msg-badge { animation: msg-badge-pulse 2.4s ease-in-out infinite; }
+  .messages-pane .msg-sched svg { animation: msg-badge-pulse 3s ease-in-out infinite; }
+  .messages-pane .msg-thread { transition: transform 140ms var(--ease-out), background-color 150ms ease, box-shadow 140ms ease; }
+  .messages-pane .msg-thread:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(17, 24, 39, 0.06); }
+  .messages-pane .msg-send:hover svg:first-of-type { transform: translate(2px, -2px) rotate(10deg); }
+}
+
+/* ---- Telefon AI resepsiyon — eylem ikon rozetleri + eşleşen niyet vurgusu + simülasyon balonları + sıcak boş durum (impeccable delight) ---- */
+@keyframes reception-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes reception-statusdot { 0% { box-shadow: 0 0 0 0 rgba(21, 128, 61, 0.4); } 100% { box-shadow: 0 0 0 6px rgba(21, 128, 61, 0); } }
+@keyframes reception-matched { from { background: var(--color-blue-100, #dbeafe); } to { background: var(--color-blue-50, #eff6ff); } }
+
+/* V3 — eyleme göre renk-kodlu ikon rozetleri */
+.reception-builder .reception-ico {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.875rem; height: 1.875rem; flex-shrink: 0; border-radius: 0.5rem;
+}
+.reception-builder .reception-ico--blue { background: var(--color-blue-100, #dbeafe); color: var(--color-blue-800, #1e40af); }
+.reception-builder .reception-ico--green { background: #dcfce7; color: #166534; }
+.reception-builder .reception-ico--amber { background: #fef3c7; color: #92400e; }
+.reception-builder .reception-ico--gray { background: var(--color-surface-2, #f3f4f6); color: #374151; }
+
+/* V2 — algılanan niyetin sol listede vurgulanması (bağlantısal delight) */
+.reception-builder .reception-intent--matched { background: var(--color-blue-50, #eff6ff); }
+
+/* V3 — toplanan alanlar çip görünümü (seçili = mavi dolgu, AAA) */
+.reception-builder .reception-field { transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease; }
+.reception-builder .reception-field:has(input:checked) {
+  background: var(--color-blue-50, #eff6ff);
+  border-color: var(--color-blue-100, #dbeafe);
+  color: var(--color-blue-800, #1e40af);
+}
+
+/* V2 — simülasyon balon kuyrukları + V3 sıcak boş durum illüstrasyonu */
+.reception-builder .reception-bubble--caller { border-bottom-right-radius: 0.25rem; }
+.reception-builder .reception-bubble--ai { border-bottom-left-radius: 0.25rem; }
+.reception-builder .reception-illus { color: var(--color-blue-600, #2563eb); opacity: 0.6; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .reception-builder .reception-turn { animation: reception-rise 300ms var(--ease-out) both; }
+  .reception-builder .reception-status-dot { animation: reception-statusdot 2.4s ease-out infinite; }
+  .reception-builder .reception-intent--matched { animation: reception-matched 2.2s ease-in-out infinite alternate; }
+}
+
+/* ---- Telefon çağrı kuyrukları — temsilci avatarı + uygunluk halkası + sakin boş durum (impeccable delight) ---- */
+.call-queue-panel .cq-agent-avatar {
+  position: relative; flex-shrink: 0;
+  width: 2.25rem; height: 2.25rem; border-radius: 9999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 0.8125rem; font-weight: 600;
+  background: var(--color-blue-100, #dbeafe); color: var(--color-blue-800, #1e40af);
+}
+.call-queue-panel .cq-agent-avatar::after {
+  content: ""; position: absolute; right: -1px; bottom: -1px;
+  width: 0.6875rem; height: 0.6875rem; border-radius: 9999px;
+  border: 2px solid var(--color-surface, #fff); background: #9ca3af;
+}
+.call-queue-panel .cq-agent-avatar.is-available::after { background: #16a34a; }
+.call-queue-panel .cq-calm-illus { color: #16a34a; opacity: 0.55; }
+
+/* ---- Telefon operatör konsolu — keyframe'ler (uygulama className'de motion-safe: ile) (impeccable delight) ---- */
+@keyframes attendant-count { 0% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.35); } 100% { box-shadow: 0 0 0 6px rgba(217, 119, 6, 0); } }
+@keyframes attendant-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ---- Telefon yönlendirme — canlı önizleme kazanan-kural nabzı (keyframe; uygulama className'de motion-safe:) (impeccable delight) ---- */
+@keyframes rr-preview-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ---- Telefon IVR kurucusu — menü seçeneklerinin ardışık girişi (per-child stagger; utility ile yapılamaz) (impeccable delight) ---- */
+@keyframes ivr-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .ivr-builder .ivr-option { animation: ivr-rise 320ms var(--ease-out) both; }
+  .ivr-builder .ivr-option:nth-child(2) { animation-delay: 70ms; }
+  .ivr-builder .ivr-option:nth-child(3) { animation-delay: 140ms; }
+  .ivr-builder .ivr-option:nth-child(n + 4) { animation-delay: 200ms; }
+  .ivr-builder .ivr-hours-row { animation: ivr-rise 300ms var(--ease-out) both; }
+  .ivr-builder .ivr-hours-row:nth-child(2) { animation-delay: 50ms; }
+  .ivr-builder .ivr-hours-row:nth-child(3) { animation-delay: 100ms; }
+  .ivr-builder .ivr-hours-row:nth-child(4) { animation-delay: 150ms; }
+  .ivr-builder .ivr-hours-row:nth-child(n + 5) { animation-delay: 200ms; }
 }

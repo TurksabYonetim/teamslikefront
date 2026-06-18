@@ -101,7 +101,7 @@ export function ContactPanel() {
             }}
             placeholder={t("contact.addLabel")}
             aria-label={t("contact.addLabel")}
-            className="h-9 flex-1 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none placeholder:text-muted focus-visible:ring-2 focus-visible:ring-brand"
+            className="input flex-1"
           />
           <IconButton label={t("contact.addLabel")} onClick={submitLabel}>
             <Icon name="plus" className="h-4 w-4" aria-hidden />

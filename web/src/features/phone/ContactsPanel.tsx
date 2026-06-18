@@ -9,6 +9,7 @@ import {
   useToast,
 } from "@/components/ui";
 import { apiErrorMessage } from "@/lib/api";
+import { Overlay } from "@/components/ui/Overlay";
 import {
   useContacts,
   useCreateContact,
@@ -144,8 +145,10 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
 
   const editing = adding || editingId !== null;
 
-  return (
-    <div className="flex w-full flex-1 flex-col">
+  // Rehber gövdesi — durum girişi ".contacts-panel .contacts-state" üzerinden
+  // styles/index.css'te (impeccable delight).
+  const renderContacts = () => (
+    <div className="contacts-panel flex w-full flex-1 flex-col">
       <div className="mb-3 flex items-center justify-between">
         <h3 className="text-base font-semibold text-gray-900 dark:text-white">
           {t("contacts.title")}
@@ -171,7 +174,7 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t("contacts.searchPlaceholder")}
             aria-label={t("contacts.searchPlaceholder")}
-            className="input w-full pl-9 pr-9"
+            className="input pl-9 pr-9"
           />
           {query && (
             <button
@@ -201,7 +204,7 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
                   type="button"
                   onClick={() => onCall(c.number, c.name)}
                   aria-label={`${t("contacts.call")} — ${c.name}`}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-900 transition-transform duration-150 ease-[var(--ease-out)] hover:border-primary-400 hover:text-primary-700 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:text-primary-300"
+                  className="fav-chip inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-900 transition-transform duration-150 ease-[var(--ease-out)] hover:border-primary-400 hover:text-primary-700 active:scale-95 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:text-primary-300"
                 >
                   <HiStar size={14} className="text-amber-400" aria-hidden />
                   <span className="max-w-[8rem] truncate">{c.name}</span>
@@ -213,14 +216,14 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
       )}
 
       {editing && (
-        <div className="mb-3 space-y-2 rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-800">
+        <div className="contact-form mb-3 space-y-2 rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-800">
           <input
             type="text"
             value={form.name}
             onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
             placeholder={t("contacts.namePlaceholder")}
             aria-label={t("contacts.fields.name")}
-            className="input w-full"
+            className="input"
           />
           <input
             type="tel"
@@ -228,7 +231,7 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
             onChange={(e) => setForm((f) => ({ ...f, number: e.target.value }))}
             placeholder={t("contacts.numberPlaceholder")}
             aria-label={t("contacts.fields.number")}
-            className="input w-full"
+            className="input"
           />
           <input
             type="email"
@@ -236,7 +239,7 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
             onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
             placeholder={t("contacts.emailPlaceholder")}
             aria-label={t("contacts.fields.email")}
-            className="input w-full"
+            className="input"
           />
           <textarea
             value={form.notes ?? ""}
@@ -244,7 +247,7 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
             placeholder={t("contacts.notesPlaceholder")}
             aria-label={t("contacts.fields.notes")}
             rows={2}
-            className="input w-full"
+            className="input"
           />
           <div className="flex items-center justify-end gap-2">
             <Button size="sm" variant="secondary" onClick={resetForm}>
@@ -275,22 +278,26 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
       )}
 
       {isError && !isLoading && (
-        <EmptyState
-          title={t("contacts.errorTitle")}
-          description={t("contacts.errorDescription")}
-        />
+        <div className="contacts-state">
+          <EmptyState
+            title={t("contacts.errorTitle")}
+            description={t("contacts.errorDescription")}
+          />
+        </div>
       )}
 
       {!isLoading && !isError && list.length === 0 && !editing && (
-        <EmptyState
-          title={t("contacts.empty")}
-          description={t("contacts.emptyDescription")}
-          action={
-            <Button size="sm" onClick={() => setAdding(true)}>
-              {t("contacts.add")}
-            </Button>
-          }
-        />
+        <div className="contacts-state">
+          <EmptyState
+            title={t("contacts.empty")}
+            description={t("contacts.emptyDescription")}
+            action={
+              <Button size="sm" onClick={() => setAdding(true)}>
+                {t("contacts.add")}
+              </Button>
+            }
+          />
+        </div>
       )}
 
       {!isLoading &&
@@ -298,10 +305,12 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
         list.length > 0 &&
         groups.length === 0 &&
         !editing && (
-          <EmptyState
-            title={t("contacts.noResults")}
-            description={t("contacts.noResultsDescription")}
-          />
+          <div className="contacts-state">
+            <EmptyState
+              title={t("contacts.noResults")}
+              description={t("contacts.noResultsDescription")}
+            />
+          </div>
         )}
 
       {!isLoading && !isError && groups.length > 0 && (
@@ -313,8 +322,8 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
               </p>
               <ul className="tl-stagger divide-y divide-gray-100 rounded-lg border border-gray-200 bg-white dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800">
                 {group.items.map((c) => (
-                  <li key={c.id} className="flex items-center gap-3 px-4 py-3">
-                    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-100 text-sm font-semibold text-primary-700 dark:bg-primary-900 dark:text-primary-200">
+                  <li key={c.id} className="contact-row flex items-center gap-3 px-4 py-3">
+                    <span className="contact-avatar inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-100 text-sm font-semibold text-primary-700 dark:bg-primary-900 dark:text-primary-200">
                       {initials(c.name)}
                     </span>
                     <button
@@ -352,16 +361,12 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
 
       {/* Kişi detayı */}
       {detail && (
-        <div
-          className="fixed inset-0 z-40 flex items-end justify-center bg-black/40 p-4 sm:items-center motion-safe:[animation:tl-fade_var(--dur-modal)_var(--ease-out)]"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="contact-detail-name"
-          onClick={() => setDetail(null)}
-        >
+        <Overlay open onClose={() => setDetail(null)}>
           <div
-            className="w-full max-w-sm rounded-xl bg-white p-5 shadow-xl dark:bg-gray-800 motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]"
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="contact-detail-name"
+            className="w-full max-w-sm rounded-xl bg-surface p-5 shadow-xl dark:bg-gray-800 motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]"
           >
             <div className="mb-4 flex flex-col items-center text-center">
               <span className="mb-3 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary-100 text-lg font-semibold text-primary-700 dark:bg-primary-900 dark:text-primary-200">
@@ -439,7 +444,7 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
               {t("contacts.close")}
             </button>
           </div>
-        </div>
+        </Overlay>
       )}
 
       <ConfirmDialog
@@ -454,6 +459,8 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
       />
     </div>
   );
+
+  return renderContacts();
 }
 
 /** Kişiyi favorilere ekle/çıkar (yıldız). directoryStore'a yazar. */

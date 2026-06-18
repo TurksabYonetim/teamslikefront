@@ -202,6 +202,7 @@
     "scheduledCount": "{{count}} zamanlı",
     "attach": "Ekle",
     "attached": "Ek eklendi",
+    "delivered": "İletildi",
     "unread": "{{count}} okunmamış"
   },
   "queues": {
@@ -215,6 +216,7 @@
     "idle": "boşta",
     "waiting": "Bekleyen",
     "noWaiting": "Bekleyen arayan yok",
+    "calm": "Kuyruk sakin",
     "callbackRequested": "Geri arama istendi",
     "assignNext": "Sonrakini ata",
     "requestCallback": "Geri arama iste"
@@ -226,6 +228,7 @@
     "noWaiting": "Bekleyen çağrı yok",
     "transferTo": "Aktarılacak dahili",
     "transfer": "Aktar",
+    "waitingFor": "bekliyor",
     "selectExtension": "Dahili seçin"
   },
   "ivr": {
@@ -236,15 +239,21 @@
     "label": "Etiket",
     "action": "Eylem",
     "target": "Hedef",
+    "newOption": "Yeni seçenek",
+    "keyHint": "Tek karakter (0–9, *, #)",
+    "labelHint": "Menüde okunan ad",
+    "targetHint": "Kuyruk / dahili no",
     "addOption": "Seçenek ekle",
     "remove": "Kaldır",
     "hours": "Mesai saatleri",
+    "today": "bugün",
     "openNow": "Şu an açık",
     "closedNow": "Şu an kapalı"
   },
   "routing": {
     "title": "Yönlendirme kuralları",
     "rules": "Kurallar",
+    "priorityOrder": "öncelik sırası",
     "condition": "Koşul",
     "action": "Eylem",
     "target": "Hedef",
@@ -268,6 +277,8 @@
     "capture": "Toplanan alanlar",
     "simTitle": "Canlı simülasyon",
     "simPlaceholder": "Arayanın söylediğini yazın…",
+    "simEmptyTitle": "Senaryoyu deneyin",
+    "simEmptyDescription": "Bir arayan cümlesi yazın; resepsiyonun hangi niyeti yakaladığını anında görün.",
     "send": "Gönder",
     "detected": "Algılanan niyet",
     "noMatch": "Niyet eşleşmedi",

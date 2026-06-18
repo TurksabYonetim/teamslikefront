@@ -205,7 +205,7 @@ export function IntelligencePage() {
             onChange={(e) => setDraftContent(e.target.value)}
             placeholder={t("viewer.contentPlaceholder")}
             rows={18}
-            className="text-sm text-ink leading-relaxed w-full bg-transparent border border-line rounded-lg p-3 focus:outline-none focus:border-brand/40 resize-y"
+            className="input leading-relaxed resize-y"
           />
         ) : (
           <TranscriptViewer content={draftContent} query={docQuery} />

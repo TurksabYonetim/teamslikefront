@@ -1,33 +1,70 @@
 import { useTranslation } from "react-i18next";
 import { useIntel } from "../intel.store";
-import { SentimentChip, sentimentFromValue } from "./SentimentChip";
+import { SentimentChip } from "./SentimentChip";
+import { EChart } from "@/components/EChart";
 
-const W = 300;
-const H = 80;
-const PAD = 8;
-
+/**
+ * Sentiment over the session. The line is coloured along its length by value
+ * (red → grey → green via visualMap); axes use AAA grey, brand-neutral chart.
+ */
 export function SentimentTimeline() {
   const { t } = useTranslation("intelligence");
   const sentiment = useIntel((s) => s.sentiment);
   if (sentiment.length === 0) return null;
 
-  const n = sentiment.length;
-  const x = (i: number) => PAD + (n <= 1 ? 0 : (i * (W - 2 * PAD)) / (n - 1));
-  const y = (v: number) => H / 2 - v * (H / 2 - PAD);
-  const points = sentiment.map((p, i) => `${x(i)},${y(p.value)}`).join(" ");
+  const option = {
+    textStyle: { fontFamily: "Inter, system-ui, sans-serif" },
+    grid: { left: 28, right: 10, top: 14, bottom: 22 },
+    tooltip: {
+      trigger: "axis",
+      formatter: (ps: { data: number }[]) => {
+        const v = ps[0].data;
+        const s = v > 0.2 ? t("sentiment.positive") : v < -0.2 ? t("sentiment.negative") : t("sentiment.neutral");
+        return `${s} · ${Number(v).toFixed(2)}`;
+      },
+    },
+    visualMap: {
+      show: false,
+      type: "continuous",
+      min: -1,
+      max: 1,
+      dimension: 1,
+      inRange: { color: ["#dc2626", "#9ca3af", "#16a34a"] },
+    },
+    xAxis: {
+      type: "category",
+      data: sentiment.map((_, i) => String(i + 1)),
+      boundaryGap: false,
+      axisTick: { show: false },
+      axisLine: { lineStyle: { color: "#e5e7eb" } },
+      axisLabel: { color: "#4b5563", fontSize: 10 },
+    },
+    yAxis: {
+      type: "value",
+      min: -1,
+      max: 1,
+      interval: 1,
+      axisLine: { show: false },
+      axisTick: { show: false },
+      splitLine: { lineStyle: { color: "#f3f4f6" } },
+      axisLabel: { color: "#4b5563", fontSize: 10 },
+    },
+    series: [
+      {
+        type: "line",
+        data: sentiment.map((p) => p.value),
+        smooth: true,
+        symbol: "circle",
+        symbolSize: 6,
+        lineStyle: { width: 3 },
+      },
+    ],
+  };
 
   return (
     <div className="rounded-card border border-line bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-      <h3 className="mb-2 text-sm font-semibold text-ink">{t("sentimentTimeline")}</h3>
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label={t("sentimentTimeline")}>
-        <line x1={PAD} x2={W - PAD} y1={H / 2} y2={H / 2} className="stroke-line dark:stroke-gray-600" strokeWidth={1} />
-        <polyline points={points} fill="none" stroke="#1d4ed8" strokeWidth={2} />
-        {sentiment.map((p, i) => {
-          const s = sentimentFromValue(p.value);
-          const color = s === "positive" ? "#16a34a" : s === "negative" ? "#dc2626" : "#9ca3af";
-          return <circle key={i} cx={x(i)} cy={y(p.value)} r={3.5} fill={color} />;
-        })}
-      </svg>
+      <h3 className="mb-2 text-sm font-semibold text-ink dark:text-white">{t("sentimentTimeline")}</h3>
+      <EChart height={180} option={option} />
       <div className="mt-2 flex flex-wrap gap-3">
         <SentimentChip sentiment="positive" />
         <SentimentChip sentiment="neutral" />

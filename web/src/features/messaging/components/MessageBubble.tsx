@@ -112,7 +112,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
         value={draft}
         onChange={(e) => setDraft(e.target.value)}
         aria-label={t("edit")}
-        className="w-full resize-none rounded-md border border-line bg-white p-2 text-sm text-ink outline-none dark:border-line dark:bg-surface-2 dark:text-white"
+        className="input resize-none"
       />
       <div className="mt-1 flex gap-2">
         <button
@@ -141,9 +141,12 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
     <div className="motion-safe:tl-pop-in text-4xl leading-none" role="img" aria-label="sticker">{message.sticker}</div>
   ) : (
     <div className="space-y-1">
-      <RichText text={message.body} className="text-sm text-ink dark:text-white" />
+      <RichText
+        text={message.body}
+        className={clsx("text-sm", bubble && own ? "text-white" : "text-ink dark:text-white")}
+      />
       {message.translating ? (
-        <div className="text-xs italic text-muted" role="status" aria-label={t("translate")}>…</div>
+        <div className={clsx("text-xs italic", bubble && own ? "text-white/70" : "text-muted")} role="status" aria-label={t("translate")}>…</div>
       ) : message.translated && message.bodyAlt ? (
         <div className="rounded-md border border-line bg-surface-2 px-2 py-1 text-sm text-ink dark:text-white">
           <span className="block text-xs font-medium text-muted">{t("translatedLabel")}</span>

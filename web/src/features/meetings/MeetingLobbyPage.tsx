@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useInitFlowbite } from "@/lib/flowbite";
+import { Overlay } from "@/components/ui/Overlay";
 import { Logo } from "@/components/Logo";
 import { useGuestToken } from "./meetings.hooks";
 import { useMe } from "@/features/auth/auth.hooks";
@@ -539,8 +540,8 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
 
       {/* --- Sorun bildir modalı --- */}
       {reportOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-gray-900/50 p-4 motion-safe:animate-[tl-fade_var(--dur-modal)_var(--ease-out)]">
-          <div className="relative max-h-full w-full max-w-lg motion-safe:animate-[tl-modal-in_var(--dur-modal)_var(--ease-out)]">
+        <Overlay open onClose={() => setReportOpen(false)} className="overflow-y-auto">
+          <div role="dialog" aria-modal="true" className="relative max-h-full w-full max-w-lg motion-safe:animate-[tl-modal-in_var(--dur-modal)_var(--ease-out)]">
             <div className="relative rounded-lg bg-white shadow dark:bg-gray-700">
               <div className="flex items-center justify-between rounded-t border-b border-gray-200 p-4 dark:border-gray-600 md:p-5">
                 <h3 className="text-base font-semibold text-ink dark:text-white">{t("lobby.report.title")}</h3>
@@ -566,7 +567,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
                 <div className="space-y-4 p-4 md:p-5">
                   <p className="text-sm text-gray-500 dark:text-gray-400">{t("lobby.report.description")}</p>
                   <div>
-                    <label htmlFor="report-text" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{t("lobby.report.label")}</label>
+                    <label htmlFor="report-text" className="label">{t("lobby.report.label")}</label>
                     <textarea
                       id="report-text"
                       rows={4}
@@ -577,10 +578,8 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
                       }}
                       placeholder={t("lobby.report.placeholder")}
                       className={
-                        "block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 " +
-                        (reportError
-                          ? "border-red-500 dark:border-red-500"
-                          : "border-gray-300 dark:border-gray-600")
+                        "input " +
+                        (reportError ? "border-red-500" : "")
                       }
                     />
                     {reportError && <p className="mt-1 text-sm text-red-600 dark:text-red-500">{t("lobby.report.emptyError")}</p>}
@@ -606,13 +605,13 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
               )}
             </div>
           </div>
-        </div>
+        </Overlay>
       )}
 
       {/* --- Sorun giderme / tanılama modalı --- */}
       {diagOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-gray-900/50 p-4 motion-safe:animate-[tl-fade_var(--dur-modal)_var(--ease-out)]">
-          <div className="relative max-h-full w-full max-w-lg motion-safe:animate-[tl-modal-in_var(--dur-modal)_var(--ease-out)]">
+        <Overlay open onClose={() => setDiagOpen(false)} className="overflow-y-auto">
+          <div role="dialog" aria-modal="true" className="relative max-h-full w-full max-w-lg motion-safe:animate-[tl-modal-in_var(--dur-modal)_var(--ease-out)]">
             <div className="relative rounded-lg bg-white shadow dark:bg-gray-700">
               <div className="flex items-center justify-between rounded-t border-b border-gray-200 p-4 dark:border-gray-600 md:p-5">
                 <h3 className="text-base font-semibold text-ink dark:text-white">{t("lobby.diag.title")}</h3>
@@ -647,7 +646,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
               </div>
             </div>
           </div>
-        </div>
+        </Overlay>
       )}
     </>
   );

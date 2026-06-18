@@ -106,11 +106,22 @@ export function ActiveCallBar() {
     setConsultTarget("");
   };
 
-  return (
+  // Arayan baş harfleri (avatar varyantı için).
+  const callerInitials =
+    display
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((s) => s.charAt(0).toLocaleUpperCase("tr"))
+      .join("") || "?";
+
+  // Çağrı çubuğu gövdesi — arayan avatarı + çalma halkası ".call-bar .call-avatar"
+  // üzerinden styles/index.css'te (impeccable delight).
+  const renderBar = () => (
     <div
       role="region"
       aria-label={isIncomingRinging ? t("bar.incomingTitle") : t("bar.title")}
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
+      className="call-bar fixed inset-x-0 bottom-0 z-50 border-t border-line bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
     >
       {parked.length > 0 && <ParkedStrip embedded />}
 
@@ -122,11 +133,17 @@ export function ActiveCallBar() {
 
       <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-3 px-4 py-3">
         {/* Arayan kimliği + durum */}
+        <span
+          aria-hidden
+          className="call-avatar inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-softer text-sm font-semibold text-brand"
+        >
+          {callerInitials}
+        </span>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold text-ink">
+          <p className="call-name truncate text-sm font-semibold text-ink">
             {display}
           </p>
-          <p className="text-xs text-muted" aria-live="polite">
+          <p className="call-status text-xs text-muted" aria-live="polite">
             {isIncomingRinging
               ? t("bar.incomingTitle")
               : isOutgoingRinging
@@ -153,14 +170,14 @@ export function ActiveCallBar() {
             <button
               type="button"
               onClick={() => callStore.getState().answer()}
-              className="inline-flex h-11 items-center gap-2 rounded-full bg-green-600 px-4 text-sm font-medium text-white transition-transform duration-150 ease-[var(--ease-out)] hover:bg-green-700 motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300"
+              className="call-accept inline-flex h-11 items-center gap-2 rounded-full bg-green-600 px-4 text-sm font-medium text-white transition-transform duration-150 ease-[var(--ease-out)] hover:bg-green-700 motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300"
             >
               <HiOutlinePhone size={18} aria-hidden /> {t("bar.accept")}
             </button>
             <button
               type="button"
               onClick={() => callStore.getState().decline()}
-              className="inline-flex h-11 items-center gap-2 rounded-full bg-red-600 px-4 text-sm font-medium text-white transition-transform duration-150 ease-[var(--ease-out)] hover:bg-red-700 motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
+              className="call-decline inline-flex h-11 items-center gap-2 rounded-full bg-red-600 px-4 text-sm font-medium text-white transition-transform duration-150 ease-[var(--ease-out)] hover:bg-red-700 motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
             >
               <HiOutlinePhoneXMark size={18} aria-hidden /> {t("bar.decline")}
             </button>
@@ -265,7 +282,7 @@ export function ActiveCallBar() {
                     if (e.key === "Escape") setConsultOpen(false);
                   }}
                   placeholder={t("consult.targetPlaceholder")}
-                  className="input w-full"
+                  className="input"
                 />
                 <div className="mt-2 flex justify-end gap-2">
                   <button
@@ -291,6 +308,8 @@ export function ActiveCallBar() {
       </div>
     </div>
   );
+
+  return renderBar();
 }
 
 /** Aktif danışma çağrısı şeridi: tamamla / birleştir / iptal. */

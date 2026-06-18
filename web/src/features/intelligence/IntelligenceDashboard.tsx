@@ -4,7 +4,6 @@ import { useSearchParams } from "react-router-dom";
 import clsx from "clsx";
 import {
   HiOutlineSignal,
-  HiOutlineLockClosed,
   HiOutlineSpeakerWave,
   HiOutlineEyeSlash,
   HiOutlineSparkles,
@@ -35,7 +34,7 @@ import { CoachingPanel } from "./components/CoachingPanel";
 import { RecapPanel } from "./components/RecapPanel";
 import { MeetingNotesCard } from "./components/MeetingNotesCard";
 import { IntelKpis } from "./components/IntelKpis";
-import { ProductTour, Forbidden, type TourStep } from "@/components/ui";
+import { ProductTour, Forbidden, Select, type TourStep } from "@/components/ui";
 import { useOnce } from "@/lib/useOnce";
 import { useCan } from "@/lib/authStore";
 import { ToastContext } from "@/components/ui/Toast";
@@ -218,67 +217,66 @@ export function IntelligenceDashboard() {
   if (!canView) return <Forbidden />;
 
   return (
-    <div data-testid="intel-dashboard" className="flex h-[calc(100vh-8rem)] flex-col gap-3 p-4">
+    <div data-testid="intel-dashboard" className="flex min-h-0 flex-1 flex-col gap-3 p-4">
       {/* Header */}
-      <div className="flex flex-wrap items-start justify-between gap-2">
+      <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-xl font-semibold text-ink dark:text-white">{t("dash.title")}</h1>
           <p className="text-sm text-muted dark:text-gray-400">{t("subtitle")}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <div id="intel-source">
-            <label className="flex items-center gap-1.5 text-sm text-muted dark:text-gray-400">
-              {t("source")}
-              <select
-                value={activeSourceId}
-                onChange={(e) => intelStore.getState().setSource(e.target.value)}
-                aria-label={t("source")}
-                className="h-9 rounded-md border border-gray-300 bg-surface-2 px-2 text-sm text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-              >
-                {SOURCES.map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {s.title} · {t(`kindLabel.${s.kind}`)}
-                  </option>
-                ))}
-              </select>
-            </label>
+          <div id="intel-source" className="flex items-center gap-1.5 text-sm text-muted dark:text-gray-400">
+            <span>{t("source")}</span>
+            <Select
+              value={activeSourceId}
+              onChange={(v) => intelStore.getState().setSource(v)}
+              aria-label={t("source")}
+              options={SOURCES.map((s) => ({
+                value: s.id,
+                label: `${s.title} · ${t(`kindLabel.${s.kind}`)}`,
+              }))}
+              size="sm"
+              className="w-56"
+            />
           </div>
 
-          <button
-            type="button"
-            onClick={() => runCopilot("summarize")}
-            className="inline-flex h-9 items-center gap-1 rounded-md border border-line px-3 text-sm text-ink transition-[background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:transition-[transform,background-color] motion-safe:active:scale-[0.97] hover:bg-surface-3 dark:border-gray-700 dark:text-white"
-          >
-            <HiOutlineSparkles className="h-4 w-4" aria-hidden /> {t("summarize")}
-          </button>
-          <button
-            type="button"
-            onClick={() => runCopilot("actions")}
-            className="inline-flex h-9 items-center gap-1 rounded-md border border-line px-3 text-sm text-ink transition-[background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:transition-[transform,background-color] motion-safe:active:scale-[0.97] hover:bg-surface-3 dark:border-gray-700 dark:text-white"
-          >
-            <HiOutlineClipboardDocumentCheck className="h-4 w-4" aria-hidden /> {t("actionItems")}
-          </button>
-          <button
-            type="button"
-            onClick={exportRecap}
-            className="inline-flex h-9 items-center gap-1 rounded-md border border-line px-3 text-sm text-ink transition-[background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:transition-[transform,background-color] motion-safe:active:scale-[0.97] hover:bg-surface-3 dark:border-gray-700 dark:text-white"
-          >
-            <HiOutlineArrowDownTray className="h-4 w-4" aria-hidden /> {t("export")}
-          </button>
+          {/* İkincil aksiyonlar — ikon-only 44px (erişilebilir ad: aria-label + title). */}
+          {[
+            { Icon: HiOutlineSparkles, label: t("summarize"), onClick: () => runCopilot("summarize") },
+            { Icon: HiOutlineClipboardDocumentCheck, label: t("actionItems"), onClick: () => runCopilot("actions") },
+            { Icon: HiOutlineArrowDownTray, label: t("export"), onClick: exportRecap },
+          ].map((b) => (
+            <button
+              key={b.label}
+              type="button"
+              onClick={b.onClick}
+              aria-label={b.label}
+              title={b.label}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-line text-ink hover:bg-surface-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:transition-[transform,background-color] motion-safe:duration-[var(--dur-press)] motion-safe:ease-[var(--ease-out)] motion-safe:active:scale-[0.97] dark:border-gray-700 dark:text-white"
+            >
+              <b.Icon className="h-5 w-5" aria-hidden />
+            </button>
+          ))}
 
+          {/* Birincil CTA — canlı durum vurgulu (AAA: red-800/red-100 veya blue-800 metin). */}
           <button
             id="intel-live"
             type="button"
             onClick={() => intelStore.getState().toggleLive()}
             aria-pressed={live}
             className={clsx(
-              "inline-flex h-9 items-center gap-1 rounded-md px-3 text-sm transition-[background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:transition-[transform,background-color] motion-safe:active:scale-[0.97]",
+              "inline-flex h-11 items-center gap-1.5 rounded-md px-4 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:transition-[transform,background-color] motion-safe:duration-[var(--dur-press)] motion-safe:ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
               live
-                ? "bg-red-600 text-white"
-                : "bg-surface-2 text-ink dark:bg-gray-700 dark:text-white",
+                ? "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200"
+                : "border border-blue-800 text-blue-800 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-300",
             )}
           >
-            <HiOutlineSignal className="h-4 w-4" aria-hidden /> {live ? t("liveOn") : t("goLive")}
+            {live ? (
+              <span className="il-rec h-2.5 w-2.5 rounded-full bg-red-600 dark:bg-red-400" aria-hidden />
+            ) : (
+              <HiOutlineSignal className="h-4 w-4" aria-hidden />
+            )}
+            {live ? t("liveOn") : t("goLive")}
           </button>
 
           <button
@@ -286,7 +284,7 @@ export function IntelligenceDashboard() {
             type="button"
             onClick={() => setTourOpen(true)}
             aria-label={t("tour.replay")}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-line text-muted hover:bg-surface-3 dark:border-gray-700 dark:text-gray-400"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-line text-muted hover:bg-surface-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:transition-transform motion-safe:active:scale-[0.97] dark:border-gray-700 dark:text-gray-400"
           >
             <HiOutlineQuestionMarkCircle className="h-5 w-5" aria-hidden />
           </button>
@@ -317,12 +315,17 @@ export function IntelligenceDashboard() {
       {/* Tab panels */}
       <div className="min-h-0 flex-1 overflow-y-auto">
         {tab === "overview" ? (
-          <div className="flex flex-col gap-4">
-            <div id="intel-recap" className="grid gap-4 lg:grid-cols-2">
+          <div id="intel-recap" className="grid grid-cols-1 gap-5 md:h-full md:min-h-0 md:grid-cols-3">
+            {/* Recap (özet + kararlar + aksiyon maddeleri) — tam yükseklik, kolon-içi kaydırma */}
+            <div className="flex flex-col md:min-h-0 md:overflow-y-auto">
               <RecapPanel />
+            </div>
+            {/* Önemli anlar */}
+            <div className="flex flex-col md:min-h-0 md:overflow-y-auto">
               <HighlightReel />
             </div>
-            <div className="grid gap-4 lg:grid-cols-2">
+            {/* Duygu zaman çizelgesi + niyetler */}
+            <div className="flex flex-col gap-5 md:min-h-0 md:overflow-y-auto">
               <SentimentTimeline />
               <IntentList />
             </div>
@@ -341,59 +344,64 @@ export function IntelligenceDashboard() {
 
             {/* Translation controls + session panel — single side column on lg. */}
             <div className="flex min-h-0 flex-col gap-3">
-              <div className="flex flex-wrap items-center gap-2 rounded-card border border-line bg-white p-2 dark:border-gray-700 dark:bg-gray-800">
-                <label className="flex items-center gap-1.5 text-sm text-muted dark:text-gray-400">
-                  {t("translateTo")}
-                  <select
-                    value={targetLang}
-                    onChange={(e) => intelStore.getState().setTargetLang(e.target.value)}
-                    aria-label={t("translateTo")}
-                    className="h-9 rounded-md border border-gray-300 bg-surface-2 px-2 text-sm text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                  >
-                    {LANGS.map((l) => (
-                      <option key={l.code} value={l.code}>
-                        {l.code === "off" ? t("translateOff") : l.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
 
-                {targetLang !== "off" && targetLang !== "en" ? (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900 dark:text-green-300">
-                    <HiOutlineLockClosed className="h-3.5 w-3.5" aria-hidden /> {t("voicePreserving")}
-                  </span>
-                ) : null}
+              <div className="rounded-card border border-line bg-white p-3 dark:border-gray-700 dark:bg-gray-800">
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                    <span className="text-sm font-medium text-ink dark:text-white">{t("translateTo")}</span>
+                    <Select
+                      value={targetLang}
+                      onChange={(v) => intelStore.getState().setTargetLang(v)}
+                      aria-label={t("translateTo")}
+                      options={LANGS.map((l) => ({
+                        value: l.code,
+                        label: l.code === "off" ? t("translateOff") : l.label,
+                      }))}
+                      className="w-full sm:w-48"
+                    />
+                  </div>
 
-                {targetLang !== "off" ? (
+                  {targetLang !== "off" ? (
+                    <button
+                      type="button"
+                      role="switch"
+                      aria-checked={dub}
+                      aria-label={t("listenInLang")}
+                      onClick={() => intelStore.getState().toggleDub()}
+                      className="flex min-h-11 items-center justify-between gap-3 rounded-md px-1 py-1 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                    >
+                      <span className="flex items-center gap-1.5 text-sm font-medium text-ink dark:text-white">
+                        <HiOutlineSpeakerWave className="h-4 w-4 text-muted dark:text-gray-400" aria-hidden />
+                        {t("listenInLang")}
+                      </span>
+                      <span className="tc-switch relative h-6 w-11 shrink-0 rounded-full bg-line dark:bg-gray-600" data-on={dub}>
+                        <span className="tc-thumb absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow" />
+                      </span>
+                    </button>
+                  ) : null}
+
                   <button
                     type="button"
-                    onClick={() => intelStore.getState().toggleDub()}
-                    aria-pressed={dub}
-                    className={clsx(
-                      "inline-flex h-9 items-center gap-1 rounded-md border px-3 text-sm transition-transform active:scale-[0.97]",
-                      dub
-                        ? "border-brand text-brand"
-                        : "border-line text-muted hover:bg-surface-3 dark:border-gray-700 dark:text-gray-400",
-                    )}
+                    role="switch"
+                    aria-checked={redact}
+                    aria-label={t("redact")}
+                    onClick={() => intelStore.getState().toggleRedact()}
+                    className="flex min-h-11 items-center justify-between gap-3 rounded-md px-1 py-1 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                   >
-                    <HiOutlineSpeakerWave className="h-4 w-4" aria-hidden /> {t("listenInLang")}
+                    <span className="flex flex-col">
+                      <span className="flex items-center gap-1.5 text-sm font-medium text-ink dark:text-white">
+                        <HiOutlineEyeSlash className="h-4 w-4 text-muted dark:text-gray-400" aria-hidden />
+                        {t("redact")}
+                      </span>
+                      <span className="text-xs text-muted dark:text-gray-400">{t("voicePreserving")}</span>
+                    </span>
+                    <span className="tc-switch relative h-6 w-11 shrink-0 rounded-full bg-line dark:bg-gray-600" data-on={redact}>
+                      <span className="tc-thumb absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow" />
+                    </span>
                   </button>
-                ) : null}
-
-                <button
-                  type="button"
-                  onClick={() => intelStore.getState().toggleRedact()}
-                  aria-pressed={redact}
-                  className={clsx(
-                    "inline-flex h-9 items-center gap-1 rounded-md border px-3 text-sm transition-transform active:scale-[0.97]",
-                    redact
-                      ? "border-brand text-brand"
-                      : "border-line text-muted hover:bg-surface-3 dark:border-gray-700 dark:text-gray-400",
-                  )}
-                >
-                  <HiOutlineEyeSlash className="h-4 w-4" aria-hidden /> {t("redact")}
-                </button>
+                </div>
               </div>
+
 
               <TranslationSessionPanel />
             </div>

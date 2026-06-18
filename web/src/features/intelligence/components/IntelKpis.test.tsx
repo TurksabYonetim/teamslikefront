@@ -9,7 +9,9 @@ describe("IntelKpis", () => {
   it("renders KPI labels", () => {
     render(<IntelKpis />);
     expect(screen.getByText(/talkRatio|talk ratio|konuşma/i)).toBeInTheDocument();
-    expect(screen.getByText(/pace|tempo|wpm/i)).toBeInTheDocument();
+    // Pace renders as a "Tempo" label + a separate "kelime/dk" value, so more
+    // than one node can match; assert the metric is present at all.
+    expect(screen.getAllByText(/pace|tempo|wpm/i).length).toBeGreaterThan(0);
   });
   it("shows the active source's talk ratio when present", () => {
     const id = intelStore.getState().activeSourceId;

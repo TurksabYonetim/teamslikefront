@@ -17,14 +17,24 @@ canvas, randevu, copilot/yapay zekâ ve yönetim/governance modüllerini içerir
 kullanıcı aracın kendisini fark etmeden işini bitirir; arayüz göreve karışmaz.
 
 ## Brand Personality
-Güvenilir, sakin, profesyonel. Üç kelime: **net, kibar, yetkin.** Linear/Notion/Stripe
-sınıfı "kazanılmış aşinalık" hissi — sürpriz değil, tutarlılık. Mavi birincil + gri nötr.
+Üç kelime: **güvenilir · kurumsal · sakin.** Ses gürültüsüz, net, profesyonel —
+bağırmayan bir uzman. Microsoft Teams'in kurumsal ciddiyeti + Linear/Stripe sınıfı
+"kazanılmış aşinalık" (sürpriz değil, tutarlılık). Türkçe arayüz; dil resmi ama soğuk
+değil, doğrudan ve anlaşılır. Duygusal hedef: güven, sükûnet, kontrol hissi. Mavi
+birincil + gri nötr; renk az ve amaçlı.
 
 ## Anti-references
-- AI-slop tells: gradyan metin, dekoratif glassmorphism, hero-metrik şablonu, her bölümde
-  küçük uppercase tracked eyebrow, yan-şerit (side-stripe) border'lar.
-- Bağıran tipografi: dev clamp başlıklar, ekranı dolduran fontlar. "Çok büyük" = yanlış.
-- Tutarsız bileşen sözlüğü: aynı rolün iki yerde farklı görünmesi.
+- **Genel SaaS klişeleri (AI-slop tells):** gradyan metin, dekoratif glassmorphism,
+  hero-metrik şablonu, her bölümde küçük uppercase tracked eyebrow, 01/02/03 numaralı
+  bölüm işaretleyicileri, yan-şerit (side-stripe) border'lar, aynı boyut ikon+başlık
+  kart ızgaraları, mor-gradient "AI" estetiği.
+- **Eski/ağır kurumsal:** 2010'lar ERP hissi — sıkışık tablolar, gri-üstüne-gri
+  yüzeyler, görsel hiyerarşisi olmayan yoğun ekranlar, okunması yorucu küçük gri gövde
+  metni. Yoğunluk evet, ama nefes alan ve hiyerarşik (bkz. Design Principles 2).
+- **Bağıran tipografi:** dev clamp başlıklar, ekranı dolduran fontlar. "Çok büyük" = yanlış.
+- **Tutarsız bileşen sözlüğü:** aynı rolün iki yerde farklı görünmesi.
+- Tüketici/oyunsu UI (aşırı renk, emoji ağırlığı, abartılı animasyon) kurumsal güveni
+  zayıflattığı için kapsam dışı.
 
 ## Design Principles
 1. **Araç göze görünmez.** Tipografi ve boşluk hiyerarşiyi taşır; dekorasyon değil.
@@ -35,6 +45,12 @@ sınıfı "kazanılmış aşinalık" hissi — sürpriz değil, tutarlılık. Ma
 5. **Her bileşenin tüm durumları var.** default/hover/focus/active/disabled/loading/error.
 
 ## Accessibility & Inclusion
-WCAG 2.1 AA hedefi. Gövde metni ≥ 4.5:1 kontrast (placeholder dahil), büyük metin ≥ 3:1.
-Dokunmatik hedefler ≥ 44×44px. `prefers-reduced-motion` global olarak destekli. Klavye
-ile tam gezinme + görünür focus halkaları. Tek tip AÇIK tema.
+**Hedef: WCAG 2.2 AAA.** Kamu/kurumsal bağlam standardı.
+- **Kontrast:** gövde/küçük metin ≥ 7:1, büyük metin (≥24px veya ≥18.66px bold) ≥ 4.5:1.
+  Gri metin token'ları (`muted`, link/ghost) bu eşiğe göre kalibre edildi; yeni gri metin
+  AAA doğrulanmadan eklenmez (bkz. DESIGN.md §2 kontrast tablosu).
+- Dokunmatik/işaretçi hedefleri ≥ 44×44px; tıklama alanları AAA minimumuna uyar.
+- Klavye ile tam gezinme + her etkileşimli öğede görünür, tutarlı focus halkası.
+- `prefers-reduced-motion` her animasyon için zorunlu alternatif (crossfade/anlık).
+- Renk asla tek bilgi taşıyıcısı değil (durum = renk + ikon/metin); renk körlüğü gözetilir.
+- Anlamsal HTML + ARIA; ekran okuyucu akışı. Tek tip AÇIK tema.

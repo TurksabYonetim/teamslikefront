@@ -202,6 +202,7 @@
     "scheduledCount": "{{count}} scheduled",
     "attach": "Attach",
     "attached": "Attachment added",
+    "delivered": "Delivered",
     "unread": "{{count}} unread"
   },
   "queues": {
@@ -215,6 +216,7 @@
     "idle": "idle",
     "waiting": "Waiting",
     "noWaiting": "No callers waiting",
+    "calm": "Queue is calm",
     "callbackRequested": "Callback requested",
     "assignNext": "Assign next",
     "requestCallback": "Request callback"
@@ -226,6 +228,7 @@
     "noWaiting": "No waiting calls",
     "transferTo": "Transfer to",
     "transfer": "Transfer",
+    "waitingFor": "waiting",
     "selectExtension": "Select extension"
   },
   "ivr": {
@@ -236,15 +239,21 @@
     "label": "Label",
     "action": "Action",
     "target": "Target",
+    "newOption": "New option",
+    "keyHint": "Single character (0–9, *, #)",
+    "labelHint": "Name read in the menu",
+    "targetHint": "Queue / extension no.",
     "addOption": "Add option",
     "remove": "Remove",
     "hours": "Business hours",
+    "today": "today",
     "openNow": "Open now",
     "closedNow": "Closed now"
   },
   "routing": {
     "title": "Routing rules",
     "rules": "Rules",
+    "priorityOrder": "priority order",
     "condition": "Condition",
     "action": "Action",
     "target": "Target",
@@ -268,6 +277,8 @@
     "capture": "Capture fields",
     "simTitle": "Live simulation",
     "simPlaceholder": "Type what the caller says…",
+    "simEmptyTitle": "Try a scenario",
+    "simEmptyDescription": "Type a caller phrase and see which intent the receptionist catches in real time.",
     "send": "Send",
     "detected": "Detected intent",
     "noMatch": "No intent matched",

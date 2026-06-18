@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Badge, Button, EmptyState } from "@/components/ui";
+import { Badge, Button, EmptyState, Select } from "@/components/ui";
 import { usePbx, pbxStore } from "./pbxStore";
 import { isWithinHours } from "./pbx";
 import type { IVROptionAction } from "./phone.types";
@@ -10,6 +10,9 @@ const ACTIONS: IVROptionAction[] = ["menu", "queue", "voicemail", "forward", "ex
 function hhmm(min: number): string {
   return `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
 }
+
+const FIELD =
+  "h-11 w-full rounded-lg border border-gray-300 bg-surface px-3 text-sm text-ink transition-[border-color,box-shadow] duration-[var(--dur-pop)] ease-[var(--ease-out)] hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-600 dark:hover:border-gray-500";
 
 /** IVR menü ağacı + mesai saatleri. Seçenek ekle/kaldır; isWithinHours ile
  *  şu anki açık/kapalı durumu gösterir. */
@@ -25,6 +28,7 @@ export function IVRBuilder() {
   const menu = menus[0];
   const hours = businessHours[0];
   const open = hours ? isWithinHours(hours) : false;
+  const todayDow = new Date().getDay(); // 0=Paz … 6=Cmt — HoursWindow.day ile aynı
 
   if (!menu) {
     return (
@@ -44,7 +48,7 @@ export function IVRBuilder() {
   };
 
   return (
-    <div className="mx-auto flex h-full w-full max-w-3xl flex-col gap-6 overflow-y-auto p-4">
+    <div className="ivr-builder mx-auto flex h-full w-full max-w-3xl flex-col gap-6 overflow-y-auto p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="text-xl font-semibold text-ink">{t("ivr.title")}</h2>
         <Badge>{open ? t("ivr.openNow") : t("ivr.closedNow")}</Badge>
@@ -57,7 +61,7 @@ export function IVRBuilder() {
         <p className="mb-2 text-xs font-semibold text-muted">{t("ivr.options")}</p>
         <ul className="mb-4 divide-y divide-gray-100 dark:divide-gray-700">
           {menu.options.map((o) => (
-            <li key={o.key} className="flex items-center justify-between py-2 text-sm">
+            <li key={o.key} className="ivr-option flex items-center justify-between py-2 text-sm">
               <span className="flex items-center gap-2">
                 <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 font-semibold dark:bg-gray-700">{o.key}</span>
                 <span className="text-gray-900 dark:text-white">{o.label}</span>
@@ -67,7 +71,7 @@ export function IVRBuilder() {
                 type="button"
                 onClick={() => pbxStore.getState().removeIvrOption(menu.id, o.key)}
                 aria-label={`${t("ivr.remove")} ${o.key}`}
-                className="text-xs font-medium text-red-600 hover:underline dark:text-red-400"
+                className="text-xs font-medium text-red-600 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] hover:underline motion-safe:active:scale-[0.94] dark:text-red-400"
               >
                 {t("ivr.remove")}
               </button>
@@ -75,36 +79,62 @@ export function IVRBuilder() {
           ))}
         </ul>
 
-        <div className="flex flex-wrap items-end gap-2">
-          <label className="flex flex-col text-xs text-muted">
-            {t("ivr.key")}
-            <input value={key} onChange={(e) => setKey(e.target.value)} aria-label={t("ivr.key")} className="input w-16" maxLength={1} />
-          </label>
-          <label className="flex flex-col text-xs text-muted">
-            {t("ivr.label")}
-            <input value={label} onChange={(e) => setLabel(e.target.value)} aria-label={t("ivr.label")} className="input w-28" />
-          </label>
-          <label className="flex flex-col text-xs text-muted">
-            {t("ivr.action")}
-            <select value={action} onChange={(e) => setAction(e.target.value as IVROptionAction)} aria-label={t("ivr.action")} className="input">
-              {ACTIONS.map((a) => <option key={a} value={a}>{t(`enums.ivrAction.${a}`)}</option>)}
-            </select>
-          </label>
-          <label className="flex flex-col text-xs text-muted">
-            {t("ivr.target")}
-            <input value={target} onChange={(e) => setTarget(e.target.value)} aria-label={t("ivr.target")} className="input w-32" />
-          </label>
-          <Button size="sm" onClick={addOption} disabled={!key.trim()}>{t("ivr.addOption")}</Button>
+        {/* Yeni seçenek — hizalı inset kart, 44px AAA hedefler, alan altı yardım metinleri */}
+        <div className="rounded-lg border border-line bg-surface-2 p-4">
+          <p className="mb-3 text-sm font-semibold text-ink">{t("ivr.newOption")}</p>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <label className="flex flex-col gap-1">
+              <span className="text-xs font-medium text-ink-2">{t("ivr.key")}</span>
+              <input value={key} onChange={(e) => setKey(e.target.value)} aria-label={t("ivr.key")} maxLength={1} className={FIELD + " text-center font-mono"} />
+              <span className="text-xs text-muted">{t("ivr.keyHint")}</span>
+            </label>
+            <label className="flex flex-col gap-1">
+              <span className="text-xs font-medium text-ink-2">{t("ivr.label")}</span>
+              <input value={label} onChange={(e) => setLabel(e.target.value)} aria-label={t("ivr.label")} className={FIELD} />
+              <span className="text-xs text-muted">{t("ivr.labelHint")}</span>
+            </label>
+            <div className="flex flex-col gap-1">
+              <span className="text-xs font-medium text-ink-2">{t("ivr.action")}</span>
+              <Select<IVROptionAction>
+                value={action}
+                onChange={setAction}
+                options={ACTIONS.map((a) => ({ value: a, label: t(`enums.ivrAction.${a}`) }))}
+                aria-label={t("ivr.action")}
+                size="md"
+                className="w-full"
+              />
+            </div>
+            <label className="flex flex-col gap-1">
+              <span className="text-xs font-medium text-ink-2">{t("ivr.target")}</span>
+              <input value={target} onChange={(e) => setTarget(e.target.value)} aria-label={t("ivr.target")} className={FIELD} />
+              <span className="text-xs text-muted">{t("ivr.targetHint")}</span>
+            </label>
+          </div>
+          <Button onClick={addOption} disabled={!key.trim()} className="mt-3 h-11 w-full motion-safe:hover:-translate-y-px">{t("ivr.addOption")}</Button>
         </div>
       </div>
 
       {hours && (
         <div className="rounded-lg border border-line bg-surface p-4">
           <p className="mb-2 text-xs font-semibold text-muted">{t("ivr.hours")}</p>
-          <ul className="grid grid-cols-2 gap-1 text-sm text-gray-700 dark:text-gray-300 sm:grid-cols-3">
-            {hours.weekly.map((w) => (
-              <li key={w.day}>{t(`enums.day.${w.day}`)}: {hhmm(w.openMin)}–{hhmm(w.closeMin)}</li>
-            ))}
+          <ul className="flex flex-col">
+            {hours.weekly.map((w) => {
+              const isToday = w.day === todayDow;
+              return (
+                <li
+                  key={w.day}
+                  aria-current={isToday ? "date" : undefined}
+                  className={"ivr-hours-row flex items-center justify-between rounded-md px-2 py-1.5 text-sm " + (isToday ? "bg-primary-50 dark:bg-gray-700" : "")}
+                >
+                  <span className={isToday ? "flex items-center gap-1.5 font-medium text-ink" : "text-ink-2"}>
+                    {isToday && <span className={"h-1.5 w-1.5 rounded-full " + (open ? "bg-green-700 dark:bg-green-300" : "bg-gray-400")} aria-hidden="true" />}
+                    {t(`enums.day.${w.day}`)}
+                    {isToday && <span className="text-xs font-normal text-muted">· {t("ivr.today")}</span>}
+                  </span>
+                  <span className={"tabular-nums text-ink" + (isToday ? " font-medium" : "")}>{hhmm(w.openMin)}–{hhmm(w.closeMin)}</span>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

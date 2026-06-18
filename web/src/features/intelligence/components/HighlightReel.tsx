@@ -10,14 +10,16 @@ import type { IconType } from "react-icons";
 import { useIntel } from "../intel.store";
 import type { Highlight } from "../intel.types";
 
-const KIND: Record<Highlight["kind"], { Icon: IconType; tone: string }> = {
-  decision: { Icon: HiOutlineCheckBadge, tone: "text-blue-700 dark:text-blue-400" },
-  action: { Icon: HiOutlineClipboardDocumentCheck, tone: "text-green-600 dark:text-green-400" },
-  objection: { Icon: HiOutlineExclamationTriangle, tone: "text-red-600 dark:text-red-400" },
-  question: { Icon: HiOutlineQuestionMarkCircle, tone: "text-amber-600 dark:text-amber-400" },
+// Her an türü: ikon + AAA renk çifti (tinted pill). İkon, pill'in metin rengini miras alır.
+const KIND: Record<Highlight["kind"], { Icon: IconType; pill: string }> = {
+  decision: { Icon: HiOutlineCheckBadge, pill: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-200" },
+  action: { Icon: HiOutlineClipboardDocumentCheck, pill: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-200" },
+  objection: { Icon: HiOutlineExclamationTriangle, pill: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200" },
+  question: { Icon: HiOutlineQuestionMarkCircle, pill: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200" },
 };
 
-/** Key moments → jump to the transcript segment. */
+/** Key moments → jump to the transcript segment. Editorial cards: a typed tag
+ *  leads, the moment text reads as the line, the jump link reveals on hover. */
 export function HighlightReel() {
   const { t } = useTranslation("intelligence");
   const highlights = useIntel((s) => s.highlights);
@@ -35,21 +37,20 @@ export function HighlightReel() {
       ) : (
         <ul className="space-y-2">
           {highlights.map((h) => {
-            const { Icon, tone } = KIND[h.kind];
+            const { Icon, pill } = KIND[h.kind];
             return (
               <li key={h.id}>
                 <button
                   onClick={() => jump(h.segmentId)}
-                  className="flex w-full items-start gap-2 rounded-md border border-line p-2 text-left hover:border-blue-700 dark:border-gray-700 dark:hover:border-blue-400"
+                  className="hl-card flex w-full flex-col items-start gap-1.5 rounded-md border border-line p-2.5 text-left dark:border-gray-700"
                 >
-                  <Icon size={18} className={`mt-0.5 ${tone}`} aria-hidden />
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-sm font-medium text-ink dark:text-white">
-                      {t(`kind.${h.kind}`)}
-                    </span>
-                    <span className="block text-sm text-ink-2 dark:text-gray-400">{h.text}</span>
+                  <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium ${pill}`}>
+                    <Icon size={13} aria-hidden /> {t(`kind.${h.kind}`)}
                   </span>
-                  <HiOutlineArrowRight size={16} className="mt-0.5 text-gray-500 dark:text-gray-400" aria-hidden />
+                  <span className="text-sm text-ink dark:text-white">{h.text}</span>
+                  <span className="hl-jump inline-flex items-center gap-1 text-xs font-medium text-blue-800 dark:text-blue-400">
+                    {t("jumpToTranscript")} <HiOutlineArrowRight size={13} aria-hidden />
+                  </span>
                 </button>
               </li>
             );

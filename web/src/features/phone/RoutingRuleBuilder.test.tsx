@@ -19,7 +19,7 @@ describe("RoutingRuleBuilder", () => {
 
   it("afterHours toggle önizlemeyi günceller", () => {
     render(<RoutingRuleBuilder />);
-    fireEvent.click(screen.getByLabelText("afterHours"));
+    fireEvent.click(screen.getByRole("button", { name: "After hours" }));
     expect(screen.getAllByText(/Voicemail/)[0]).toBeInTheDocument();
   });
 

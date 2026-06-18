@@ -42,9 +42,8 @@ function shortId(id: string | null): string {
   return id.length > 8 ? `${id.slice(0, 8)}…` : id;
 }
 
-/* Ortak input sınıfı (custom ease-out, transition:all yok). */
-const INPUT_CLASS =
-  "h-10 rounded-lg border border-line bg-surface px-3 text-sm text-ink placeholder-muted transition-colors duration-150 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-brand";
+/* Ortak input sınıfı: paylaşılan tasarım-sistemi token'ı. */
+const INPUT_CLASS = "input";
 
 /** İndirme (download) inline SVG — Icon setinde yok, dokunmamak için inline. */
 function DownloadIcon({ className }: { className?: string }) {

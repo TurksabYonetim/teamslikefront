@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
+import { Overlay } from "@/components/ui/Overlay";
 import type { Clip } from "./clips.types";
 import { formatDuration } from "./clips.utils";
 
@@ -72,9 +73,6 @@ export function ClipPlayerModal({
     const onKey = (e: KeyboardEvent) => {
       const v = videoRef.current;
       switch (e.key) {
-        case "Escape":
-          onClose();
-          break;
         case " ":
         case "k":
           e.preventDefault();
@@ -110,16 +108,12 @@ export function ClipPlayerModal({
   if (!clip) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/70 motion-safe:[animation:tl-fade_var(--dur-modal)_var(--ease-out)]"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="clip-player-title"
-    >
+    <Overlay open onClose={onClose}>
       <div
-        className="w-full max-w-3xl bg-white rounded-lg shadow-xl overflow-hidden origin-center motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]"
-        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="clip-player-title"
+        className="w-full max-w-3xl bg-surface rounded-lg shadow-xl overflow-hidden origin-center motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]"
       >
         {/* Başlık çubuğu */}
         <div className="flex items-center justify-between gap-3 p-3 border-b border-line">
@@ -215,6 +209,6 @@ export function ClipPlayerModal({
           </button>
         </div>
       </div>
-    </div>
+    </Overlay>
   );
 }

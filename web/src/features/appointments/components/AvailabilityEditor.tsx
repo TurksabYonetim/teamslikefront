@@ -19,7 +19,7 @@ const toMin = (hhmm: string) => {
   return (h || 0) * 60 + (m || 0);
 };
 
-const timeCls = "h-10 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
+const timeCls = "input h-10";
 
 export function AvailabilityEditor() {
   const { t } = useTranslation("appointments");
@@ -61,7 +61,7 @@ export function AvailabilityEditor() {
             return (
               <li key={wd} className="flex items-center gap-2 text-sm">
                 <label className="flex w-28 items-center gap-2">
-                  <input type="checkbox" checked={!!rule} onChange={() => toggleDay(wd)} className="h-4 w-4 accent-[var(--color-brand)]" />
+                  <input type="checkbox" checked={!!rule} onChange={() => toggleDay(wd)} className="checkbox" />
                   <span className={rule ? "text-ink" : "text-muted"}>{dayName}</span>
                 </label>
                 {rule ? (

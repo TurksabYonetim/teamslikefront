@@ -61,82 +61,81 @@ export function Dialer({
     return out;
   }, [history, contactList]);
 
+  // Tuş takımı — yükselen fayans tuşlar (impeccable delight); görünüm ".dial-pad"
+  // sınıfı üzerinden styles/index.css'te.
+  const renderDialPad = () => (
+    <div className="dial-pad flex w-full flex-col items-center">
+      <h2 className="mb-4 text-xl font-semibold text-ink">{t("dialer.title")}</h2>
+
+      <div className="dial-display mb-2 flex w-full items-center justify-between rounded-lg border border-line bg-surface px-4 py-3">
+        <span className="min-h-[1.75rem] truncate text-2xl font-medium tracking-wider text-ink">
+          {number || <span className="text-muted">{t("dialer.placeholder")}</span>}
+        </span>
+        {number && (
+          <button
+            type="button"
+            onClick={onBackspace}
+            aria-label={t("dialer.delete")}
+            className="ml-2 shrink-0 rounded-lg p-2.5 text-muted transition-transform duration-150 ease-[var(--ease-out)] hover:bg-surface-2 active:scale-95"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 7H10.5L4 12l6.5 5H21V7Z" />
+              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m17 10-4 4m0-4 4 4" />
+            </svg>
+          </button>
+        )}
+      </div>
+
+      <div className="mb-3 h-6 w-full text-center">
+        {suggestion && (
+          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-brand">
+            <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fillRule="evenodd" d="M12 20a7.966 7.966 0 0 1-5.002-1.756l.002.001v-.683c0-1.794 1.492-3.25 3.333-3.25h3.334c1.84 0 3.333 1.456 3.333 3.25v.683A7.966 7.966 0 0 1 12 20ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 5.5-4.44 9.963-9.932 10h-.138C6.438 21.962 2 17.5 2 12Zm10-5a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" clipRule="evenodd" />
+            </svg>
+            {suggestion.name}
+          </span>
+        )}
+      </div>
+
+      <div className="grid w-full grid-cols-3 gap-3">
+        {KEYS.map((k) => (
+          <button
+            key={k}
+            type="button"
+            onClick={() => onDigit(k)}
+            className="dial-key flex h-16 items-center justify-center rounded-full border border-line bg-surface text-2xl font-medium text-ink transition-transform duration-150 ease-[var(--ease-out)] hover:bg-surface-2 active:scale-95 focus:outline-none focus:ring-4 focus:ring-line"
+          >
+            {k}
+          </button>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        onClick={onCall}
+        disabled={!number}
+        className="dial-call mt-5 flex h-16 w-16 items-center justify-center rounded-full bg-brand text-white transition-transform duration-150 ease-[var(--ease-out)] hover:bg-brand active:scale-95 focus:outline-none focus:ring-4 focus:ring-brand/30 disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        <span className="sr-only">{t("dialer.call")}</span>
+        <svg className="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.476 2.165 1.736 4.422 3.626 6.312 1.89 1.89 4.147 3.15 6.312 3.626 2.063.454 4.114-.08 5.937-1.899a2.553 2.553 0 0 0 .877-1.926 2.547 2.547 0 0 0-.882-1.911l-1.842-1.611a2.502 2.502 0 0 0-3.118-.115l-1.252.939a.503.503 0 0 1-.354.115 4.49 4.49 0 0 1-1.866-.96 4.49 4.49 0 0 1-.96-1.866.503.503 0 0 1 .114-.354l.939-1.252a2.502 2.502 0 0 0-.115-3.118l-1.611-1.842A2.547 2.547 0 0 0 7.978 4Z" />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        onClick={onSimulateIncoming}
+        className="mt-4 text-sm font-medium text-brand transition-transform duration-150 ease-[var(--ease-out)] hover:underline motion-safe:active:scale-[0.97]"
+      >
+        {t("dialer.simulateIncoming")}
+      </button>
+    </div>
+  );
+
   return (
     <div className="flex h-full w-full flex-col gap-6">
       {/* Dial pad */}
-      <div className="flex w-full flex-col items-center">
-        <h2 className="mb-4 text-xl font-semibold text-ink">
-          {t("dialer.title")}
-        </h2>
-
-        <div className="mb-2 flex w-full items-center justify-between rounded-lg border border-line bg-surface px-4 py-3">
-          <span className="min-h-[1.75rem] truncate text-2xl font-medium tracking-wider text-ink">
-            {number || (
-              <span className="text-muted">
-                {t("dialer.placeholder")}
-              </span>
-            )}
-          </span>
-          {number && (
-            <button
-              type="button"
-              onClick={onBackspace}
-              aria-label={t("dialer.delete")}
-              className="ml-2 shrink-0 rounded-lg p-2.5 text-muted transition-transform duration-150 ease-[var(--ease-out)] hover:bg-surface-2 active:scale-95"
-            >
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 7H10.5L4 12l6.5 5H21V7Z" />
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m17 10-4 4m0-4 4 4" />
-              </svg>
-            </button>
-          )}
-        </div>
-
-        {/* Eşleşen kişi önerisi */}
-        <div className="mb-3 h-6 w-full text-center">
-          {suggestion && (
-            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-brand">
-              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path fillRule="evenodd" d="M12 20a7.966 7.966 0 0 1-5.002-1.756l.002.001v-.683c0-1.794 1.492-3.25 3.333-3.25h3.334c1.84 0 3.333 1.456 3.333 3.25v.683A7.966 7.966 0 0 1 12 20ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 5.5-4.44 9.963-9.932 10h-.138C6.438 21.962 2 17.5 2 12Zm10-5a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" clipRule="evenodd" />
-              </svg>
-              {suggestion.name}
-            </span>
-          )}
-        </div>
-
-        <div className="grid w-full grid-cols-3 gap-3">
-          {KEYS.map((k) => (
-            <button
-              key={k}
-              type="button"
-              onClick={() => onDigit(k)}
-              className="flex h-16 items-center justify-center rounded-full border border-line bg-surface text-2xl font-medium text-ink transition-transform duration-150 ease-[var(--ease-out)] hover:bg-surface-2 active:scale-95 focus:outline-none focus:ring-4 focus:ring-line"
-            >
-              {k}
-            </button>
-          ))}
-        </div>
-
-        <button
-          type="button"
-          onClick={onCall}
-          disabled={!number}
-          className="mt-5 flex h-16 w-16 items-center justify-center rounded-full bg-brand text-white transition-transform duration-150 ease-[var(--ease-out)] hover:bg-brand active:scale-95 focus:outline-none focus:ring-4 focus:ring-brand/30 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          <span className="sr-only">{t("dialer.call")}</span>
-          <svg className="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.476 2.165 1.736 4.422 3.626 6.312 1.89 1.89 4.147 3.15 6.312 3.626 2.063.454 4.114-.08 5.937-1.899a2.553 2.553 0 0 0 .877-1.926 2.547 2.547 0 0 0-.882-1.911l-1.842-1.611a2.502 2.502 0 0 0-3.118-.115l-1.252.939a.503.503 0 0 1-.354.115 4.49 4.49 0 0 1-1.866-.96 4.49 4.49 0 0 1-.96-1.866.503.503 0 0 1 .114-.354l.939-1.252a2.502 2.502 0 0 0-.115-3.118l-1.611-1.842A2.547 2.547 0 0 0 7.978 4Z" />
-          </svg>
-        </button>
-
-        <button
-          type="button"
-          onClick={onSimulateIncoming}
-          className="mt-4 text-sm font-medium text-brand transition-transform duration-150 ease-[var(--ease-out)] hover:underline motion-safe:active:scale-[0.97]"
-        >
-          {t("dialer.simulateIncoming")}
-        </button>
-      </div>
+      {renderDialPad()}
 
       {/* Sağ kolon: son aramalar + arama geçmişi + rehber */}
       <div className="flex w-full flex-col gap-6">

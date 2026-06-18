@@ -37,7 +37,7 @@ export function CreateChannelDialog({ open, onClose }: { open: boolean; onClose:
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="block w-full rounded-lg border border-gray-300 bg-surface-2 p-2.5 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+            className="input"
           />
         </label>
 

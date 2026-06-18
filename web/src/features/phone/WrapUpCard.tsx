@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "@/components/ui";
+import { Button, Select } from "@/components/ui";
 import { callStore, useCall } from "./callStore";
 import { formatNumber } from "./routing";
 import type { CallOutcome } from "./phone.types";
@@ -37,19 +37,21 @@ export function WrapUpCard() {
           {t("wrapUp.title")} · {formatNumber(pending.peerNumber)}
         </p>
         <div className="flex flex-wrap items-end gap-3">
-          <label className="flex flex-col text-xs text-muted">
-            {t("wrapUp.outcome")}
-            <select value={outcome} onChange={(e) => setOutcome(e.target.value as CallOutcome)} aria-label={t("wrapUp.outcome")} className="input">
-              {OUTCOMES.map((o) => <option key={o} value={o}>{t(`enums.outcome.${o}`)}</option>)}
-            </select>
-          </label>
+          <Select<CallOutcome>
+            value={outcome}
+            onChange={setOutcome}
+            options={OUTCOMES.map((o) => ({ value: o, label: t(`enums.outcome.${o}`) }))}
+            label={t("wrapUp.outcome")}
+            size="sm"
+            className="w-44"
+          />
           <label className="flex flex-1 flex-col text-xs text-muted">
             {t("wrapUp.note")}
             <input value={note} onChange={(e) => setNote(e.target.value)} aria-label={t("wrapUp.note")} className="input" />
           </label>
           <label className="flex flex-col text-xs text-muted">
             {t("wrapUp.tags")}
-            <input value={tags} onChange={(e) => setTags(e.target.value)} aria-label={t("wrapUp.tags")} className="input w-full sm:w-40" />
+            <input value={tags} onChange={(e) => setTags(e.target.value)} aria-label={t("wrapUp.tags")} className="input sm:w-40" />
           </label>
           <div className="flex gap-2">
             <Button onClick={save}>{t("wrapUp.save")}</Button>

@@ -5,6 +5,7 @@ import { Icon } from "@/components/Icon";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { IconButton } from "@/components/ui/IconButton";
+import { Select } from "@/components/ui/Select";
 import { botflowStore, activeFlow, useBotflowStore } from "../botflow.store";
 import { traverse, nodeById, flowStats, danglingTargets, unreachableNodes } from "../botflow.dom";
 import { NODE_ICON } from "../shared";
@@ -38,21 +39,20 @@ export function FlowBuilder() {
         <h3 className="flex items-center gap-1.5 text-base font-semibold text-ink">
           <Icon name="sliders" className="h-5 w-5" aria-hidden /> {t("flow.title")}
         </h3>
-        <select
+        <Select
           value={flow.id}
-          onChange={(e) => {
-            act().setActiveFlow(e.target.value);
+          onChange={(v) => {
+            act().setActiveFlow(v);
             setPath([]);
           }}
           aria-label={t("flow.title")}
-          className="h-9 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
-        >
-          {flows.map((f) => (
-            <option key={f.id} value={f.id}>
-              {f.name}
-            </option>
-          ))}
-        </select>
+          options={flows.map((f) => ({
+            value: f.id,
+            label: f.name,
+          }))}
+          size="sm"
+          className="w-48"
+        />
         <span className="ml-auto text-xs text-muted">
           {Object.entries(stats)
             .filter(([, n]) => n > 0)

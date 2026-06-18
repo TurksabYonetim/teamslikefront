@@ -38,8 +38,10 @@ export function VoicemailInbox() {
     savedTimer.current = window.setTimeout(() => setSaved(false), 2000);
   };
 
-  return (
-    <div className="mx-auto flex h-full w-full max-w-3xl flex-col gap-6 overflow-y-auto p-4">
+  // Sesli mesaj gövdesi — karşılama kartı odağı + giriş ".voicemail-inbox
+  // .vm-greeting-card" üzerinden styles/index.css'te (impeccable delight).
+  const renderVoicemail = () => (
+    <div className="voicemail-inbox mx-auto flex h-full w-full max-w-3xl flex-col gap-6 overflow-y-auto p-4">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold text-ink">{t("voicemail.title")}</h2>
         {unheard > 0 && (
@@ -56,10 +58,10 @@ export function VoicemailInbox() {
           {sorted.map((vm) => (
             <li
               key={vm.id}
-              className="rounded-lg border border-line bg-surface p-4"
+              className="vm-card rounded-lg border border-line bg-surface p-4"
             >
               <div className="flex items-start gap-3">
-                <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-subtle text-brand">
+                <span className="vm-icon mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-subtle text-brand">
                   <HiOutlineMicrophone size={18} aria-hidden />
                 </span>
                 <div className="min-w-0 flex-1">
@@ -67,7 +69,7 @@ export function VoicemailInbox() {
                     <p className={"truncate font-medium " + (vm.heard ? "text-muted" : "text-ink")}>
                       {callerLabel(vm.from)}
                     </p>
-                    {!vm.heard && <span className="h-2 w-2 shrink-0 rounded-full bg-brand" aria-hidden />}
+                    {!vm.heard && <span className="vm-dot h-2 w-2 shrink-0 rounded-full bg-brand" aria-hidden />}
                   </div>
                   <p className="text-xs text-muted">
                     {dateFmt.format(new Date(vm.receivedAt))} · {formatDuration(vm.durationSec)}
@@ -96,7 +98,7 @@ export function VoicemailInbox() {
         </ul>
       )}
 
-      <div className="rounded-lg border border-line bg-surface p-4">
+      <div className="vm-greeting-card rounded-lg border border-line bg-surface p-4">
         <h3 className="mb-2 text-sm font-semibold text-ink">{t("voicemail.greetingTitle")}</h3>
         <label htmlFor="vm-greeting" className="sr-only">{t("voicemail.greetingLabel")}</label>
         <textarea
@@ -104,7 +106,7 @@ export function VoicemailInbox() {
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           rows={3}
-          className="input w-full resize-y"
+          className="input resize-y"
         />
         <div className="mt-2 flex items-center gap-3">
           <Button onClick={saveGreeting}>{t("voicemail.greetingSave")}</Button>
@@ -113,4 +115,6 @@ export function VoicemailInbox() {
       </div>
     </div>
   );
+
+  return renderVoicemail();
 }

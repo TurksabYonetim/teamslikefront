@@ -133,8 +133,8 @@ export function RateConversationPage() {
               <span className="ms-2 text-sm font-semibold text-ink dark:text-white">{stars}/5</span>
             </div>
             <div>
-              <label htmlFor="feedback" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{t("feedback.yourFeedback")} <span className="dark:text-gray-400 font-normal text-muted">{t("feedback.feedbackChars")}</span></label>
-              <textarea id="feedback" rows={5} value={feedback} onChange={(e) => { setFeedback(e.target.value); setSaved(false); }} className="mb-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" required></textarea>
+              <label htmlFor="feedback" className="label">{t("feedback.yourFeedback")} <span className="dark:text-gray-400 font-normal text-muted">{t("feedback.feedbackChars")}</span></label>
+              <textarea id="feedback" rows={5} value={feedback} onChange={(e) => { setFeedback(e.target.value); setSaved(false); }} className="input mb-2" required></textarea>
               <p className="ms-auto text-xs text-gray-500 dark:text-gray-400">{t("feedback.feedbackHint")}</p>
             </div>
             <div>

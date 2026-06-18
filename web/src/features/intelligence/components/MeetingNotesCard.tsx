@@ -23,26 +23,26 @@ export function MeetingNotesCard() {
   const nameOf = (st: SpeakerStat) => (st.name !== st.speakerId ? st.name : memberName(st.speakerId));
 
   return (
-    <div className="rounded-card border border-line bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+    <div className="mnotes rounded-card border border-line bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
       <h3 className="mb-2 flex items-center gap-1 text-base font-semibold text-ink dark:text-white">
         <MdGraphicEq size={18} aria-hidden /> {t("notes.title")}
       </h3>
       <div className="grid gap-4 sm:grid-cols-3">
         <section>
           <h4 className="mb-1 text-sm font-semibold text-muted">{t("notes.wpm")}</h4>
-          <ul className="space-y-1.5">
+          <ul className="mnotes-list">
             {stats.map((st) => (
-              <li key={st.speakerId}>
+              <li key={st.speakerId} className="mnotes-item">
                 <div className="flex items-center justify-between text-sm text-ink dark:text-white">
                   <span className="truncate">{nameOf(st)}</span>
-                  <span className="text-xs text-muted">
+                  <span className="text-xs tabular-nums text-muted">
                     {st.wpm} {t("notes.wpmUnit")}
                   </span>
                 </div>
-                <div className="mt-0.5 h-1.5 w-full rounded-full bg-gray-100 dark:bg-gray-700">
+                <div className="mnotes-track mt-0.5 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
                   <div
-                    className="h-1.5 rounded-full bg-blue-700 dark:bg-blue-400"
-                    style={{ width: `${(st.wpm / maxWpm) * 100}%` }}
+                    className="mnotes-fill h-full rounded-full bg-blue-700 dark:bg-blue-400"
+                    style={{ ["--w" as string]: `${(st.wpm / maxWpm) * 100}%` }}
                   />
                 </div>
               </li>
@@ -58,7 +58,7 @@ export function MeetingNotesCard() {
             {keywords.map((k) => (
               <span
                 key={k.word}
-                className="rounded-full border border-line px-2 py-0.5 text-xs text-ink dark:border-gray-700 dark:text-white"
+                className="mnotes-chip rounded-full border border-line px-2 py-0.5 text-xs text-ink dark:border-gray-700 dark:text-white"
               >
                 {k.word} <span className="text-muted">{k.count}</span>
               </span>
@@ -73,7 +73,9 @@ export function MeetingNotesCard() {
           {actions.length > 0 ? (
             <ul className="ml-4 list-disc space-y-1 text-sm text-ink dark:text-white">
               {actions.map((a, i) => (
-                <li key={i}>{a}</li>
+                <li key={i} className="mnotes-act">
+                  {a}
+                </li>
               ))}
             </ul>
           ) : (

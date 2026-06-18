@@ -58,6 +58,14 @@ export interface Scorecard {
   csat?: number; // 1..5
   predictedCsat?: number; // AI-predicted 1..5 (Dialpad AI CSAT)
   csatReason?: string;
+  /** Short per-metric trend series (oldest→newest) feeding the KPI sparklines.
+   *  Each ends at the metric's current value; the delta chip reads first→last. */
+  trends?: {
+    talkRatio: number[];
+    sentiment: number[];
+    questions: number[];
+    pace: number[];
+  };
 }
 
 /** Per-speaker talk analytics (Dialpad/Zoom). */

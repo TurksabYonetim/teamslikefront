@@ -12,7 +12,7 @@ export function MailRead() {
       <div className="flex items-center justify-between border-b border-line bg-surface p-4 dark:border-gray-700 dark:bg-gray-800">
         <div className="flex items-center">
           <div className="pe-3">
-            <input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox" className="focus:ring-1 focus:ring-blue-500 h-4 w-4 rounded border-gray-300 bg-surface-2 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
+            <input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox" className="checkbox" />
             <label htmlFor="checkbox-all" className="sr-only">checkbox</label>
           </div>
           <div className="h-5 w-px bg-line dark:bg-gray-700"></div>

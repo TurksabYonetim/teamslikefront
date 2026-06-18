@@ -2,13 +2,20 @@
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { Icon } from "@/components/Icon";
-import { Badge } from "@/components/ui";
+import { Avatar, Badge } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { conversationStore } from "../conversation.store";
 import { inboxStore } from "../inbox.store";
 import { slaState } from "../support.dom";
 import { INBOXES, ME_ID } from "../support.data";
-import { CHANNEL_ICON, PRIORITY_TONE, contactName } from "../shared";
+import { CHANNEL_ICON, contactName } from "../shared";
+
+const STATUS_CHIP: Record<string, string> = {
+  open: "sp-chip-open",
+  pending: "sp-chip-wait",
+  snoozed: "sp-chip-snooze",
+  resolved: "sp-chip-res",
+};
 
 export function ConversationList() {
   const { t } = useTranslation("support");
@@ -34,7 +41,7 @@ export function ConversationList() {
           onChange={(e) => inboxStore.getState().setQuery(e.target.value)}
           placeholder={t("list.search")}
           aria-label={t("list.search")}
-          className="block w-full rounded-lg border border-gray-300 bg-surface-2 p-2.5 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="input"
         />
       </div>
       {list.length === 0 ? (
@@ -51,24 +58,25 @@ export function ConversationList() {
                 <button
                   onClick={() => conversationStore.getState().setActive(c.id)}
                   aria-current={activeId === c.id ? "true" : undefined}
-                  className={clsx("flex w-full flex-col gap-1 px-3 py-2 text-left", activeId === c.id ? "bg-surface-2" : "hover:bg-surface-2")}
+                  className={clsx("sp-conv", activeId === c.id && "sp-conv--on")}
                 >
-                  <div className="flex items-center gap-2">
-                    <Icon name={channelIcon} className="h-4 w-4 text-muted" />
-                    <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink">{contactName(c.contactId)}</span>
+                  <div className="sp-conv-top">
+                    <Avatar name={contactName(c.contactId)} size="xs" />
+                    <span className="sp-name">{contactName(c.contactId)}</span>
+                    <Icon name={channelIcon} className="h-3.5 w-3.5 shrink-0 text-muted" aria-hidden />
                     {c.unread > 0 ? <Badge tone="accent">{c.unread}</Badge> : null}
                   </div>
-                  {last ? <div className="truncate text-sm text-muted">{last.body}</div> : null}
-                  <div className="flex flex-wrap items-center gap-1.5 text-xs">
-                    <Badge tone={PRIORITY_TONE[c.priority]}>{t(`priority.${c.priority}`)}</Badge>
-                    <Badge tone="neutral">{t(`status.${c.status}`)}</Badge>
+                  {last ? <p className="sp-prev">{last.body}</p> : null}
+                  <div className="sp-meta">
+                    <span className={clsx("sp-prio", `sp-prio-${c.priority}`)} title={t(`priority.${c.priority}`)} aria-label={t(`priority.${c.priority}`)} />
+                    <span className={clsx("sp-chip", STATUS_CHIP[c.status] ?? "sp-chip-snooze")}>{t(`status.${c.status}`)}</span>
                     {sla === "breached" ? (
-                      <Badge tone="danger"><Icon name="alert" className="h-3 w-3" /> {t("sla.breached")}</Badge>
+                      <span className="sp-chip sp-chip-sla"><Icon name="alert" className="h-3 w-3" /> {t("sla.breached")}</span>
                     ) : sla === "due_soon" ? (
-                      <Badge tone="warning"><Icon name="clock" className="h-3 w-3" /> {t("sla.due_soon")}</Badge>
+                      <span className="sp-chip sp-chip-wait"><Icon name="clock" className="h-3 w-3" /> {t("sla.due_soon")}</span>
                     ) : null}
                     {c.labels.map((l) => (
-                      <span key={l} className="rounded-sm border border-line px-1.5 text-muted">{l}</span>
+                      <span key={l} className="sp-chip sp-chip-tag">{l}</span>
                     ))}
                   </div>
                 </button>

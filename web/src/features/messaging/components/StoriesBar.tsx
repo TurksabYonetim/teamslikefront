@@ -24,15 +24,15 @@ export function StoriesBar() {
   };
 
   return (
-    <div className="border-b border-line bg-white px-3 py-2 dark:border-gray-700 dark:bg-gray-800">
-      <div className="flex items-center gap-3 overflow-x-auto">
+    <div className="border-b border-line bg-white px-3 py-3 dark:border-gray-700 dark:bg-gray-800">
+      <div className="flex items-center gap-3 overflow-x-auto overflow-y-hidden py-1">
         <button
           type="button"
           onClick={() => setAdding((v) => !v)}
           className="flex shrink-0 flex-col items-center gap-1"
           aria-expanded={adding}
         >
-          <span className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-dashed border-line text-muted dark:border-gray-600">
+          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-surface-2 text-muted ring-1 ring-line transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-line/70 hover:text-ink dark:bg-gray-700 dark:text-gray-300 dark:ring-gray-600 dark:hover:bg-gray-600 dark:hover:text-white">
             <HiOutlinePlus className="h-5 w-5" aria-hidden />
           </span>
           <span className="text-xs text-muted">{t("stories.add")}</span>
@@ -67,7 +67,7 @@ export function StoriesBar() {
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && submit()}
             aria-label={t("stories.add")}
-            className="block h-10 flex-1 rounded-lg border border-gray-300 bg-surface-2 px-2.5 text-sm text-ink placeholder:text-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+            className="input h-10 flex-1"
           />
           <Button onClick={submit} disabled={!draft.trim()}>
             {t("stories.add")}

@@ -439,7 +439,7 @@ export function CanvasPage() {
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               placeholder={t("addModal.titlePlaceholder")}
-              className="input w-full"
+              className="input"
               autoFocus
             />
           </div>
@@ -472,7 +472,7 @@ export function CanvasPage() {
               value={draftTitle}
               onChange={(e) => setDraftTitle(e.target.value)}
               placeholder={t("addModal.titlePlaceholder")}
-              className="input w-full"
+              className="input"
             />
           </div>
           <div>
@@ -489,7 +489,7 @@ export function CanvasPage() {
               onChange={(e) => setDraftContent(e.target.value)}
               placeholder={t("editModal.contentPlaceholder")}
               rows={8}
-              className="input w-full resize-y font-mono text-sm"
+              className="input resize-y font-mono"
             />
           </div>
         </div>
@@ -524,7 +524,7 @@ export function CanvasPage() {
               }
             }}
             placeholder={t("renameModal.placeholder")}
-            className="input w-full"
+            className="input"
             autoFocus
           />
         </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
+import { Select } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { workspaceStore } from "../workspace.store";
 import { docProgress } from "../workspace.canvas";
@@ -32,42 +33,50 @@ export function CanvasEditor() {
   };
 
   return (
-    <div className="card p-4">
-      <div className="mb-3 flex flex-wrap items-center gap-2">
-        <select
+    <div className="card p-5">
+      <div className="mb-4 flex flex-wrap items-center gap-3 border-b border-line pb-4">
+        <Select
           value={doc.id}
-          onChange={(e) => setActiveDoc(e.target.value)}
+          onChange={setActiveDoc}
           aria-label={t("canvas.selectDoc")}
-          className="h-10 rounded-lg border border-gray-300 bg-surface-2 px-2 text-xl font-semibold text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-        >
-          {docs.map((d) => (
-            <option key={d.id} value={d.id}>
-              {d.title}
-            </option>
-          ))}
-        </select>
+          options={docs.map((d) => ({
+            value: d.id,
+            label: d.title,
+          }))}
+          className="w-64"
+        />
         {prog.total > 0 ? (
-          <span className="ml-auto inline-flex items-center gap-2 text-sm text-muted">
+          <span className="ml-auto inline-flex items-center gap-2 text-xs text-muted">
             {t("canvas.progress", { done: prog.done, total: prog.total })}
             <span
-              className="h-2 w-24 overflow-hidden rounded-full bg-surface-3"
+              className="inline-flex h-8 w-8"
               role="progressbar"
               aria-valuenow={prog.pct}
               aria-valuemin={0}
               aria-valuemax={100}
             >
-              <span
-                className="block h-full rounded-full bg-ok transition-[width] duration-200 ease-[var(--ease-out)] motion-reduce:transition-none"
-                style={{ width: `${prog.pct}%` }}
-                aria-hidden
-              />
+              <svg viewBox="0 0 36 36" className="h-8 w-8 -rotate-90" aria-hidden>
+                <circle cx="18" cy="18" r="15" fill="none" stroke="#e5e7eb" strokeWidth="3.5" />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="15"
+                  fill="none"
+                  stroke="#16a34a"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                  strokeDasharray={94.25}
+                  strokeDashoffset={94.25 * (1 - prog.pct / 100)}
+                  className="transition-[stroke-dashoffset] duration-500 ease-[var(--ease-out)] motion-reduce:transition-none"
+                />
+              </svg>
             </span>
-            {prog.pct}%
+            <span className="font-medium tabular-nums text-ink-2">{prog.pct}%</span>
           </span>
         ) : null}
       </div>
 
-      <div className="space-y-1.5">
+      <div className="space-y-2">
         {doc.blocks.map((b) => {
           if (b.type === "heading")
             return (
@@ -76,7 +85,7 @@ export function CanvasEditor() {
                 value={b.content}
                 onChange={(e) => editBlock(doc.id, b.id, e.target.value)}
                 aria-label={t("canvas.editBlock")}
-                className="w-full rounded-md bg-transparent px-1 text-base font-semibold text-ink outline-none transition-colors duration-[140ms] ease-[var(--ease-out)] focus:bg-surface-2 motion-reduce:transition-none"
+                className="w-full rounded-md bg-transparent px-1 text-lg font-semibold tracking-[-0.01em] text-ink outline-none transition-colors duration-[140ms] ease-[var(--ease-out)] focus:bg-surface-2 motion-reduce:transition-none"
               />
             );
           if (b.type === "divider") return <hr key={b.id} className="border-line" />;
@@ -87,7 +96,7 @@ export function CanvasEditor() {
                 type="button"
                 onClick={() => toggleBlock(doc.id, b.id)}
                 aria-pressed={b.checked}
-                className="flex w-full items-center gap-2 rounded-md px-1 py-0.5 text-left text-sm transition-colors hover:bg-surface-2 motion-reduce:transition-none"
+                className="flex min-h-11 w-full items-center gap-2 rounded-md px-1 py-1.5 text-left text-sm transition-colors hover:bg-surface-2 motion-reduce:transition-none"
               >
                 {b.checked ? (
                   <Icon name="checkCircle" className="h-5 w-5 shrink-0 text-ok" />
@@ -109,19 +118,17 @@ export function CanvasEditor() {
         })}
       </div>
 
-      <div className="mt-3 flex flex-wrap items-end gap-2 border-t border-line pt-3">
-        <select
+      <div className="mt-4 flex flex-wrap items-end gap-2 border-t border-line pt-4">
+        <Select<BlockType>
           value={type}
-          onChange={(e) => setType(e.target.value as BlockType)}
+          onChange={setType}
           aria-label={t("canvas.blockTypeLabel")}
-          className="h-10 rounded-lg border border-gray-300 bg-surface-2 px-2 text-sm text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-        >
-          {TYPES.map((ty) => (
-            <option key={ty} value={ty}>
-              {t(`canvas.blockType.${ty}`)}
-            </option>
-          ))}
-        </select>
+          options={TYPES.map((ty) => ({
+            value: ty,
+            label: t(`canvas.blockType.${ty}`),
+          }))}
+          className="w-44"
+        />
         {type !== "divider" ? (
           <input
             value={content}
@@ -129,13 +136,13 @@ export function CanvasEditor() {
             onKeyDown={(e) => e.key === "Enter" && add()}
             placeholder={t("canvas.blockPh")}
             aria-label={t("canvas.blockPh")}
-            className="input h-10 flex-1"
+            className="input h-11 flex-1"
           />
         ) : null}
         <button
           type="button"
           onClick={add}
-          className="btn btn-primary btn-sm h-10 transition-transform duration-[140ms] ease-[var(--ease-out)] active:scale-[0.97] motion-reduce:transition-none"
+          className="btn btn-primary btn-sm h-11 transition-transform duration-[140ms] ease-[var(--ease-out)] active:scale-[0.97] motion-reduce:transition-none"
         >
           <Icon name="plus" className="h-4 w-4" /> {t("canvas.addBlock")}
         </button>

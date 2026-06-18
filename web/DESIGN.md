@@ -10,8 +10,9 @@ Bu doküman frontend'in görsel dilini tanımlar. Temel referans **Flowbite** (R
 
 - **Mavi birincil, gri nötr.** Aksiyon/aktif/seçili = mavi; metin/kenar/zemin = gri ölçeği. Renk az ve amaçlı.
 - **Yumuşak ama net.** `rounded-lg` köşeler, `shadow-sm` gölgeler, `border-gray-200` ince kenarlar.
-- **Tipografi Inter.** Başlık `font-semibold/bold` + `text-gray-900`; yardımcı metin `text-gray-500`.
+- **Tipografi Inter.** Başlık `font-semibold/bold` + `text-gray-900`; yardımcı metin `text-muted` (gray-600, AAA). `text-gray-500` ve açığı metinde kullanılmaz.
 - **Tek kaynak.** Renkler `@theme` token'larında (`src/styles/index.css`). Bileşen sınıfları `@layer components`'te.
+- **Tailwind utility öncelikli.** Stili önce JSX `className`'de Tailwind utility'leriyle yaz; varsayılan olarak `index.css`'e özel CSS ekleme. `index.css`'e **yalnızca** utility ile ifade edilemeyen durumlar girer: `@keyframes`, karmaşık `::before/::after`, `:has()`/yapısal seçiciler, paylaşılan `@layer components` sınıfları. (bkz. `CLAUDE.md`)
 
 ---
 
@@ -23,9 +24,14 @@ Bu doküman frontend'in görsel dilini tanımlar. Temel referans **Flowbite** (R
 |---|---|---|
 | `primary-50` / `blue-50` | `#eff6ff` | çok açık zemin (aktif satır) |
 | `primary-100` / `blue-100` | `#dbeafe` | badge zemini, yumuşak vurgu |
-| `primary-600` / `blue-600` | `#2563eb` | link, tab/aktif çizgi, progress |
-| `primary-700` / `blue-700` | `#1d4ed8` | **birincil buton, birincil aksiyon** |
-| `primary-800` / `blue-800` | `#1e40af` | birincil buton hover |
+| `primary-600` / `blue-600` | `#2563eb` | tab/aktif çizgi, progress (büyük öğe) |
+| `primary-700` / `blue-700` | `#1d4ed8` | **birincil buton zemini, birincil aksiyon** |
+| `primary-800` / `blue-800` | `#1e40af` | birincil buton hover · **gövde metni mavisi: link & ghost** (AAA 8.7:1) |
+
+> **AAA notu — mavi metin.** `blue-600`/`blue-700` beyaz üstünde yalnızca ~6.4–6.7:1
+> verir (AAA gövde eşiği 7:1'in altında). **Metin** olarak mavi gerektiğinde (link,
+> ghost buton, `.btn` hover) `blue-800` (`text-blue-800`) kullanın. `blue-600/700` zemin,
+> kenar, ikon ve büyük öğelerde (≥24px) serbest.
 
 Semantik takma adlar (`brand`): `brand` = blue-700, `brand-soft` = blue-100, `brand-softer` = blue-50. (Eski komponentlerle uyum için.)
 
@@ -35,7 +41,8 @@ Semantik takma adlar (`brand`): `brand` = blue-700, `brand-soft` = blue-100, `br
 |---|---|---|
 | `ink` | `#111827` gray-900 | birincil metin, başlık |
 | `ink-2` | `#374151` gray-700 | gövde metni |
-| `muted` | `#6b7280` gray-500 | yardımcı/ikincil metin |
+| `ink-3` | `#4b5563` gray-600 | koyu ikincil metin |
+| `muted` | `#4b5563` gray-600 | yardımcı/ikincil metin (AAA için gray-500'den koyulaştırıldı) |
 | `line` | `#e5e7eb` gray-200 | kenarlık, ayraç |
 | `line-2` | `#f3f4f6` gray-100 | açık ayraç |
 | `surface` | `#ffffff` | kart/panel zemini |
@@ -50,6 +57,29 @@ Semantik takma adlar (`brand`): `brand` = blue-700, `brand-soft` = blue-100, `br
 | Hata/Tehlike | `bg-red-100 text-red-800` · buton `bg-red-600 hover:bg-red-700` |
 | Uyarı | `bg-yellow-100 text-yellow-800` |
 | Bilgi (mavi) | `bg-blue-100 text-blue-800` |
+
+### Kontrast — WCAG 2.2 AAA (bağla ve doğrula)
+
+Hedef: **gövde/küçük metin ≥ 7:1**, büyük metin (≥24px ya da ≥18.66px bold) **≥ 4.5:1**.
+Metin token'ları beyaz (`#fff`) ve sayfa zemini `surface-2` (`#f9fafb`) üstünde doğrulandı:
+
+| Metin | Hex | beyaz üstünde | surface-2 üstünde | Durum |
+|---|---|---|---|---|
+| `ink` | `#111827` | 17.7:1 | 17.0:1 | AAA ✓ |
+| `ink-2` (gövde) | `#374151` | 10.3:1 | 9.9:1 | AAA ✓ |
+| `ink-3` / `muted` | `#4b5563` | 7.6:1 | 7.2:1 | AAA ✓ |
+| `blue-800` (link/ghost) | `#1e40af` | 8.7:1 | 8.4:1 | AAA ✓ |
+| ~~`gray-500`~~ (eski muted) | `#6b7280` | 4.8:1 | 4.6:1 | ✗ AAA'da kalır — kullanma |
+| ~~`gray-400`~~ (eski placeholder) | `#9ca3af` | 2.5:1 | 2.4:1 | ✗ AA'da bile kalır — kullanma |
+
+Kurallar:
+- **Gri metin = en açık gray-600 (`muted`/`ink-3`).** `text-gray-500` ve daha açığını
+  **metin** için kullanma. gray-400/500 yalnızca metin-dışı dekoratif/ikon/çizgi.
+- **Placeholder ≥ 4.6:1 + her zaman görünür `.label`.** `.input` placeholder'ı `gray-500`;
+  placeholder asla tek anlam taşıyıcısı değil — gerçek anlamı `.label` taşır (AAA 1.4.6).
+- **Renkli zemin üstü metin** (badge, durum, buton): renk çiftleri yukarıdaki durum
+  tablosundan; yeni çift eklerken 7:1 (büyük öğede 4.5:1) doğrula.
+- **Yeni gri/renkli metin eklemeden önce kontrastı ölç.** Şüphedeyse ink ucuna çek.
 
 ---
 
@@ -104,7 +134,7 @@ Bunlar `src/styles/index.css` › `@layer components` içindeki hazır sınıfla
 
 ### Input / Select / Textarea
 - Sınıf: `.input` (+ `.label` etiket).
-- Ham: `bg-gray-50 border border-gray-300 text-gray-900 placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`
+- Ham: `bg-gray-50 border border-gray-300 text-gray-900 placeholder-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5` (AAA: placeholder gray-500, görünür `.label` zorunlu).
 
 ### Checkbox / Radio / Toggle
 - Checkbox/Radio: `w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-2 focus:ring-blue-500` (+ `accent-blue-600`).
@@ -168,3 +198,6 @@ Bunlar `src/styles/index.css` › `@layer components` içindeki hazır sınıfla
 - Mor/indigo veya rastgele hex kullanma — yalnızca mavi `primary/blue` + `gray`.
 - Sabit (hardcoded) renk yerine token/Tailwind sınıfı kullan.
 - Köşe/gölge/boşluk için keyfi değerler verme; bu dokümandaki ölçeğe uy.
+- **Metinde `text-gray-500`/`gray-400` ve açığını kullanma** (AAA 7:1 altında kalır) →
+  ikincil metin `text-muted`/`text-ink-3` (gray-600). Mavi **metin** = `text-blue-800`.
+- AAA kontrast eşiğini geçmeyen yeni renk çifti ekleme; eklemeden önce ölç (§2 tablosu).

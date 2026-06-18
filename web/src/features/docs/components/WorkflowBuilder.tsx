@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
-import { Badge, Button } from "@/components/ui";
+import { Badge, Button, Select } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { workspaceStore } from "../workspace.store";
 import type { WorkflowTrigger } from "../workspace.types";
@@ -49,18 +49,15 @@ export function WorkflowBuilder() {
             aria-label={t("workflows.name")}
             className="input h-10"
           />
-          <select
+          <Select<WorkflowTrigger>
             value={trigger}
-            onChange={(e) => setTrigger(e.target.value as WorkflowTrigger)}
+            onChange={setTrigger}
             aria-label={t("workflows.triggerLabel")}
-            className="input h-10"
-          >
-            {TRIGGERS.map((tr) => (
-              <option key={tr} value={tr}>
-                {t(`workflows.trigger.${tr}`)}
-              </option>
-            ))}
-          </select>
+            options={TRIGGERS.map((tr) => ({
+              value: tr,
+              label: t(`workflows.trigger.${tr}`),
+            }))}
+          />
           <Button
             className="w-full"
             disabled={!name.trim()}

@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { Icon } from "@/components/Icon";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { Select } from "@/components/ui/Select";
 import { wfoStore, useWfoStore } from "../wfo.store";
 import { adherence as adherenceRatio, scorecardTotal, staffingGap, understaffed, serviceLevel } from "../wfo.dom";
 import { AGENTS } from "../support.data";
@@ -71,7 +72,7 @@ export function WorkforceView() {
                         value={i.forecastVolume}
                         onChange={(e) => act().setVolume(i.id, Number(e.target.value))}
                         aria-label={`${i.label} ${t("wfo.volume")}`}
-                        className="h-9 w-20 rounded-lg border border-gray-300 bg-surface-2 px-2 text-sm text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                        className="input w-20"
                       />
                     </td>
                     <td className="border-b border-line px-2 py-1 text-ink">{i.required}</td>
@@ -113,8 +114,8 @@ export function WorkforceView() {
                 </div>
                 <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-3">
                   <div
-                    className={clsx("h-full transition-[width] duration-200 ease-[var(--ease-out,ease-out)] motion-reduce:transition-none", color)}
-                    style={{ width: `${pct}%` }}
+                    className={clsx("h-full w-full origin-left transition-transform duration-200 ease-[var(--ease-out,ease-out)] motion-reduce:transition-none", color)}
+                    style={{ transform: `scaleX(${pct / 100})` }}
                   />
                 </div>
               </li>
@@ -131,39 +132,33 @@ export function WorkforceView() {
         </div>
 
         <div className="mb-3 space-y-2">
-          <label className="block text-sm font-medium text-ink" htmlFor="wfo-agent">
-            {t("wfo.agent")}
-          </label>
-          <select
+          <Select
             id="wfo-agent"
             value={agentId}
-            onChange={(e) => setAgentId(e.target.value)}
-            className="block w-full rounded-lg border border-gray-300 bg-surface-2 p-2.5 text-sm text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-          >
-            {AGENTS.map((a) => (
-              <option key={a.id} value={a.id}>
-                {a.name}
-              </option>
-            ))}
-          </select>
+            onChange={setAgentId}
+            label={t("wfo.agent")}
+            options={AGENTS.map((a) => ({
+              value: a.id,
+              label: a.name,
+            }))}
+          />
 
           {criteria.map((c) => (
             <div key={c.id} className="flex items-center gap-2">
               <span className="flex-1 text-sm text-ink">
                 {c.label} <span className="text-muted">×{c.weight}</span>
               </span>
-              <select
-                value={scores[c.id] ?? 0}
-                onChange={(e) => setScores((s) => ({ ...s, [c.id]: Number(e.target.value) }))}
+              <Select
+                value={String(scores[c.id] ?? 0)}
+                onChange={(v) => setScores((s) => ({ ...s, [c.id]: Number(v) }))}
                 aria-label={c.label}
-                className="h-9 rounded-lg border border-gray-300 bg-surface-2 px-2 text-sm text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              >
-                {[0, 1, 2, 3, 4, 5].map((n) => (
-                  <option key={n} value={n}>
-                    {n}
-                  </option>
-                ))}
-              </select>
+                options={[0, 1, 2, 3, 4, 5].map((n) => ({
+                  value: String(n),
+                  label: String(n),
+                }))}
+                size="sm"
+                className="w-20"
+              />
             </div>
           ))}
 

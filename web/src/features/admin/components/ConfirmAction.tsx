@@ -3,8 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
 import { Button } from "@/components/ui";
 
-const INPUT_CLASS =
-  "h-11 rounded-lg border border-line bg-surface px-3 text-sm text-ink transition-colors duration-150 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-brand";
+const INPUT_CLASS = "input";
 
 /**
  * Tehlikeli aksiyon onay deseni: açığa-çıkar → yazarak-doğrula → onayla.

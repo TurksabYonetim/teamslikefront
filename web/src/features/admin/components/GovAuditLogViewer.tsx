@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
+import { Select } from "@/components/ui";
 import { useAdminStore } from "../governance.store";
 import { filterAudit, retentionExpired } from "../admin.governance";
 
 const REGIONS = ["global", "eu", "us", "tr"] as const;
-const INPUT_CLASS =
-  "h-10 rounded-lg border border-line bg-surface px-3 text-sm text-ink transition-colors duration-150 ease-[var(--ease-out)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand";
+const INPUT_CLASS = "input";
 
 const fmt = (ms: number) =>
   new Date(ms).toLocaleString([], {
@@ -54,34 +54,31 @@ export function GovAuditLogViewer() {
             className={`${INPUT_CLASS} w-44 pl-7`}
           />
         </div>
-        <select
+        <Select
           value={actorId}
-          onChange={(e) => setActorId(e.target.value)}
+          onChange={setActorId}
           aria-label={t("filterActor")}
-          className={INPUT_CLASS}
-        >
-          <option value="">{t("allActors")}</option>
-          {actors.map((a) => (
-            <option key={a} value={a}>
-              {a}
-            </option>
-          ))}
-        </select>
-        <label className="inline-flex items-center gap-1 text-sm text-muted">
-          {t("residency")}
-          <select
+          size="sm"
+          className="w-44"
+          options={[
+            { value: "", label: t("allActors") },
+            ...actors.map((a) => ({ value: a, label: a })),
+          ]}
+        />
+        <div className="inline-flex items-center gap-1 text-sm text-muted">
+          <span>{t("residency")}</span>
+          <Select
             value={region}
-            onChange={(e) => setRegion(e.target.value)}
+            onChange={setRegion}
             aria-label={t("residency")}
-            className={INPUT_CLASS}
-          >
-            {REGIONS.map((r) => (
-              <option key={r} value={r}>
-                {r.toUpperCase()}
-              </option>
-            ))}
-          </select>
-        </label>
+            size="sm"
+            className="w-32"
+            options={REGIONS.map((r) => ({
+              value: r,
+              label: r.toUpperCase(),
+            }))}
+          />
+        </div>
         <label className="inline-flex items-center gap-2 text-sm text-muted">
           {t("retention")}: {retentionDays}d
           <input

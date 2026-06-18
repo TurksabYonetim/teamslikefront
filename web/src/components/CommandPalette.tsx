@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { Icon } from "@/components/Icon";
+import { Overlay } from "@/components/ui/Overlay";
 import { NAV_ITEMS } from "@/components/layout/nav";
 
 interface CommandPaletteProps {
@@ -54,10 +55,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
   };
 
   const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") {
-      e.preventDefault();
-      onClose();
-    } else if (e.key === "ArrowDown") {
+    if (e.key === "ArrowDown") {
       e.preventDefault();
       setActive((a) => (results.length ? (a + 1) % results.length : 0));
     } else if (e.key === "ArrowUp") {
@@ -73,14 +71,9 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
   };
 
   return (
-    <div
-      className="fixed inset-0 z-[90] flex items-start justify-center px-4 pt-[14vh] bg-gray-900/40 motion-safe:[animation:tl-fade_var(--dur-modal)_var(--ease-out)]"
-      onClick={onClose}
-      role="presentation"
-    >
+    <Overlay open onClose={onClose} align="top" level="high">
       <div
-        className="w-full max-w-lg overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black/5 origin-top motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]"
-        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-lg overflow-hidden rounded-xl bg-surface shadow-2xl ring-1 ring-black/5 origin-top motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]"
         role="dialog"
         aria-modal="true"
         aria-label="Komut paleti"
@@ -142,6 +135,6 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
           ))}
         </ul>
       </div>
-    </div>
+    </Overlay>
   );
 }

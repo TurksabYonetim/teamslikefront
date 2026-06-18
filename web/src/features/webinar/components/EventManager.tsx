@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
-import { Badge, Button, IconButton } from "@/components/ui";
+import { Badge, Button, IconButton, Select } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { webinarEventsStore } from "../webinarEvents.store";
 import { agendaByDay, agendaConflicts, formatPrice, isSoldOut, ticketRevenue, ticketsRemaining } from "../webinarEvents";
@@ -14,7 +14,7 @@ const BADGE_FIELDS = ["name", "email", "company", "role"];
 
 const fieldLabel = (id: string) => EVENTS[0].registrationFields.find((f) => f.id === id)?.label ?? id;
 
-const inputCls = "h-11 rounded-lg border border-line bg-surface-2 px-2.5 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
+const inputCls = "input";
 
 export function EventManager() {
   const { t } = useTranslation("webinar");
@@ -94,9 +94,13 @@ export function EventManager() {
         </div>
         <div className="mt-3 flex flex-wrap items-end gap-2">
           <input value={tName} onChange={(e) => setTName(e.target.value)} placeholder={t("events.tierNamePh")} aria-label={t("events.tierNamePh")} className={`flex-1 ${inputCls}`} />
-          <select value={tCurrency} onChange={(e) => setTCurrency(e.target.value)} aria-label={t("events.currency")} className={inputCls}>
-            {CURRENCIES.map((c) => <option key={c} value={c}>{c}</option>)}
-          </select>
+          <Select
+            value={tCurrency}
+            onChange={setTCurrency}
+            aria-label={t("events.currency")}
+            options={CURRENCIES.map((c) => ({ value: c, label: c }))}
+            className="w-28"
+          />
           <input type="number" min={0} value={tPrice} onChange={(e) => setTPrice(Number(e.target.value))} aria-label={t("events.price")} className={`w-24 ${inputCls}`} />
           <input type="number" min={1} value={tQty} onChange={(e) => setTQty(Number(e.target.value))} aria-label={t("events.quantity")} className={`w-24 ${inputCls}`} />
           <Button
@@ -180,7 +184,7 @@ export function EventManager() {
           <div className="flex flex-wrap gap-3">
             {BADGE_FIELDS.map((f) => (
               <label key={f} className="inline-flex items-center gap-2 text-sm text-ink">
-                <input type="checkbox" checked={badge.fields.includes(f)} onChange={() => a.toggleBadgeField(f)} className="h-4 w-4 accent-[var(--color-brand)]" />
+                <input type="checkbox" checked={badge.fields.includes(f)} onChange={() => a.toggleBadgeField(f)} className="checkbox" />
                 {fieldLabel(f)}
               </label>
             ))}

@@ -11,7 +11,7 @@ import {
 import clsx from "clsx";
 import { messagingStore, useMessaging } from "../store";
 import { memberById, presenceOf } from "../members";
-import { Avatar, Badge, IconButton, PresenceDot } from "@/components/ui";
+import { Avatar, Badge, IconButton, PresenceDot, Backdrop } from "@/components/ui";
 import type { ConvPriority, DisappearTimer } from "../types";
 
 const PRIORITIES: ConvPriority[] = ["urgent", "high", "medium", "low"];
@@ -35,7 +35,7 @@ export function DetailsPanel() {
 
   return (
     <>
-      <div className="fixed inset-0 z-30 bg-black/40 motion-safe:[animation:tl-fade_180ms_var(--ease-out)] lg:hidden" onClick={toggleDetails} aria-hidden />
+      <Backdrop level="drawer" onClick={toggleDetails} className="lg:hidden" />
       <aside
         aria-label={t("detailsPanel.title")}
         className="fixed inset-y-0 end-0 z-40 flex w-full max-w-sm flex-col border-s border-line bg-white shadow-2xl max-lg:motion-safe:[animation:tl-drawer-in-end_var(--dur-modal)_var(--ease-drawer)] lg:static lg:z-auto lg:w-72 lg:max-w-none lg:shadow-none dark:border-gray-700 dark:bg-gray-800"

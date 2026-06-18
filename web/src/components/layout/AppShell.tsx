@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Sidebar } from "./Sidebar";
 import { MobileTopbar } from "./MobileTopbar";
 import { CommandPalette } from "@/components/CommandPalette";
+import { Backdrop } from "@/components/ui";
 import { ActiveCallBar } from "@/features/phone/ActiveCallBar";
 
 /**
@@ -45,11 +46,7 @@ export function AppShell() {
 
       {/* backdrop (yalnızca mobil, drawer açıkken) */}
       {open && (
-        <div
-          aria-hidden="true"
-          className="fixed inset-0 z-30 bg-gray-900/50 md:hidden motion-safe:animate-[tl-fade_var(--dur-drawer,240ms)_var(--ease-out)]"
-          onClick={() => setOpen(false)}
-        />
+        <Backdrop level="drawer" onClick={() => setOpen(false)} className="md:hidden" />
       )}
 
       {/* sidebarlar: mobilde drawer, md+ akış içinde */}

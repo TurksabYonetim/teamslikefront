@@ -44,8 +44,9 @@ describe("IntelligenceDashboard", () => {
   it("transcript tab exposes the translate-to select that updates store", () => {
     renderDash();
     fireEvent.click(screen.getByRole("tab", { name: /transcript|transkript|çeviri/i }));
-    const sel = screen.getByLabelText(/translateTo|çeviri|translate/i);
-    fireEvent.change(sel, { target: { value: "tr" } });
+    // Özel Select (native değil): tetikleyiciyi aç, ardından "Türkçe" seçeneğini tıkla.
+    fireEvent.click(screen.getByRole("combobox", { name: /translateTo|çeviri|translate/i }));
+    fireEvent.click(screen.getByRole("option", { name: /Türkçe/i }));
     expect(intelStore.getState().targetLang).toBe("tr");
   });
   it("deep-link ?source= sets active source", () => {

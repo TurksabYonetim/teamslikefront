@@ -82,9 +82,6 @@ export function ClipForm({ form, onChange }: ClipFormProps) {
 
   const thumb = form.thumbnail_url.trim();
 
-  const fieldClass =
-    "block w-full px-3 py-2.5 text-sm bg-surface-2 border rounded-lg placeholder-gray-400 focus:outline-none focus:ring-1 focus:border-blue-500 duration-[var(--dur-press)] ease-[var(--ease-out)] [transition-property:border-color,box-shadow]";
-
   return (
     <div className="flex flex-col gap-3">
       <label className="flex flex-col gap-1 text-sm">
@@ -93,7 +90,7 @@ export function ClipForm({ form, onChange }: ClipFormProps) {
           value={form.title}
           onChange={(e) => set("title", e.target.value)}
           placeholder={t("form.titlePlaceholder")}
-          className={`${fieldClass} border-gray-300 focus:ring-blue-500`}
+          className="input"
         />
       </label>
 
@@ -105,11 +102,7 @@ export function ClipForm({ form, onChange }: ClipFormProps) {
           placeholder={t("form.videoUrlPlaceholder")}
           aria-invalid={videoInvalid}
           aria-describedby={videoInvalid ? "videoUrlError" : undefined}
-          className={`${fieldClass} ${
-            videoInvalid
-              ? "border-red-500 focus:ring-red-500"
-              : "border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-          }`}
+          className={`input ${videoInvalid ? "border-red-500 focus:ring-red-500" : ""}`}
         />
         {videoInvalid && (
           <span id="videoUrlError" role="alert" className="text-xs text-red-600 inline-flex items-center gap-1 motion-safe:animate-[tl-fade-in_var(--dur-press)_var(--ease-out)]">
@@ -130,7 +123,7 @@ export function ClipForm({ form, onChange }: ClipFormProps) {
             set("thumbnail_url", e.target.value);
           }}
           placeholder={t("form.thumbnailUrlPlaceholder")}
-          className={`${fieldClass} border-gray-300 focus:ring-blue-500`}
+          className="input"
         />
         {/* Kapak önizleme */}
         {thumb !== "" && (
@@ -160,7 +153,7 @@ export function ClipForm({ form, onChange }: ClipFormProps) {
           value={form.duration_s}
           onChange={(e) => set("duration_s", e.target.value)}
           placeholder={t("form.durationPlaceholder")}
-          className={`${fieldClass} border-gray-300 focus:ring-blue-500`}
+          className="input"
         />
       </label>
 
@@ -173,7 +166,7 @@ export function ClipForm({ form, onChange }: ClipFormProps) {
           onChange={(e) => set("description", e.target.value)}
           placeholder={t("form.descriptionPlaceholder")}
           rows={3}
-          className={`${fieldClass} border-gray-300 focus:ring-blue-500 resize-none`}
+          className="input resize-none"
         />
       </label>
     </div>

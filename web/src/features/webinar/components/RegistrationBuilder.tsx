@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
-import { Badge, Button, IconButton, useToast } from "@/components/ui";
+import { Badge, Button, IconButton, Select, useToast } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { webinarStore } from "../webinar.store";
 import { validateRegistration } from "../webinar.dom";
@@ -40,7 +40,7 @@ export function RegistrationBuilder() {
     }
   };
 
-  const inputCls = "block w-full rounded-lg border border-gray-300 bg-surface-2 p-2.5 text-sm text-ink placeholder-gray-400 focus:border-brand focus:ring-1 focus:ring-brand";
+  const inputCls = "input";
 
   return (
     <div className="space-y-4">
@@ -66,14 +66,15 @@ export function RegistrationBuilder() {
               {t("fieldLabel")}
               <input value={label} onChange={(e) => setLabel(e.target.value)} className={inputCls} />
             </label>
-            <label className="flex flex-col gap-1 text-sm text-muted">
-              {t("fieldTypeLabel")}
-              <select value={type} onChange={(e) => setType(e.target.value as RegFieldType)} className={inputCls}>
-                {TYPES.map((ty) => <option key={ty} value={ty}>{t(`fieldType.${ty}`)}</option>)}
-              </select>
-            </label>
+            <Select<RegFieldType>
+              value={type}
+              onChange={setType}
+              label={t("fieldTypeLabel")}
+              options={TYPES.map((ty) => ({ value: ty, label: t(`fieldType.${ty}`) }))}
+              className="w-44"
+            />
             <label className="flex items-center gap-1.5 text-base text-ink">
-              <input type="checkbox" checked={required} onChange={(e) => setRequired(e.target.checked)} className="h-4 w-4" />
+              <input type="checkbox" checked={required} onChange={(e) => setRequired(e.target.checked)} className="checkbox" />
               {t("required")}
             </label>
             <Button onClick={addField} leftIcon={<Icon name="plus" className="h-4 w-4" />}>{t("addField")}</Button>
@@ -84,30 +85,39 @@ export function RegistrationBuilder() {
         <Card>
           <h3 className="mb-2 text-base font-semibold text-ink">{t("formPreview")}</h3>
           <div className="space-y-2">
-            {fields.map((f) => (
-              <label key={f.id} className="block">
-                <span className="text-sm text-ink">
-                  {f.label}{f.required ? <span className="text-danger"> *</span> : null}
-                </span>
-                {f.type === "select" ? (
-                  <select
+            {fields.map((f) =>
+              f.type === "select" ? (
+                <div key={f.id} className="block">
+                  <span className="text-sm text-ink">
+                    {f.label}{f.required ? <span className="text-danger"> *</span> : null}
+                  </span>
+                  <Select
                     value={values[f.id] ?? ""}
-                    onChange={(e) => setValues((v) => ({ ...v, [f.id]: e.target.value }))}
-                    className={`mt-1 ${inputCls}`}
-                  >
-                    <option value="">—</option>
-                    {(f.options ?? []).map((o) => <option key={o} value={o}>{o}</option>)}
-                  </select>
-                ) : (
+                    onChange={(v) => setValues((prev) => ({ ...prev, [f.id]: v }))}
+                    aria-label={f.label}
+                    placeholder="—"
+                    options={[
+                      { value: "", label: "—" },
+                      ...(f.options ?? []).map((o) => ({ value: o, label: o })),
+                    ]}
+                    className="mt-1 w-full"
+                  />
+                  {errors[f.id] ? <span className="mt-1 block text-sm text-danger">{t(`regError.${errors[f.id]}`)}</span> : null}
+                </div>
+              ) : (
+                <label key={f.id} className="block">
+                  <span className="text-sm text-ink">
+                    {f.label}{f.required ? <span className="text-danger"> *</span> : null}
+                  </span>
                   <input
                     value={values[f.id] ?? ""}
                     onChange={(e) => setValues((v) => ({ ...v, [f.id]: e.target.value }))}
                     className={`mt-1 ${inputCls}`}
                   />
-                )}
-                {errors[f.id] ? <span className="mt-1 block text-sm text-danger">{t(`regError.${errors[f.id]}`)}</span> : null}
-              </label>
-            ))}
+                  {errors[f.id] ? <span className="mt-1 block text-sm text-danger">{t(`regError.${errors[f.id]}`)}</span> : null}
+                </label>
+              ),
+            )}
             <Button className="w-full" onClick={submit}>{t("register")}</Button>
           </div>
         </Card>

@@ -7,6 +7,7 @@ import {
   ConfirmDialog,
   EmptyState,
   Modal,
+  Select,
   Skeleton,
   useToast,
 } from "@/components/ui";
@@ -169,23 +170,25 @@ export function ClipsPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={t("toolbar.searchPlaceholder")}
-                className="w-full pl-9 pr-3 text-sm bg-surface-2 border border-gray-300 rounded-lg p-2.5 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="input pl-9 pr-3"
               />
             </div>
-            <label className="inline-flex items-center gap-2 text-sm">
-              <span className="text-muted">{t("toolbar.sortLabel")}</span>
-              <select
+            <div className="inline-flex items-center gap-2 text-sm">
+              <span className="whitespace-nowrap text-muted">
+                {t("toolbar.sortLabel")}
+              </span>
+              <Select<ClipSort>
                 value={sort}
-                onChange={(e) => setSort(e.target.value as ClipSort)}
-                className="px-3 py-2.5 text-sm border border-gray-300 rounded-lg bg-surface-2 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              >
-                {CLIP_SORTS.map((s) => (
-                  <option key={s} value={s}>
-                    {t(`toolbar.sort.${s}`)}
-                  </option>
-                ))}
-              </select>
-            </label>
+                onChange={setSort}
+                aria-label={t("toolbar.sortLabel")}
+                options={CLIP_SORTS.map((s) => ({
+                  value: s,
+                  label: t(`toolbar.sort.${s}`),
+                }))}
+                size="sm"
+                className="w-44"
+              />
+            </div>
           </div>
         )}
 

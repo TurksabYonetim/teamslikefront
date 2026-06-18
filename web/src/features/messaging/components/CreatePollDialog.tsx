@@ -57,7 +57,7 @@ export function CreatePollDialog({ open, onClose }: { open: boolean; onClose: ()
           <input
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            className="block h-11 w-full rounded-lg border border-gray-300 bg-surface-2 px-3 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+            className="input h-11"
           />
         </label>
 
@@ -72,13 +72,13 @@ export function CreatePollDialog({ open, onClose }: { open: boolean; onClose: ()
                   checked={correctIndex === i}
                   onChange={() => setCorrectIndex(i)}
                   aria-label={t("poll.quiz")}
-                  className="h-5 w-5"
+                  className="radio h-5 w-5"
                 />
               ) : null}
               <input
                 value={o}
                 onChange={(e) => setOptions(options.map((x, j) => (j === i ? e.target.value : x)))}
-                className="h-11 flex-1 rounded-lg border border-gray-300 bg-surface-2 px-3 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                className="input h-11 flex-1"
                 placeholder={`${t("poll.option")} ${i + 1}`}
               />
               {options.length > 2 ? (

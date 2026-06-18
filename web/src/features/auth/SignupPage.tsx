@@ -168,7 +168,7 @@ export function SignupPage() {
               type="checkbox"
               checked={agree}
               onChange={(e) => setAgree(e.target.checked)}
-              className="mt-0.5 h-4 w-4 shrink-0 rounded border-line bg-surface-2 accent-brand focus:ring-2 focus:ring-brand-soft dark:border-gray-600 dark:bg-gray-700"
+              className="checkbox mt-0.5 shrink-0"
             />
             <span>
               {t("signup.agreePrefix")}{" "}

@@ -54,7 +54,7 @@ export function ClipsList() {
           />
         </div>
         <label className="mb-2 inline-flex items-center gap-2 text-sm text-ink">
-          <input type="checkbox" checked={showArchived} onChange={() => setShowArchived((v) => !v)} className="h-4 w-4 accent-brand" />
+          <input type="checkbox" checked={showArchived} onChange={() => setShowArchived((v) => !v)} className="checkbox" />
           {t("clip.showArchived")}
         </label>
 

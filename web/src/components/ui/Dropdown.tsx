@@ -5,13 +5,17 @@ interface DropdownProps {
   trigger: React.ReactNode;
   label: string;
   align?: "start" | "end";
+  /** Menünün tetikleyiciye göre açılma yönü. Alta sabitlenmiş çubuklarda "top" kullan. */
+  side?: "top" | "bottom";
+  /** Menü genişliği (Tailwind sınıfı). İçeriğe göre genişlemesi gereken menülerde geçersiz kıl. */
+  menuWidth?: string;
   triggerClassName?: string;
   children: React.ReactNode;
 }
 
 const Ctx = React.createContext<{ close: () => void } | null>(null);
 
-export function Dropdown({ trigger, label, align = "end", triggerClassName, children }: DropdownProps) {
+export function Dropdown({ trigger, label, align = "end", side = "bottom", menuWidth = "w-48", triggerClassName, children }: DropdownProps) {
   const [open, setOpen] = React.useState(false);
   const ref = React.useRef<HTMLDivElement | null>(null);
 
@@ -47,9 +51,17 @@ export function Dropdown({ trigger, label, align = "end", triggerClassName, chil
         <div
           role="menu"
           className={clsx(
-            "absolute z-50 mt-1 w-48 rounded-md border border-line bg-surface p-1 shadow-xl dark:border-gray-700 dark:bg-gray-800",
+            "absolute z-50 rounded-md border border-line bg-surface p-1 shadow-xl dark:border-gray-700 dark:bg-gray-800",
+            menuWidth,
             // emil: tetikleyiciden ölçeklenerek aç (origin-aware), merkez değil
-            align === "end" ? "end-0 origin-top-right" : "start-0 origin-top-left",
+            side === "top" ? "bottom-full mb-1" : "top-full mt-1",
+            align === "end"
+              ? side === "top"
+                ? "end-0 origin-bottom-right"
+                : "end-0 origin-top-right"
+              : side === "top"
+                ? "start-0 origin-bottom-left"
+                : "start-0 origin-top-left",
             "motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)]",
           )}
         >

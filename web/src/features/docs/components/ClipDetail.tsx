@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
-import { Badge, Button } from "@/components/ui";
+import { Badge, Button, Select } from "@/components/ui";
 import { workspaceStore } from "../workspace.store";
 import { memberName, SELF_ID } from "../workspace.data";
 import { clipToDoc, clipToMessage, clipToWorkItem, completionRate, isLinkExpired } from "../workspace.clips";
@@ -129,7 +129,7 @@ export function ClipDetail({ clip }: { clip: Clip }) {
         {output ? (
           <label className="mt-2 block">
             <span className="sr-only">{t("clip.output")}</span>
-            <textarea readOnly value={output} rows={5} className="input w-full" />
+            <textarea readOnly value={output} rows={5} className="input" />
           </label>
         ) : null}
       </section>
@@ -209,18 +209,17 @@ export function ClipDetail({ clip }: { clip: Clip }) {
           <span className="inline-flex items-center gap-1 text-sm text-muted">
             <Icon name="usersThree" className="h-4 w-4" /> {t("clip.privacyLabel")}
           </span>
-          <select
+          <Select<ClipPrivacy>
             value={clip.privacy ?? "workspace"}
-            onChange={(e) => setPrivacy(clip.id, e.target.value as ClipPrivacy)}
+            onChange={(v) => setPrivacy(clip.id, v)}
             aria-label={t("clip.privacyLabel")}
-            className="input h-10"
-          >
-            {PRIVACIES.map((p) => (
-              <option key={p} value={p}>
-                {t(`clip.privacy.${p}`)}
-              </option>
-            ))}
-          </select>
+            options={PRIVACIES.map((p) => ({
+              value: p,
+              label: t(`clip.privacy.${p}`),
+            }))}
+            size="sm"
+            className="w-44"
+          />
         </div>
         <div className="flex flex-wrap items-end gap-2">
           <label className="flex-1">
@@ -232,7 +231,7 @@ export function ClipDetail({ clip }: { clip: Clip }) {
               onChange={(e) => setPwd(e.target.value)}
               placeholder={t("clip.passwordPh")}
               aria-label={t("clip.password")}
-              className="input h-10 w-full"
+              className="input h-10"
             />
           </label>
           <Button variant="secondary" onClick={() => setPassword(clip.id, pwd)}>

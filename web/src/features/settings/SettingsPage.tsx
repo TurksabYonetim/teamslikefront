@@ -79,10 +79,7 @@ function Field({
 }
 
 const INPUT_CLS =
-  "block w-full rounded-lg border border-line bg-surface-2 px-3 py-2.5 text-sm text-ink " +
-  "placeholder:text-muted outline-none transition-colors duration-[var(--dur-press)] " +
-  "ease-[var(--ease-out)] focus:border-brand focus:ring-1 focus:ring-brand/30 " +
-  "read-only:cursor-default read-only:text-ink-3 disabled:opacity-60";
+  "input read-only:cursor-default read-only:text-ink-3 disabled:opacity-60";
 
 function fmtDate(iso?: string, locale?: string) {
   if (!iso) return "—";

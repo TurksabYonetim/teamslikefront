@@ -5,6 +5,7 @@ import { Icon } from "@/components/Icon";
 import { Avatar } from "@/components/ui/Avatar";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
+import { Select } from "@/components/ui/Select";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { SkeletonText } from "@/components/ui/Skeleton";
 import { Spinner } from "@/components/ui/Spinner";
@@ -467,35 +468,42 @@ function NewThreadModal({
         </>
       }
     >
-      <label className="label dark:text-gray-200" htmlFor="new-thread-seller">
-        {t("newThread.selectSeller")}
-      </label>
       {sellers.isLoading ? (
-        <div className="mb-4">
-          <SkeletonText lines={1} />
-        </div>
+        <>
+          <label className="label" htmlFor="new-thread-seller">
+            {t("newThread.selectSeller")}
+          </label>
+          <div className="mb-4">
+            <SkeletonText lines={1} />
+          </div>
+        </>
       ) : sellers.data && sellers.data.length === 0 ? (
-        <p className="text-sm text-muted mb-4">{t("newThread.noSellers")}</p>
+        <>
+          <label className="label" htmlFor="new-thread-seller">
+            {t("newThread.selectSeller")}
+          </label>
+          <p className="text-sm text-muted mb-4">{t("newThread.noSellers")}</p>
+        </>
       ) : (
-        <select
-          id="new-thread-seller"
-          className="input mb-4 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-          value={sellerId}
-          onChange={(e) => setSellerId(e.target.value)}
-        >
-          {(sellers.data ?? []).map((s) => (
-            <option key={s.user_id} value={s.user_id}>
-              {s.full_name} — {s.role}
-            </option>
-          ))}
-        </select>
+        <div className="mb-4">
+          <Select
+            id="new-thread-seller"
+            label={t("newThread.selectSeller")}
+            value={sellerId}
+            onChange={setSellerId}
+            options={(sellers.data ?? []).map((s) => ({
+              value: s.user_id,
+              label: `${s.full_name} — ${s.role}`,
+            }))}
+          />
+        </div>
       )}
-      <label className="label dark:text-gray-200" htmlFor="new-thread-message">
+      <label className="label" htmlFor="new-thread-message">
         {t("newThread.firstMessage")}
       </label>
       <textarea
         id="new-thread-message"
-        className="input dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+        className="input"
         rows={3}
         value={message}
         onChange={(e) => setMessage(e.target.value)}

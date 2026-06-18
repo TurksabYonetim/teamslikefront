@@ -4,7 +4,7 @@ import { HiOutlineXMark, HiOutlinePaperAirplane } from "react-icons/hi2";
 import { messagingStore, useMessaging } from "../store";
 import { ME_ID } from "../members";
 import { MessageBubble } from "./MessageBubble";
-import { IconButton } from "@/components/ui";
+import { IconButton, Backdrop } from "@/components/ui";
 
 export function ThreadPanel() {
   const { t } = useTranslation("messaging");
@@ -29,7 +29,7 @@ export function ThreadPanel() {
 
   return (
     <>
-      <div className="fixed inset-0 z-30 bg-black/40 motion-safe:[animation:tl-fade_180ms_var(--ease-out)] lg:hidden" onClick={closeThread} aria-hidden />
+      <Backdrop level="drawer" onClick={closeThread} className="lg:hidden" />
       <aside
         aria-label={t("thread.title")}
         className="fixed inset-y-0 end-0 z-40 flex w-full max-w-md flex-col border-s border-line bg-white shadow-2xl max-lg:motion-safe:[animation:tl-drawer-in-end_var(--dur-modal)_var(--ease-drawer)] lg:static lg:z-auto lg:w-96 lg:max-w-none lg:shadow-none dark:border-gray-700 dark:bg-gray-800"
@@ -70,7 +70,7 @@ export function ThreadPanel() {
                 }
               }}
               placeholder={t("thread.reply")}
-              className="min-h-[2.75rem] flex-1 resize-none rounded-lg border border-gray-300 bg-surface-2 p-2.5 text-sm text-ink placeholder:text-muted focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+              className="input min-h-[2.75rem] flex-1 resize-none"
             />
             <IconButton label={t("send")} variant="primary" onClick={submit} disabled={!text.trim()}>
               <HiOutlinePaperAirplane className="h-4 w-4" aria-hidden />

@@ -28,10 +28,7 @@ export const AuthField = forwardRef<HTMLInputElement, AuthFieldProps>(
 
     return (
       <div>
-        <label
-          htmlFor={id}
-          className="mb-2 block text-sm font-medium text-ink"
-        >
+        <label htmlFor={id} className="label">
           {label}
         </label>
         <div className="relative">
@@ -42,13 +39,8 @@ export const AuthField = forwardRef<HTMLInputElement, AuthFieldProps>(
             aria-invalid={error ? true : undefined}
             aria-describedby={clsx(errorId, hintId) || undefined}
             className={clsx(
-              "block w-full rounded-lg border bg-surface-2 p-2.5 text-sm text-ink outline-none",
-              "placeholder:text-muted",
-              "transition-[border-color,box-shadow] duration-[140ms] ease-[var(--ease-out)]",
-              "focus:border-brand focus:ring-2 focus:ring-brand-soft",
-              error
-                ? "border-danger focus:border-danger focus:ring-danger/20"
-                : "border-line",
+              "input",
+              error && "border-danger focus:border-danger",
               isPassword && reveal && "pr-11",
               className,
             )}

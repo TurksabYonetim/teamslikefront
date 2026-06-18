@@ -1,6 +1,16 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Badge, Button } from "@/components/ui";
+import {
+  HiOutlineArrowRightCircle,
+  HiOutlinePhone,
+  HiOutlineQuestionMarkCircle,
+  HiOutlineCalendarDays,
+  HiOutlineMicrophone,
+  HiOutlineUser,
+  HiOutlineChatBubbleLeftRight,
+} from "react-icons/hi2";
+import type { IconType } from "react-icons";
+import { Badge, Button, Select } from "@/components/ui";
 import { useReceptionist, receptionistStore } from "./receptionistStore";
 import type { CaptureField, ReceptionistActionKind } from "./phone.types";
 
@@ -11,6 +21,24 @@ const uid = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto
     ? crypto.randomUUID()
     : Math.random().toString(36).slice(2);
+
+/** Eylem tipine göre ikon rozeti + renk tonu (yapılandırma tarafı görsel ipucu). */
+function actionMeta(action: ReceptionistActionKind): { tone: "blue" | "green" | "amber" | "gray"; Icon: IconType } {
+  switch (action) {
+    case "route_queue":
+      return { tone: "blue", Icon: HiOutlineArrowRightCircle };
+    case "route_extension":
+      return { tone: "green", Icon: HiOutlinePhone };
+    case "answer_faq":
+      return { tone: "amber", Icon: HiOutlineQuestionMarkCircle };
+    case "book":
+      return { tone: "blue", Icon: HiOutlineCalendarDays };
+    case "voicemail":
+      return { tone: "gray", Icon: HiOutlineMicrophone };
+    case "human":
+      return { tone: "gray", Icon: HiOutlineUser };
+  }
+}
 
 /** AI resepsiyon: intent/capture editörü + canlı oturum simülasyonu. */
 export function ReceptionistBuilder() {
@@ -48,7 +76,7 @@ export function ReceptionistBuilder() {
   const detectedLabel = config.intents.find((i) => i.id === session.detectedIntentId)?.label;
 
   return (
-    <div className="mx-auto flex h-full w-full max-w-4xl flex-col gap-6 overflow-y-auto p-4 lg:flex-row lg:items-start">
+    <div className="reception-builder mx-auto flex h-full w-full max-w-4xl flex-col gap-6 overflow-y-auto p-4 lg:flex-row lg:items-start">
       <div className="flex w-full flex-col gap-4 lg:max-w-md">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold text-ink">{t("reception.title")}</h2>
@@ -57,42 +85,60 @@ export function ReceptionistBuilder() {
             onClick={() => receptionistStore.getState().toggleEnabled()}
             aria-pressed={config.enabled}
             className={
-              "rounded-full px-3 py-1 text-xs font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 " +
+              "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 " +
               (config.enabled ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200" : "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300")
             }
           >
+            {config.enabled && <span className="reception-status-dot h-1.5 w-1.5 rounded-full bg-green-700 dark:bg-green-300" aria-hidden="true" />}
             {config.enabled ? t("reception.enabled") : t("reception.disabled")}
           </button>
         </div>
 
         <div className="rounded-lg border border-line bg-surface p-4">
           <p className="mb-2 text-xs font-semibold text-muted">{t("reception.intents")}</p>
-          <ul className="mb-4 divide-y divide-gray-100 dark:divide-gray-700">
-            {config.intents.map((i) => (
-              <li key={i.id} className="flex items-center justify-between py-2 text-sm">
-                <span className="min-w-0">
-                  <span className="font-medium text-gray-900 dark:text-white">{i.label}</span>
-                  <span className="ml-2 text-sm text-muted">{t(`enums.receptionAction.${i.action}`)}{i.target ? ` (${i.target})` : ""}</span>
-                  <span className="block truncate text-xs text-muted">{i.phrases.join(", ")}</span>
-                </span>
-                <button
-                  type="button"
-                  onClick={() => receptionistStore.getState().removeIntent(i.id)}
-                  aria-label={`${t("reception.remove")} ${i.label}`}
-                  className="shrink-0 text-xs font-medium text-red-600 hover:underline dark:text-red-400"
+          <ul className="mb-4 flex flex-col gap-0.5">
+            {config.intents.map((i) => {
+              const { tone, Icon } = actionMeta(i.action);
+              const matched = i.id === session.detectedIntentId;
+              return (
+                <li
+                  key={i.id}
+                  className={
+                    "flex items-center gap-2.5 rounded-lg px-2 py-2 text-sm " +
+                    (matched ? "reception-intent--matched" : "")
+                  }
                 >
-                  {t("reception.remove")}
-                </button>
-              </li>
-            ))}
+                  <span className={"reception-ico reception-ico--" + tone} aria-hidden="true">
+                    <Icon size={16} />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="font-medium text-gray-900 dark:text-white">{i.label}</span>
+                    <span className="ml-2 text-sm text-muted">{t(`enums.receptionAction.${i.action}`)}{i.target ? ` (${i.target})` : ""}</span>
+                    <span className="block truncate text-xs text-muted">{i.phrases.join(", ")}</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => receptionistStore.getState().removeIntent(i.id)}
+                    aria-label={`${t("reception.remove")} ${i.label}`}
+                    className="shrink-0 text-xs font-medium text-red-600 hover:underline dark:text-red-400"
+                  >
+                    {t("reception.remove")}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
           <div className="flex flex-col gap-2">
             <input value={label} onChange={(e) => setLabel(e.target.value)} placeholder={t("reception.label")} aria-label={t("reception.label")} className="input" />
             <input value={phrases} onChange={(e) => setPhrases(e.target.value)} placeholder={t("reception.phrases")} aria-label={t("reception.phrases")} className="input" />
             <div className="flex gap-2">
-              <select value={action} onChange={(e) => setAction(e.target.value as ReceptionistActionKind)} aria-label={t("reception.action")} className="input flex-1">
-                {ACTIONS.map((a) => <option key={a} value={a}>{t(`enums.receptionAction.${a}`)}</option>)}
-              </select>
+              <Select<ReceptionistActionKind>
+                value={action}
+                onChange={setAction}
+                options={ACTIONS.map((a) => ({ value: a, label: t(`enums.receptionAction.${a}`) }))}
+                aria-label={t("reception.action")}
+                className="flex-1"
+              />
               <input value={target} onChange={(e) => setTarget(e.target.value)} placeholder={t("reception.target")} aria-label={t("reception.target")} className="input w-28" />
             </div>
             <Button size="sm" onClick={addIntent} disabled={!label.trim()}>{t("reception.addIntent")}</Button>
@@ -101,10 +147,13 @@ export function ReceptionistBuilder() {
 
         <div className="rounded-lg border border-line bg-surface p-4">
           <p className="mb-2 text-xs font-semibold text-muted">{t("reception.capture")}</p>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-2">
             {CAPTURE_FIELDS.map((f) => (
-              <label key={f} className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                <input type="checkbox" checked={config.captureFields.includes(f)} onChange={() => receptionistStore.getState().toggleCaptureField(f)} aria-label={f} className="h-4 w-4" />
+              <label
+                key={f}
+                className="reception-field flex items-center gap-2 rounded-full border border-line px-3 py-1.5 text-sm text-ink dark:border-gray-700 dark:text-gray-300"
+              >
+                <input type="checkbox" checked={config.captureFields.includes(f)} onChange={() => receptionistStore.getState().toggleCaptureField(f)} aria-label={f} className="checkbox" />
                 {f}
               </label>
             ))}
@@ -121,13 +170,28 @@ export function ReceptionistBuilder() {
         </div>
 
         <div className="flex min-h-[12rem] flex-1 flex-col gap-2 overflow-y-auto p-4">
-          {session.turns.map((turn) => (
-            <div key={turn.id} className={"flex " + (turn.who === "caller" ? "justify-end" : "justify-start")}>
-              <div className={"max-w-[80%] rounded-2xl px-3 py-2 text-sm " + (turn.who === "caller" ? "bg-primary-600 text-white" : "bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100")}>
-                {turn.text}
-              </div>
+          {session.turns.length === 0 ? (
+            <div className="m-auto flex max-w-xs flex-col items-center gap-2.5 text-center">
+              <HiOutlineChatBubbleLeftRight className="reception-illus" size={48} aria-hidden />
+              <p className="text-sm font-semibold text-ink">{t("reception.simEmptyTitle")}</p>
+              <p className="text-xs leading-relaxed text-muted dark:text-gray-400">{t("reception.simEmptyDescription")}</p>
             </div>
-          ))}
+          ) : (
+            session.turns.map((turn) => (
+              <div key={turn.id} className={"reception-turn flex " + (turn.who === "caller" ? "justify-end" : "justify-start")}>
+                <div
+                  className={
+                    "max-w-[80%] rounded-2xl px-3 py-2 text-sm " +
+                    (turn.who === "caller"
+                      ? "reception-bubble--caller bg-primary-600 text-white"
+                      : "reception-bubble--ai bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100")
+                  }
+                >
+                  {turn.text}
+                </div>
+              </div>
+            ))
+          )}
         </div>
 
         {session.turns.length > 0 && (

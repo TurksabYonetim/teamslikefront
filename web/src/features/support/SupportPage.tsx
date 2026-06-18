@@ -151,17 +151,22 @@ export function SupportPage() {
   );
 
   return (
-    <div className={clsx("flex h-[calc(100vh-3.5rem)] min-h-0 flex-col", isMobile ? "p-3" : "p-4")}>
-      <div className="mb-3 flex flex-col gap-3">
-        <div>
-          <h1 className="text-xl font-semibold text-ink">{t("title")}</h1>
-          <p className="text-sm text-muted">{t("subtitle")}</p>
+    <div
+      className={clsx(
+        "flex h-[calc(100vh-3.5rem)] min-h-0 flex-col gap-3",
+        isMobile ? "p-3" : "p-4",
+      )}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-surface px-4 py-2.5 shadow-sm">
+        <div className="flex items-baseline gap-3">
+          <h1 className="text-lg font-semibold text-ink">{t("title")}</h1>
+          <p className="hidden text-sm text-muted sm:block">
+            {t("subtitle")}
+          </p>
         </div>
-        {Switcher}
+        <div className="shrink-0">{Switcher}</div>
       </div>
-
-      {/* Görünüm gövdesi — değişimde yumuşak fade (key ile yeniden tetiklenir). */}
-      <div key={view} className="tl-fade-in flex min-h-0 flex-1 flex-col">
+      <div key={view} className="flex min-h-0 flex-1 flex-col motion-safe:animate-[tl-fade-in_180ms_var(--ease-out)]">
         {view === "inbox" ? (
           InboxBody
         ) : view === "automation" ? (

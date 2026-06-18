@@ -8,7 +8,7 @@ import {
 import { MdMicOff, MdVideocamOff } from "react-icons/md";
 import clsx from "clsx";
 import { Avatar } from "@/components/ui";
-import { Button } from "@/components/ui";
+import { Button, Select } from "@/components/ui";
 import { ME_ID, memberName } from "@/features/messaging/members";
 import { meetingStore, useMeeting } from "../meetings.store";
 
@@ -105,24 +105,18 @@ export function PreJoin() {
         </div>
 
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <label className="block">
-            <span className="mb-1 block text-sm font-medium text-gray-400">{t("camera")}</span>
-            <select
-              className="block w-full rounded-lg border border-gray-700 bg-gray-800 p-2.5 text-sm text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              aria-label={t("camera")}
-            >
-              <option>FaceTime HD Camera</option>
-            </select>
-          </label>
-          <label className="block">
-            <span className="mb-1 block text-sm font-medium text-gray-400">{t("microphone")}</span>
-            <select
-              className="block w-full rounded-lg border border-gray-700 bg-gray-800 p-2.5 text-sm text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              aria-label={t("microphone")}
-            >
-              <option>MacBook Pro Microphone</option>
-            </select>
-          </label>
+          <Select
+            value="FaceTime HD Camera"
+            onChange={() => {}}
+            label={t("camera")}
+            options={[{ value: "FaceTime HD Camera", label: "FaceTime HD Camera" }]}
+          />
+          <Select
+            value="MacBook Pro Microphone"
+            onChange={() => {}}
+            label={t("microphone")}
+            options={[{ value: "MacBook Pro Microphone", label: "MacBook Pro Microphone" }]}
+          />
         </div>
 
         <button

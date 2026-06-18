@@ -63,7 +63,7 @@ export function DocsPage() {
 
       <div className="flex-1 overflow-y-auto bg-surface-2">
         <div className="mx-auto max-w-6xl space-y-4 p-4 md:p-6">
-          <div role="tablist" aria-label={t("title")} className="flex flex-wrap gap-1 border-b border-line">
+          <div role="tablist" aria-label={t("title")} className="flex flex-wrap gap-1">
             {TABS.map(({ id, icon }, i) => (
               <button
                 key={id}
@@ -76,8 +76,10 @@ export function DocsPage() {
                 onClick={() => setTab(id)}
                 onKeyDown={(e) => onTabKey(e, i)}
                 className={
-                  "inline-flex h-11 items-center gap-2 rounded-t-md border-b-2 px-3 text-sm transition-[color,transform] motion-safe:active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none " +
-                  (tab === id ? "border-brand text-brand" : "border-transparent text-muted hover:text-ink")
+                  "inline-flex h-10 items-center gap-2 rounded-lg border px-3 text-sm font-medium transition-[color,background-color,transform] motion-safe:active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none " +
+                  (tab === id
+                    ? "border-brand-soft bg-brand-softer text-brand"
+                    : "border-transparent text-muted hover:bg-surface-3 hover:text-ink")
                 }
               >
                 <Icon name={icon} className="h-4 w-4" /> {t(`tabs.${id}`)}
@@ -87,7 +89,7 @@ export function DocsPage() {
 
           <div key={tab} role="tabpanel" className="animate-[tl-fade-in_180ms_var(--ease-out)] motion-reduce:animate-none">
             {tab === "canvas" ? (
-              <div className="grid gap-4 lg:grid-cols-[1fr_22rem]">
+              <div className="mx-auto flex max-w-3xl flex-col gap-4">
                 <CanvasEditor />
                 <CommentSidebar />
               </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
-import { Button } from "@/components/ui";
+import { Button, Select } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { workspaceStore } from "../workspace.store";
 import { MEMBER_NAMES } from "../workspace.data";
@@ -38,8 +38,7 @@ export function TableGridView() {
   const table = tables.find((tb) => tb.id === activeTableId) ?? tables[0];
   if (!table) return null;
 
-  const inputBase =
-    "h-9 w-full min-w-[6rem] rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
+  const inputBase = "input h-9 min-w-[6rem]";
 
   const cell = (row: TableRow, col: TableColumn) => {
     const v = row.cells[col.id] ?? "";
@@ -49,26 +48,32 @@ export function TableGridView() {
     }
     if (col.type === "select") {
       return (
-        <select aria-label={col.name} value={v} onChange={(e) => onChange(e.target.value)} className={inputBase}>
-          <option value="">—</option>
-          {(col.options ?? []).map((o) => (
-            <option key={o} value={o}>
-              {o}
-            </option>
-          ))}
-        </select>
+        <Select
+          aria-label={col.name}
+          value={v}
+          onChange={onChange}
+          options={[
+            { value: "", label: "—" },
+            ...(col.options ?? []).map((o) => ({ value: o, label: o })),
+          ]}
+          size="sm"
+          className="min-w-[6rem]"
+        />
       );
     }
     if (col.type === "person") {
       return (
-        <select aria-label={col.name} value={v} onChange={(e) => onChange(e.target.value)} className={inputBase}>
-          <option value="">—</option>
-          {MEMBERS.map(([id, name]) => (
-            <option key={id} value={id}>
-              {name}
-            </option>
-          ))}
-        </select>
+        <Select
+          aria-label={col.name}
+          value={v}
+          onChange={onChange}
+          options={[
+            { value: "", label: "—" },
+            ...MEMBERS.map(([id, name]) => ({ value: id, label: name })),
+          ]}
+          size="sm"
+          className="min-w-[6rem]"
+        />
       );
     }
     return (
@@ -185,18 +190,17 @@ export function TableGridView() {
             aria-label={t("table.newColumn")}
             className="input h-9 w-32"
           />
-          <select
+          <Select<ColumnType>
             value={newColType}
-            onChange={(e) => setNewColType(e.target.value as ColumnType)}
+            onChange={setNewColType}
             aria-label={t("table.addColumn")}
-            className="input h-9 w-auto"
-          >
-            {NEW_COL_TYPES.map((ty) => (
-              <option key={ty} value={ty}>
-                {ty}
-              </option>
-            ))}
-          </select>
+            options={NEW_COL_TYPES.map((ty) => ({
+              value: ty,
+              label: ty,
+            }))}
+            size="sm"
+            className="w-32"
+          />
           <Button
             variant="ghost"
             size="sm"

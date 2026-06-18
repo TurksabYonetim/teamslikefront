@@ -694,9 +694,9 @@ export function MeetingRoomPage() {
             </div>
             {/* Modal body */}
             <div className="px-4 pb-4 md:px-5 md:pb-5">
-              <label htmlFor="link-url" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{t("room.shareLink")}</label>
+              <label htmlFor="link-url" className="label">{t("room.shareLink")}</label>
               <div className="relative mb-4">
-                <input id="link-url" type="text" className="col-span-6 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-500 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" value={shareUrl || t("room.noShareLink")} disabled readOnly />
+                <input id="link-url" type="text" className="input" value={shareUrl || t("room.noShareLink")} disabled readOnly />
                 <button data-copy-to-clipboard-target="link-url" data-tooltip-target="tooltip-link-url" className="absolute end-2 top-1/2 inline-flex -translate-y-1/2 items-center justify-center rounded-lg p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800">
                   <span id="default-icon-link-url">
                     <svg className="h-3.5 w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
@@ -781,7 +781,7 @@ export function MeetingRoomPage() {
                         sendMessage();
                       }
                     }}
-                    className="block p-2.5 w-full me-2 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    className="input me-2"
                     placeholder={t("room.messagePlaceholder")}
                   ></textarea>
                       <button type="submit" className="inline-flex justify-center p-2 text-primary-600 rounded-full cursor-pointer hover:bg-primary-100 dark:text-primary-500 dark:hover:bg-gray-600">
@@ -814,7 +814,7 @@ export function MeetingRoomPage() {
                       <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
                   </svg>
               </div>
-              <input type="text" id="search-input-participants" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder={t("room.searchPeople")} />
+              <input type="text" id="search-input-participants" className="input ps-10" placeholder={t("room.searchPeople")} />
               </div>
           
               <div className="overflow-y-scroll mb-2 space-y-4">
@@ -1037,8 +1037,8 @@ export function MeetingRoomPage() {
               <span className="ms-2 text-sm font-semibold text-gray-900 dark:text-white">{stars}/5</span>
             </div>
             <div>
-              <label htmlFor="feedback" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{t("feedback.yourFeedback")} <span className="dark:text-gray-400 font-normal text-gray-500">{t("feedback.feedbackChars")}</span></label>
-              <textarea id="feedback" rows={5} value={feedback} onChange={(e) => setFeedback(e.target.value)} className="mb-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" required></textarea>
+              <label htmlFor="feedback" className="label">{t("feedback.yourFeedback")} <span className="dark:text-gray-400 font-normal text-gray-500">{t("feedback.feedbackChars")}</span></label>
+              <textarea id="feedback" rows={5} value={feedback} onChange={(e) => setFeedback(e.target.value)} className="input mb-2" required></textarea>
               <p className="ms-auto text-xs text-gray-500 dark:text-gray-400">{t("feedback.feedbackHint")}</p>
             </div>
             <div>

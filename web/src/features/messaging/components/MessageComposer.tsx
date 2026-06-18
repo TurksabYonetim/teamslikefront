@@ -284,6 +284,7 @@ export function MessageComposer() {
           <Dropdown
             label={t("attach")}
             align="start"
+            side="top"
             triggerClassName="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted hover:bg-surface-2 dark:text-gray-400 dark:hover:bg-gray-700"
             trigger={<HiOutlinePaperClip className="h-[18px] w-[18px]" aria-hidden />}
           >
@@ -309,6 +310,7 @@ export function MessageComposer() {
           <Dropdown
             label={t("ai.menu")}
             align="start"
+            side="top"
             triggerClassName="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted hover:bg-surface-2 dark:text-gray-400 dark:hover:bg-gray-700"
             trigger={<HiOutlineSparkles className="h-[18px] w-[18px]" aria-hidden />}
           >
@@ -326,6 +328,7 @@ export function MessageComposer() {
           <Dropdown
             label={t("canned.menu")}
             align="start"
+            side="top"
             triggerClassName="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted hover:bg-surface-2 dark:text-gray-400 dark:hover:bg-gray-700"
             trigger={<HiOutlineBolt className="h-[18px] w-[18px]" aria-hidden />}
           >

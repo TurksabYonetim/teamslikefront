@@ -3,32 +3,53 @@ import { HiOutlineViewfinderCircle } from "react-icons/hi2";
 import { useIntel } from "../intel.store";
 import { INTENTS } from "../intel.data";
 
-/** Detected intents with confidence (Demio intent analytics / Dialpad). */
+const SEGMENTS = 12;
+
+/** Detected intents with confidence (Demio intent analytics / Dialpad), shown
+ *  as a segmented signal meter — filled segments animate in on render. */
 export function IntentList() {
   const { t } = useTranslation("intelligence");
   const id = useIntel((s) => s.activeSourceId);
   const intents = INTENTS[id] ?? [];
 
   return (
-    <div className="rounded-card border border-line bg-surface-2 p-4">
-      <h3 className="mb-2 flex items-center gap-1 text-base font-semibold text-ink">
-        <HiOutlineViewfinderCircle size={16} aria-hidden /> {t("intents")}
+    <div className="rounded-card border border-line bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+      <h3 className="mb-2 flex items-center gap-1.5 text-base font-semibold text-ink dark:text-white">
+        <HiOutlineViewfinderCircle size={16} className="text-brand dark:text-blue-400" aria-hidden /> {t("intents")}
       </h3>
       {intents.length === 0 ? (
-        <p className="text-sm text-muted">{t("none")}</p>
+        <p className="text-sm text-muted dark:text-gray-400">{t("none")}</p>
       ) : (
         <ul className="space-y-2">
-          {intents.map((i) => (
-            <li key={i.id}>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-ink">{i.label}</span>
-                <span className="text-muted">{Math.round(i.confidence * 100)}%</span>
-              </div>
-              <div role="progressbar" aria-valuenow={Math.round(i.confidence * 100)} aria-valuemin={0} aria-valuemax={100} aria-label={i.label} className="mt-1 h-2 w-full overflow-hidden rounded-full bg-surface-2">
-                <div className="h-full rounded-full bg-brand" style={{ width: `${Math.round(i.confidence * 100)}%` }} />
-              </div>
-            </li>
-          ))}
+          {intents.map((i) => {
+            const pct = Math.round(i.confidence * 100);
+            const on = Math.round(i.confidence * SEGMENTS);
+            return (
+              <li key={i.id}>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-ink dark:text-white">{i.label}</span>
+                  <span className="font-semibold tabular-nums text-ink dark:text-white">{pct}%</span>
+                </div>
+                <div
+                  className="mt-1.5 flex gap-1"
+                  role="progressbar"
+                  aria-valuenow={pct}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-label={i.label}
+                >
+                  {Array.from({ length: SEGMENTS }).map((_, s) => (
+                    <span
+                      key={s}
+                      className={"h-3.5 flex-1 rounded-sm " + (s < on ? "il-seg-on bg-brand" : "bg-line dark:bg-gray-700")}
+                      style={s < on ? { animationDelay: `${s * 28}ms` } : undefined}
+                      aria-hidden
+                    />
+                  ))}
+                </div>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

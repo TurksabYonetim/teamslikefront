@@ -102,24 +102,24 @@ function PortalTokenGate({ onSaved }: { onSaved: () => void }) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-          <label className="label dark:text-gray-200" htmlFor="portal-tenant">
+          <label className="label" htmlFor="portal-tenant">
             {t("gate.tenant")}
           </label>
           <input
             id="portal-tenant"
-            className="input dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+            className="input"
             value={tenantSlug}
             onChange={(e) => setTenantSlug(e.target.value)}
             placeholder={t("gate.tenantPlaceholder")}
           />
         </div>
         <div>
-          <label className="label dark:text-gray-200" htmlFor="portal-email">
+          <label className="label" htmlFor="portal-email">
             {t("gate.email")}
           </label>
           <input
             id="portal-email"
-            className="input dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+            className="input"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -127,24 +127,24 @@ function PortalTokenGate({ onSaved }: { onSaved: () => void }) {
           />
         </div>
         <div className="sm:col-span-2">
-          <label className="label dark:text-gray-200" htmlFor="portal-name">
+          <label className="label" htmlFor="portal-name">
             {t("gate.name")}
           </label>
           <input
             id="portal-name"
-            className="input dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+            className="input"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder={t("gate.namePlaceholder")}
           />
         </div>
         <div className="sm:col-span-2">
-          <label className="label dark:text-gray-200" htmlFor="portal-secret">
+          <label className="label" htmlFor="portal-secret">
             {t("gate.secret")}
           </label>
           <input
             id="portal-secret"
-            className="input font-mono text-xs dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+            className="input font-mono text-xs"
             type="password"
             value={signingSecret}
             onChange={(e) => setSigningSecret(e.target.value)}

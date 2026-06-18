@@ -58,8 +58,8 @@ export function ChannelsPanel() {
 
               <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-surface-3" aria-hidden>
                 <div
-                  className="h-full rounded-full bg-brand transition-[width] duration-200 ease-[var(--ease-out,ease-out)] motion-reduce:transition-none"
-                  style={{ width: `${Math.round(step.progress * 100)}%` }}
+                  className="h-full w-full origin-left rounded-full bg-brand transition-transform duration-200 ease-[var(--ease-out,ease-out)] motion-reduce:transition-none"
+                  style={{ transform: `scaleX(${step.progress})` }}
                 />
               </div>
 

@@ -63,7 +63,7 @@ const toTimeInput = (ms: number) => {
   return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
 };
 
-const inputCls = "block rounded-lg border border-gray-300 bg-surface-2 p-2.5 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500";
+const inputCls = "input";
 
 export function BookingsCalendar() {
   const { t } = useTranslation("appointments");

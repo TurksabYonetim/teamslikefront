@@ -77,13 +77,13 @@ export function StudioView() {
             </li>
           ))}
         </ul>
-        <div className="flex items-end gap-2">
+        <div className="flex items-center gap-2">
           <input
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             placeholder={t("studio.newAgentPh")}
             aria-label={t("studio.newAgentPh")}
-            className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            className="input min-w-0 flex-1"
           />
           <IconButton
             label={t("studio.create")}
@@ -107,7 +107,7 @@ export function StudioView() {
           id="ag-name"
           value={agent.name}
           onChange={(e) => act().setName(e.target.value)}
-          className="mb-3 w-full rounded-md border border-line bg-surface px-2 py-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+          className="input mb-3"
         />
 
         <label className="mb-1 block text-sm font-medium text-ink" htmlFor="ag-goal">
@@ -119,7 +119,7 @@ export function StudioView() {
           value={agent.goal}
           onChange={(e) => act().setGoal(e.target.value)}
           placeholder={t("studio.goalPh")}
-          className="mb-3 w-full rounded-md border border-line bg-surface p-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+          className="input mb-3"
         />
 
         <fieldset className="mb-3">
@@ -127,7 +127,7 @@ export function StudioView() {
           <div className="flex flex-wrap gap-3">
             {CHANNELS.map((c) => (
               <label key={c} className="inline-flex items-center gap-2 text-sm text-ink">
-                <input type="checkbox" checked={agent.channels.includes(c)} onChange={() => act().toggleChannel(c)} className="h-4 w-4 accent-brand" />
+                <input type="checkbox" checked={agent.channels.includes(c)} onChange={() => act().toggleChannel(c)} className="checkbox" />
                 {t(`studio.channel.${c}`)}
               </label>
             ))}
@@ -140,7 +140,7 @@ export function StudioView() {
             <div className="flex flex-wrap gap-3">
               {agent.tools.map((tool) => (
                 <label key={tool.id} className="inline-flex items-center gap-2 text-sm text-ink">
-                  <input type="checkbox" checked={tool.enabled} onChange={() => act().toggleTool(tool.id)} className="h-4 w-4 accent-brand" />
+                  <input type="checkbox" checked={tool.enabled} onChange={() => act().toggleTool(tool.id)} className="checkbox" />
                   {tool.label}
                 </label>
               ))}
@@ -167,14 +167,14 @@ export function StudioView() {
               onChange={(e) => setIntentLabel(e.target.value)}
               placeholder={t("studio.intentLabelPh")}
               aria-label={t("studio.intentLabelPh")}
-              className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              className="input min-w-0 flex-1"
             />
             <input
               value={intentPhrases}
               onChange={(e) => setIntentPhrases(e.target.value)}
               placeholder={t("studio.intentPhrasesPh")}
               aria-label={t("studio.intentPhrasesPh")}
-              className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              className="input min-w-0 flex-1"
             />
           </div>
           <div className="flex gap-2">
@@ -183,7 +183,7 @@ export function StudioView() {
               onChange={(e) => setIntentReply(e.target.value)}
               placeholder={t("studio.intentReplyPh")}
               aria-label={t("studio.intentReplyPh")}
-              className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              className="input min-w-0 flex-1"
             />
             <Button size="sm" onClick={submitIntent}>
               <Icon name="plus" className="h-4 w-4" aria-hidden /> {t("studio.addIntent")}
@@ -234,7 +234,7 @@ export function StudioView() {
               }
             }}
             placeholder={t("studio.sandboxPh")}
-            className="h-10 flex-1 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            className="input flex-1"
           />
           <IconButton label={t("studio.run")} variant="primary" onClick={send} disabled={!utterance.trim()}>
             <Icon name="send" className="h-4 w-4" aria-hidden />

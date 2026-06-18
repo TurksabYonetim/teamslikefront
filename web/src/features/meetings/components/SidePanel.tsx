@@ -324,7 +324,7 @@ export function SidePanel() {
                 }
               }}
               placeholder={t("chatPlaceholder")}
-              className="min-h-[2.75rem] flex-1 resize-none rounded-md border border-gray-300 bg-surface-2 p-2 text-sm text-ink placeholder:text-muted focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
+              className="input min-h-[2.75rem] flex-1 resize-none"
             />
             <IconButton
               label={t("send")}

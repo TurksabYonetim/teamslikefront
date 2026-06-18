@@ -82,7 +82,7 @@ export function EventTypeList() {
           onChange={(e) => setTitle(e.target.value)}
           placeholder={t("titlePh")}
           aria-label={t("titlePh")}
-          className="h-11 flex-1 rounded-lg border border-gray-300 bg-surface-2 px-2.5 text-sm text-ink placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="input h-11 flex-1"
         />
         <input
           type="number"
@@ -90,7 +90,7 @@ export function EventTypeList() {
           value={duration}
           onChange={(e) => setDuration(Number(e.target.value))}
           aria-label={t("duration")}
-          className="h-11 w-20 rounded-lg border border-gray-300 bg-surface-2 px-2.5 text-sm text-ink placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="input h-11 w-20"
         />
         <Button onClick={add} leftIcon={<Icon name="plus" className="h-4 w-4" />}>{t("addEventType")}</Button>
       </div>

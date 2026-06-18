@@ -7,7 +7,8 @@ import { segmentText } from "../intel.segments";
 import type { TranscriptSegment } from "../intel.types";
 import { memberName } from "@/features/messaging/members";
 import { Avatar } from "@/components/ui/Avatar";
-import { SentimentChip, fmtClock } from "./SentimentChip";
+import { Select } from "@/components/ui";
+import { fmtClock } from "./SentimentChip";
 
 function escapeRe(s: string) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -31,6 +32,14 @@ function highlight(text: string, q: string): React.ReactNode {
     ),
   );
 }
+
+// AAA duygu rozeti: tinted zemin üzerine koyu metin (text-800 / 100-bg → ≥7:1).
+// Anlam renkle değil kelimeyle taşınır (1.4.1); nokta yalnız dekoratif.
+const SENT_PILL: Record<string, string> = {
+  positive: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-200",
+  neutral: "bg-surface-3 text-ink-2 dark:bg-gray-700 dark:text-gray-200",
+  negative: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200",
+};
 
 export function TranscriptViewer() {
   const { t } = useTranslation("intelligence");
@@ -67,77 +76,91 @@ export function TranscriptViewer() {
 
   return (
     <div className="flex h-full flex-col rounded-card border border-line bg-surface-2 dark:border-gray-700 dark:bg-gray-800">
-      <div className="flex flex-wrap items-center gap-2 border-b border-line px-3 py-2 dark:border-gray-700">
+      {/* Header — mobile-first: dikey yığın, sm+ satır. 44px hedefler, AAA. */}
+      <div className="flex flex-col gap-2 border-b border-line px-3 py-2.5 sm:flex-row sm:flex-wrap sm:items-center dark:border-gray-700">
         <span className="text-base font-semibold text-ink dark:text-white">{t("transcript")}</span>
-        <span className="rounded-sm border border-line px-1.5 text-sm text-muted dark:border-gray-700 dark:text-gray-400">
+        <span className="w-fit rounded-sm border border-line px-1.5 py-0.5 text-xs font-medium text-ink-3 dark:border-gray-700 dark:text-gray-300">
           {t("detected")}: {source?.language?.toUpperCase() ?? "EN"}
         </span>
-        <div className="relative ml-auto">
+        <div className="relative w-full sm:ml-auto sm:w-44">
           <HiOutlineMagnifyingGlass
             aria-hidden
-            className="absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted dark:text-gray-400"
+            className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted dark:text-gray-400"
           />
           <input
             value={search}
             onChange={(e) => intelStore.getState().setSearch(e.target.value)}
             placeholder={t("searchTranscript")}
             aria-label={t("searchTranscript")}
-            className="h-9 w-40 rounded-md border border-line bg-surface-3 pl-7 pr-2 text-sm text-ink outline-none placeholder:text-muted dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+            className="input h-11 w-full pl-8"
           />
         </div>
-        <select
+        <Select
           value={speakerFilter ?? ""}
-          onChange={(e) => intelStore.getState().setSpeakerFilter(e.target.value || null)}
+          onChange={(v) => intelStore.getState().setSpeakerFilter(v || null)}
           aria-label={t("speakerFilter")}
-          className="h-9 rounded-md border border-line bg-surface-3 px-2 text-sm text-ink dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-        >
-          <option value="">{t("allSpeakers")}</option>
-          {speakers.map((sp) => {
-            const seg = segments.find((s) => s.speakerId === sp);
-            return (
-              <option key={sp} value={sp}>
-                {seg?.speakerName ?? memberName(sp)}
-              </option>
-            );
-          })}
-        </select>
+          options={[
+            { value: "", label: t("allSpeakers") },
+            ...speakers.map((sp) => {
+              const seg = segments.find((s) => s.speakerId === sp);
+              return { value: sp, label: seg?.speakerName ?? memberName(sp) };
+            }),
+          ]}
+          className="w-full sm:w-44"
+        />
       </div>
 
       {dub ? (
         <div
-          className="flex items-center gap-2 border-b border-line bg-surface-2 px-3 py-1.5 text-sm text-brand dark:border-gray-700 dark:bg-gray-800"
+          className="flex items-center gap-2 border-b border-line bg-surface-2 px-3 py-1.5 text-sm text-blue-800 dark:border-gray-700 dark:bg-gray-800 dark:text-blue-300"
           aria-live="polite"
         >
           <HiOutlineSpeakerWave className="h-4 w-4" aria-hidden /> {t("dubbing", { lang: dubLang })}
         </div>
       ) : null}
 
-      <div className="min-h-0 flex-1 space-y-3 overflow-y-auto p-4" aria-live="polite">
+      <div
+        className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto p-3 sm:p-4"
+        role="log"
+        aria-live="polite"
+        aria-label={t("transcript")}
+      >
         {filtered.length === 0 ? (
           <p className="text-sm text-muted dark:text-gray-400">{t("noMatches")}</p>
         ) : (
-          filtered.map((seg) => (
-            <div key={seg.id} id={`seg-${seg.id}`} className="flex gap-3">
-              <Avatar name={seg.speakerName ?? memberName(seg.speakerId)} size="sm" />
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-semibold text-ink dark:text-white">
-                    {seg.speakerName ?? memberName(seg.speakerId)}
-                  </span>
-                  <span className="text-sm text-muted dark:text-gray-400">{fmtClock(seg.startSec)}</span>
-                  <SentimentChip sentiment={seg.sentiment} />
-                </div>
-                <div className="text-sm text-ink dark:text-white">
-                  {highlight(redact ? redactText(seg.en) : seg.en, search.trim())}
-                </div>
-                {targetLang !== "off" ? (
-                  <div className="mt-0.5 rounded-md border border-line bg-surface-2 px-2 py-1 text-sm text-ink dark:border-gray-700 dark:bg-gray-800 dark:text-white">
-                    {redact ? redactText(translate(seg)) : translate(seg)}
+          filtered.map((seg) => {
+            const name = seg.speakerName ?? memberName(seg.speakerId);
+            return (
+              <article
+                key={seg.id}
+                id={`seg-${seg.id}`}
+                aria-label={`${name}, ${fmtClock(seg.startSec)}, ${t(`sentiment.${seg.sentiment}`)}`}
+                className="tr-seg -mx-2 flex gap-3 rounded-md px-2 py-1.5"
+              >
+                <Avatar name={name} size="sm" />
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-sm font-semibold text-ink dark:text-white">{name}</span>
+                    <span className="text-sm text-muted tabular-nums dark:text-gray-400">{fmtClock(seg.startSec)}</span>
+                    <span
+                      className={"inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs font-medium " + SENT_PILL[seg.sentiment]}
+                    >
+                      <span className="h-1.5 w-1.5 rounded-full bg-current opacity-70" aria-hidden />
+                      {t(`sentiment.${seg.sentiment}`)}
+                    </span>
                   </div>
-                ) : null}
-              </div>
-            </div>
-          ))
+                  <div className="text-sm text-ink dark:text-white">
+                    {highlight(redact ? redactText(seg.en) : seg.en, search.trim())}
+                  </div>
+                  {targetLang !== "off" ? (
+                    <div className="mt-0.5 rounded-md border border-line bg-surface-2 px-2 py-1 text-sm text-ink dark:border-gray-700 dark:bg-gray-800 dark:text-white">
+                      {redact ? redactText(translate(seg)) : translate(seg)}
+                    </div>
+                  ) : null}
+                </div>
+              </article>
+            );
+          })
         )}
         <div ref={endRef} />
       </div>

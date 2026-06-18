@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
 import { Badge } from "@/components/ui/Badge";
+import { Select } from "@/components/ui/Select";
 import {
   RATE_CARD, windowState, monthlyEstimate, categoryBreakdown,
 } from "../messagingCost.dom";
@@ -36,20 +37,20 @@ export function CostPanel() {
         <h3 className="flex items-center gap-1.5 text-base font-semibold text-ink">
           <Icon name="money" className="h-5 w-5" aria-hidden /> {t("cost.title")}
         </h3>
-        <label className="ml-auto flex items-center gap-2 text-sm text-muted">
-          {t("cost.region")}
-          <select
+        <div className="ml-auto flex items-center gap-2 text-sm text-muted">
+          <span>{t("cost.region")}</span>
+          <Select
             value={region}
-            onChange={(e) => setRegion(e.target.value)}
-            className="h-9 rounded-lg border border-line bg-surface-2 px-2.5 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
-          >
-            {Object.keys(RATE_CARD).map((r) => (
-              <option key={r} value={r}>
-                {r}
-              </option>
-            ))}
-          </select>
-        </label>
+            onChange={setRegion}
+            aria-label={t("cost.region")}
+            options={Object.keys(RATE_CARD).map((r) => ({
+              value: r,
+              label: r,
+            }))}
+            size="sm"
+            className="w-28"
+          />
+        </div>
       </div>
       <p className="mb-3 text-sm text-muted">{t("cost.subtitle")}</p>
 

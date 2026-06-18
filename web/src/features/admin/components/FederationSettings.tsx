@@ -4,8 +4,7 @@ import { Icon } from "@/components/Icon";
 import { Badge, Button } from "@/components/ui";
 import { useAdminStore } from "../governance.store";
 
-const INPUT_CLASS =
-  "h-10 flex-1 rounded-lg border border-line bg-surface-2 px-3 text-sm text-ink transition-colors duration-150 ease-[var(--ease-out)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand";
+const INPUT_CLASS = "input flex-1";
 
 export function FederationSettings() {
   const { t } = useTranslation("admin");

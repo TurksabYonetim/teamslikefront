@@ -116,11 +116,11 @@ export function ProductTour({ open, steps, onFinish, onStep, labels }: ProductTo
             left: rect.left - 6,
             width: rect.width + 12,
             height: rect.height + 12,
-            boxShadow: "0 0 0 9999px rgba(15,23,42,0.55)",
+            boxShadow: "0 0 0 9999px rgba(17,24,39,0.5)",
           }}
         />
       ) : (
-        <div className="fixed inset-0 bg-slate-900/55 motion-safe:[animation:tl-fade_var(--dur-modal)_var(--ease-out)]" />
+        <div className="fixed inset-0 bg-gray-900/50 motion-safe:[animation:tl-fade_var(--dur-modal)_var(--ease-out)]" />
       )}
 
       {/* Popover */}

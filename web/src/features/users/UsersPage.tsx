@@ -8,6 +8,7 @@ import {
   ConfirmDialog,
   EmptyState,
   Modal,
+  Select,
   Skeleton,
   useToast,
 } from "@/components/ui";
@@ -495,17 +496,17 @@ function CreateUserModal({ open, onClose }: { open: boolean; onClose: () => void
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="label" htmlFor="cu-role">{t("create.role")}</label>
-            <select
+            <Select<Role>
               id="cu-role"
-              className="input"
+              label={t("create.role")}
               value={role}
-              onChange={(e) => setRole(e.target.value as Role)}
-            >
-              <option value="member">{t("role.member")}</option>
-              <option value="admin">{t("role.admin")}</option>
-              <option value="owner">{t("role.owner")}</option>
-            </select>
+              onChange={setRole}
+              options={[
+                { value: "member", label: t("role.member") },
+                { value: "admin", label: t("role.admin") },
+                { value: "owner", label: t("role.owner") },
+              ]}
+            />
           </div>
           <div>
             <label className="label" htmlFor="cu-pass">{t("create.password")}</label>
@@ -663,17 +664,17 @@ function EditUserForm({
           <input id="eu-email" className="input" value={user.email} disabled />
         </div>
         <div>
-          <label className="label" htmlFor="eu-role">{t("edit.role")}</label>
-          <select
+          <Select<Role>
             id="eu-role"
-            className="input"
+            label={t("edit.role")}
             value={role}
-            onChange={(e) => setRole(e.target.value as Role)}
-          >
-            <option value="member">{t("role.member")}</option>
-            <option value="admin">{t("role.admin")}</option>
-            <option value="owner">{t("role.owner")}</option>
-          </select>
+            onChange={setRole}
+            options={[
+              { value: "member", label: t("role.member") },
+              { value: "admin", label: t("role.admin") },
+              { value: "owner", label: t("role.owner") },
+            ]}
+          />
         </div>
         <button type="submit" className="hidden" aria-hidden tabIndex={-1} />
       </form>

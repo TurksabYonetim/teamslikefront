@@ -22,13 +22,15 @@ export function TrackersCard() {
   return (
     <div className="rounded-card border border-line bg-surface p-4 dark:border-gray-700 dark:bg-gray-800">
       <h3 className="mb-2 text-sm font-semibold text-ink">{t("trackers")}</h3>
-      <ul className="space-y-1.5">
+      <ul className="flex flex-col gap-1">
         {trackers.map((tr) => {
           const Icon = KIND[tr.kind];
           return (
-            <li key={tr.id} className="flex items-center gap-2 text-sm">
-              <Icon size={16} className="text-muted" aria-hidden />
-              <span className="flex-1 text-ink">{tr.label}</span>
+            <li key={tr.id} className="trackers-row flex items-center gap-2 px-2 py-1.5 text-sm">
+              <span className={`trackers-ic trackers-ic--${tr.kind} shrink-0 text-muted`}>
+                <Icon size={16} aria-hidden />
+              </span>
+              <span className="min-w-0 flex-1 truncate text-ink">{tr.label}</span>
               <Badge tone={tr.kind === "competitor" ? "danger" : "neutral"}>
                 {t("hits", { n: tr.hits })}
               </Badge>

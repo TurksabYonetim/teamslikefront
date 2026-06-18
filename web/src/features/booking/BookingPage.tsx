@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
 import {
+  Backdrop,
   Button,
   ConfirmDialog,
   EmptyState,
@@ -268,11 +269,7 @@ function EventTypesTab() {
       {/* Create / edit drawer */}
       {drawerOpen && (
         <>
-          <div
-            className="fixed inset-0 z-30 bg-gray-900/50 motion-safe:[animation:tl-fade_var(--dur-drawer,240ms)_var(--ease-drawer)_both]"
-            onClick={() => setDrawerOpen(false)}
-            aria-hidden="true"
-          />
+          <Backdrop level="drawer" onClick={() => setDrawerOpen(false)} />
           <div className="fixed right-0 top-0 z-40 h-screen w-full max-w-sm overflow-y-auto bg-white p-4 motion-safe:[animation:tl-drawer-in-end_var(--dur-modal)_var(--ease-drawer)_both]">
             <div className="mb-4 flex items-center justify-between">
               <h4 className="text-sm font-semibold text-ink">
@@ -292,7 +289,7 @@ function EventTypesTab() {
                   {t("et.form.name")}
                 </label>
                 <input
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  className="input"
                   value={form.name}
                   onChange={(e) => {
                     const name = e.target.value;
@@ -311,7 +308,7 @@ function EventTypesTab() {
                   {t("et.form.slug")}
                 </label>
                 <input
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  className="input"
                   value={form.slug}
                   onChange={(e) => {
                     setSlugTouched(true);
@@ -330,7 +327,7 @@ function EventTypesTab() {
                 <input
                   type="number"
                   min={1}
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  className="input"
                   value={form.duration_min}
                   onChange={(e) =>
                     setForm((f) => ({ ...f, duration_min: Number(e.target.value) }))
@@ -344,7 +341,7 @@ function EventTypesTab() {
                 </label>
                 <textarea
                   rows={3}
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  className="input"
                   value={form.description}
                   onChange={(e) =>
                     setForm((f) => ({ ...f, description: e.target.value }))
@@ -355,7 +352,7 @@ function EventTypesTab() {
               <label className="flex items-center gap-2 text-sm text-gray-900">
                 <input
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="checkbox"
                   checked={form.active}
                   onChange={(e) =>
                     setForm((f) => ({ ...f, active: e.target.checked }))
@@ -487,7 +484,7 @@ function AvailabilityTab() {
               <label className="flex w-40 items-center gap-2 text-sm font-medium text-gray-900">
                 <input
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="checkbox"
                   checked={r.open}
                   onChange={(e) =>
                     setRows((prev) =>
@@ -502,7 +499,7 @@ function AvailabilityTab() {
               <input
                 type="time"
                 disabled={!r.open}
-                className="rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:opacity-40"
+                className="input disabled:opacity-40"
                 value={r.start}
                 onChange={(e) =>
                   setRows((prev) =>
@@ -516,7 +513,7 @@ function AvailabilityTab() {
               <input
                 type="time"
                 disabled={!r.open}
-                className="rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:opacity-40"
+                className="input disabled:opacity-40"
                 value={r.end}
                 onChange={(e) =>
                   setRows((prev) =>
@@ -537,7 +534,7 @@ function AvailabilityTab() {
         </label>
         <input
           id="tz"
-          className="rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="input"
           value={tz}
           onChange={(e) => setTz(e.target.value)}
         />

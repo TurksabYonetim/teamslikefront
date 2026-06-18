@@ -109,7 +109,7 @@ export function LoginPage() {
             <input
               type="checkbox"
               name="remember"
-              className="h-4 w-4 rounded border-line bg-surface-2 accent-brand focus:ring-2 focus:ring-brand-soft dark:border-gray-600 dark:bg-gray-700"
+              className="checkbox"
             />
             {t("login.remember")}
           </label>

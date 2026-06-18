@@ -25,7 +25,7 @@ export function KbPanel() {
           onChange={(e) => setQ(e.target.value)}
           placeholder={t("kb.search")}
           aria-label={t("kb.search")}
-          className="block h-10 w-full rounded-lg border border-gray-300 bg-surface-2 pl-7 pr-2 text-sm text-ink placeholder:text-muted focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="input pl-7 pr-2"
         />
       </div>
       {results.length === 0 ? (

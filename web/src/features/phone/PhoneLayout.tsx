@@ -85,6 +85,38 @@ export function PhoneLayout() {
   // İzin koruması: telephony.view yoksa modülün hiçbir yüzeyi görünmez.
   if (!canView) return <Forbidden />;
 
+  // Paylaşılan sekme çubuğu — delight varyantları (impeccable live) aynı dinamik
+  // render'ı ve klavye gezinmesini paylaşır; aktif/pasif görünümü [aria-selected]
+  // üzerinden scoped CSS yönetir.
+  const renderPhoneTabs = (cls: string) => (
+    <div role="tablist" aria-label={t("dialer.title")} className={clsx("phone-tabs flex flex-wrap gap-1 border-b border-line", cls)}>
+      {TABS.map(({ id, Icon }, i) => {
+        const selected = id === active;
+        return (
+          <button
+            key={id}
+            ref={(el) => {
+              tabRefs.current[id] = el;
+            }}
+            role="tab"
+            data-tab={id}
+            id={`phone-tab-${id}`}
+            aria-selected={selected}
+            tabIndex={selected ? 0 : -1}
+            onClick={() => select(id)}
+            onKeyDown={(e) => onKeyDown(e, i)}
+            className="phone-tab inline-flex h-11 items-center gap-2 rounded-t px-3 text-sm font-medium -mb-px transition-[transform,color] motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+          >
+            <span className="phone-tab-ic inline-flex shrink-0">
+              <Icon size={18} aria-hidden />
+            </span>
+            <span className="phone-tab-label">{t(`tabs.${id}`)}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+
   return (
     <div className="mx-auto flex h-full max-w-6xl flex-col gap-4 p-6">
       <div>
@@ -92,33 +124,7 @@ export function PhoneLayout() {
         <p className="mt-1 text-sm text-muted">{t("subtitle")}</p>
       </div>
 
-      <div role="tablist" aria-label={t("dialer.title")} className="flex flex-wrap gap-1 border-b border-line">
-        {TABS.map(({ id, Icon }, i) => {
-          const selected = id === active;
-          return (
-            <button
-              key={id}
-              ref={(el) => {
-                tabRefs.current[id] = el;
-              }}
-              role="tab"
-              data-tab={id}
-              id={`phone-tab-${id}`}
-              aria-selected={selected}
-              tabIndex={selected ? 0 : -1}
-              onClick={() => select(id)}
-              onKeyDown={(e) => onKeyDown(e, i)}
-              className={clsx(
-                "inline-flex h-11 items-center gap-2 rounded-t px-3 text-sm font-medium -mb-px transition-[transform,color] motion-safe:active:scale-[0.97]",
-                "focus:outline-none focus-visible:ring-2 focus-visible:ring-brand",
-                selected ? "border-b-2 border-brand text-brand" : "text-muted hover:text-ink",
-              )}
-            >
-              <Icon size={18} aria-hidden /> {t(`tabs.${id}`)}
-            </button>
-          );
-        })}
-      </div>
+      {renderPhoneTabs("")}
 
       <div
         role="tabpanel"

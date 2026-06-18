@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
-import { Avatar, Button, useToast } from "@/components/ui";
+import { Avatar, Button, Select, useToast } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { workspaceStore } from "../workspace.store";
 import { commentsForDoc } from "../workspace.workhub";
@@ -66,7 +66,7 @@ export function CommentSidebar() {
           <li
             key={c.id}
             className={
-              "rounded-lg border border-line p-2 transition-opacity duration-200 ease-[var(--ease-out)] motion-reduce:transition-none " +
+              "rounded-lg border border-line bg-surface p-3 transition-opacity duration-200 ease-[var(--ease-out)] motion-reduce:transition-none " +
               (c.resolved ? "opacity-60" : "")
             }
           >
@@ -74,12 +74,14 @@ export function CommentSidebar() {
               <Avatar name={memberName(c.authorId)} size="xs" />
               <span className="text-sm font-medium text-ink">{memberName(c.authorId)}</span>
               {c.resolved ? (
-                <span className="ml-auto text-xs text-ok">{t("comments.resolved")}</span>
+                <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                  <Icon name="check" className="h-3 w-3" /> {t("comments.resolved")}
+                </span>
               ) : (
                 <button
                   type="button"
                   onClick={() => resolveComment(c.id)}
-                  className="ml-auto inline-flex items-center gap-1 text-xs text-brand transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] hover:underline motion-safe:active:scale-[0.97]"
+                  className="ml-auto inline-flex items-center gap-1 rounded-full bg-brand-softer px-2 py-0.5 text-xs font-medium text-brand-600 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-brand-soft motion-safe:active:scale-[0.97]"
                 >
                   <Icon name="check" className="h-3.5 w-3.5" /> {t("comments.resolve")}
                 </button>
@@ -92,31 +94,39 @@ export function CommentSidebar() {
       </ul>
 
       <div className="mt-3 border-t border-line pt-2">
-        <select
+        <Select
           value={blockId}
-          onChange={(e) => setBlockId(e.target.value)}
+          onChange={setBlockId}
           aria-label={t("comments.anchor")}
-          className="input mb-1"
-        >
-          <option value="">{t("comments.anchor")}…</option>
-          {blocks.map((b) => (
-            <option key={b.id} value={b.id}>
-              {b.content.slice(0, 30) || b.type}
-            </option>
-          ))}
-        </select>
-        <div className="flex items-end gap-2">
+          options={[
+            { value: "", label: `${t("comments.anchor")}…` },
+            ...blocks.map((b) => ({
+              value: b.id,
+              label: b.content.slice(0, 30) || b.type,
+            })),
+          ]}
+          className="mb-2 w-full"
+        />
+
+        {/* Composer — alt aksiyon-barlı yığın alan (V2). */}
+        <div className="rounded-xl border border-line bg-surface-2 transition-colors focus-within:border-brand focus-within:bg-surface focus-within:ring-2 focus-within:ring-brand-soft motion-reduce:transition-none">
           <textarea
             rows={2}
             value={body}
             onChange={(e) => setBody(e.target.value)}
+            onKeyDown={(e) => {
+              if ((e.metaKey || e.ctrlKey) && e.key === "Enter") post();
+            }}
             placeholder={t("comments.placeholder")}
             aria-label={t("comments.placeholder")}
-            className="input min-h-[2.5rem] flex-1 resize-none"
+            className="w-full resize-none border-0 bg-transparent px-3 pb-1 pt-2.5 text-sm text-ink outline-none placeholder:text-muted"
           />
-          <Button disabled={!body.trim()} onClick={post} aria-label={t("comments.post")}>
-            <Icon name="send" className="h-4 w-4" />
-          </Button>
+          <div className="flex items-center gap-2 px-3 pb-2">
+            <span className="text-xs text-muted">⌘↵ ile gönder</span>
+            <Button size="sm" className="ml-auto" disabled={!body.trim()} onClick={post} aria-label={t("comments.post")}>
+              <Icon name="send" className="h-3.5 w-3.5" /> {t("comments.post")}
+            </Button>
+          </div>
         </div>
       </div>
     </div>

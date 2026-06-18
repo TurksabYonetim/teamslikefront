@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { Icon } from "@/components/Icon";
-import { Badge, Button, IconButton } from "@/components/ui";
+import { Badge, Button, IconButton, Select } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { conversationStore } from "../conversation.store";
 import { aiSuggest } from "../support.api";
@@ -110,18 +110,17 @@ export function ConversationView() {
               <Icon name="check" className="h-3.5 w-3.5" aria-hidden /> {t("conversation.resolve")}
             </Button>
           )}
-          <select
+          <Select<ConversationStatus>
             value={conv.status}
-            onChange={(e) => conversationStore.getState().setStatus(conv.id, e.target.value as ConversationStatus)}
+            onChange={(v) => conversationStore.getState().setStatus(conv.id, v)}
             aria-label={t("conversation.statusLabel")}
-            className="h-9 rounded-md border border-line bg-surface px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
-          >
-            {STATUSES.map((s) => (
-              <option key={s} value={s}>
-                {t(`status.${s}`)}
-              </option>
-            ))}
-          </select>
+            options={STATUSES.map((s) => ({
+              value: s,
+              label: t(`status.${s}`),
+            }))}
+            size="sm"
+            className="w-40"
+          />
         </div>
       </div>
 
@@ -154,7 +153,7 @@ export function ConversationView() {
           }
           const out = m.direction === "out";
           return (
-            <div key={m.id} className={clsx("flex", out ? "justify-end" : "justify-start")}>
+            <div key={m.id} className={clsx("flex motion-safe:animate-[tl-fade-in_150ms_var(--ease-out)]", out ? "justify-end" : "justify-start")}>
               <span
                 className={clsx(
                   "max-w-[80%] rounded-lg px-3 py-1.5 text-sm",

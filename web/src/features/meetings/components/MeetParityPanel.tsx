@@ -175,7 +175,7 @@ export function MeetParityPanel() {
           onChange={(e) => setQa(e.target.value)}
           placeholder={t("archiveSearch")}
           aria-label={t("archiveSearch")}
-          className="block h-10 w-full rounded-lg border border-border bg-raised pl-7 pr-2.5 text-sm text-fg placeholder:text-muted focus:border-accent focus:ring-1 focus:ring-accent"
+          className="input h-10 pl-7"
         />
       </div>
       <ul className="space-y-1">

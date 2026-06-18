@@ -102,9 +102,36 @@ export const INTENTS: Record<string, Intent[]> = {
 };
 
 export const SCORECARDS: Record<string, Scorecard> = {
-  src_standup: { talkRatio: 22, sentiment: 0.25, questions: 1, pace: 132, monologueSec: 34, predictedCsat: 4, csatReason: "Positive tone, risk acknowledged and resolved." },
-  src_sales: { talkRatio: 48, sentiment: 0.2, questions: 3, pace: 118, monologueSec: 41, csat: 4, predictedCsat: 4, csatReason: "Objection handled; buying signal captured." },
-  src_support: { talkRatio: 55, sentiment: 0.3, questions: 1, pace: 140, monologueSec: 12, csat: 5, predictedCsat: 5, csatReason: "Fast, clear answer to a billing question." },
+  src_standup: {
+    talkRatio: 22, sentiment: 0.25, questions: 1, pace: 132, monologueSec: 34,
+    predictedCsat: 4, csatReason: "Positive tone, risk acknowledged and resolved.",
+    trends: {
+      talkRatio: [16, 18, 17, 20, 19, 22],
+      sentiment: [0.1, 0.15, 0.12, 0.2, 0.22, 0.25],
+      questions: [0, 1, 1, 2, 1, 1],
+      pace: [120, 125, 128, 130, 131, 132],
+    },
+  },
+  src_sales: {
+    talkRatio: 48, sentiment: 0.2, questions: 3, pace: 118, monologueSec: 41,
+    csat: 4, predictedCsat: 4, csatReason: "Objection handled; buying signal captured.",
+    trends: {
+      talkRatio: [40, 44, 46, 45, 47, 48],
+      sentiment: [0.05, 0.1, 0.15, 0.18, 0.19, 0.2],
+      questions: [1, 2, 2, 3, 3, 3],
+      pace: [110, 112, 115, 116, 117, 118],
+    },
+  },
+  src_support: {
+    talkRatio: 55, sentiment: 0.3, questions: 1, pace: 140, monologueSec: 12,
+    csat: 5, predictedCsat: 5, csatReason: "Fast, clear answer to a billing question.",
+    trends: {
+      talkRatio: [60, 58, 57, 56, 55, 55],
+      sentiment: [0.2, 0.22, 0.25, 0.28, 0.29, 0.3],
+      questions: [2, 1, 1, 1, 1, 1],
+      pace: [132, 135, 138, 139, 140, 140],
+    },
+  },
 };
 
 /** Per-speaker talk analytics. */

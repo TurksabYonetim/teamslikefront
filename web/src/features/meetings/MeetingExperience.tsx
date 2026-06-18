@@ -15,7 +15,7 @@ export function MeetingExperience() {
 
   if (phase === "idle") {
     return (
-      <div data-testid="meeting-landing">
+      <div data-testid="meeting-landing" className="h-full overflow-y-auto">
         <MeetingsLanding />
       </div>
     );
@@ -25,7 +25,7 @@ export function MeetingExperience() {
       <div
         data-testid="meeting-prejoin"
         data-theme="dark"
-        className="h-[calc(100vh-4rem)] bg-gray-900"
+        className="h-full bg-gray-900"
       >
         <PreJoin />
       </div>
@@ -33,7 +33,7 @@ export function MeetingExperience() {
   }
   // phase === "in"
   return (
-    <div data-testid="meeting-room" className="h-[calc(100vh-4rem)]">
+    <div data-testid="meeting-room" className="h-full">
       <MeetingRoom />
     </div>
   );

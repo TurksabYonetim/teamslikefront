@@ -19,8 +19,7 @@ const ICON: Record<PolicyKind, string> = {
   conditionalAccess: "identification",
 };
 
-const CONFIG_INPUT =
-  "h-9 w-32 rounded-md border border-line bg-surface-2 px-2 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
+const CONFIG_INPUT = "input w-32";
 
 export function SecurityPolicies() {
   const { t } = useTranslation("admin");

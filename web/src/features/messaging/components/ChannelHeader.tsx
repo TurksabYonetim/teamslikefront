@@ -167,7 +167,7 @@ export function ChannelHeader() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("search")}
               aria-label={t("search")}
-              className="h-9 w-40 rounded-md border border-line bg-surface-2 pl-8 pr-3 text-sm text-ink placeholder:text-muted focus-visible:ring-2 focus-visible:ring-brand dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+              className="input h-9 w-40 pl-8 pr-3"
             />
           </div>
           <IconButton
@@ -222,7 +222,7 @@ export function ChannelHeader() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("search")}
               aria-label={t("search")}
-              className="h-9 w-full rounded-md border border-line bg-surface-2 pl-8 pr-3 text-sm text-ink placeholder:text-muted focus-visible:ring-2 focus-visible:ring-brand dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+              className="input h-9 w-full pl-8 pr-3"
             />
           </div>
           <IconButton

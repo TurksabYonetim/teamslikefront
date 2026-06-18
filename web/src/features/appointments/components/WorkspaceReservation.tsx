@@ -18,7 +18,7 @@ const SLOT_KEY: Record<DeskSlot, string> = {
 };
 const name = (id: string) => HOST_NAMES[id] ?? id;
 
-const inputCls = "h-10 rounded-md border border-line bg-surface-2 px-2.5 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand";
+const inputCls = "input h-10";
 
 export function WorkspaceReservation() {
   const { t } = useTranslation("appointments");

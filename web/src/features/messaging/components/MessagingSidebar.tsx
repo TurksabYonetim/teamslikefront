@@ -21,7 +21,7 @@ import { useWorkspaceId, inActiveWorkspace } from "@/lib/tenantStore";
 import { messagingStore, useMessaging } from "../store";
 import { TOPICS } from "../data";
 import { memberById } from "../members";
-import { Avatar, Badge, Button, Dropdown, DropdownItem, EmptyState, PresenceDot } from "@/components/ui";
+import { Avatar, Badge, Button, Dropdown, DropdownItem, EmptyState, PresenceDot, Tooltip } from "@/components/ui";
 import { CreateChannelDialog } from "./CreateChannelDialog";
 import { NewDmDialog } from "./NewDmDialog";
 import { SavedDrawer } from "./SavedDrawer";
@@ -184,35 +184,37 @@ export function MessagingSidebar() {
           <span className="flex-1 px-1 text-sm font-semibold text-ink dark:text-white">{t("sidebar.title")}</span>
           <Dropdown
             label={t("new")}
-            align="end"
+            align="start"
             triggerClassName="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted hover:bg-surface-2 dark:hover:bg-gray-700"
             trigger={<HiOutlinePlus className="h-[18px] w-[18px]" aria-hidden />}
           >
             <DropdownItem onSelect={() => setChannelDialog(true)}>
-              <HiOutlineHashtag className="h-[18px] w-[18px]" aria-hidden /> {t("newChannel")}
+              <HiOutlineHashtag className="h-[18px] w-[18px] shrink-0 text-muted" aria-hidden /> {t("newChannel")}
             </DropdownItem>
             <DropdownItem onSelect={() => setDmDialog(true)}>
-              <HiOutlineChatBubbleOvalLeft className="h-[18px] w-[18px]" aria-hidden /> {t("newDm")}
+              <HiOutlineChatBubbleOvalLeft className="h-[18px] w-[18px] shrink-0 text-muted" aria-hidden /> {t("newDm")}
             </DropdownItem>
           </Dropdown>
-          <button
-            type="button"
-            onClick={() => messagingStore.getState().togglePalette(true)}
-            aria-label={t("searchAll")}
-            title={t("searchAll")}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted hover:bg-surface-2 dark:hover:bg-gray-700"
-          >
-            <HiOutlineMagnifyingGlass className="h-[18px] w-[18px]" aria-hidden />
-          </button>
-          <button
-            type="button"
-            onClick={() => setSavedOpen(true)}
-            aria-label={t("savedTitle")}
-            title={t("savedTitle")}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted hover:bg-surface-2 dark:hover:bg-gray-700"
-          >
-            <HiOutlineBookmark className="h-[18px] w-[18px]" aria-hidden />
-          </button>
+          <Tooltip label={t("searchAll")}>
+            <button
+              type="button"
+              onClick={() => messagingStore.getState().togglePalette(true)}
+              aria-label={t("searchAll")}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted hover:bg-surface-2 dark:hover:bg-gray-700"
+            >
+              <HiOutlineMagnifyingGlass className="h-[18px] w-[18px]" aria-hidden />
+            </button>
+          </Tooltip>
+          <Tooltip label={t("savedTitle")}>
+            <button
+              type="button"
+              onClick={() => setSavedOpen(true)}
+              aria-label={t("savedTitle")}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted hover:bg-surface-2 dark:hover:bg-gray-700"
+            >
+              <HiOutlineBookmark className="h-[18px] w-[18px]" aria-hidden />
+            </button>
+          </Tooltip>
         </div>
         <div className="flex gap-1" role="tablist" aria-label={t("folders")}>
           {FOLDERS.map((f) => (
@@ -223,7 +225,7 @@ export function MessagingSidebar() {
               aria-selected={folder === f}
               onClick={() => setFolder(f)}
               className={clsx(
-                "h-9 flex-1 rounded-md text-sm",
+                "h-8 flex-1 whitespace-nowrap rounded-md px-1 text-xs font-medium transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]",
                 folder === f ? "bg-brand text-white" : "text-muted hover:bg-surface-2 dark:hover:bg-gray-700",
               )}
             >

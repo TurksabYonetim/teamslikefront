@@ -14,7 +14,7 @@ import {
 import { MdMicOff, MdVideocamOff } from "react-icons/md";
 import clsx from "clsx";
 import { meetingStore, useMeeting } from "../meetings.store";
-import { Badge, Button } from "@/components/ui";
+import { Badge, Button, Select } from "@/components/ui";
 import type {
   AccessTier,
   BandwidthPolicy,
@@ -56,9 +56,6 @@ function Toggle({
     </button>
   );
 }
-
-const selectCls =
-  "h-11 rounded-lg border border-gray-300 bg-surface-2 px-2 text-sm text-ink focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus-visible:outline-none";
 
 export function MeetGmPanel() {
   const { t } = useTranslation("meetings");
@@ -108,20 +105,20 @@ export function MeetGmPanel() {
           onToggle={() => act().toggleRequireConsent()}
           icon={<HiOutlineShieldCheck className="h-[18px] w-[18px]" aria-hidden />}
         />
-        <label className="flex items-center gap-2 text-sm text-ink">
+        <div className="flex items-center gap-2 text-sm text-ink">
           <span className="flex-1">{t("gm.accessTier")}</span>
-          <select
+          <Select<AccessTier>
             value={accessTier}
-            onChange={(e) => act().setAccessTier(e.target.value as AccessTier)}
-            className={selectCls}
-          >
-            {TIERS.map((tier) => (
-              <option key={tier} value={tier}>
-                {t(`gm.tier.${tier}`)}
-              </option>
-            ))}
-          </select>
-        </label>
+            onChange={(v) => act().setAccessTier(v)}
+            aria-label={t("gm.accessTier")}
+            size="sm"
+            className="w-44"
+            options={TIERS.map((tier) => ({
+              value: tier,
+              label: t(`gm.tier.${tier}`),
+            }))}
+          />
+        </div>
       </section>
 
       {/* Per-participant: pin / viewer / waiting */}
@@ -227,26 +224,26 @@ export function MeetGmPanel() {
                 type="checkbox"
                 checked={!!noteSections[k]}
                 onChange={() => act().toggleNoteSection(k)}
-                className="h-4 w-4 accent-brand"
+                className="checkbox"
               />
               {t(`gm.section.${k}`)}
             </label>
           ))}
         </div>
-        <label className="flex items-center gap-2 text-sm text-ink">
+        <div className="flex items-center gap-2 text-sm text-ink">
           <span className="flex-1">{t("gm.recipients")}</span>
-          <select
+          <Select<NotesRecipients>
             value={notesRecipients}
-            onChange={(e) => act().setNotesRecipients(e.target.value as NotesRecipients)}
-            className={selectCls}
-          >
-            {RECIPIENTS.map((r) => (
-              <option key={r} value={r}>
-                {t(`gm.recipient.${r}`)}
-              </option>
-            ))}
-          </select>
-        </label>
+            onChange={(v) => act().setNotesRecipients(v)}
+            aria-label={t("gm.recipients")}
+            size="sm"
+            className="w-44"
+            options={RECIPIENTS.map((r) => ({
+              value: r,
+              label: t(`gm.recipient.${r}`),
+            }))}
+          />
+        </div>
         {meetingNotes ? (
           <div className="rounded-md border border-line p-2 text-sm">
             {noteSections.summary && meetingNotes.summary ? (
@@ -281,31 +278,29 @@ export function MeetGmPanel() {
         />
         {speechTranslation ? (
           <div className="flex items-center gap-2 text-sm text-ink">
-            <select
+            <Select
               value={speechFrom}
-              onChange={(e) => act().setSpeechPair(e.target.value, speechTo)}
+              onChange={(v) => act().setSpeechPair(v, speechTo)}
               aria-label={t("gm.speechFrom")}
-              className={clsx(selectCls, "flex-1")}
-            >
-              {LANGS.map((l) => (
-                <option key={l} value={l}>
-                  {l.toUpperCase()}
-                </option>
-              ))}
-            </select>
+              size="sm"
+              className="flex-1"
+              options={LANGS.map((l) => ({
+                value: l,
+                label: l.toUpperCase(),
+              }))}
+            />
             <span aria-hidden>→</span>
-            <select
+            <Select
               value={speechTo}
-              onChange={(e) => act().setSpeechPair(speechFrom, e.target.value)}
+              onChange={(v) => act().setSpeechPair(speechFrom, v)}
               aria-label={t("gm.speechTo")}
-              className={clsx(selectCls, "flex-1")}
-            >
-              {LANGS.map((l) => (
-                <option key={l} value={l}>
-                  {l.toUpperCase()}
-                </option>
-              ))}
-            </select>
+              size="sm"
+              className="flex-1"
+              options={LANGS.map((l) => ({
+                value: l,
+                label: l.toUpperCase(),
+              }))}
+            />
           </div>
         ) : null}
       </section>
@@ -316,48 +311,48 @@ export function MeetGmPanel() {
           <HiOutlineCog6Tooth className="h-[18px] w-[18px] text-ink-2" aria-hidden />
           <h3 className="text-sm font-semibold text-ink">{t("gm.quality")}</h3>
         </div>
-        <label className="flex items-center gap-2 text-sm text-ink">
+        <div className="flex items-center gap-2 text-sm text-ink">
           <span className="flex-1">{t("gm.sendRes")}</span>
-          <select
+          <Select<ResolutionLevel>
             value={sendResolution}
-            onChange={(e) => act().setSendResolution(e.target.value as ResolutionLevel)}
-            className={selectCls}
-          >
-            {RES.map((r) => (
-              <option key={r} value={r}>
-                {t(`gm.res.${r}`)}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="flex items-center gap-2 text-sm text-ink">
+            onChange={(v) => act().setSendResolution(v)}
+            aria-label={t("gm.sendRes")}
+            size="sm"
+            className="w-44"
+            options={RES.map((r) => ({
+              value: r,
+              label: t(`gm.res.${r}`),
+            }))}
+          />
+        </div>
+        <div className="flex items-center gap-2 text-sm text-ink">
           <span className="flex-1">{t("gm.recvRes")}</span>
-          <select
+          <Select<ResolutionLevel>
             value={receiveResolution}
-            onChange={(e) => act().setReceiveResolution(e.target.value as ResolutionLevel)}
-            className={selectCls}
-          >
-            {RES.map((r) => (
-              <option key={r} value={r}>
-                {t(`gm.res.${r}`)}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="flex items-center gap-2 text-sm text-ink">
+            onChange={(v) => act().setReceiveResolution(v)}
+            aria-label={t("gm.recvRes")}
+            size="sm"
+            className="w-44"
+            options={RES.map((r) => ({
+              value: r,
+              label: t(`gm.res.${r}`),
+            }))}
+          />
+        </div>
+        <div className="flex items-center gap-2 text-sm text-ink">
           <span className="flex-1">{t("gm.bandwidth")}</span>
-          <select
+          <Select<BandwidthPolicy>
             value={bandwidthPolicy}
-            onChange={(e) => act().setBandwidthPolicy(e.target.value as BandwidthPolicy)}
-            className={selectCls}
-          >
-            {BW.map((b) => (
-              <option key={b} value={b}>
-                {t(`gm.bw.${b}`)}
-              </option>
-            ))}
-          </select>
-        </label>
+            onChange={(v) => act().setBandwidthPolicy(v)}
+            aria-label={t("gm.bandwidth")}
+            size="sm"
+            className="w-44"
+            options={BW.map((b) => ({
+              value: b,
+              label: t(`gm.bw.${b}`),
+            }))}
+          />
+        </div>
         <Toggle
           label={t("gm.dataSaver")}
           on={dataSaver}

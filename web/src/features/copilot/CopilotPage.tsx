@@ -6,6 +6,9 @@ import {
   SkeletonText,
   EmptyState,
   ConfirmDialog,
+  Modal,
+  Dropdown,
+  DropdownItem,
   useToast,
 } from "@/components/ui";
 import {
@@ -48,6 +51,19 @@ export function CopilotPage() {
 
   const [activeId, setActiveId] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
+
+  // Sohbet ayarları modalı (ortak Modal/Overlay primitifi üzerinden — tüm
+  // popup'larla aynı backdrop). Sekmeler ve içerideki açılır menüler React
+  // state ile yönetilir; Flowbite data-attr'larına bağlı değildir.
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [settingsTab, setSettingsTab] = useState<
+    "general" | "data" | "applications" | "security"
+  >("general");
+  const [themePref, setThemePref] = useState<"system" | "light" | "dark">(
+    "system",
+  );
+  const [chatLang, setChatLang] = useState("en-us");
+  const [improveModel, setImproveModel] = useState(true);
 
   // Geçmiş arama + yeniden adlandırma + silme onayı durumları.
   const [search, setSearch] = useState("");
@@ -258,13 +274,122 @@ export function CopilotPage() {
     [t],
   );
 
+  // Paylaşılan sohbet akışı içeriği — delight varyantları (impeccable live)
+  // aynı dinamik render'ı paylaşır; yalnızca sarmalayan kabuğun scoped CSS'i
+  // (data-role hedefli) görünümü farklılaştırır.
+  const copilotThread = (
+    <div className="copilot-thread mx-auto max-w-4xl space-y-6 px-4 py-4 lg:px-6 lg:py-6">
+      {messagesLoading && (
+        <div className="p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg">
+          <SkeletonText lines={3} />
+        </div>
+      )}
+
+      {!messagesLoading && !activeId && (
+        <EmptyState title={t("state.emptyTitle")} description={t("state.emptyDescription")} />
+      )}
+
+      {!messagesLoading && activeId && messages.length === 0 && (
+        <>
+          <div data-role="assistant" className="msg-card p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-6 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
+            <img className="msg-avatar h-6 w-6 rounded-full" src="/images/logo.svg" alt="logo" />
+            <div className="format dark:format-invert format-blue">
+              <p>{t("simulated.empty")}</p>
+            </div>
+          </div>
+          <div className="motion-safe:[animation:tl-fade-in_300ms_var(--ease-out)]">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white">{t("prompts.title")}</h3>
+            <p className="mb-3 text-sm text-muted dark:text-gray-400">{t("prompts.subtitle")}</p>
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {samplePrompts.map((p, i) => (
+                <button key={i} type="button" onClick={() => handleSamplePrompt(p)} disabled={sendMessage.isPending} className="rounded-lg border border-gray-200 bg-white px-4 py-3 text-left text-sm text-gray-700 transition-[transform,colors] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:border-primary-400 hover:bg-primary-50 hover:text-primary-700 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-primary-500 dark:hover:bg-gray-700 dark:hover:text-white">
+                  {p}
+                </button>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+
+      {messages.map((m) =>
+        m.role === "user" ? (
+          <div key={m.id} data-role="user" className="msg-card p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-6 group relative pe-14 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
+            <img className="msg-avatar h-6 w-6 rounded-full" src="/images/users/bonnie-green.png" alt="user" />
+            <div className="msg-body format dark:format-invert format-blue min-w-0">
+              <MessageContent content={m.content} copyLabel={t("message.copyCode")} copiedLabel={t("message.copied")} onCopyCode={(code) => handleCopy(code)} />
+            </div>
+            <button type="button" onClick={() => handleCopy(m.content, m.id)} className="msg-copy absolute end-4 top-6 inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-400 opacity-0 transition-opacity duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:opacity-100 group-hover:opacity-100 dark:hover:bg-gray-600 dark:hover:text-white">
+              {copiedId === m.id ? (
+                <svg className="w-5 h-5 text-green-600 dark:text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 11.917 9.724 16.5 19 7.5" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fillRule="evenodd" d="M8 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1h2a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2Zm6 1h-4v2H9a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2h-1V4Zm-6 8a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clipRule="evenodd" />
+                </svg>
+              )}
+              <span className="sr-only">{t("message.copyText")}</span>
+            </button>
+          </div>
+        ) : (
+          <div key={m.id} data-role="assistant" className="msg-card p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-6 group relative pe-14 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
+            <img className="msg-avatar h-6 w-6 rounded-full" src="/images/logo.svg" alt="assistant" />
+            <div className="msg-body format dark:format-invert format-blue min-w-0">
+              <MessageContent content={m.content} copyLabel={t("message.copyCode")} copiedLabel={t("message.copied")} onCopyCode={(code) => handleCopy(code)} />
+              <div className="msg-actions space-x-2 flex items-center">
+                <button type="button" onClick={() => handleCopy(m.content, m.id)} className="inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-500 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
+                  {copiedId === m.id ? (
+                    <svg className="w-5 h-5 text-green-600 dark:text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 11.917 9.724 16.5 19 7.5" />
+                    </svg>
+                  ) : (
+                    <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                      <path fillRule="evenodd" d="M8 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1h2a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2Zm6 1h-4v2H9a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2h-1V4Zm-6 8a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                  <span className="sr-only">{t("message.copyText")}</span>
+                </button>
+                <button type="button" className="inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-500 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path fillRule="evenodd" d="M15.03 9.684h3.965c.322 0 .64.08.925.232.286.153.532.374.717.645a2.109 2.109 0 0 1 .242 1.883l-2.36 7.201c-.288.814-.48 1.355-1.884 1.355-2.072 0-4.276-.677-6.157-1.256-.472-.145-.924-.284-1.348-.404h-.115V9.478a25.485 25.485 0 0 0 4.238-5.514 1.8 1.8 0 0 1 .901-.83 1.74 1.74 0 0 1 1.21-.048c.396.13.736.397.96.757.225.36.32.788.269 1.211l-1.562 4.63ZM4.177 10H7v8a2 2 0 1 1-4 0v-6.823C3 10.527 3.527 10 4.176 10Z" clipRule="evenodd" />
+                  </svg>
+                  <span className="sr-only">{t("message.likeResponse")}</span>
+                </button>
+                <button type="button" className="inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-500 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path fillRule="evenodd" d="M8.97 14.316H5.004c-.322 0-.64-.08-.925-.232a2.022 2.022 0 0 1-.717-.645 2.108 2.108 0 0 1-.242-1.883l2.36-7.201C5.769 3.54 5.96 3 7.365 3c2.072 0 4.276.678 6.156 1.256.473.145.925.284 1.35.404h.114v9.862a25.485 25.485 0 0 0-4.238 5.514c-.197.376-.516.67-.901.83a1.74 1.74 0 0 1-1.21.048 1.79 1.79 0 0 1-.96-.757 1.867 1.867 0 0 1-.269-1.211l1.562-4.63ZM19.822 14H17V6a2 2 0 1 1 4 0v6.823c0 .65-.527 1.177-1.177 1.177Z" clipRule="evenodd" />
+                  </svg>
+                  <span className="sr-only">{t("message.unlikeResponse")}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        ),
+      )}
+
+      {sendMessage.isPending && (
+        <div data-role="assistant" className="msg-card p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-6 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]" aria-live="polite">
+          <img className="msg-avatar h-6 w-6 rounded-full" src="/images/logo.svg" alt="assistant" />
+          <div className="flex items-center gap-2 text-sm text-muted dark:text-gray-400">
+            <span className="flex gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-gray-400 motion-safe:animate-bounce [animation-delay:-0.3s] dark:bg-gray-500" />
+              <span className="h-1.5 w-1.5 rounded-full bg-gray-400 motion-safe:animate-bounce [animation-delay:-0.15s] dark:bg-gray-500" />
+              <span className="h-1.5 w-1.5 rounded-full bg-gray-400 motion-safe:animate-bounce dark:bg-gray-500" />
+            </span>
+            {t("message.typing")}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <>
-      <div className="relative h-[calc(100vh-8rem)] w-full">
+      <div className="flex h-full w-full flex-col">
         <div className="border-b border-gray-200 bg-white px-4 py-2.5 pb-4 sm:pb-2.5 dark:border-gray-700 dark:bg-gray-800">
           <div className="flex w-full items-center justify-between mb-2.5 sm:mb-0">
             <div>
-              <button data-tooltip-target="tooltip-chat-settings" data-modal-toggle="settings-modal" data-modal-target="settings-modal" type="button" className="rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-600">
+              <button data-tooltip-target="tooltip-chat-settings" type="button" onClick={() => setSettingsOpen(true)} className="rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-600">
                 <span className="sr-only">{t("header.chatSettings")}</span>
 
                 <svg className="h-6 w-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -348,137 +473,14 @@ export function CopilotPage() {
           </div>
         </div>
 
-        <div ref={scrollRef} className="overflow-y-scroll h-[calc(100vh-18.7rem)] sm:h-[calc(100vh-15.4rem)]">
-          <div className="max-w-4xl mx-auto py-4 lg:py-6 space-y-6 px-4 lg:px-6">
-            {messagesLoading && (
-              <div className="p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg">
-                <SkeletonText lines={3} />
-              </div>
-            )}
+        <div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto">{copilotThread}</div>
 
-            {!messagesLoading && !activeId && (
-              <EmptyState
-                title={t("state.emptyTitle")}
-                description={t("state.emptyDescription")}
-              />
-            )}
-
-            {!messagesLoading && activeId && messages.length === 0 && (
-              <>
-                <div className="p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-6 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
-                  <img className="h-6 w-6 rounded-full" src="/images/logo.svg" alt="logo" />
-                  <div className="format dark:format-invert format-blue">
-                    <p>{t("simulated.empty")}</p>
-                  </div>
-                </div>
-
-                {/* Örnek prompt önerileri — tıkla → gönder. */}
-                <div className="motion-safe:[animation:tl-fade-in_300ms_var(--ease-out)]">
-                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white">{t("prompts.title")}</h3>
-                  <p className="mb-3 text-sm text-gray-500 dark:text-gray-400">{t("prompts.subtitle")}</p>
-                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                    {samplePrompts.map((p, i) => (
-                      <button
-                        key={i}
-                        type="button"
-                        onClick={() => handleSamplePrompt(p)}
-                        disabled={sendMessage.isPending}
-                        className="rounded-lg border border-gray-200 bg-white px-4 py-3 text-left text-sm text-gray-700 transition-[transform,colors] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:border-primary-400 hover:bg-primary-50 hover:text-primary-700 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-primary-500 dark:hover:bg-gray-700 dark:hover:text-white"
-                      >
-                        {p}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </>
-            )}
-
-            {messages.map((m) =>
-              m.role === "user" ? (
-                <div key={m.id} className="p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-6 group relative pe-14 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
-                  <img className="h-6 w-6 rounded-full" src="/images/users/bonnie-green.png" alt="user" />
-                  <div className="format dark:format-invert format-blue min-w-0">
-                    <MessageContent
-                      content={m.content}
-                      copyLabel={t("message.copyCode")}
-                      copiedLabel={t("message.copied")}
-                      onCopyCode={(code) => handleCopy(code)}
-                    />
-                  </div>
-                  <button type="button" onClick={() => handleCopy(m.content, m.id)} className="absolute end-4 top-6 inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-400 opacity-0 transition-opacity duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:opacity-100 group-hover:opacity-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                    {copiedId === m.id ? (
-                      <svg className="w-5 h-5 text-green-600 dark:text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 11.917 9.724 16.5 19 7.5" />
-                      </svg>
-                    ) : (
-                      <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                        <path fillRule="evenodd" d="M8 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1h2a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2Zm6 1h-4v2H9a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2h-1V4Zm-6 8a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clipRule="evenodd" />
-                      </svg>
-                    )}
-                    <span className="sr-only">{t("message.copyText")}</span>
-                  </button>
-                </div>
-              ) : (
-                <div key={m.id} className="p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-6 group relative pe-14 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
-                  <img className="h-6 w-6 rounded-full" src="/images/logo.svg" alt="assistant" />
-                  <div className="format dark:format-invert format-blue min-w-0">
-                    <MessageContent
-                      content={m.content}
-                      copyLabel={t("message.copyCode")}
-                      copiedLabel={t("message.copied")}
-                      onCopyCode={(code) => handleCopy(code)}
-                    />
-                    <div className="space-x-2 flex items-center">
-                      <button type="button" onClick={() => handleCopy(m.content, m.id)} className="inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-500 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
-                        {copiedId === m.id ? (
-                          <svg className="w-5 h-5 text-green-600 dark:text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 11.917 9.724 16.5 19 7.5" />
-                          </svg>
-                        ) : (
-                          <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                            <path fillRule="evenodd" d="M8 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1h2a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2Zm6 1h-4v2H9a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2h-1V4Zm-6 8a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clipRule="evenodd" />
-                          </svg>
-                        )}
-                        <span className="sr-only">{t("message.copyText")}</span>
-                      </button>
-                      <button type="button" className="inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-500 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
-                        <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                          <path fillRule="evenodd" d="M15.03 9.684h3.965c.322 0 .64.08.925.232.286.153.532.374.717.645a2.109 2.109 0 0 1 .242 1.883l-2.36 7.201c-.288.814-.48 1.355-1.884 1.355-2.072 0-4.276-.677-6.157-1.256-.472-.145-.924-.284-1.348-.404h-.115V9.478a25.485 25.485 0 0 0 4.238-5.514 1.8 1.8 0 0 1 .901-.83 1.74 1.74 0 0 1 1.21-.048c.396.13.736.397.96.757.225.36.32.788.269 1.211l-1.562 4.63ZM4.177 10H7v8a2 2 0 1 1-4 0v-6.823C3 10.527 3.527 10 4.176 10Z" clipRule="evenodd" />
-                        </svg>
-                        <span className="sr-only">{t("message.likeResponse")}</span>
-                      </button>
-                      <button type="button" className="inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-500 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
-                        <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                          <path fillRule="evenodd" d="M8.97 14.316H5.004c-.322 0-.64-.08-.925-.232a2.022 2.022 0 0 1-.717-.645 2.108 2.108 0 0 1-.242-1.883l2.36-7.201C5.769 3.54 5.96 3 7.365 3c2.072 0 4.276.678 6.156 1.256.473.145.925.284 1.35.404h.114v9.862a25.485 25.485 0 0 0-4.238 5.514c-.197.376-.516.67-.901.83a1.74 1.74 0 0 1-1.21.048 1.79 1.79 0 0 1-.96-.757 1.867 1.867 0 0 1-.269-1.211l1.562-4.63ZM19.822 14H17V6a2 2 0 1 1 4 0v6.823c0 .65-.527 1.177-1.177 1.177Z" clipRule="evenodd" />
-                        </svg>
-                        <span className="sr-only">{t("message.unlikeResponse")}</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ),
-            )}
-
-            {/* "Yazıyor…" göstergesi — yalnızca gönderim sırasında. */}
-            {sendMessage.isPending && (
-              <div className="p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-6 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]" aria-live="polite">
-                <img className="h-6 w-6 rounded-full" src="/images/logo.svg" alt="assistant" />
-                <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span className="flex gap-1">
-                    <span className="h-1.5 w-1.5 rounded-full bg-gray-400 motion-safe:animate-bounce [animation-delay:-0.3s] dark:bg-gray-500" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-gray-400 motion-safe:animate-bounce [animation-delay:-0.15s] dark:bg-gray-500" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-gray-400 motion-safe:animate-bounce dark:bg-gray-500" />
-                  </span>
-                  {t("message.typing")}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 w-full">
+        <div className="w-full shrink-0">
           <div className="w-full border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-700">
-            <form onSubmit={handleSend} className="flex items-center gap-4 bg-white px-4 py-3 dark:bg-gray-800">
+            <form onSubmit={handleSend} className="copilot-composer flex items-center gap-2 px-4 py-2.5 sm:gap-3">
+              <span className="copilot-spark inline-flex h-6 w-6 shrink-0 items-center justify-center text-blue-700" aria-hidden="true">
+                <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l1.6 4.9a4 4 0 0 0 2.5 2.5l4.9 1.6-4.9 1.6a4 4 0 0 0-2.5 2.5L12 20.5l-1.6-4.9a4 4 0 0 0-2.5-2.5L3 11.5l4.9-1.6a4 4 0 0 0 2.5-2.5L12 2.5z" /></svg>
+              </span>
               <label htmlFor="ai-chat-input" className="sr-only">{t("input.writeMessage")}</label>
               <input
                 type="text"
@@ -488,13 +490,10 @@ export function CopilotPage() {
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 disabled={!activeId || sendMessage.isPending}
-                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400"
+                className="min-h-[44px] min-w-0 flex-1 border-0 bg-transparent px-1 text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 disabled:opacity-50"
               />
-              <button type="submit" disabled={!activeId || sendMessage.isPending || !draft.trim()} className="inline-flex cursor-pointer justify-center rounded-full p-2 text-primary-600 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-primary-100 disabled:cursor-not-allowed disabled:opacity-50 dark:text-primary-500 dark:hover:bg-gray-600">
-                <svg className="h-4 w-4 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                  <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
-                </svg>
-                <span className="sr-only">{t("input.sendMessage")}</span>
+              <button type="submit" disabled={!activeId || sendMessage.isPending || !draft.trim()} aria-label={t("input.sendMessage")} className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-blue-700 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-95 hover:bg-blue-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-300 disabled:cursor-not-allowed disabled:opacity-50">
+                <svg className="h-5 w-5 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20"><path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" /></svg>
               </button>
             </form>
           </div>
@@ -528,7 +527,7 @@ export function CopilotPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("history.searchPlaceholder")}
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-9 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400"
+              className="input ps-9"
             />
           </div>
         </div>
@@ -571,7 +570,7 @@ export function CopilotPage() {
                             if (e.key === "Escape") cancelRename();
                           }}
                           onBlur={commitRename}
-                          className="min-w-0 flex-1 rounded-md border border-gray-300 bg-white px-2 py-1 text-sm text-gray-900 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+                          className="input min-w-0 flex-1"
                         />
                         <button type="submit" className="shrink-0 rounded-md p-1 text-gray-400 hover:text-green-600 dark:hover:text-green-500" aria-label={t("history.renameSave")}>
                           <svg className="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -650,82 +649,107 @@ export function CopilotPage() {
         </div>
       </div>
 
-      <div id="settings-modal" tabIndex={-1} aria-hidden="true" className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div className="relative p-4 w-full max-w-3xl max-h-full">
-            {/* Modal content */}
-            <div className="relative bg-white rounded-lg shadow-sm dark:bg-gray-800">
-                {/* Modal header */}
-                <div className="flex items-center justify-between px-4 pt-4 md:px-5 md:pt-5 rounded-t">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                        {t("settings.title")}
-                    </h3>
-                    <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="settings-modal">
-                        <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                        </svg>
-                        <span className="sr-only">{t("settings.closeModal")}</span>
-                    </button>
-                </div>
-                {/* Modal body */}
-                <div className="p-4 md:p-5">
-                  <div className="border-y py-5 border-gray-200 dark:border-gray-700">
-                    <ul data-tabs-active-classes="!text-white !bg-primary-700 dark:!bg-primary-600" className="grid grid-cols-2 gap-4 text-sm font-medium  md:grid-cols-4" id="settings-tab" data-tabs-toggle="#settings-tab-content" role="tablist">
-                      <li role="presentation">
-                        <button className="w-full inline-flex items-center justify-center rounded-lg bg-gray-50 px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white" id="general-tab" data-tabs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="false"><svg className="w-5 h-5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
-                          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                        </svg>
-                        {t("settings.tabGeneral")}</button>
-                      </li>
-                      <li role="presentation">
-                        <button className="w-full inline-flex items-center justify-center rounded-lg bg-gray-50 px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white" id="data-controls-tab" data-tabs-target="#data-controls" type="button" role="tab" aria-controls="data-controls" aria-selected="false"><svg className="w-5 h-5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 5v14m6-8h-6m6 4h-6m-9-3h1.99093M4 19h16c.5523 0 1-.4477 1-1V6c0-.55228-.4477-1-1-1H4c-.55228 0-1 .44772-1 1v12c0 .5523.44772 1 1 1Zm8-7c0 1.1046-.8954 2-2 2-1.10457 0-2-.8954-2-2s.89543-2 2-2c1.1046 0 2 .8954 2 2Z" />
-                        </svg>
-                        {t("settings.tabData")} <span className="hidden sm:inline ms-1">{t("settings.tabDataControls")}</span></button>
-                      </li>
-                      <li role="presentation">
-                        <button className="w-full inline-flex items-center justify-center rounded-lg bg-gray-50 px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-400  dark:hover:text-white" id="applications-tab" data-tabs-target="#applications" type="button" role="tab" aria-controls="applications" aria-selected="false"><svg className="w-5 h-5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z" />
-                        </svg>
-                        {t("settings.tabApplications")}</button>
-                      </li>
-                      <li role="presentation">
-                        <button className="w-full inline-flex items-center justify-center rounded-lg bg-gray-50 px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white" id="security-tab" data-tabs-target="#security" type="button" role="tab" aria-controls="security" aria-selected="false"><svg className="w-5 h-5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a28.076 28.076 0 0 1-1.091 9M7.231 4.37a8.994 8.994 0 0 1 12.88 3.73M2.958 15S3 14.577 3 12a8.949 8.949 0 0 1 1.735-5.307m12.84 3.088A5.98 5.98 0 0 1 18 12a30 30 0 0 1-.464 6.232M6 12a6 6 0 0 1 9.352-4.974M4 21a5.964 5.964 0 0 1 1.01-3.328 5.15 5.15 0 0 0 .786-1.926m8.66 2.486a13.96 13.96 0 0 1-.962 2.683M7.5 19.336C9 17.092 9 14.845 9 12a3 3 0 1 1 6 0c0 .749 0 1.521-.031 2.311M12 12c0 3 0 6-2 9" />
-                        </svg>
-                        {t("settings.tabSecurity")}</button>
-                      </li>
-                    </ul>
+      <Modal
+        open={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        title={t("settings.title")}
+        size="xl"
+        footer={
+          <>
+            <button type="button" onClick={() => setSettingsOpen(false)} className="rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">{t("settings.save")}</button>
+            <button type="button" onClick={() => setSettingsOpen(false)} className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">{t("settings.close")}</button>
+          </>
+        }
+      >
+                  <div className="border-b pb-5 border-gray-200 dark:border-gray-700">
+                    <div className="grid grid-cols-2 gap-4 text-sm font-medium md:grid-cols-4" role="tablist">
+                      {(
+                        [
+                          {
+                            key: "general",
+                            label: t("settings.tabGeneral"),
+                            icon: (
+                              <>
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                              </>
+                            ),
+                          },
+                          {
+                            key: "data",
+                            label: t("settings.tabData"),
+                            icon: (
+                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 5v14m6-8h-6m6 4h-6m-9-3h1.99093M4 19h16c.5523 0 1-.4477 1-1V6c0-.55228-.4477-1-1-1H4c-.55228 0-1 .44772-1 1v12c0 .5523.44772 1 1 1Zm8-7c0 1.1046-.8954 2-2 2-1.10457 0-2-.8954-2-2s.89543-2 2-2c1.1046 0 2 .8954 2 2Z" />
+                            ),
+                          },
+                          {
+                            key: "applications",
+                            label: t("settings.tabApplications"),
+                            icon: (
+                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z" />
+                            ),
+                          },
+                          {
+                            key: "security",
+                            label: t("settings.tabSecurity"),
+                            icon: (
+                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a28.076 28.076 0 0 1-1.091 9M7.231 4.37a8.994 8.994 0 0 1 12.88 3.73M2.958 15S3 14.577 3 12a8.949 8.949 0 0 1 1.735-5.307m12.84 3.088A5.98 5.98 0 0 1 18 12a30 30 0 0 1-.464 6.232M6 12a6 6 0 0 1 9.352-4.974M4 21a5.964 5.964 0 0 1 1.01-3.328 5.15 5.15 0 0 0 .786-1.926m8.66 2.486a13.96 13.96 0 0 1-.962 2.683M7.5 19.336C9 17.092 9 14.845 9 12a3 3 0 1 1 6 0c0 .749 0 1.521-.031 2.311M12 12c0 3 0 6-2 9" />
+                            ),
+                          },
+                        ] as const
+                      ).map((tab) => (
+                        <button
+                          key={tab.key}
+                          type="button"
+                          role="tab"
+                          aria-selected={settingsTab === tab.key}
+                          onClick={() => setSettingsTab(tab.key)}
+                          className={`w-full inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] ${
+                            settingsTab === tab.key
+                              ? "bg-primary-700 text-white dark:bg-primary-600"
+                              : "bg-gray-50 text-gray-900 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                          }`}
+                        >
+                          <svg className="w-5 h-5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            {tab.icon}
+                          </svg>
+                          {tab.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                  <div id="settings-tab-content">
-                    <div className="hidden" id="general" role="tabpanel" aria-labelledby="general-tab">
+                  <div className="min-h-[20rem]">
+                    {settingsTab === "general" && (
+                    <div role="tabpanel">
                       <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
                           <div>
                             <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.theme")}</h6>
                             <p className="text-gray-500 text-sm font-normal dark:text-gray-400">{t("settings.themeDescription")}</p>
                           </div>
                           <div className="shrink-0">
-                            <button id="dropdowThemeButton" data-dropdown-toggle="dropdownTheme" className="flex items-center rounded-full p-1.5 me-2 text-sm font-medium text-gray-900 hover:text-primary-600 focus:ring-4 focus:ring-gray-100 dark:text-white dark:hover:text-primary-500 dark:focus:ring-gray-700" type="button">
-                              <span className="sr-only">{t("header.openUserMenu")}</span>
-                             {t("settings.system")}
-                              <svg className="mx-1.5 h-2.5 w-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
-                              </svg>
-                            </button>
-                            {/* Dropdown menu */}
-                            <div id="dropdownTheme" className="z-10 hidden w-44 divide-y divide-gray-100 rounded-lg bg-white shadow-sm dark:divide-gray-600 dark:bg-gray-700">
-                              <ul className="p-2 text-sm font-medium text-gray-500 dark:text-gray-400" role="none">
-                                <li>
-                                  <a href="#" className="inline-flex w-full items-center rounded-md px-3 py-2 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">{t("settings.systemSettings")}</a>
-                                </li>
-                                <li>
-                                  <a href="#" className="inline-flex w-full items-center rounded-md px-3 py-2 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">{t("settings.lightMode")}</a>
-                                </li>
-                                <li>
-                                  <a href="#" className="inline-flex w-full items-center rounded-md px-3 py-2 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">{t("settings.darkMode")}</a>
-                                </li>
-                              </ul>
-                            </div>
+                            <Dropdown
+                              side="bottom"
+                              align="end"
+                              menuWidth="w-44"
+                              label={t("settings.theme")}
+                              triggerClassName="flex items-center rounded-full p-1.5 me-2 text-sm font-medium text-gray-900 hover:text-primary-600 dark:text-white dark:hover:text-primary-500"
+                              trigger={
+                                <>
+                                  {themePref === "system"
+                                    ? t("settings.system")
+                                    : themePref === "light"
+                                      ? t("settings.lightMode")
+                                      : t("settings.darkMode")}
+                                  <svg className="mx-1.5 h-2.5 w-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
+                                  </svg>
+                                </>
+                              }
+                            >
+                              <DropdownItem onSelect={() => setThemePref("system")}>{t("settings.systemSettings")}</DropdownItem>
+                              <DropdownItem onSelect={() => setThemePref("light")}>{t("settings.lightMode")}</DropdownItem>
+                              <DropdownItem onSelect={() => setThemePref("dark")}>{t("settings.darkMode")}</DropdownItem>
+                            </Dropdown>
                           </div>
                       </div>
                       <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
@@ -746,33 +770,35 @@ export function CopilotPage() {
                           <p className="text-gray-500 text-sm font-normal dark:text-gray-400">{t("settings.languageDescription")}</p>
                         </div>
                         <div className="shrink-0">
-                          <button id="dropdowChatLanguageButton" data-dropdown-toggle="dropdownChatLanguage" className="flex items-center rounded-full p-1.5 me-2 text-sm font-medium text-gray-900 hover:text-primary-600 focus:ring-4 focus:ring-gray-100 dark:text-white dark:hover:text-primary-500 dark:focus:ring-gray-700" type="button">
-                            <span className="sr-only">{t("header.openUserMenu")}</span>
-                            {t("settings.languageEnglishUs")}
-                            <svg className="mx-1.5 h-2.5 w-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
-                            </svg>
-                          </button>
-                          {/* Dropdown menu */}
-                          <div id="dropdownChatLanguage" className="z-10 hidden w-40 divide-y divide-gray-100 rounded-lg bg-white shadow-sm dark:divide-gray-600 dark:bg-gray-700">
-                            <ul className="p-2 text-sm font-medium text-gray-500 dark:text-gray-400" role="none">
-                              <li>
-                                <a href="#" className="inline-flex w-full items-center rounded-md px-3 py-2 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">{t("settings.german")}</a>
-                              </li>
-                              <li>
-                                <a href="#" className="inline-flex w-full items-center rounded-md px-3 py-2 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">{t("settings.spanish")}</a>
-                              </li>
-                              <li>
-                                <a href="#" className="inline-flex w-full items-center rounded-md px-3 py-2 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">{t("settings.french")}</a>
-                              </li>
-                              <li>
-                                <a href="#" className="inline-flex w-full items-center rounded-md px-3 py-2 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">{t("settings.english")}</a>
-                              </li>
-                              <li>
-                                <a href="#" className="inline-flex w-full items-center rounded-md px-3 py-2 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">{t("settings.chinese")}</a>
-                              </li>
-                            </ul>
-                          </div>
+                          <Dropdown
+                            side="bottom"
+                            align="end"
+                            menuWidth="w-40"
+                            label={t("settings.language")}
+                            triggerClassName="flex items-center rounded-full p-1.5 me-2 text-sm font-medium text-gray-900 hover:text-primary-600 dark:text-white dark:hover:text-primary-500"
+                            trigger={
+                              <>
+                                {chatLang === "de"
+                                  ? t("settings.german")
+                                  : chatLang === "es"
+                                    ? t("settings.spanish")
+                                    : chatLang === "fr"
+                                      ? t("settings.french")
+                                      : chatLang === "zh"
+                                        ? t("settings.chinese")
+                                        : t("settings.languageEnglishUs")}
+                                <svg className="mx-1.5 h-2.5 w-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                              </>
+                            }
+                          >
+                            <DropdownItem onSelect={() => setChatLang("de")}>{t("settings.german")}</DropdownItem>
+                            <DropdownItem onSelect={() => setChatLang("es")}>{t("settings.spanish")}</DropdownItem>
+                            <DropdownItem onSelect={() => setChatLang("fr")}>{t("settings.french")}</DropdownItem>
+                            <DropdownItem onSelect={() => setChatLang("en-us")}>{t("settings.english")}</DropdownItem>
+                            <DropdownItem onSelect={() => setChatLang("zh")}>{t("settings.chinese")}</DropdownItem>
+                          </Dropdown>
                         </div>
                       </div>
                       <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
@@ -799,31 +825,33 @@ export function CopilotPage() {
                           </div>
                       </div>
                     </div>
-                    <div className="hidden" id="data-controls" role="tabpanel" aria-labelledby="data-controls-tab">
+                    )}
+                    {settingsTab === "data" && (
+                    <div role="tabpanel">
                       <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
                         <div>
                           <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.improveModel")}</h6>
                           <p className="text-gray-500 text-sm font-normal dark:text-gray-400 max-w-md">{t("settings.improveModelDescription")}</p>
                         </div>
                         <div className="shrink-0">
-                          <button id="dropdownModelSettingsButton" data-dropdown-toggle="dropdownModelSettings" className="flex items-center rounded-full p-1.5 me-2 text-sm font-medium text-gray-900 hover:text-primary-600 focus:ring-4 focus:ring-gray-100 dark:text-white dark:hover:text-primary-500 dark:focus:ring-gray-700" type="button">
-                            <span className="sr-only">{t("header.openUserMenu")}</span>
-                           {t("settings.on")}
-                            <svg className="mx-1.5 h-2.5 w-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
-                            </svg>
-                          </button>
-                          {/* Dropdown menu */}
-                          <div id="dropdownModelSettings" className="z-10 hidden w-40 divide-y divide-gray-100 rounded-lg bg-white shadow-sm dark:divide-gray-600 dark:bg-gray-700">
-                            <ul className="p-2 text-sm font-medium text-gray-500 dark:text-gray-400" role="none">
-                              <li>
-                                <a href="#" className="inline-flex w-full items-center rounded-md px-3 py-2 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">{t("settings.turnOff")}</a>
-                              </li>
-                              <li>
-                                <a href="#" className="inline-flex w-full items-center rounded-md px-3 py-2 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">{t("settings.turnOn")}</a>
-                              </li>
-                            </ul>
-                          </div>
+                          <Dropdown
+                            side="bottom"
+                            align="end"
+                            menuWidth="w-40"
+                            label={t("settings.improveModel")}
+                            triggerClassName="flex items-center rounded-full p-1.5 me-2 text-sm font-medium text-gray-900 hover:text-primary-600 dark:text-white dark:hover:text-primary-500"
+                            trigger={
+                              <>
+                                {improveModel ? t("settings.on") : t("settings.turnOff")}
+                                <svg className="mx-1.5 h-2.5 w-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                              </>
+                            }
+                          >
+                            <DropdownItem onSelect={() => setImproveModel(false)}>{t("settings.turnOff")}</DropdownItem>
+                            <DropdownItem onSelect={() => setImproveModel(true)}>{t("settings.turnOn")}</DropdownItem>
+                          </Dropdown>
                         </div>
                       </div>
                       <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
@@ -863,7 +891,9 @@ export function CopilotPage() {
                           </div>
                       </div>
                     </div>
-                    <div className="hidden" id="applications" role="tabpanel" aria-labelledby="applications-tab">
+                    )}
+                    {settingsTab === "applications" && (
+                    <div role="tabpanel">
                       <h6 className="text-sm text-gray-900 dark:text-white font-medium py-5 border-b border-gray-200 dark:border-gray-700">{t("settings.connectApps")}</h6>
                       <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
                         <div>
@@ -914,7 +944,9 @@ export function CopilotPage() {
                         </div>
                       </div>
                     </div>
-                    <div className="hidden" id="security" role="tabpanel" aria-labelledby="security-tab">
+                    )}
+                    {settingsTab === "security" && (
+                    <div role="tabpanel">
                       <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
                         <div>
                           <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.multiFactorAuth")}</h6>
@@ -949,16 +981,9 @@ export function CopilotPage() {
                         </div>
                       </div>
                     </div>
+                    )}
                   </div>
-                </div>
-                {/* Modal footer */}
-                <div className="flex items-center px-4 md:px-5 pb-4 md:pb-5 rounded-b">
-                    <button data-modal-hide="settings-modal" type="button" className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">{t("settings.save")}</button>
-                    <button data-modal-hide="settings-modal" type="button" className="py-2.5 px-5 ms-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">{t("settings.close")}</button>
-                </div>
-            </div>
-        </div>
-      </div>
+      </Modal>
 
       <ConfirmDialog
         open={!!pendingDelete}

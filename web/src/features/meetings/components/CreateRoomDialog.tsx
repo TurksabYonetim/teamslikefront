@@ -68,7 +68,7 @@ export function CreateRoomDialog({
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder={t("roomNamePh")}
-            className="block h-11 w-full rounded-lg border border-gray-300 bg-surface-2 px-3 text-sm text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+            className="input h-11"
           />
         </label>
         <div className="flex flex-wrap gap-2">
@@ -83,7 +83,7 @@ export function CreateRoomDialog({
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder={t("roomPasswordPh")}
-            className="block h-11 w-full rounded-lg border border-gray-300 bg-surface-2 px-3 text-sm text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+            className="input h-11"
           />
         </label>
         <div className="flex justify-end gap-2">

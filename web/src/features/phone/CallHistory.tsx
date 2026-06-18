@@ -104,8 +104,10 @@ export function CallHistory({
 
   const hasResults = groups.length > 0;
 
-  return (
-    <div className="flex w-full flex-col">
+  // Arama geçmişi gövdesi — durum girişi + AAA filtre pill'i ".call-history"
+  // sınıf kancaları üzerinden styles/index.css'te (impeccable delight).
+  const renderCallHistory = () => (
+    <div className="call-history flex w-full flex-col">
       <div className="mb-3 flex items-center justify-between">
         <h3 className="text-base font-semibold text-gray-900 dark:text-white">
           {t("history.title")}
@@ -113,8 +115,8 @@ export function CallHistory({
       </div>
 
       {/* Arama kutusu */}
-      <div className="relative mb-3">
-        <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+      <div className="ch-search relative mb-3">
+        <span className="ch-search-ic pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
           </svg>
@@ -125,7 +127,7 @@ export function CallHistory({
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t("history.searchPlaceholder")}
           aria-label={t("history.searchPlaceholder")}
-          className="input w-full pl-9 pr-9"
+          className="input pl-9 pr-9"
         />
         {query && (
           <button
@@ -153,14 +155,14 @@ export function CallHistory({
               aria-selected={selected}
               onClick={() => setFilter(f)}
               className={
-                "shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition-[transform,color,background-color] duration-150 ease-[var(--ease-out)] motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-1 " +
+                "ch-filter shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition-[transform,color,background-color] duration-150 ease-[var(--ease-out)] motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-1 " +
                 (selected
                   ? "bg-primary-600 text-white"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600")
               }
             >
               {t(`history.filters.${f}`)}
-              <span className={selected ? "ml-1.5 opacity-80" : "ml-1.5 opacity-60"}>
+              <span className={"ch-count tabular-nums " + (selected ? "ml-1.5 opacity-80" : "ml-1.5 opacity-60")}>
                 {counts[f]}
               </span>
             </button>
@@ -168,74 +170,78 @@ export function CallHistory({
         })}
       </div>
 
-      {loading ? (
-        <div className="space-y-2">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton key={i} className="h-12" />
-          ))}
-        </div>
-      ) : error ? (
-        <EmptyState
-          title={t("history.errorTitle")}
-          description={t("history.errorDescription")}
-        />
-      ) : history.length === 0 ? (
-        <EmptyState
-          title={t("history.empty")}
-          description={t("history.emptyDescription")}
-        />
-      ) : !hasResults ? (
-        <EmptyState
-          title={t("history.noResults")}
-          description={t("history.noResultsDescription")}
-        />
-      ) : (
-        <div className="space-y-4">
-          {groups.map((group) => (
-            <div key={group.key}>
-              <p className="mb-1.5 px-1 text-xs font-semibold text-muted dark:text-gray-400">
-                {t(`history.groups.${group.key}`)}
-              </p>
-              <ul className="tl-stagger divide-y divide-gray-100 rounded-lg border border-gray-200 bg-white dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800">
-                {group.items.map((rec) => {
-                  const name =
-                    rec.peer_name ||
-                    nameForNumber(rec.peer_number, contacts) ||
-                    rec.peer_number;
-                  const showNumber = name !== rec.peer_number;
-                  return (
-                    <li key={rec.id} className="flex items-center gap-3 px-4 py-3">
-                      <DirectionIcon direction={rec.direction} />
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-gray-900 dark:text-white">
-                          {name}
-                        </p>
-                        <p className="truncate text-xs text-gray-500 dark:text-gray-400">
-                          {showNumber && `${rec.peer_number} · `}
-                          {t(`history.directions.${rec.direction}`)}
-                          {rec.direction !== "missed" &&
-                            ` · ${formatDuration(rec.duration_s)}`}
-                          {` · ${timeFmt.format(new Date(rec.started_at))}`}
-                        </p>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          onCallBack(rec.peer_number, rec.peer_name ?? name)
-                        }
-                        aria-label={t("history.callBack")}
-                        className="shrink-0 rounded-lg p-2 text-primary-600 transition-transform duration-150 ease-[var(--ease-out)] hover:bg-primary-50 active:scale-95 dark:text-primary-400 dark:hover:bg-gray-700"
-                      >
-                        <PhoneIcon />
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="ch-state">
+        {loading ? (
+          <div className="space-y-2">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Skeleton key={i} className="h-12" />
+            ))}
+          </div>
+        ) : error ? (
+          <EmptyState
+            title={t("history.errorTitle")}
+            description={t("history.errorDescription")}
+          />
+        ) : history.length === 0 ? (
+          <EmptyState
+            title={t("history.empty")}
+            description={t("history.emptyDescription")}
+          />
+        ) : !hasResults ? (
+          <EmptyState
+            title={t("history.noResults")}
+            description={t("history.noResultsDescription")}
+          />
+        ) : (
+          <div className="space-y-4">
+            {groups.map((group) => (
+              <div key={group.key}>
+                <p className="mb-1.5 px-1 text-xs font-semibold text-muted dark:text-gray-400">
+                  {t(`history.groups.${group.key}`)}
+                </p>
+                <ul className="ch-list tl-stagger divide-y divide-gray-100 rounded-lg border border-gray-200 bg-white dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800">
+                  {group.items.map((rec) => {
+                    const name =
+                      rec.peer_name ||
+                      nameForNumber(rec.peer_number, contacts) ||
+                      rec.peer_number;
+                    const showNumber = name !== rec.peer_number;
+                    return (
+                      <li key={rec.id} className="ch-row flex items-center gap-3 px-4 py-3">
+                        <DirectionIcon direction={rec.direction} />
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-medium text-gray-900 dark:text-white">
+                            {name}
+                          </p>
+                          <p className="truncate text-xs text-gray-500 dark:text-gray-400">
+                            {showNumber && `${rec.peer_number} · `}
+                            {t(`history.directions.${rec.direction}`)}
+                            {rec.direction !== "missed" &&
+                              ` · ${formatDuration(rec.duration_s)}`}
+                            {` · ${timeFmt.format(new Date(rec.started_at))}`}
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            onCallBack(rec.peer_number, rec.peer_name ?? name)
+                          }
+                          aria-label={t("history.callBack")}
+                          className="ch-callback shrink-0 rounded-lg p-2 text-primary-600 transition-transform duration-150 ease-[var(--ease-out)] hover:bg-primary-50 active:scale-95 dark:text-primary-400 dark:hover:bg-gray-700"
+                        >
+                          <PhoneIcon />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
+
+  return renderCallHistory();
 }

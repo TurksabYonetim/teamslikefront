@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
-import { Badge, Button, useToast } from "@/components/ui";
+import { Badge, Button, Select, useToast } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { appointmentsStore } from "../appointments.store";
 import { HOST_NAMES } from "../appointments.data";
@@ -24,8 +24,7 @@ interface Draft {
 
 type NumField = "durationMin" | "bufferBefore" | "bufferAfter" | "minNoticeMin";
 
-const fieldCls =
-  "block w-full rounded-lg border border-gray-300 bg-surface-2 p-2.5 text-sm text-ink placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500";
+const fieldCls = "input";
 
 export function EventTypeEditor() {
   const { t } = useTranslation("appointments");
@@ -63,7 +62,7 @@ export function EventTypeEditor() {
         min={0}
         value={draft[key]}
         onChange={(e) => setField(key, Number(e.target.value))}
-        className={`w-24 ${fieldCls}`}
+        className={`${fieldCls} w-24`}
       />
     </label>
   );
@@ -94,30 +93,26 @@ export function EventTypeEditor() {
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <label className="flex flex-col gap-1 text-sm font-medium text-muted">
-            {t("locationLabel")}
-            <select
-              value={draft.location}
-              onChange={(e) => setField("location", e.target.value as MeetingLocation)}
-              className={fieldCls}
-            >
-              {LOCATIONS.map((l) => (
-                <option key={l} value={l}>{t(`location.${l}`)}</option>
-              ))}
-            </select>
-          </label>
-          <label className="flex flex-col gap-1 text-sm font-medium text-muted">
-            {t("assignmentLabel")}
-            <select
-              value={draft.assignment}
-              onChange={(e) => setField("assignment", e.target.value as AssignmentMode)}
-              className={fieldCls}
-            >
-              {ASSIGNMENTS.map((a) => (
-                <option key={a} value={a}>{t(`assignment.${a}`)}</option>
-              ))}
-            </select>
-          </label>
+          <Select<MeetingLocation>
+            value={draft.location}
+            onChange={(v) => setField("location", v)}
+            label={t("locationLabel")}
+            className="w-56"
+            options={LOCATIONS.map((l) => ({
+              value: l,
+              label: t(`location.${l}`),
+            }))}
+          />
+          <Select<AssignmentMode>
+            value={draft.assignment}
+            onChange={(v) => setField("assignment", v)}
+            label={t("assignmentLabel")}
+            className="w-56"
+            options={ASSIGNMENTS.map((a) => ({
+              value: a,
+              label: t(`assignment.${a}`),
+            }))}
+          />
         </div>
 
         <div className="text-sm text-muted">

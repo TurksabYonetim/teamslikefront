@@ -1,6 +1,17 @@
-import { useEffect } from "react";
+import { useId } from "react";
 import type { ReactNode } from "react";
+import clsx from "clsx";
 import { Icon } from "@/components/Icon";
+import { Overlay } from "./Overlay";
+
+type ModalSize = "sm" | "md" | "lg" | "xl";
+
+const SIZE: Record<ModalSize, string> = {
+  sm: "max-w-sm",
+  md: "max-w-md",
+  lg: "max-w-lg",
+  xl: "max-w-3xl",
+};
 
 interface ModalProps {
   open: boolean;
@@ -8,33 +19,27 @@ interface ModalProps {
   title: string;
   children: ReactNode;
   footer?: ReactNode;
+  /** Panel genişliği (default: md). */
+  size?: ModalSize;
 }
 
-/** Flowbite tarzı modal — backdrop + ESC ile kapanır. */
-export function Modal({ open, onClose, title, children, footer }: ModalProps) {
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
-
-  if (!open) return null;
+/** Flowbite tarzı modal — ortak Overlay üzerine kurulu (backdrop + ESC + scroll-lock). */
+export function Modal({ open, onClose, title, children, footer, size = "md" }: ModalProps) {
+  const titleId = useId();
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/50 motion-safe:[animation:tl-fade_180ms_var(--ease-out)]"
-      onClick={onClose}
-    >
+    <Overlay open={open} onClose={onClose}>
       <div
         role="dialog"
         aria-modal="true"
-        aria-labelledby="modal-title"
-        className="w-full max-w-md bg-surface rounded-lg shadow-xl origin-center motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]"
-        onClick={(e) => e.stopPropagation()}
+        aria-labelledby={titleId}
+        className={clsx(
+          "w-full bg-surface rounded-lg shadow-xl origin-center motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]",
+          SIZE[size],
+        )}
       >
         <div className="flex items-center justify-between p-4 border-b border-line">
-          <h3 id="modal-title" className="text-base font-semibold text-ink">{title}</h3>
+          <h3 id={titleId} className="text-base font-semibold text-ink">{title}</h3>
           <button
             type="button"
             aria-label="Close"
@@ -51,6 +56,6 @@ export function Modal({ open, onClose, title, children, footer }: ModalProps) {
           </div>
         )}
       </div>
-    </div>
+    </Overlay>
   );
 }

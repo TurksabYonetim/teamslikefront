@@ -15,8 +15,7 @@ const LABELS: SensitivityLabel[] = ["public", "general", "confidential", "restri
 const SUPERVISED = ["insider", "bribe", "leak"];
 const BARRIERS: [string, string][] = [["Research", "Sales"]];
 
-const INPUT_CLASS =
-  "h-10 rounded-lg border border-line bg-surface-2 px-3 text-sm text-ink transition-colors duration-150 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-brand";
+const INPUT_CLASS = "input";
 
 /** Governance yardımcılarını canlı deneyen test paneli (DLP / terimler / bariyer / etiket). */
 export function PolicyTester() {
@@ -42,7 +41,7 @@ export function PolicyTester() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           rows={2}
-          className="w-full rounded-lg border border-line bg-surface-2 p-2 text-sm text-ink outline-none transition-colors duration-150 ease-[var(--ease-out)] focus-visible:ring-2 focus-visible:ring-brand"
+          className="input"
         />
       </label>
 
