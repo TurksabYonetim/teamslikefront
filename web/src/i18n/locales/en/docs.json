@@ -68,6 +68,10 @@
     "showArchived": "Show archived",
     "empty": "No clips found",
     "selectClip": "Select a clip",
+    "group": {
+      "ai": "AI summarized",
+      "other": "Other"
+    },
     "views": "{{n}} views",
     "completion": "Completion",
     "removeFiller": "Remove filler words",
@@ -100,14 +104,21 @@
     "ctaClicks": "{{n}} clicks",
     "ctaLabelPh": "Button label",
     "ctaUrlPh": "https://…",
+    "ctaUrlLabel": "Link",
     "setCta": "Save CTA",
     "variables": "Personalized copies",
+    "variablesHelp": "Each copy is generated as a separate link with recipient-specific variables.",
     "createVariables": "Generate",
     "copies": "{{n}} copies",
     "privacy": {
       "link": "Anyone with link",
       "workspace": "Workspace",
       "people": "Specific people"
+    },
+    "privacyDesc": {
+      "link": "Anyone with the link can watch",
+      "workspace": "Only workspace members",
+      "people": "Only people you invite"
     },
     "recordMode": {
       "screen": "Screen",

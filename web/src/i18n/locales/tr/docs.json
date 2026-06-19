@@ -68,6 +68,10 @@
     "showArchived": "Arşivlenenleri göster",
     "empty": "Klip bulunamadı",
     "selectClip": "Bir klip seçin",
+    "group": {
+      "ai": "AI özetli",
+      "other": "Diğer"
+    },
     "views": "{{n}} görüntülenme",
     "completion": "Tamamlanma",
     "removeFiller": "Dolgu kelimeleri kaldır",
@@ -100,14 +104,21 @@
     "ctaClicks": "{{n}} tıklama",
     "ctaLabelPh": "Buton etiketi",
     "ctaUrlPh": "https://…",
+    "ctaUrlLabel": "Bağlantı",
     "setCta": "CTA kaydet",
     "variables": "Kişiselleştirilmiş kopyalar",
+    "variablesHelp": "Her kopya, alıcıya özel değişkenlerle ayrı bir bağlantı olarak üretilir.",
     "createVariables": "Üret",
     "copies": "{{n}} kopya",
     "privacy": {
       "link": "Bağlantısı olan herkes",
       "workspace": "Çalışma alanı",
       "people": "Belirli kişiler"
+    },
+    "privacyDesc": {
+      "link": "Bağlantıyı bilen herkes izleyebilir",
+      "workspace": "Yalnızca çalışma alanı üyeleri",
+      "people": "Yalnızca davet ettiğin kişiler"
     },
     "recordMode": {
       "screen": "Ekran",

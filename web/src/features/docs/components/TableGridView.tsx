@@ -9,7 +9,7 @@ import { columnTotal, computeCell } from "../workspace.tables";
 import { CalendarView } from "./CalendarView";
 import { GanttView } from "./GanttView";
 import { HillView } from "./HillView";
-import type { ColumnType, TableColumn, TableRow } from "../workspace.types";
+import type { ColumnType, DataTable, TableColumn, TableRow } from "../workspace.types";
 
 const NEW_COL_TYPES: ColumnType[] = ["text", "number", "date", "person"];
 const MEMBERS = Object.entries(MEMBER_NAMES); // [id, name]
@@ -21,10 +21,29 @@ const VIEWS: { id: View; icon: string }[] = [
   { id: "hill", icon: "chartBar" },
 ];
 
+/** Sayısal/formül sütunlarının sütun-içi maksimumu (hücre-içi büyüklük çubuğu için). */
+function numericMaxByColumn(table: DataTable): Record<string, number> {
+  const max: Record<string, number> = {};
+  for (const c of table.columns) {
+    if (c.type !== "number" && c.type !== "formula") continue;
+    max[c.id] = table.rows.reduce((m, r) => {
+      const raw = c.type === "formula" ? computeCell(table, r, c) : r.cells[c.id] ?? "";
+      const n = Number(raw);
+      return Number.isFinite(n) && n > m ? n : m;
+    }, 0);
+  }
+  return max;
+}
+
 /**
  * İlişkisel tablo — canlı düzenlenebilir hücreler + eval'siz formül motoru ve
  * dört görünüm (Grid / Takvim / Gantt / Hill). Düzenlemeler store'a akar;
  * toplamlar ve formül sütunları anında yeniden hesaplanır.
+ *
+ * Veri görseli: formül (Total) hücrelerinde, değerin sütun maksimumuna oranını
+ * gösteren sönük bir büyüklük çubuğu metnin arkasında durur; toplam satırı
+ * mavi üst çizgiyle vurgulanır. Çubuk yalnızca dekoratiftir (aria-hidden) ve
+ * metin kontrastını AAA eşiğinin üstünde bırakır.
  */
 export function TableGridView() {
   const { t } = useTranslation("docs");
@@ -39,12 +58,26 @@ export function TableGridView() {
   if (!table) return null;
 
   const inputBase = "input h-9 min-w-[6rem]";
+  const colMax = numericMaxByColumn(table);
 
   const cell = (row: TableRow, col: TableColumn) => {
     const v = row.cells[col.id] ?? "";
     const onChange = (val: string) => editCell(table.id, row.id, col.id, val);
     if (col.type === "formula") {
-      return <span className="block px-2 text-sm text-muted">{computeCell(table, row, col)}</span>;
+      const out = computeCell(table, row, col);
+      const num = Number(out);
+      const max = colMax[col.id] ?? 0;
+      const pct = max > 0 && Number.isFinite(num) ? Math.max(0, Math.min(100, (num / max) * 100)) : 0;
+      return (
+        <span className="relative block px-2 text-right text-sm tabular-nums text-ink">
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-y-1 right-2 rounded bg-blue-100/60"
+            style={{ width: `${pct}%` }}
+          />
+          <span className="relative">{out}</span>
+        </span>
+      );
     }
     if (col.type === "select") {
       return (
@@ -100,7 +133,7 @@ export function TableGridView() {
               aria-pressed={view === v.id}
               className={
                 "inline-flex h-9 items-center gap-1 px-3 text-sm transition-colors motion-safe:active:scale-[0.97] motion-reduce:transition-none " +
-                (view === v.id ? "bg-brand text-white" : "bg-surface text-muted hover:bg-surface-2")
+                (view === v.id ? "bg-blue-800 text-white" : "bg-surface text-muted hover:bg-surface-2")
               }
             >
               <Icon name={v.icon} className="h-4 w-4" /> {t(`table.${v.id}`)}
@@ -166,12 +199,21 @@ export function TableGridView() {
             </tbody>
             <tfoot>
               <tr>
-                {table.columns.map((c) => (
-                  <td key={c.id} className="px-2 pt-1 text-sm font-semibold text-ink">
-                    {c.type === "number" || c.type === "formula" ? `Σ ${Math.round(columnTotal(table, c) * 100) / 100}` : ""}
-                  </td>
-                ))}
-                <td aria-hidden />
+                {table.columns.map((c) => {
+                  const isNum = c.type === "number" || c.type === "formula";
+                  return (
+                    <td
+                      key={c.id}
+                      className={
+                        "border-t-2 border-blue-700 px-2 pt-1.5 text-sm font-semibold text-ink " +
+                        (isNum ? "text-right tabular-nums" : "")
+                      }
+                    >
+                      {isNum ? `Σ ${Math.round(columnTotal(table, c) * 100) / 100}` : ""}
+                    </td>
+                  );
+                })}
+                <td aria-hidden className="border-t-2 border-blue-700" />
               </tr>
             </tfoot>
           </table>

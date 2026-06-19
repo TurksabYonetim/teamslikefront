@@ -43,67 +43,79 @@ export function EventManager() {
   const [aTitle, setATitle] = useState("");
 
   return (
-    <div className="grid gap-4 lg:grid-cols-2">
+    <div className="grid gap-4 pb-8 lg:grid-cols-2 lg:items-stretch">
       {/* Biletleme */}
-      <Card className="lg:col-span-2">
+      <Card className="min-w-0 lg:col-span-2">
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <Icon name="ticket" className="h-5 w-5 text-brand" />
           <h2 className="text-base font-semibold text-ink">{t("events.tickets")}</h2>
           <div className="ml-auto flex flex-wrap gap-1">
             {Object.entries(revenue).map(([cur, amt]) => (
-              <Badge key={cur} tone="positive">{formatPrice(amt, cur)}</Badge>
+              <span key={cur} className="inline-flex shrink-0 items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium tabular-nums text-green-900">
+                {formatPrice(amt, cur)}
+              </span>
             ))}
           </div>
         </div>
         <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-sm">
-          <thead>
-            <tr className="text-left text-muted">
-              <th className="border-b border-line px-2 py-1 font-semibold">{t("events.tier")}</th>
-              <th className="border-b border-line px-2 py-1 font-semibold">{t("events.price")}</th>
-              <th className="border-b border-line px-2 py-1 font-semibold">{t("events.sold")}</th>
-              <th className="border-b border-line px-2 py-1 font-semibold">{t("events.remaining")}</th>
-              <th className="border-b border-line px-2 py-1" />
-            </tr>
-          </thead>
-          <tbody>
-            {tiers.map((tier) => (
-              <tr key={tier.id}>
-                <td className="border-b border-line px-2 py-1 text-ink">{tier.name}</td>
-                <td className="border-b border-line px-2 py-1 text-ink">
-                  {tier.price === 0 ? t("events.free") : formatPrice(tier.price, tier.currency)}
-                </td>
-                <td className="border-b border-line px-2 py-1 text-ink">{tier.sold}/{tier.quantity}</td>
-                <td className="border-b border-line px-2 py-1">
-                  {isSoldOut(tier) ? <Badge tone="danger">{t("events.soldOut")}</Badge> : <span className="text-ink">{ticketsRemaining(tier)}</span>}
-                </td>
-                <td className="border-b border-line px-2 py-1 text-right">
-                  <span className="inline-flex gap-1">
-                    <Button variant="secondary" size="sm" onClick={() => a.sellTicket(tier.id)} disabled={isSoldOut(tier)}>
-                      {t("events.sell")}
-                    </Button>
-                    <IconButton label={t("removeField")} variant="ghost" onClick={() => a.removeTier(tier.id)}>
-                      <Icon name="trash" className="h-[18px] w-[18px]" />
-                    </IconButton>
-                  </span>
-                </td>
+          <table className="w-full border-collapse text-sm">
+            <thead>
+              <tr className="text-left text-muted">
+                <th className="border-b border-line px-2 py-1 font-semibold">{t("events.tier")}</th>
+                <th className="border-b border-line px-2 py-1 font-semibold">{t("events.price")}</th>
+                <th className="border-b border-line px-2 py-1 font-semibold">{t("events.sold")}</th>
+                <th className="border-b border-line px-2 py-1 font-semibold">{t("events.remaining")}</th>
+                <th className="border-b border-line px-2 py-1" />
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {tiers.map((tier) => {
+                const out = isSoldOut(tier);
+                const pct = tier.quantity > 0 ? Math.min(100, Math.round((tier.sold / tier.quantity) * 100)) : 0;
+                return (
+                  <tr key={tier.id}>
+                    <td className="border-b border-line px-2 py-1.5 text-ink">{tier.name}</td>
+                    <td className="border-b border-line px-2 py-1.5 tabular-nums text-ink">
+                      {tier.price === 0 ? t("events.free") : formatPrice(tier.price, tier.currency)}
+                    </td>
+                    <td className="border-b border-line px-2 py-1.5 text-ink">
+                      <span className="tabular-nums">{tier.sold}/{tier.quantity}</span>
+                      <span className="mt-1 block h-1 overflow-hidden rounded-full bg-surface-3" aria-hidden>
+                        <span className={"block h-1 rounded-full " + (out ? "bg-red-600" : "bg-blue-700")} style={{ width: `${pct}%` }} />
+                      </span>
+                    </td>
+                    <td className="border-b border-line px-2 py-1.5">
+                      {out ? <Badge tone="danger">{t("events.soldOut")}</Badge> : <span className="tabular-nums text-ink">{ticketsRemaining(tier)}</span>}
+                    </td>
+                    <td className="border-b border-line px-2 py-1.5 text-right">
+                      <span className="inline-flex gap-1">
+                        <Button variant="secondary" size="sm" onClick={() => a.sellTicket(tier.id)} disabled={out}>
+                          {t("events.sell")}
+                        </Button>
+                        <IconButton label={t("removeField")} variant="ghost" onClick={() => a.removeTier(tier.id)}>
+                          <Icon name="trash" className="h-[18px] w-[18px]" />
+                        </IconButton>
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
         <div className="mt-3 flex flex-wrap items-end gap-2">
-          <input value={tName} onChange={(e) => setTName(e.target.value)} placeholder={t("events.tierNamePh")} aria-label={t("events.tierNamePh")} className={`flex-1 ${inputCls}`} />
+          <input value={tName} onChange={(e) => setTName(e.target.value)} placeholder={t("events.tierNamePh")} aria-label={t("events.tierNamePh")} className={`basis-full ${inputCls} sm:basis-0 sm:grow`} />
           <Select
             value={tCurrency}
             onChange={setTCurrency}
             aria-label={t("events.currency")}
             options={CURRENCIES.map((c) => ({ value: c, label: c }))}
-            className="w-28"
+            className="basis-full sm:basis-auto sm:w-28"
           />
-          <input type="number" min={0} value={tPrice} onChange={(e) => setTPrice(Number(e.target.value))} aria-label={t("events.price")} className={`w-24 ${inputCls}`} />
-          <input type="number" min={1} value={tQty} onChange={(e) => setTQty(Number(e.target.value))} aria-label={t("events.quantity")} className={`w-24 ${inputCls}`} />
+          <input type="number" min={0} value={tPrice} onChange={(e) => setTPrice(Number(e.target.value))} aria-label={t("events.price")} className={`basis-[calc(50%-0.25rem)] ${inputCls} sm:basis-auto sm:w-24`} />
+          <input type="number" min={1} value={tQty} onChange={(e) => setTQty(Number(e.target.value))} aria-label={t("events.quantity")} className={`basis-[calc(50%-0.25rem)] ${inputCls} sm:basis-auto sm:w-24`} />
           <Button
+            className="basis-full sm:basis-auto sm:w-auto"
             leftIcon={<Icon name="plus" className="h-[18px] w-[18px]" />}
             onClick={() => {
               if (!tName.trim()) return;
@@ -116,27 +128,38 @@ export function EventManager() {
         </div>
       </Card>
 
-      {/* Ajanda */}
-      <Card>
-        <div className="mb-3 flex items-center gap-2">
+      {/* Ajanda — sahne ışığı düzeni */}
+      <Card className="flex min-w-0 flex-col lg:min-h-0">
+        <div className="mb-3 flex shrink-0 items-center gap-2">
           <Icon name="calendar" className="h-5 w-5 text-brand" />
-          <h2 className="text-base font-semibold text-ink">{t("events.agenda")}</h2>
+          <h2 className="text-base font-semibold tracking-[-0.01em] text-ink">{t("events.agenda")}</h2>
           {conflicts.length > 0 ? (
             <Badge tone="warning" className="ml-auto">
               <Icon name="warning" className="h-3.5 w-3.5" /> {t("events.conflicts", { n: conflicts.length })}
             </Badge>
           ) : null}
         </div>
+        <div className="scroll-brand -mr-1.5 h-[13rem] overflow-y-auto pr-1.5 lg:h-[9rem]">
         {days.map((d) => (
-          <div key={d.day} className="mb-3">
-            <h3 className="mb-1 text-sm font-semibold text-ink">{d.day}</h3>
-            <ul className="space-y-1">
+          <div key={d.day} className="mb-3.5 last:mb-0">
+            <h3 className="mb-2 text-xs font-bold uppercase tracking-[0.04em] text-ink-3">{d.day}</h3>
+            <ul className="flex flex-col gap-2">
               {d.items.map((item) => (
-                <li key={item.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm">
-                  <span className="tabular-nums text-muted">{item.start}–{item.end}</span>
-                  <span className="font-medium text-ink">{item.title}</span>
-                  <span className="text-muted">· {item.track}{item.speaker ? ` · ${item.speaker}` : ""}</span>
-                  <IconButton label={t("removeField")} variant="ghost" className="ml-auto" onClick={() => a.removeAgendaItem(item.id)}>
+                <li
+                  key={item.id}
+                  className="flex items-center gap-3.5 rounded-[0.625rem] px-3 py-2.5 transition-[transform,background-color] ease-[var(--ease-out)] hover:bg-surface-2 motion-safe:hover:translate-x-[3px]"
+                >
+                  <span className="min-w-[5.25rem] flex-none rounded-lg bg-brand px-2 py-1 text-center text-xs font-bold tabular-nums text-white">
+                    {item.start}–{item.end}
+                  </span>
+                  <span className="flex min-w-0 flex-col gap-0.5">
+                    <span className="text-[0.9375rem] font-semibold text-ink">{item.title}</span>
+                    <span className="flex flex-wrap gap-1.5 text-xs text-muted">
+                      <span>{item.track}</span>
+                      {item.speaker ? <span className="before:mr-1.5 before:text-line before:content-['·']">{item.speaker}</span> : null}
+                    </span>
+                  </span>
+                  <IconButton label={t("removeField")} variant="ghost" className="ml-auto flex-none" onClick={() => a.removeAgendaItem(item.id)}>
                     <Icon name="trash" className="h-[18px] w-[18px]" />
                   </IconButton>
                 </li>
@@ -144,13 +167,15 @@ export function EventManager() {
             </ul>
           </div>
         ))}
-        <div className="flex flex-wrap items-end gap-2">
-          <input value={aDay} onChange={(e) => setADay(e.target.value)} aria-label={t("events.day")} className={`w-24 ${inputCls}`} />
-          <input value={aTrack} onChange={(e) => setATrack(e.target.value)} aria-label={t("events.track")} className={`w-32 ${inputCls}`} />
-          <input value={aStart} onChange={(e) => setAStart(e.target.value)} aria-label={t("events.start")} className={`w-20 ${inputCls}`} />
-          <input value={aEnd} onChange={(e) => setAEnd(e.target.value)} aria-label={t("events.end")} className={`w-20 ${inputCls}`} />
-          <input value={aTitle} onChange={(e) => setATitle(e.target.value)} placeholder={t("events.sessionPh")} aria-label={t("events.sessionPh")} className={`flex-1 ${inputCls}`} />
+        </div>
+        <div className="mt-3.5 flex shrink-0 flex-wrap items-end gap-2 border-t border-line pt-3.5">
+          <input value={aDay} onChange={(e) => setADay(e.target.value)} aria-label={t("events.day")} className={`basis-[calc(50%-0.25rem)] ${inputCls} sm:basis-auto sm:w-24`} />
+          <input value={aTrack} onChange={(e) => setATrack(e.target.value)} aria-label={t("events.track")} className={`basis-[calc(50%-0.25rem)] ${inputCls} sm:basis-auto sm:w-32`} />
+          <input value={aStart} onChange={(e) => setAStart(e.target.value)} aria-label={t("events.start")} className={`basis-[calc(50%-0.25rem)] ${inputCls} sm:basis-auto sm:w-20`} />
+          <input value={aEnd} onChange={(e) => setAEnd(e.target.value)} aria-label={t("events.end")} className={`basis-[calc(50%-0.25rem)] ${inputCls} sm:basis-auto sm:w-20`} />
+          <input value={aTitle} onChange={(e) => setATitle(e.target.value)} placeholder={t("events.sessionPh")} aria-label={t("events.sessionPh")} className={`basis-full ${inputCls} sm:basis-0 sm:grow`} />
           <Button
+            className="basis-full sm:basis-auto sm:w-auto"
             leftIcon={<Icon name="plus" className="h-[18px] w-[18px]" />}
             onClick={() => {
               if (!aTitle.trim()) return;
@@ -164,7 +189,7 @@ export function EventManager() {
       </Card>
 
       {/* Yaka kartları */}
-      <Card>
+      <Card className="min-w-0">
         <div className="mb-3 flex items-center gap-2">
           <Icon name="identification" className="h-5 w-5 text-brand" />
           <h2 className="text-base font-semibold text-ink">{t("events.badges")}</h2>

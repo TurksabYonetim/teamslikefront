@@ -104,6 +104,29 @@ body {
   height: 0;
 }
 
+/* tema ile uyumlu ince scrollbar (mavi marka thumb) — ör. Ajanda liste alanı */
+.scroll-brand {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary-300) transparent;
+}
+.scroll-brand::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-brand::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scroll-brand::-webkit-scrollbar-thumb {
+  background: var(--color-primary-300);
+  border-radius: 99px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.18s var(--ease-out);
+}
+.scroll-brand:hover::-webkit-scrollbar-thumb {
+  background: var(--color-brand);
+}
+
 /* ---- small reusable component classes (Tailwind @apply) ---------------- */
 @layer components {
   /* --- Buttons (Flowbite: rounded-lg · px-5 py-2.5 · text-sm font-medium) -- */

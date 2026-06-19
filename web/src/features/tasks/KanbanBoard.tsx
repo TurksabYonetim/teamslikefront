@@ -279,8 +279,9 @@ export function KanbanBoard() {
           </nav>
           <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
             <div className="relative w-full xl:max-w-96">
+              <label htmlFor="simple-search" className="sr-only">{t("search.label")}</label>
               <span className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3"><svg className="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" /></svg></span>
-              <input type="text" aria-label="Ara" placeholder="Ara" className="h-10 w-full rounded-lg border border-gray-300 bg-surface ps-9 pe-3 text-sm text-ink transition-[border-color,box-shadow] duration-[var(--dur-pop)] ease-[var(--ease-out)] hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-600" defaultValue="" />
+              <input type="text" id="simple-search" value={search} onChange={(e) => setSearch(e.target.value)} aria-label={t("search.label")} placeholder={t("search.placeholder")} className="h-10 w-full rounded-lg border border-gray-300 bg-surface ps-9 pe-3 text-sm text-ink transition-[border-color,box-shadow] duration-[var(--dur-pop)] ease-[var(--ease-out)] hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-600" />
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <button type="button" className="inline-flex h-10 items-center gap-1.5 rounded-lg px-3 text-sm font-medium text-ink-2 transition-colors hover:bg-surface-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300"><svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 3A3.5 3.5 0 0 0 14 7L8.1 9.8A3.5 3.5 0 0 0 2 12a3.5 3.5 0 0 0 6.1 2.3l6 2.7-.1.5a3.5 3.5 0 1 0 1-2.3l-6-2.7a3.5 3.5 0 0 0 0-1L15 9a3.5 3.5 0 0 0 6-2.4c0-2-1.6-3.5-3.5-3.5Z" /></svg>Paylaş</button>

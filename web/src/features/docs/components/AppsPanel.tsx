@@ -1,14 +1,24 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
-import { Badge, Button, IconButton } from "@/components/ui";
+import { Badge, IconButton } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { workhubStore, WORKHUB_SELF_ID } from "../workhub.store";
 import { approvalSummary, hasShiftConflict, openShifts, tallyResponses, weeklyHours } from "../workspace.workhub";
 
 const hhmm = (min: number) => `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
 
-/** Apps — birleşik iş uygulamaları hub'ı: Onaylar · Vardiyalar · Formlar. */
+const APPROVE_BTN =
+  "inline-flex h-8 items-center gap-1 rounded-md bg-green-50 px-2.5 text-xs font-medium text-green-900 ring-1 ring-green-200 transition-colors hover:bg-green-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97] motion-reduce:transition-none";
+const REJECT_BTN =
+  "inline-flex h-8 items-center gap-1 rounded-md bg-red-50 px-2.5 text-xs font-medium text-red-900 ring-1 ring-red-200 transition-colors hover:bg-red-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97] motion-reduce:transition-none";
+
+/**
+ * Apps — birleşik iş uygulamaları hub'ı: Onaylar · Vardiyalar · Formlar.
+ * Aksiyon netliği: onayla/reddet etiketli renkli butonlar (yeşil/kırmızı),
+ * açık vardiya dolu "Üstlen" butonu, anket seçenekleri yüzde + oyla. Renk tek
+ * bilgi taşıyıcısı değildir; tonlu zeminde metin (*-900) AAA eşiğinin üstündedir.
+ */
 export function AppsPanel() {
   const { t } = useTranslation("docs");
   const approvals = useStore(workhubStore, (s) => s.approvals);
@@ -56,18 +66,18 @@ export function AppsPanel() {
             <Icon name="plus" className="h-4 w-4" />
           </IconButton>
         </div>
-        <ul className="space-y-1">
+        <ul className="space-y-1.5">
           {approvals.map((a) => (
             <li key={a.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm">
               <span className="min-w-0 flex-1 truncate text-ink">{a.title}</span>
               {a.status === "pending" ? (
                 <>
-                  <IconButton label={t("apps.approve")} className="h-9 w-9 text-ok" onClick={() => decideApproval(a.id, "approved")}>
-                    <Icon name="checkCircle" className="h-4 w-4" />
-                  </IconButton>
-                  <IconButton label={t("apps.reject")} className="h-9 w-9 text-danger" onClick={() => decideApproval(a.id, "rejected")}>
-                    <Icon name="close" className="h-4 w-4" />
-                  </IconButton>
+                  <button type="button" className={APPROVE_BTN} onClick={() => decideApproval(a.id, "approved")}>
+                    <Icon name="checkCircle" className="h-4 w-4" /> {t("apps.approve")}
+                  </button>
+                  <button type="button" className={REJECT_BTN} onClick={() => decideApproval(a.id, "rejected")}>
+                    <Icon name="close" className="h-4 w-4" /> {t("apps.reject")}
+                  </button>
                 </>
               ) : (
                 <Badge tone={a.status === "approved" ? "positive" : "danger"}>{t(`apps.status.${a.status}`)}</Badge>
@@ -89,14 +99,18 @@ export function AppsPanel() {
         <ul className="space-y-1">
           {shifts.map((sh) => (
             <li key={sh.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm">
-              <span className="text-muted">{days[sh.day]}</span>
+              <span className="w-8 text-muted">{days[sh.day]}</span>
               <span className="flex-1 text-ink">
                 {hhmm(sh.startMin)}–{hhmm(sh.endMin)} · {sh.role}
               </span>
               {sh.open || sh.userId === "" ? (
-                <Button variant="ghost" size="sm" onClick={() => claimShift(sh.id)}>
+                <button
+                  type="button"
+                  onClick={() => claimShift(sh.id)}
+                  className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-blue-800 px-3 text-xs font-medium text-white transition-transform motion-safe:active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none"
+                >
                   <Icon name="handRaised" className="h-4 w-4" /> {t("apps.claim")}
-                </Button>
+                </button>
               ) : (
                 <span className="text-muted">{sh.userName}</span>
               )}
@@ -114,28 +128,38 @@ export function AppsPanel() {
         {forms.map((f) => {
           const counts = tallyResponses(f, responses);
           const total = Object.values(counts).reduce((n, c) => n + c, 0) || 1;
+          const top = Math.max(...f.options.map((o) => counts[o.id] ?? 0));
           return (
             <div key={f.id} className="space-y-1">
               <div className="text-sm text-ink">{f.question}</div>
-              {f.options.map((o) => (
-                <button
-                  key={o.id}
-                  type="button"
-                  onClick={() => respondForm(f.id, o.id)}
-                  className="block w-full rounded-md border border-line px-3 py-1.5 text-left text-sm text-ink transition-colors hover:bg-surface-2 motion-safe:active:scale-[0.99] motion-reduce:transition-none"
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="flex-1">{o.text}</span>
-                    <span className="tabular-nums text-muted">{counts[o.id]}</span>
-                  </div>
-                  <div className="mt-1 h-1.5 rounded-full bg-surface-3" aria-hidden>
-                    <div
-                      className="h-1.5 rounded-full bg-brand transition-[width] duration-200 ease-[var(--ease-out)] motion-reduce:transition-none"
-                      style={{ width: `${Math.round((counts[o.id] / total) * 100)}%` }}
-                    />
-                  </div>
-                </button>
-              ))}
+              {f.options.map((o) => {
+                const n = counts[o.id] ?? 0;
+                const pct = Math.round((n / total) * 100);
+                const lead = n > 0 && n === top;
+                return (
+                  <button
+                    key={o.id}
+                    type="button"
+                    onClick={() => respondForm(f.id, o.id)}
+                    className={
+                      "block w-full rounded-md border px-3 py-1.5 text-left text-sm text-ink transition-colors motion-safe:active:scale-[0.99] motion-reduce:transition-none " +
+                      (lead ? "border-blue-200 bg-blue-50 hover:bg-blue-100" : "border-line hover:bg-surface-2")
+                    }
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className={"flex-1 " + (lead ? "font-medium" : "")}>{o.text}</span>
+                      <span className="tabular-nums text-muted">%{pct}</span>
+                      <span className={"tabular-nums font-medium " + (lead ? "text-blue-900" : "text-ink")}>{n}</span>
+                    </div>
+                    <div className="mt-1 h-1.5 rounded-full bg-surface-3" aria-hidden>
+                      <div
+                        className={"h-1.5 rounded-full transition-[width] duration-200 ease-[var(--ease-out)] motion-reduce:transition-none " + (lead ? "bg-blue-700" : "bg-gray-400")}
+                        style={{ width: `${pct}%` }}
+                      />
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           );
         })}

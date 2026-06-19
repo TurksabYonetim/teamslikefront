@@ -18,33 +18,62 @@ export function CapacityPanel() {
   const cap = registrationCapacity(event, registrations);
   const pending = registrations.filter((r) => r.eventId === event.id && r.approval === "pending");
 
+  // Doluluk halkası — etkileşimli koltukların doluluğu (gauge salt dekoratif,
+  // gerçek sayılar lejantta metin olarak verilir; r≈15.915 → çevre ≈ 100).
+  const used = cap.interactive.used;
+  const limit = cap.interactive.limit;
+  const pct = limit > 0 ? Math.min(100, (used / limit) * 100) : 0;
+  const free = Math.max(0, limit - used);
+
   return (
     <Card>
-      <div className="mb-2 flex items-center gap-2">
+      <div className="mb-3 flex items-center gap-2">
         <h3 className="flex-1 text-base font-semibold text-ink">{t("cap.title")}</h3>
         {event.type === "townhall" ? <Badge tone="accent">{t("modeLabel.townhall")}</Badge> : null}
+        {cap.interactive.full ? <Badge tone="warning">{t("cap.full")}</Badge> : null}
       </div>
 
-      <div className="flex flex-wrap gap-2">
-        <div className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm text-ink">
-          <Icon name="usersThree" className="h-[18px] w-[18px] text-muted" />
-          {t("cap.interactive")}: {cap.interactive.used}/{cap.interactive.limit}
-          {cap.interactive.full ? <Badge tone="warning">{t("cap.full")}</Badge> : null}
-        </div>
-        {cap.viewOnly ? (
-          <div className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm text-ink">
-            <Icon name="tv" className="h-[18px] w-[18px] text-muted" />
-            {t("cap.viewOnly")}: {cap.viewOnly.used}/{cap.viewOnly.limit}
+      <div className="flex flex-wrap items-center gap-4">
+        <svg viewBox="0 0 36 36" className="h-16 w-16 flex-none -rotate-90" role="img" aria-label={`${t("cap.interactive")}: ${used}/${limit}`}>
+          <circle cx="18" cy="18" r="15.915" fill="none" className="stroke-surface-3" strokeWidth="4" />
+          <circle cx="18" cy="18" r="15.915" fill="none" className="stroke-blue-700" strokeWidth="4" strokeDasharray={`${pct} ${100 - pct}`} strokeLinecap="round" />
+        </svg>
+        <dl className="space-y-0.5 text-sm">
+          <div className="flex items-center gap-2">
+            <dt className="inline-flex items-center gap-1.5 text-muted">
+              <span className="h-2 w-2 rounded-full bg-blue-700" aria-hidden /> {t("cap.interactive")}
+            </dt>
+            <dd className="tabular-nums text-ink">
+              {used.toLocaleString()} / {limit.toLocaleString()}
+            </dd>
           </div>
-        ) : null}
-        <div className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm text-ink">
-          {t("cap.waitlist")}: {cap.waitlisted}
-          {cap.waitlisted > 0 ? (
-            <Button variant="ghost" size="sm" onClick={admitNext} leftIcon={<Icon name="arrowUp" className="h-4 w-4" />}>
-              {t("cap.admitNext")}
-            </Button>
-          ) : null}
-        </div>
+          {cap.viewOnly ? (
+            <div className="flex items-center gap-2">
+              <dt className="inline-flex items-center gap-1.5 text-muted">
+                <Icon name="tv" className="h-4 w-4" /> {t("cap.viewOnly")}
+              </dt>
+              <dd className="tabular-nums text-ink">
+                {cap.viewOnly.used.toLocaleString()} / {cap.viewOnly.limit.toLocaleString()}
+              </dd>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <dt className="inline-flex items-center gap-1.5 text-muted">
+                <span className="h-2 w-2 rounded-full bg-surface-3" aria-hidden /> {t("cap.free")}
+              </dt>
+              <dd className="tabular-nums text-ink">{free.toLocaleString()}</dd>
+            </div>
+          )}
+          <div className="flex items-center gap-2">
+            <dt className="text-muted">{t("cap.waitlist")}</dt>
+            <dd className="tabular-nums text-ink">{cap.waitlisted}</dd>
+            {cap.waitlisted > 0 ? (
+              <Button variant="ghost" size="sm" onClick={admitNext} leftIcon={<Icon name="arrowUp" className="h-4 w-4" />}>
+                {t("cap.admitNext")}
+              </Button>
+            ) : null}
+          </div>
+        </dl>
       </div>
 
       {pending.length > 0 ? (
