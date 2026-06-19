@@ -139,7 +139,7 @@ export function EventManager() {
             </Badge>
           ) : null}
         </div>
-        <div className="scroll-brand -mr-1.5 h-[13rem] overflow-y-auto pr-1.5 lg:h-[9rem]">
+        <div className="scroll-brand -mr-1.5 h-[13rem] overflow-y-auto pr-1.5 lg:h-[6.25rem]">
         {days.map((d) => (
           <div key={d.day} className="mb-3.5 last:mb-0">
             <h3 className="mb-2 text-xs font-bold uppercase tracking-[0.04em] text-ink-3">{d.day}</h3>
