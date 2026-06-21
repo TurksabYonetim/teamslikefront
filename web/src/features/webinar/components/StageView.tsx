@@ -41,12 +41,12 @@ export function StageView() {
         </span>
       </div>
 
-      <div className="group flex flex-1 flex-col items-center justify-center gap-3 bg-surface-2 p-6 text-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand text-white transition-transform duration-[var(--dur-pop)] ease-[var(--ease-out)] motion-safe:group-hover:scale-105">
-          <Icon name="play" className="h-7 w-7" />
+      <div className="group flex flex-1 flex-col items-center justify-center gap-2 bg-surface-2 p-4 text-center sm:gap-3 sm:p-6">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand text-white transition-transform duration-[var(--dur-pop)] ease-[var(--ease-out)] motion-safe:group-hover:scale-105 sm:h-16 sm:w-16">
+          <Icon name="play" className="h-6 w-6 sm:h-7 sm:w-7" />
         </div>
-        <div className="text-xl font-semibold text-ink">{event.title}</div>
-        <div className="text-sm text-muted">{event.sessions[0]?.title}</div>
+        <div className="min-w-0 max-w-full truncate text-lg font-semibold text-ink sm:text-xl">{event.title}</div>
+        <div className="min-w-0 max-w-full truncate text-sm text-muted">{event.sessions[0]?.title}</div>
       </div>
 
       <div className="border-t border-line px-3 py-2" aria-label={t("timeline")}>

@@ -3,6 +3,8 @@ export { Badge } from "./Badge";
 export { Button } from "./Button";
 export { Dropdown, DropdownItem } from "./Dropdown";
 export { IconButton } from "./IconButton";
+export { Input } from "./Input";
+export { CONTROL_HEIGHT, CONTROL_PAD_X } from "./controlSize";
 export { PresenceDot } from "./PresenceDot";
 export { ConfirmDialog } from "./ConfirmDialog";
 export { EmptyState } from "./EmptyState";

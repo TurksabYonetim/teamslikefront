@@ -17,7 +17,7 @@ export function EventLive() {
   const exitLive = () => webinarStore.getState().exitLive();
 
   return (
-    <div className="space-y-3 rounded-xl border border-line bg-surface p-4">
+    <div className="space-y-3 overflow-x-hidden rounded-xl border border-line bg-surface p-3 sm:p-4">
       <div className="flex items-center gap-2">
         <h1 className="min-w-0 truncate text-lg font-semibold text-ink sm:text-xl">{event.title}</h1>
         <Button variant="secondary" className="ml-auto shrink-0" onClick={exitLive} leftIcon={<Icon name="signOut" className="h-[18px] w-[18px]" />}>
@@ -27,14 +27,14 @@ export function EventLive() {
 
       <CtaBanner />
 
-      <div className="live-enter grid gap-4 lg:grid-cols-3">
-        <div className="space-y-3 lg:col-span-2">
-          <div className="min-h-[20rem] lg:h-[58dvh]">
+      <div className="live-enter grid gap-3 sm:gap-4 lg:grid-cols-3">
+        <div className="min-w-0 space-y-3 lg:col-span-2">
+          <div className="min-h-[16rem] sm:min-h-[20rem] lg:h-[58dvh]">
             <StageView />
           </div>
           <CaptionsLayer />
         </div>
-        <div className="space-y-3">
+        <div className="min-w-0 space-y-3">
           <PollOverlay />
           <QnaBoard />
         </div>

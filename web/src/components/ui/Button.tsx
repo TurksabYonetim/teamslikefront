@@ -2,6 +2,7 @@ import { forwardRef } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import clsx from "clsx";
 import { Spinner } from "./Spinner";
+import { CONTROL_HEIGHT } from "./controlSize";
 
 type Variant = "primary" | "secondary" | "ghost" | "danger";
 type Size = "sm" | "md" | "lg";
@@ -22,9 +23,11 @@ const VARIANTS: Record<Variant, string> = {
   danger: "bg-danger text-white hover:brightness-95 focus-visible:ring-danger",
 };
 
+// md = varsayılan responsive standart (Input/Select ile aynı yükseklik ölçeği).
+// sm/lg sabit kalır — yoğun ya da öne çıkan tekil aksiyonlar için açık seçim.
 const SIZES: Record<Size, string> = {
   sm: "h-8 px-3 text-xs gap-1.5",
-  md: "h-11 px-4 text-sm gap-2",
+  md: `${CONTROL_HEIGHT} px-4 text-sm gap-2`,
   lg: "h-11 px-5 text-sm gap-2",
 };
 
@@ -38,7 +41,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       ref={ref}
       disabled={disabled || loading}
       className={clsx(
-        "inline-flex items-center justify-center rounded-lg font-medium select-none",
+        "inline-flex items-center justify-center whitespace-nowrap rounded-lg font-medium select-none",
         "transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] active:scale-[0.97]",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1",
         "disabled:opacity-60 disabled:pointer-events-none",

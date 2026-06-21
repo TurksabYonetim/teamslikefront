@@ -431,7 +431,33 @@ export function MeetingsPage() {
             <h3 className="mb-3 text-sm font-semibold text-ink-2">
               {t("list.past")}
             </h3>
-            <div className="overflow-x-auto rounded-card border border-line bg-surface">
+            {/* Mobil: tablo 320px'de eziliyor; kart listesi göster. */}
+            <ul className="space-y-3 md:hidden">
+              {ended.map((m) => (
+                <li
+                  key={m.id}
+                  className="rounded-card border border-line bg-surface p-4"
+                >
+                  <div className="flex items-start gap-2">
+                    <Icon name="video" className="mt-0.5 h-4 w-4 shrink-0 text-muted" />
+                    <div className="min-w-0 flex-1">
+                      <h4 className="truncate text-sm font-medium text-ink">{m.title}</h4>
+                      <p className="truncate font-mono text-xs text-muted">{m.room_name}</p>
+                    </div>
+                    <span className="shrink-0 rounded-md bg-surface-3 px-2 py-0.5 text-xs font-medium text-muted">
+                      {t("list.endedBadge")}
+                    </span>
+                  </div>
+                  <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs tabular-nums text-muted">
+                    <span>{formatWhen(m.scheduled_at)}</span>
+                    <span aria-hidden>·</span>
+                    <span>{m.duration_minutes} {t("list.minutesShort")}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            {/* Masaüstü: tam tablo. */}
+            <div className="hidden overflow-x-auto rounded-card border border-line bg-surface md:block">
               <table className="w-full text-left text-sm">
                 <thead>
                   <tr className="border-b border-line text-xs text-muted">

@@ -65,7 +65,7 @@ export function Dialer({
   // sınıfı üzerinden styles/index.css'te.
   const renderDialPad = () => (
     <div className="dial-pad flex w-full flex-col items-center">
-      <h2 className="mb-4 text-xl font-semibold text-ink">{t("dialer.title")}</h2>
+      <h2 className="mb-4 hidden text-xl font-semibold text-ink lg:block">{t("dialer.title")}</h2>
 
       <div className="dial-display mb-2 flex w-full items-center justify-between rounded-lg border border-line bg-surface px-4 py-3">
         <span className="min-h-[1.75rem] truncate text-2xl font-medium tracking-wider text-ink">

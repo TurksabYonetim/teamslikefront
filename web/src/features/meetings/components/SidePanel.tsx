@@ -89,7 +89,7 @@ export function SidePanel() {
   return (
     <aside
       aria-label={t("panel")}
-      className="flex w-full sm:w-80 xl:w-96 shrink-0 flex-col border-l border-line bg-white dark:border-gray-700 dark:bg-gray-900"
+      className="absolute inset-0 z-30 flex w-full shrink-0 flex-col border-l border-line bg-white dark:border-gray-700 dark:bg-gray-900 sm:static sm:inset-auto sm:z-auto sm:w-80 xl:w-96"
     >
       <div className="flex items-center gap-1 border-b border-line p-2 dark:border-gray-700" role="tablist">
         {TABS.map((tb) => (
@@ -341,7 +341,7 @@ export function SidePanel() {
 
       {tab === "chat" ? (
         <div className="border-t border-line p-2 dark:border-gray-700">
-          <div className="flex items-end gap-2">
+          <div className="relative w-full">
             <label htmlFor="mtg-chat" className="sr-only">
               {t("chatPlaceholder")}
             </label>
@@ -357,16 +357,18 @@ export function SidePanel() {
                 }
               }}
               placeholder={t("chatPlaceholder")}
-              className="input min-h-[2.75rem] flex-1 resize-none placeholder:text-ink-3"
+              className="input min-h-[2.75rem] w-full resize-none pr-12 placeholder:text-ink-3"
             />
-            <IconButton
-              label={t("send")}
-              variant="primary"
+            <button
+              type="button"
+              aria-label={t("send")}
+              title={t("send")}
               disabled={!chatText.trim()}
               onClick={submitChat}
+              className="absolute bottom-1.5 right-1.5 inline-flex h-8 w-8 items-center justify-center rounded-md bg-brand text-white transition-[transform,opacity] duration-[var(--dur-press)] ease-[var(--ease-out)] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-40 motion-safe:active:scale-[0.95]"
             >
               <HiOutlinePaperAirplane className="h-4 w-4" aria-hidden />
-            </IconButton>
+            </button>
           </div>
         </div>
       ) : null}

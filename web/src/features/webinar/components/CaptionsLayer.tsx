@@ -23,19 +23,33 @@ export function CaptionsLayer() {
   }, [on]);
 
   return (
-    <div className="flex items-center gap-2 rounded-lg border border-line bg-surface px-3 py-2">
-      <button
-        onClick={() => setOn((v) => !v)}
-        aria-pressed={on}
-        className={clsx(
-          "inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-md border px-2 py-1 text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand",
-          on ? "border-brand text-blue-800" : "border-line text-muted",
-        )}
-      >
-        <Icon name="captions" className="h-4 w-4" /> {t("captions")}
-      </button>
+    <div className="rounded-lg border border-line bg-surface">
+      <div className="flex items-center justify-between gap-2 px-3 py-2">
+        <button
+          onClick={() => setOn((v) => !v)}
+          aria-pressed={on}
+          className={clsx(
+            "inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-md border px-2 py-1 text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand",
+            on ? "border-brand text-blue-800" : "border-line text-muted",
+          )}
+        >
+          <Icon name="captions" className="h-4 w-4" /> {t("captions")}
+        </button>
+        {on ? (
+          <span className="inline-flex shrink-0 items-center gap-1.5 text-xs font-medium text-muted">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand motion-safe:animate-pulse" aria-hidden />
+            {t("live")}
+          </span>
+        ) : null}
+      </div>
+      {/* Altyazı tam genişlik, alt satıra sararak okunur (kesilmez). */}
       {on ? (
-        <span className="min-w-0 flex-1 truncate text-sm text-ink" aria-live="polite">{LINES[i]}</span>
+        <p
+          className="border-t border-line px-3 py-2.5 text-sm leading-relaxed text-ink"
+          aria-live="polite"
+        >
+          {LINES[i]}
+        </p>
       ) : null}
     </div>
   );

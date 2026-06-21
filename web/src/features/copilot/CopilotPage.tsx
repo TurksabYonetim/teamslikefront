@@ -293,7 +293,7 @@ export function CopilotPage() {
         <>
           <div data-role="assistant" className="msg-card p-4 sm:p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-3 sm:gap-6 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
             <img className="msg-avatar h-6 w-6 rounded-full" src="/images/logo.svg" alt="logo" />
-            <div className="format dark:format-invert format-blue">
+            <div className="format dark:format-invert format-blue text-sm sm:text-base">
               <p>{t("simulated.empty")}</p>
             </div>
           </div>
@@ -315,7 +315,7 @@ export function CopilotPage() {
         m.role === "user" ? (
           <div key={m.id} data-role="user" className="msg-card p-4 sm:p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-3 sm:gap-6 group relative pe-12 sm:pe-14 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
             <img className="msg-avatar h-6 w-6 rounded-full" src="/images/users/bonnie-green.png" alt="user" />
-            <div className="msg-body format dark:format-invert format-blue min-w-0">
+            <div className="msg-body format dark:format-invert format-blue min-w-0 text-sm sm:text-base">
               <MessageContent content={m.content} copyLabel={t("message.copyCode")} copiedLabel={t("message.copied")} onCopyCode={(code) => handleCopy(code)} />
             </div>
             <button type="button" onClick={() => handleCopy(m.content, m.id)} className="msg-copy absolute end-3 top-4 sm:end-4 sm:top-6 inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-400 opacity-0 transition-opacity duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:opacity-100 group-hover:opacity-100 [@media(pointer:coarse)]:opacity-100 [@media(pointer:coarse)]:pointer-events-auto dark:hover:bg-gray-600 dark:hover:text-white">
@@ -334,7 +334,7 @@ export function CopilotPage() {
         ) : (
           <div key={m.id} data-role="assistant" className="msg-card p-4 sm:p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-3 sm:gap-6 group relative pe-12 sm:pe-14 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
             <img className="msg-avatar h-6 w-6 rounded-full" src="/images/logo.svg" alt="assistant" />
-            <div className="msg-body format dark:format-invert format-blue min-w-0">
+            <div className="msg-body format dark:format-invert format-blue min-w-0 text-sm sm:text-base">
               <MessageContent content={m.content} copyLabel={t("message.copyCode")} copiedLabel={t("message.copied")} onCopyCode={(code) => handleCopy(code)} />
               <div className="msg-actions space-x-2 flex items-center">
                 <button type="button" onClick={() => handleCopy(m.content, m.id)} className="inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-500 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -386,49 +386,14 @@ export function CopilotPage() {
   return (
     <>
       <div className="flex h-full w-full flex-col">
-        <div className="border-b border-gray-200 bg-white px-4 py-2.5 pb-4 sm:pb-2.5 dark:border-gray-700 dark:bg-gray-800">
-          <div className="flex w-full items-center justify-between mb-2.5 sm:mb-0">
-            <div>
-              <button data-tooltip-target="tooltip-chat-settings" type="button" onClick={() => setSettingsOpen(true)} className="rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-600">
-                <span className="sr-only">{t("header.chatSettings")}</span>
-
-                <svg className="h-6 w-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                </svg>
-              </button>
-
-              <div id="tooltip-chat-settings" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
-                {t("header.chatSettings")}
-                <div className="tooltip-arrow" data-popper-arrow></div>
-              </div>
-
-              <button data-tooltip-target="tooltip-chat-share" type="button" className="rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-600">
-                <span className="sr-only">{t("header.shareConversation")}</span>
-
-                <svg className="h-6 w-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2M12 4v12m0-12 4 4m-4-4L8 8" />
-                </svg>
-              </button>
-
-              <div id="tooltip-chat-share" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
-                {t("header.shareConversation")}
-                <div className="tooltip-arrow" data-popper-arrow></div>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <button type="button" onClick={handleNewChat} className="sm:flex w-full me-4 hidden items-center justify-center rounded-lg bg-primary-700 px-6 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:w-auto">
-                <svg className="me-2 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                  <path fillRule="evenodd" d="M17.44 3a1 1 0 0 1 .707.293l2.56 2.56a1 1 0 0 1 0 1.414L18.194 9.78 14.22 5.806l2.513-2.513A1 1 0 0 1 17.44 3Zm-4.634 4.22-9.513 9.513a1 1 0 0 0 0 1.414l2.56 2.56a1 1 0 0 0 1.414 0l9.513-9.513-3.974-3.974ZM6 6a1 1 0 0 1 1 1v1h1a1 1 0 0 1 0 2H7v1a1 1 0 1 1-2 0v-1H4a1 1 0 0 1 0-2h1V7a1 1 0 0 1 1-1Zm9 9a1 1 0 0 1 1 1v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 1 1 0-2h1v-1a1 1 0 0 1 1-1Z" clipRule="evenodd" />
-                  <path d="M19 13h-2v2h2v-2ZM13 3h-2v2h2V3Zm-2 2H9v2h2V5ZM9 3H7v2h2V3Zm12 8h-2v2h2v-2Zm0 4h-2v2h2v-2Z" />
-                </svg>
-
-                {t("header.newChat")}
-              </button>
-              <button id="dropdownAlgorithmButton" data-dropdown-toggle="dropdownAlgorithm" className="flex items-center rounded-full p-1.5 me-2 text-sm font-medium text-gray-900 hover:text-primary-600 focus:ring-4 focus:ring-gray-100 dark:text-white dark:hover:text-primary-500 dark:focus:ring-gray-700" type="button">
+        <div className="border-b border-gray-200 bg-white px-3 py-2 sm:px-4 dark:border-gray-700 dark:bg-gray-800">
+          <div className="flex w-full items-center justify-between gap-2">
+            {/* Model seçici — başlık odağı (premium chip) */}
+            <div className="min-w-0">
+              <button id="dropdownAlgorithmButton" data-dropdown-toggle="dropdownAlgorithm" type="button" className="inline-flex min-w-0 max-w-full items-center gap-1.5 rounded-full px-2.5 py-1.5 text-sm font-semibold text-gray-900 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-300 dark:text-white dark:hover:bg-gray-700">
                 <span className="sr-only">{t("header.openUserMenu")}</span>
-                Default (GPT-3.5)
-                <svg className="mx-1.5 h-2.5 w-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <span className="truncate">Default (GPT-3.5)</span>
+                <svg className="h-2.5 w-2.5 shrink-0 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
                 </svg>
               </button>
@@ -446,64 +411,84 @@ export function CopilotPage() {
                   </li>
                 </ul>
               </div>
+            </div>
 
-              <button data-tooltip-target="tooltip-chat-history" type="button" data-drawer-target="drawer-chat-history" data-drawer-show="drawer-chat-history" data-drawer-placement="right" aria-controls="drawer-chat-history" className="rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-600">
+            {/* Eylemler — ince/sade ikon butonları + birincil yeni sohbet */}
+            <div className="flex shrink-0 items-center gap-0.5">
+              <button data-tooltip-target="tooltip-chat-settings" type="button" onClick={() => setSettingsOpen(true)} className="rounded-lg p-2 text-gray-400 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-300 dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-gray-200">
+                <span className="sr-only">{t("header.chatSettings")}</span>
+                <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                </svg>
+              </button>
+              <div id="tooltip-chat-settings" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
+                {t("header.chatSettings")}
+                <div className="tooltip-arrow" data-popper-arrow></div>
+              </div>
+
+              <button data-tooltip-target="tooltip-chat-share" type="button" className="hidden rounded-lg p-2 text-gray-400 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-300 sm:inline-flex dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-gray-200">
+                <span className="sr-only">{t("header.shareConversation")}</span>
+                <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2M12 4v12m0-12 4 4m-4-4L8 8" />
+                </svg>
+              </button>
+              <div id="tooltip-chat-share" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
+                {t("header.shareConversation")}
+                <div className="tooltip-arrow" data-popper-arrow></div>
+              </div>
+
+              <button data-tooltip-target="tooltip-chat-history" type="button" data-drawer-target="drawer-chat-history" data-drawer-show="drawer-chat-history" data-drawer-placement="right" aria-controls="drawer-chat-history" className="rounded-lg p-2 text-gray-400 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-300 dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-gray-200">
                 <span className="sr-only">{t("header.viewHistory")}</span>
-
-                <svg className="h-6 w-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 9h6m-6 3h6m-6 3h6M6.996 9h.01m-.01 3h.01m-.01 3h.01M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" />
                 </svg>
               </button>
-
               <div id="tooltip-chat-history" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] dark:bg-gray-700">
                 {t("header.viewChatHistory")}
                 <div className="tooltip-arrow" data-popper-arrow></div>
               </div>
-            </div>
-          </div>
-          <div>
-            <button type="button" onClick={handleNewChat} className="flex sm:hidden w-full items-center justify-center rounded-lg bg-primary-700 px-6 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:w-auto">
-              <svg className="me-2 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                <path fillRule="evenodd" d="M17.44 3a1 1 0 0 1 .707.293l2.56 2.56a1 1 0 0 1 0 1.414L18.194 9.78 14.22 5.806l2.513-2.513A1 1 0 0 1 17.44 3Zm-4.634 4.22-9.513 9.513a1 1 0 0 0 0 1.414l2.56 2.56a1 1 0 0 0 1.414 0l9.513-9.513-3.974-3.974ZM6 6a1 1 0 0 1 1 1v1h1a1 1 0 0 1 0 2H7v1a1 1 0 1 1-2 0v-1H4a1 1 0 0 1 0-2h1V7a1 1 0 0 1 1-1Zm9 9a1 1 0 0 1 1 1v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 1 1 0-2h1v-1a1 1 0 0 1 1-1Z" clipRule="evenodd" />
-                <path d="M19 13h-2v2h2v-2ZM13 3h-2v2h2V3Zm-2 2H9v2h2V5ZM9 3H7v2h2V3Zm12 8h-2v2h2v-2Zm0 4h-2v2h2v-2Z" />
-              </svg>
 
-              {t("header.newChat")}
-            </button>
+              <button type="button" onClick={handleNewChat} aria-label={t("header.newChat")} className="ms-1 inline-flex items-center justify-center gap-2 rounded-full bg-primary-600 px-2.5 py-2 text-sm font-medium text-white transition-[transform,background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-95 hover:bg-primary-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-primary-300 sm:px-4 dark:bg-primary-600 dark:hover:bg-primary-500">
+                <svg className="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fillRule="evenodd" d="M17.44 3a1 1 0 0 1 .707.293l2.56 2.56a1 1 0 0 1 0 1.414L18.194 9.78 14.22 5.806l2.513-2.513A1 1 0 0 1 17.44 3Zm-4.634 4.22-9.513 9.513a1 1 0 0 0 0 1.414l2.56 2.56a1 1 0 0 0 1.414 0l9.513-9.513-3.974-3.974ZM6 6a1 1 0 0 1 1 1v1h1a1 1 0 0 1 0 2H7v1a1 1 0 1 1-2 0v-1H4a1 1 0 0 1 0-2h1V7a1 1 0 0 1 1-1Zm9 9a1 1 0 0 1 1 1v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 1 1 0-2h1v-1a1 1 0 0 1 1-1Z" clipRule="evenodd" />
+                  <path d="M19 13h-2v2h2v-2ZM13 3h-2v2h2V3Zm-2 2H9v2h2V5ZM9 3H7v2h2V3Zm12 8h-2v2h2v-2Zm0 4h-2v2h2v-2Z" />
+                </svg>
+                <span className="hidden sm:inline">{t("header.newChat")}</span>
+              </button>
+            </div>
           </div>
         </div>
 
         <div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto">{copilotThread}</div>
 
-        <div className="w-full shrink-0">
-          <div className="w-full border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-700">
-            <form onSubmit={handleSend} className="copilot-composer flex items-center gap-2 px-4 py-2.5 sm:gap-3">
-              <span className="copilot-spark inline-flex h-6 w-6 shrink-0 items-center justify-center text-blue-700" aria-hidden="true">
-                <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l1.6 4.9a4 4 0 0 0 2.5 2.5l4.9 1.6-4.9 1.6a4 4 0 0 0-2.5 2.5L12 20.5l-1.6-4.9a4 4 0 0 0-2.5-2.5L3 11.5l4.9-1.6a4 4 0 0 0 2.5-2.5L12 2.5z" /></svg>
-              </span>
-              <label htmlFor="ai-chat-input" className="sr-only">{t("input.writeMessage")}</label>
-              <input
-                type="text"
-                placeholder={t("input.writeAPrompt")}
-                autoFocus
-                id="ai-chat-input"
-                value={draft}
-                onChange={(e) => setDraft(e.target.value)}
-                disabled={!activeId || sendMessage.isPending}
-                className="min-h-[44px] min-w-0 flex-1 border-0 bg-transparent px-1 text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 disabled:opacity-50"
-              />
-              <button type="submit" disabled={!activeId || sendMessage.isPending || !draft.trim()} aria-label={t("input.sendMessage")} className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-blue-700 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-95 hover:bg-blue-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-300 disabled:cursor-not-allowed disabled:opacity-50">
-                <svg className="h-5 w-5 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20"><path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" /></svg>
-              </button>
-            </form>
-          </div>
+        <div className="w-full shrink-0 border-t border-gray-200 bg-white px-3 pb-3 pt-2.5 sm:px-4 sm:pb-4 dark:border-gray-700 dark:bg-gray-800">
+          <form onSubmit={handleSend} className="copilot-composer mx-auto flex max-w-4xl items-center gap-1.5 px-2 py-1.5 sm:gap-2 sm:px-2.5">
+            <span className="copilot-spark inline-flex h-7 w-7 shrink-0 items-center justify-center text-blue-600 dark:text-blue-400" aria-hidden="true">
+              <svg className="h-[18px] w-[18px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l1.6 4.9a4 4 0 0 0 2.5 2.5l4.9 1.6-4.9 1.6a4 4 0 0 0-2.5 2.5L12 20.5l-1.6-4.9a4 4 0 0 0-2.5-2.5L3 11.5l4.9-1.6a4 4 0 0 0 2.5-2.5L12 2.5z" /></svg>
+            </span>
+            <label htmlFor="ai-chat-input" className="sr-only">{t("input.writeMessage")}</label>
+            <input
+              type="text"
+              placeholder={t("input.writeAPrompt")}
+              autoFocus
+              id="ai-chat-input"
+              value={draft}
+              onChange={(e) => setDraft(e.target.value)}
+              disabled={!activeId || sendMessage.isPending}
+              className="min-h-[40px] min-w-0 flex-1 border-0 bg-transparent px-0.5 text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 disabled:opacity-50 dark:text-white dark:placeholder-gray-400"
+            />
+            <button type="submit" disabled={!activeId || sendMessage.isPending || !draft.trim()} aria-label={t("input.sendMessage")} className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-600 text-white transition-[transform,background-color,opacity] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-90 hover:bg-primary-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-primary-300 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 dark:bg-primary-600 dark:hover:bg-primary-500 dark:disabled:bg-gray-700 dark:disabled:text-gray-500">
+              <svg className="h-[18px] w-[18px] rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20"><path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" /></svg>
+            </button>
+          </form>
         </div>
       </div>
 
       {/* drawer component */}
-      <div id="drawer-chat-history" className="fixed top-0 right-0 z-40 h-[100dvh] p-4 overflow-y-auto transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] translate-x-full bg-white w-80 max-w-[calc(100vw-2rem)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="drawer-right-label">
-        <div className="border-b border-gray-200 dark:border-gray-700">
-          <h5 id="drawer-right-label" className="inline-flex items-center mb-4 text-base font-semibold text-gray-900 dark:text-white">{t("history.title")}</h5>
+      <div id="drawer-chat-history" className="fixed top-0 right-0 z-40 flex h-[100dvh] flex-col p-4 transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] translate-x-full bg-white w-80 max-w-[calc(100vw-1.5rem)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="drawer-right-label">
+        <div className="shrink-0 border-b border-gray-200 pb-3 dark:border-gray-700">
+          <h5 id="drawer-right-label" className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">{t("history.title")}</h5>
           <button type="button" data-drawer-hide="drawer-chat-history" aria-controls="drawer-chat-history" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
             <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
@@ -513,7 +498,7 @@ export function CopilotPage() {
         </div>
 
         {/* Arama kutusu */}
-        <div className="my-4">
+        <div className="my-4 shrink-0">
           <label htmlFor="chat-history-search" className="sr-only">{t("history.searchPlaceholder")}</label>
           <div className="relative">
             <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
@@ -532,7 +517,7 @@ export function CopilotPage() {
           </div>
         </div>
 
-        <div className="my-5 space-y-5 h-[calc(100dvh-19rem)] overflow-y-scroll">
+        <div className="my-4 min-h-0 flex-1 space-y-5 overflow-y-auto">
           {conversationsQuery.isLoading && sessions.length === 0 && (
             <div className="px-1.5">
               <SkeletonText lines={4} />
@@ -623,26 +608,26 @@ export function CopilotPage() {
           ))}
         </div>
 
-        <div>
-          <ul className="space-y-2 mb-4">
+        <div className="shrink-0 pt-2">
+          <ul className="space-y-1 mb-3">
             <li>
               <a href="#" className="flex items-center p-1.5 hover:bg-gray-100 rounded-lg dark:hover:bg-gray-700">
-                <svg className="w-5 h-5 me-2 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 me-2 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                   <path fillRule="evenodd" d="M9.586 2.586A2 2 0 0 1 11 2h2a2 2 0 0 1 2 2v.089l.473.196.063-.063a2.002 2.002 0 0 1 2.828 0l1.414 1.414a2 2 0 0 1 0 2.827l-.063.064.196.473H20a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-.089l-.196.473.063.063a2.002 2.002 0 0 1 0 2.828l-1.414 1.414a2 2 0 0 1-2.828 0l-.063-.063-.473.196V20a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-.089l-.473-.196-.063.063a2.002 2.002 0 0 1-2.828 0l-1.414-1.414a2 2 0 0 1 0-2.827l.063-.064L4.089 15H4a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h.09l.195-.473-.063-.063a2 2 0 0 1 0-2.828l1.414-1.414a2 2 0 0 1 2.827 0l.064.063L9 4.089V4a2 2 0 0 1 .586-1.414ZM8 12a4 4 0 1 1 8 0 4 4 0 0 1-8 0Z" clipRule="evenodd" />
                 </svg>
-                <span className="dark:text-white text-base font-medium text-gray-900">{t("history.userSettings")}</span>
+                <span className="dark:text-white text-sm font-medium text-gray-900">{t("history.userSettings")}</span>
               </a>
             </li>
             <li>
               <a href="#" className="flex items-center p-1.5 hover:bg-gray-100 rounded-lg dark:hover:bg-gray-700">
-                <svg className="w-5 h-5 me-2 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 me-2 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                   <path d="m7.4 3.736 3.43 3.429A5.046 5.046 0 0 1 12.133 7c.356.01.71.06 1.056.147l3.41-3.412a2.32 2.32 0 0 1 .451-.344A9.89 9.89 0 0 0 12.268 2a10.022 10.022 0 0 0-5.322 1.392c.165.095.318.211.454.344Zm11.451 1.54-.127-.127a.5.5 0 0 0-.706 0l-2.932 2.932c.03.023.05.054.078.077.237.194.454.41.651.645.033.038.077.067.11.107l2.926-2.927a.5.5 0 0 0 0-.707Zm-2.931 9.81c-.025.03-.058.052-.082.082a4.97 4.97 0 0 1-.633.639c-.04.036-.072.083-.115.117l2.927 2.927a.5.5 0 0 0 .707 0l.127-.127a.5.5 0 0 0 0-.707l-2.932-2.931Zm-1.443-4.763a3.037 3.037 0 0 0-1.383-1.1l-.012-.007a2.956 2.956 0 0 0-1-.213H12a2.964 2.964 0 0 0-2.122.893c-.285.29-.509.634-.657 1.013l-.009.016a2.96 2.96 0 0 0-.21 1 2.99 2.99 0 0 0 .488 1.716l.032.04a3.04 3.04 0 0 0 1.384 1.1l.012.007c.319.129.657.2 1 .213.393.015.784-.05 1.15-.192.012-.005.021-.013.033-.018a3.01 3.01 0 0 0 1.676-1.7v-.007a2.89 2.89 0 0 0 0-2.207 2.868 2.868 0 0 0-.27-.515c-.007-.012-.02-.025-.03-.039Zm6.137-3.373a2.53 2.53 0 0 1-.349.447l-3.426 3.426c.112.428.166.869.161 1.311a4.954 4.954 0 0 1-.148 1.054l3.413 3.412c.133.134.249.283.347.444A9.88 9.88 0 0 0 22 12.269a9.913 9.913 0 0 0-1.386-5.319ZM16.6 20.264l-3.42-3.421c-.386.1-.782.152-1.18.157h-.135c-.356-.01-.71-.06-1.056-.147L7.4 20.265a2.503 2.503 0 0 1-.444.347A9.884 9.884 0 0 0 11.732 22H12a9.9 9.9 0 0 0 5.044-1.388 2.515 2.515 0 0 1-.444-.348ZM3.735 16.6l3.426-3.426a4.608 4.608 0 0 1-.013-2.367L3.735 7.4a2.508 2.508 0 0 1-.349-.447 9.889 9.889 0 0 0 0 10.1 2.48 2.48 0 0 1 .35-.453Zm5.101-.758a4.959 4.959 0 0 1-.65-.645c-.034-.038-.078-.067-.11-.107L5.15 18.017a.5.5 0 0 0 0 .707l.127.127a.5.5 0 0 0 .706 0l2.932-2.933c-.029-.018-.049-.053-.078-.076Zm-.755-6.928c.03-.037.07-.063.1-.1.183-.22.383-.423.6-.609.046-.04.081-.092.128-.13L5.983 5.149a.5.5 0 0 0-.707 0l-.127.127a.5.5 0 0 0 0 .707l2.932 2.931Z" />
                 </svg>
-                <span className="dark:text-white text-base font-medium text-gray-900">{t("history.helpGettingStarted")}</span>
+                <span className="dark:text-white text-sm font-medium text-gray-900">{t("history.helpGettingStarted")}</span>
               </a>
             </li>
           </ul>
-          <a href="#" className="py-2.5 px-5 inline-flex items-center justify-center w-full text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"><svg className="w-5 h-5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+          <a href="#" className="py-2 px-5 inline-flex items-center justify-center w-full text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"><svg className="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
             <path fillRule="evenodd" d="M20.337 3.664c.213.212.354.486.404.782.294 1.711.657 5.195-.906 6.76-1.77 1.768-8.485 5.517-10.611 6.683a.987.987 0 0 1-1.176-.173l-.882-.88-.877-.884a.988.988 0 0 1-.173-1.177c1.165-2.126 4.913-8.841 6.682-10.611 1.562-1.563 5.046-1.198 6.757-.904.296.05.57.191.782.404ZM5.407 7.576l4-.341-2.69 4.48-2.857-.334a.996.996 0 0 1-.565-1.694l2.112-2.111Zm11.357 7.02-.34 4-2.111 2.113a.996.996 0 0 1-1.69-.565l-.422-2.807 4.563-2.74Zm.84-6.21a1.99 1.99 0 1 1-3.98 0 1.99 1.99 0 0 1 3.98 0Z" clipRule="evenodd" />
           </svg>
           {t("history.upgradeToPro")}</a>

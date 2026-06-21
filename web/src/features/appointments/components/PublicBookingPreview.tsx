@@ -59,17 +59,19 @@ export function PublicBookingPreview() {
 
   return (
     <Card className="overflow-hidden p-0">
-      {/* Tarayıcı-kromu benzeri başlık: bunun bir genel sayfa olduğunu ima eder. */}
-      <div className="flex items-center gap-2 border-b border-line bg-surface-2 px-4 py-2.5">
-        <span className="flex gap-1.5" aria-hidden>
+      {/* Tarayıcı-kromu benzeri başlık: bunun bir genel sayfa olduğunu ima eder.
+          Dar ekranda (≤320px) URL pill'i kısalır (truncate), rozet tek satır kalır. */}
+      <div className="flex items-center gap-2 border-b border-line bg-surface-2 px-3 py-2.5 sm:px-4">
+        <span className="flex shrink-0 gap-1.5" aria-hidden>
           <span className="h-2.5 w-2.5 rounded-full bg-line" />
           <span className="h-2.5 w-2.5 rounded-full bg-line" />
           <span className="h-2.5 w-2.5 rounded-full bg-line" />
         </span>
-        <span className="ml-2 inline-flex items-center gap-1.5 rounded-md bg-surface px-2 py-1 text-sm text-muted">
-          <Icon name="globe" className="h-3.5 w-3.5" /> aura.dev/{selected?.slug ?? "you"}
+        <span className="inline-flex min-w-0 flex-1 items-center gap-1.5 rounded-md bg-surface px-2 py-1 text-sm text-muted">
+          <Icon name="globe" className="h-3.5 w-3.5 shrink-0" />
+          <span className="truncate">aura.dev/{selected?.slug ?? "you"}</span>
         </span>
-        <span className="ml-auto text-xs font-semibold text-muted">{t("public.previewBadge")}</span>
+        <span className="shrink-0 whitespace-nowrap text-xs font-semibold text-muted">{t("public.previewBadge")}</span>
       </div>
 
       <div className="grid gap-4 p-5 md:grid-cols-2">

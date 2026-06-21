@@ -6,7 +6,9 @@
     "placeholderReply": "Write a reply…",
     "placeholderNote": "Write an internal note…",
     "reply": "Reply",
-    "note": "Note"
+    "note": "Note",
+    "tools": "Tools",
+    "toolsClose": "Close tools"
   },
   "bold": "Bold",
   "italic": "Italic",

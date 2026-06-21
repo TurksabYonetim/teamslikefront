@@ -1,6 +1,11 @@
 {
-  "landing": { "title": "Toplantılar", "newMeeting": "Yeni toplantı" },
-  "prejoin": { "join": "Şimdi katıl" },
+  "landing": {
+    "title": "Toplantılar",
+    "newMeeting": "Yeni toplantı"
+  },
+  "prejoin": {
+    "join": "Şimdi katıl"
+  },
   "landingSubtitle": "Görüntülü toplantı başlat, planla veya katıl.",
   "join": "Katıl",
   "newMeeting": "Yeni toplantı",
@@ -30,13 +35,23 @@
   "microphone": "Mikrofon",
   "aiCompanion": "AI Asistan",
   "joinNow": "Şimdi katıl",
-  "room2": { "participants": "katılımcı", "placeholder": "Sahne yükleniyor…" },
-  "control": { "mic": "Mikrofon", "leave": "Ayrıl" },
+  "room2": {
+    "participants": "katılımcı",
+    "placeholder": "Sahne yükleniyor…"
+  },
+  "control": {
+    "mic": "Mikrofon",
+    "leave": "Ayrıl"
+  },
   "you": "Siz",
   "muted": "Susturuldu",
   "handRaised": "El kaldırdı",
   "spotlighted": "Öne çıkarıldı",
-  "quality": { "good": "İyi bağlantı", "fair": "Orta bağlantı", "poor": "Zayıf bağlantı" },
+  "quality": {
+    "good": "İyi bağlantı",
+    "fair": "Orta bağlantı",
+    "poor": "Zayıf bağlantı"
+  },
   "sharingScreen": "{{name}} paylaşıyor",
   "mute": "Sustur",
   "unmute": "Sesi aç",
@@ -88,7 +103,8 @@
     "launch": "Anketi başlat",
     "close": "Anketi kapat",
     "none": "Aktif anket yok.",
-    "votes": "{{n}} oy"
+    "votes": "{{n}} oy",
+    "title": "Anket"
   },
   "qna": "Soru-Cevap",
   "qnaPlaceholder": "Bir soru sor…",
@@ -126,7 +142,11 @@
   "breakoutsHint": "Katılımcıları daha küçük odalara ayırın.",
   "createRooms": "{{n}} oda",
   "closeRooms": "Odaları kapat",
-  "role": { "host": "Sahip", "cohost": "Yardımcı sahip", "viewer": "İzleyici" },
+  "role": {
+    "host": "Sahip",
+    "cohost": "Yardımcı sahip",
+    "viewer": "İzleyici"
+  },
   "muteParticipant": "Katılımcıyı sustur",
   "unmuteParticipant": "Susturmayı kaldır",
   "spotlight": "Öne çıkar",
@@ -166,7 +186,11 @@
     "videoLock": "Görüntü kilidi",
     "requireConsent": "Kayıt onayı iste",
     "accessTier": "Erişim seviyesi",
-    "tier": { "open": "Açık", "trusted": "Güvenilir", "restricted": "Kısıtlı" },
+    "tier": {
+      "open": "Açık",
+      "trusted": "Güvenilir",
+      "restricted": "Kısıtlı"
+    },
     "participants": "Katılımcılar",
     "viewer": "İzleyici",
     "pin": "Sabitle",
@@ -181,9 +205,17 @@
     "grantControl": "Kontrol ver",
     "notes": "Benim için not al",
     "generate": "Oluştur",
-    "section": { "summary": "Özet", "decisions": "Kararlar", "nextSteps": "Sonraki adımlar" },
+    "section": {
+      "summary": "Özet",
+      "decisions": "Kararlar",
+      "nextSteps": "Sonraki adımlar"
+    },
     "recipients": "Alıcılar",
-    "recipient": { "all": "Herkes", "inorg": "Sadece kurum içi", "hosts": "Sadece sunucular" },
+    "recipient": {
+      "all": "Herkes",
+      "inorg": "Sadece kurum içi",
+      "hosts": "Sadece sunucular"
+    },
     "speech": "Konuşma çevirisi",
     "speechFrom": "Çeviri kaynağı",
     "speechTo": "Çeviri hedefi",
@@ -192,8 +224,18 @@
     "recvRes": "Alma çözünürlüğü",
     "bandwidth": "Bant genişliği politikası",
     "dataSaver": "Veri tasarrufu",
-    "res": { "auto": "Otomatik", "fhd": "1080p", "hd": "720p", "sd": "360p", "audio": "Yalnızca ses" },
-    "bw": { "auto": "Otomatik", "limited": "Sınırlı", "audio": "Yalnızca ses" }
+    "res": {
+      "auto": "Otomatik",
+      "fhd": "1080p",
+      "hd": "720p",
+      "sd": "360p",
+      "audio": "Yalnızca ses"
+    },
+    "bw": {
+      "auto": "Otomatik",
+      "limited": "Sınırlı",
+      "audio": "Yalnızca ses"
+    }
   },
   "meetParity": "Google Meet uyumu",
   "companion": "Asistan modu",
@@ -228,7 +270,11 @@
   "archiveEmpty": "Eşleşen kayıt yok",
   "facilitator": {
     "title": "AI Kolaylaştırıcı",
-    "items": { "intro": "Giriş ve hedefler", "demo": "Demo", "qa": "Soru-Cevap" },
+    "items": {
+      "intro": "Giriş ve hedefler",
+      "demo": "Demo",
+      "qa": "Soru-Cevap"
+    },
     "noAgenda": "Etkin gündem öğesi yok",
     "back": "Geri",
     "fwd": "İleri",
@@ -470,5 +516,7 @@
       "copied": "Bağlantı kopyalandı",
       "error": "Token üretilemedi."
     }
-  }
+  },
+  "qnaEmpty": "Henüz soru yok. İlk soruyu sor.",
+  "qnaUpvote": "Oy ver"
 }

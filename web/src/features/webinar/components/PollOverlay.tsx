@@ -15,7 +15,7 @@ export function PollOverlay() {
   if (live.length === 0) return null;
 
   return (
-    <div className="rounded-xl border border-line bg-surface p-4">
+    <div className="rounded-xl border border-line bg-surface p-3 sm:p-4">
       <h3 className="mb-2 flex items-center gap-1 text-base font-semibold text-ink">
         <Icon name="chartBar" className="h-[18px] w-[18px]" /> {t("polls")}
       </h3>

@@ -158,8 +158,13 @@ body {
   }
 
   /* --- Inputs (Flowbite gray field) -------------------------------------- */
+  /* Responsive yükseklik: mobil 36 → tablet 40 → laptop 44 → monitor 48.
+     min-h kullanılır ki tek-satır <input> tam o yüksekliğe otururken
+     çok-satır <textarea rows=…> rows ile büyümeye devam etsin.
+     Ayna: CONTROL_HEIGHT (src/components/ui/controlSize.ts) — birlikte güncelle. */
   .input {
-    @apply block w-full min-h-11 p-2.5 text-base md:text-sm rounded-lg border border-gray-300
+    @apply block w-full min-h-9 px-3 py-1.5 text-base md:min-h-10 md:py-2 md:text-sm
+      lg:min-h-11 lg:px-3.5 lg:py-2.5 2xl:min-h-12 rounded-lg border border-gray-300
       bg-gray-50 text-gray-900 placeholder-gray-500 outline-none
       focus:border-blue-500 focus:ring-1 focus:ring-blue-500;
   }
@@ -292,6 +297,30 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   .fc .fc-daygrid-event:hover {
     transform: translateY(-1px);
+  }
+}
+
+/* ---- Randevu takvimi (Ay ızgarası) — mobil okunabilirlik ----
+   FullCalendar ızgarası kütüphanece render edilir; içine JSX'ten className verilemez,
+   bu yüzden utility ile ifade edilemez. Yalnızca .tl-appt-calendar'a scope'lu kalır.
+   Dar ekranda: gün başlıkları sarmasın (Pzt/Çar tek satır), font/hücre kompaktlaşsın.
+   Saat-ızgaralı Hafta görünümü mobilde bileşende zaten gizli. */
+@media (max-width: 640px) {
+  .tl-appt-calendar .fc-col-header-cell-cushion {
+    padding: 6px 2px;
+    font-size: 0.6875rem; /* 11px — "Çar/Cmt/Paz" tek satıra sığar */
+    white-space: nowrap;
+  }
+  .tl-appt-calendar .fc-daygrid-day-number {
+    padding: 2px 4px;
+    font-size: 0.75rem; /* 12px */
+  }
+  .tl-appt-calendar .fc-daygrid-day-frame {
+    min-height: 3.25rem;
+  }
+  .tl-appt-calendar .fc-daygrid-event {
+    font-size: 0.625rem; /* 10px — gün hücresindeki etiket taşmasın */
+    padding: 1px 3px;
   }
 }
 

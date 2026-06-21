@@ -16,21 +16,23 @@ function Tile({
   p,
   speaking,
   big = false,
+  fill = false,
   spotlighted = false,
 }: {
   p: Participant;
   speaking: boolean;
   big?: boolean;
+  fill?: boolean;
   spotlighted?: boolean;
 }) {
   const { t } = useTranslation("meetings");
   return (
     <div
       className={clsx(
-        "relative flex items-center justify-center overflow-hidden rounded-lg border border-line bg-surface-2 transition-[transform,box-shadow] duration-[var(--dur-pop)] ease-[var(--ease-out)] motion-safe:hover:-translate-y-0.5 hover:shadow-sm",
+        "relative flex min-h-0 items-center justify-center overflow-hidden rounded-lg border border-line bg-surface-2 transition-[transform,box-shadow] duration-[var(--dur-pop)] ease-[var(--ease-out)] motion-safe:hover:-translate-y-0.5 hover:shadow-sm",
         speaking && "ring-[3px] ring-brand",
         spotlighted && "ring-2 ring-amber-400",
-        big ? "h-full w-full" : "aspect-video",
+        big || fill ? "h-full w-full" : "aspect-video",
       )}
     >
       {p.camOn ? (
@@ -127,10 +129,26 @@ export function Stage() {
   }
 
   return (
-    <div className="mx-auto grid h-full w-full max-w-7xl grid-cols-1 content-center gap-1.5 p-3 sm:grid-cols-2 md:gap-2 lg:grid-cols-3 lg:gap-2.5 xl:grid-cols-4 xl:gap-3">
+    <div
+      className={clsx(
+        "mx-auto grid h-full w-full max-w-7xl auto-rows-fr content-stretch gap-2 overflow-y-auto p-2 sm:gap-2.5 sm:p-3 xl:gap-3",
+        gridCols(participants.length),
+      )}
+    >
       {participants.map((p) => (
-        <Tile key={p.id} p={p} speaking={p.id === activeSpeakerId && p.micOn} />
+        <Tile key={p.id} p={p} fill speaking={p.id === activeSpeakerId && p.micOn} />
       ))}
     </div>
   );
+}
+
+// Meet tarzı: sütun sayısı katılımcı sayısına göre — boş/dev kutu bırakmadan
+// kalan yüksekliği eşit doldurur. Mobilde tek kişi 1, ikili dikey, 3+ iki sütun.
+function gridCols(n: number): string {
+  if (n <= 1) return "grid-cols-1";
+  if (n === 2) return "grid-cols-1 sm:grid-cols-2";
+  if (n <= 4) return "grid-cols-2";
+  if (n <= 6) return "grid-cols-2 lg:grid-cols-3";
+  if (n <= 9) return "grid-cols-2 sm:grid-cols-3";
+  return "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4";
 }

@@ -1,6 +1,7 @@
 // web/src/features/appointments/components/BookingsCalendar.tsx
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import clsx from "clsx";
 import { Calendar } from "@fullcalendar/core";
 import type { EventInput } from "@fullcalendar/core";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -66,6 +67,14 @@ const toTimeInput = (ms: number) => {
 
 const inputCls = "input";
 
+/** Takvim görünümleri — kendi (Tailwind) toolbar'ımızda segment olarak gösterilir. */
+type CalView = "dayGridMonth" | "timeGridWeek" | "listWeek";
+const VIEWS: { id: CalView; key: "month" | "week" | "agenda" }[] = [
+  { id: "dayGridMonth", key: "month" },
+  { id: "timeGridWeek", key: "week" },
+  { id: "listWeek", key: "agenda" },
+];
+
 export function BookingsCalendar() {
   const { t } = useTranslation("appointments");
   const bookings = useStore(appointmentsStore, (s) => s.bookings);
@@ -81,6 +90,17 @@ export function BookingsCalendar() {
   const [confirmCancel, setConfirmCancel] = useState(false);
   const [rDate, setRDate] = useState("");
   const [rTime, setRTime] = useState("");
+  // Kendi toolbar'ımız için başlık + aktif görünüm (FullCalendar `datesSet` ile senkron).
+  const [calTitle, setCalTitle] = useState("");
+  const [calView, setCalView] = useState<CalView>(
+    typeof window !== "undefined" && window.matchMedia("(max-width: 640px)").matches
+      ? "listWeek"
+      : "dayGridMonth",
+  );
+  // Telefonda (≤640px) saat-ızgaralı Hafta görünümü kullanışsız → gizle, Ajanda+Ay kalsın.
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(max-width: 640px)").matches,
+  );
 
   const selected = bookings.find((b) => b.id === selectedId) ?? null;
 
@@ -95,7 +115,13 @@ export function BookingsCalendar() {
       height: "auto",
       locale: isTr ? trLocale : "en",
       firstDay: isTr ? 1 : 0,
-      headerToolbar: { left: "prev,next today", center: "title", right: "dayGridMonth,timeGridWeek,listWeek" },
+      // Dahili toolbar kapalı — başlık/gezinme/görünüm seçimini kendi Tailwind
+      // toolbar'ımızla render ediyoruz (tam responsive, projenin utility kuralı).
+      headerToolbar: false,
+      datesSet: (arg) => {
+        setCalTitle(arg.view.title);
+        setCalView(arg.view.type as CalView);
+      },
       events: bookingsRef.current.map(toEvent),
       eventClick: (info) => {
         const b = bookingsRef.current.find((x) => x.id === info.event.id);
@@ -121,6 +147,19 @@ export function BookingsCalendar() {
     cal.removeAllEvents();
     bookings.map(toEvent).forEach((e) => cal.addEvent(e));
   }, [bookings]);
+
+  // Ekran genişliği değişince (breakpoint geçişi) Hafta görünümünü mobilde Ajanda'ya düşür.
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    const onChange = () => {
+      setIsMobile(mq.matches);
+      if (mq.matches && calRef.current?.view.type === "timeGridWeek") {
+        calRef.current.changeView("listWeek");
+      }
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   const close = () => {
     setSelectedId(null);
@@ -162,6 +201,59 @@ export function BookingsCalendar() {
   return (
     <Card>
       <style>{cancelledStyle}</style>
+
+      {/* Tailwind toolbar — mobil/tablet/laptop hepsinde akışkan. Üst satır: gezinme +
+          görünüm seçici (dar ekranda sarar); altında başlık kendi satırında, asla ezilmez. */}
+      <div className="mb-4 space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => calRef.current?.prev()}
+              aria-label={t("prev")}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-surface text-ink transition-[background-color,transform] duration-150 ease-[var(--ease-out)] hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97]"
+            >
+              <Icon name="chevronLeft" className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => calRef.current?.next()}
+              aria-label={t("next")}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-surface text-ink transition-[background-color,transform] duration-150 ease-[var(--ease-out)] hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97]"
+            >
+              <Icon name="chevronRight" className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => calRef.current?.today()}
+              className="inline-flex h-9 items-center rounded-lg border border-line bg-surface px-3 text-sm font-medium text-ink transition-[background-color,transform] duration-150 ease-[var(--ease-out)] hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97]"
+            >
+              {t("today")}
+            </button>
+          </div>
+
+          <div role="tablist" aria-label={t("tabs.calendar")} className="flex shrink-0 gap-1 rounded-lg border border-line bg-surface-2 p-1">
+            {(isMobile ? VIEWS.filter((v) => v.id !== "timeGridWeek") : VIEWS).map(({ id, key }) => (
+              <button
+                key={id}
+                type="button"
+                role="tab"
+                aria-selected={calView === id}
+                onClick={() => calRef.current?.changeView(id)}
+                className={clsx(
+                  "inline-flex h-8 items-center rounded-md px-3 text-sm font-medium transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.98]",
+                  calView === id ? "bg-surface text-ink shadow-sm" : "text-muted hover:text-ink",
+                )}
+              >
+                {t(`calViews.${key}`)}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <h3 className="text-base font-semibold text-ink sm:text-lg">{calTitle}</h3>
+      </div>
+
       <div ref={elRef} className="tl-appt-calendar" />
 
       <Modal

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import type { KeyboardEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
@@ -63,6 +63,14 @@ export function PhoneLayout() {
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const place = useCall((s) => s.place);
 
+  // Mobilde tek-sıra kaydırmalı sekme çubuğunda aktif sekme görünür kalsın.
+  useEffect(() => {
+    const el = tabRefs.current[active];
+    if (!el || typeof el.scrollIntoView !== "function") return;
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+    el.scrollIntoView({ inline: "center", block: "nearest", behavior: reduce ? "auto" : "smooth" });
+  }, [active]);
+
   const select = (id: TabId) => {
     const next = new URLSearchParams(params);
     next.set("tab", id);
@@ -89,7 +97,19 @@ export function PhoneLayout() {
   // render'ı ve klavye gezinmesini paylaşır; aktif/pasif görünümü [aria-selected]
   // üzerinden scoped CSS yönetir.
   const renderPhoneTabs = (cls: string) => (
-    <div role="tablist" aria-label={t("dialer.title")} className={clsx("phone-tabs flex flex-wrap gap-1 border-b border-line", cls)}>
+    <div
+      role="tablist"
+      aria-label={t("dialer.title")}
+      className={clsx(
+        "phone-tabs flex gap-1 border-b border-line",
+        // Mobil: tek sıra, yatay kayan, kenardan kenara, scrollbar gizli, snap.
+        "-mx-4 snap-x snap-mandatory overflow-x-auto px-4 sm:mx-0 sm:px-0",
+        // lg+: tüm sekmeler sığar → sar ve kaydırmayı kapat.
+        "lg:flex-wrap lg:overflow-x-visible",
+        "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+        cls,
+      )}
+    >
       {TABS.map(({ id, Icon }, i) => {
         const selected = id === active;
         return (
@@ -105,7 +125,7 @@ export function PhoneLayout() {
             tabIndex={selected ? 0 : -1}
             onClick={() => select(id)}
             onKeyDown={(e) => onKeyDown(e, i)}
-            className="phone-tab inline-flex h-11 items-center gap-2 rounded-t px-3 text-sm font-medium -mb-px transition-[transform,color] motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            className="phone-tab inline-flex h-11 shrink-0 snap-start items-center gap-2 rounded-t px-3 text-sm font-medium -mb-px transition-[transform,color] motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
             <span className="phone-tab-ic inline-flex shrink-0">
               <Icon size={18} aria-hidden />
@@ -118,8 +138,8 @@ export function PhoneLayout() {
   );
 
   return (
-    <div className="mx-auto flex h-full max-w-6xl flex-col gap-4 p-4 sm:p-6">
-      <div>
+    <div className="mx-auto flex h-full w-full min-w-0 max-w-6xl flex-col gap-4 p-4 sm:p-6">
+      <div className="min-w-0">
         <h1 className="text-xl font-semibold text-ink">{t("dialer.title")}</h1>
         <p className="mt-1 text-sm text-muted">{t("subtitle")}</p>
       </div>
@@ -130,7 +150,7 @@ export function PhoneLayout() {
         role="tabpanel"
         id={`phone-panel-${active}`}
         aria-labelledby={`phone-tab-${active}`}
-        className="min-h-0 flex-1"
+        className="min-h-0 min-w-0 flex-1"
       >
         {active === "keypad" ? (
           <KeypadPanel />

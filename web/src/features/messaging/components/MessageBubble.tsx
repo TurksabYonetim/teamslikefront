@@ -332,7 +332,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
   if (bubble) {
     return (
       <div className={clsx("flex px-2 py-0.5 sm:px-4", own ? "justify-end" : "justify-start")}>
-        <div role="article" tabIndex={0} onKeyDown={onArticleKeyDown} aria-keyshortcuts={ARTICLE_KEY_SHORTCUTS} className="group relative max-w-[85%] min-w-0 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand sm:max-w-[80%] lg:max-w-[72%] xl:max-w-[65%]">
+        <div role="article" tabIndex={0} onKeyDown={onArticleKeyDown} aria-keyshortcuts={ARTICLE_KEY_SHORTCUTS} className="group relative max-w-[85%] min-w-0 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand sm:max-w-[80%] lg:max-w-[72%] xl:max-w-[65%] [@media(pointer:coarse)]:pe-9">
           {!own && !grouped ? (
             <div className="mb-0.5 text-sm font-semibold text-brand">{name}</div>
           ) : null}
@@ -378,7 +378,7 @@ export function MessageBubble({ message, grouped }: { message: Message; grouped?
           <span className="block pt-1 text-right text-xs text-muted opacity-0 transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)] group-hover:opacity-100 group-focus-within:opacity-100 [@media(pointer:coarse)]:opacity-100">{relTime(t, message.tMinutes)}</span>
         )}
       </div>
-      <div className="min-w-0 flex-1">
+      <div className="min-w-0 flex-1 [@media(pointer:coarse)]:pe-9">
         {!grouped ? (
           <div className="flex flex-wrap items-center gap-2">
             <span className="font-semibold text-ink dark:text-white">{name}</span>

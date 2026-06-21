@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Sortable from "sortablejs";
 import { Icon } from "@/components/Icon";
-import { Badge, Button, IconButton, Select, useToast } from "@/components/ui";
+import { Badge, Button, IconButton, Input, Select, useToast } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { webinarStore } from "../webinar.store";
 import { validateRegistration } from "../webinar.dom";
@@ -71,10 +71,6 @@ export function RegistrationBuilder() {
     }
   };
 
-  // Tüm form kontrolleri tek yükseklik: 36px (= Select sm). utilities katmanı
-  // components'ten sonra geldiği için .input'in min-h-11/p-2.5'ini ! olmadan ezer.
-  const inputCls = "input min-h-0 h-9 py-1.5 text-sm";
-
   return (
     <div className="space-y-4">
       <CapacityPanel />
@@ -120,17 +116,15 @@ export function RegistrationBuilder() {
             <div className="grid gap-2.5 sm:grid-cols-2">
               <label className="flex flex-col gap-1 text-sm font-medium text-ink">
                 {t("fieldLabel")}
-                <input
+                <Input
                   value={label}
                   onChange={(e) => setLabel(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && addField()}
-                  className={inputCls}
                 />
               </label>
               <Select<RegFieldType>
                 value={type}
                 onChange={setType}
-                size="sm"
                 label={t("fieldTypeLabel")}
                 options={TYPES.map((ty) => ({ value: ty, label: t(`fieldType.${ty}`) }))}
                 className="w-full"
@@ -161,11 +155,10 @@ export function RegistrationBuilder() {
                 {t("required")}
               </button>
               <Button
-                size="sm"
                 onClick={addField}
                 disabled={!label.trim()}
-                leftIcon={<Icon name="plus" className="h-3.5 w-3.5" />}
-                className="h-9 shrink-0 whitespace-nowrap text-sm"
+                leftIcon={<Icon name="plus" className="h-4 w-4" />}
+                className="shrink-0 whitespace-nowrap"
               >
                 {t("addField")}
               </Button>
@@ -194,7 +187,6 @@ export function RegistrationBuilder() {
                     value={values[f.id] ?? ""}
                     onChange={(v) => setValues((prev) => ({ ...prev, [f.id]: v }))}
                     aria-label={f.label}
-                    size="sm"
                     placeholder="—"
                     options={[
                       { value: "", label: "—" },
@@ -209,17 +201,17 @@ export function RegistrationBuilder() {
                   <span className="text-sm font-medium text-ink">
                     {f.label}{f.required ? <span className="text-danger"> *</span> : null}
                   </span>
-                  <input
+                  <Input
                     value={values[f.id] ?? ""}
                     onChange={(e) => setValues((v) => ({ ...v, [f.id]: e.target.value }))}
                     aria-required={f.required || undefined}
-                    className={`mt-1 ${inputCls}`}
+                    className="mt-1"
                   />
                   {errors[f.id] ? <span className="mt-1 block text-sm text-danger">{t(`regError.${errors[f.id]}`)}</span> : null}
                 </label>
               ),
             )}
-            <Button size="sm" className="mt-1 h-9 w-full text-sm" onClick={submit}>{t("register")}</Button>
+            <Button className="mt-1 w-full" onClick={submit}>{t("register")}</Button>
           </div>
         </Card>
       </div>

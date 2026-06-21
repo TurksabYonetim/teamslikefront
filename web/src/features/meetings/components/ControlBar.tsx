@@ -48,7 +48,7 @@ const RoundBtn = React.forwardRef<
     title={label}
     onClick={onClick}
     className={clsx(
-      "inline-flex h-12 w-12 items-center justify-center rounded-full transition-[transform,colors] ease-[var(--ease-out)] duration-[var(--dur-press)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-white motion-safe:active:scale-[0.97]",
+      "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-[transform,colors] ease-[var(--ease-out)] duration-[var(--dur-press)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-white motion-safe:active:scale-[0.97] sm:h-12 sm:w-12",
       tone === "danger"
         ? "bg-red-600 text-white hover:opacity-90"
         : tone === "active"
@@ -100,13 +100,14 @@ export function ControlBar() {
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-2 border-t border-line bg-surface px-3 py-3">
+    <div className="flex flex-wrap items-center justify-center gap-1.5 border-t border-line bg-surface px-2 py-2.5 sm:gap-2 sm:px-3 sm:py-3">
       <RoundBtn label={micOn ? t("mute") : t("unmute")} tone={micOn ? "default" : "danger"} onClick={() => act().toggleMic()}>{micOn ? <HiOutlineMicrophone className="h-5 w-5" aria-hidden /> : <MdMicOff className="h-5 w-5" aria-hidden />}</RoundBtn>
       <RoundBtn label={camOn ? t("stopCam") : t("startCam")} tone={camOn ? "default" : "danger"} onClick={() => act().toggleCam()}>{camOn ? <HiOutlineVideoCamera className="h-5 w-5" aria-hidden /> : <MdVideocamOff className="h-5 w-5" aria-hidden />}</RoundBtn>
       <RoundBtn label={screenSharing ? t("stopShare") : t("share")} tone={screenSharing ? "active" : "default"} pressed={screenSharing} onClick={() => act().toggleScreen()}><HiOutlineComputerDesktop className="h-5 w-5" aria-hidden /></RoundBtn>
       <RoundBtn label={handRaised ? t("lowerHand") : t("raiseHand")} tone={handRaised ? "active" : "default"} pressed={handRaised} onClick={() => act().toggleHand()}><HiOutlineHandRaised className="h-5 w-5" aria-hidden /></RoundBtn>
 
-      <div role="group" aria-label={t("react")} className="inline-flex flex-wrap items-center justify-center gap-1 rounded-full bg-surface-2 px-1">
+      {/* Reaksiyon şeridi — yalnızca geniş ekranda; mobilde "Daha fazla" menüsünde */}
+      <div role="group" aria-label={t("react")} className="hidden flex-wrap items-center justify-center gap-1 rounded-full bg-surface-2 px-1 sm:inline-flex">
         {MEETING_REACTIONS.map((e) => (
           <button
             key={e}
@@ -125,13 +126,28 @@ export function ControlBar() {
       {/* İkincil araçlar — yukarı açılan etiketli menü (sahne tarafından kırpılmaz) */}
       <details className="relative">
         <summary
-          className="flex h-12 w-12 cursor-pointer list-none items-center justify-center rounded-full bg-surface-2 text-xl leading-none text-ink-2 transition-[transform,colors] duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-surface-3 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-white motion-safe:active:scale-[0.97] [&::-webkit-details-marker]:hidden"
+          className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full bg-surface-2 text-xl leading-none text-ink-2 transition-[transform,colors] duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-surface-3 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-white motion-safe:active:scale-[0.97] sm:h-12 sm:w-12 [&::-webkit-details-marker]:hidden"
           aria-label={t("more", { defaultValue: "Daha fazla" })}
           title={t("more", { defaultValue: "Daha fazla" })}
         >
           <span aria-hidden>···</span>
         </summary>
-        <div role="menu" className="absolute bottom-full right-0 z-50 mb-2 flex w-60 origin-bottom-right flex-col gap-1 rounded-xl border border-line bg-surface p-1.5 shadow-lg transition-[opacity,transform,display] duration-200 ease-[var(--ease-out)] [transition-behavior:allow-discrete] starting:opacity-0 motion-safe:starting:translate-y-1 motion-safe:starting:scale-95">
+        <div role="menu" className="absolute bottom-full right-0 z-50 mb-2 flex max-h-[min(55vh,22rem)] w-60 max-w-[calc(100vw-1.5rem)] origin-bottom-right flex-col gap-1 overflow-x-hidden overflow-y-auto overscroll-contain rounded-xl border border-line bg-surface p-1.5 shadow-lg transition-[opacity,transform,display] duration-200 ease-[var(--ease-out)] [transition-behavior:allow-discrete] starting:opacity-0 motion-safe:starting:translate-y-1 motion-safe:starting:scale-95">
+          {/* Mobil: reaksiyonlar (geniş ekranda çubukta görünür) */}
+          <div role="group" aria-label={t("react")} className="flex items-center justify-between gap-1 px-1 pb-1 sm:hidden">
+            {MEETING_REACTIONS.map((e) => (
+              <button
+                key={e}
+                type="button"
+                aria-label={e}
+                onClick={(ev) => { act().sendReaction(e); ev.currentTarget.closest("details")?.removeAttribute("open"); }}
+                className="inline-flex h-10 min-w-10 flex-1 items-center justify-center rounded-md text-xl transition-colors hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97]"
+              >
+                <span aria-hidden>{e}</span>
+              </button>
+            ))}
+          </div>
+          <div className="mx-1 my-0.5 h-px bg-line sm:hidden" aria-hidden />
           <button role="menuitem" type="button" aria-pressed={captionsOn} onClick={(e) => { act().toggleCaptions(); e.currentTarget.closest("details")?.removeAttribute("open"); }} className={clsx("flex h-10 w-full items-center gap-3 rounded-md px-3 text-sm motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand", captionsOn ? "bg-brand/5 text-blue-800" : "text-ink hover:bg-surface-2")}>
             <MdClosedCaption className={clsx("h-5 w-5 shrink-0", captionsOn ? "text-brand" : "text-muted")} aria-hidden />
             <span className="flex-1 text-left">{t("captions")}</span>

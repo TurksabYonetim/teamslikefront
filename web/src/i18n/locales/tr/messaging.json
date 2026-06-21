@@ -6,7 +6,9 @@
     "placeholderReply": "Bir yanıt yaz…",
     "placeholderNote": "Dahili not yaz…",
     "reply": "Yanıt",
-    "note": "Not"
+    "note": "Not",
+    "tools": "Araçlar",
+    "toolsClose": "Araçları kapat"
   },
   "bold": "Kalın",
   "italic": "İtalik",

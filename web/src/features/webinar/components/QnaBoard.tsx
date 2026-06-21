@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { Icon } from "@/components/Icon";
-import { IconButton } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { useCan } from "@/lib/authStore";
 import { qnaStore } from "../qna.store";
@@ -25,22 +24,30 @@ export function QnaBoard() {
   };
 
   return (
-    <div className="rounded-xl border border-line bg-surface p-4">
+    <div className="rounded-xl border border-line bg-surface p-3 sm:p-4">
       <h3 className="mb-2 flex items-center gap-1 text-base font-semibold text-ink">
         <Icon name="question" className="h-4 w-4" /> {t("qna")}
       </h3>
-      <div className="mb-2 flex items-end gap-2">
+      {/* Gönder ikonu input'un içine gömülü (sağ köşe) — input tam genişlik. */}
+      <div className="relative mb-2">
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && submit()}
           placeholder={t("qnaPlaceholder")}
           aria-label={t("qnaPlaceholder")}
-          className="input h-11 flex-1"
+          className="input w-full pr-11"
         />
-        <IconButton label={t("ask")} variant="primary" disabled={!text.trim()} onClick={submit}>
+        <button
+          type="button"
+          aria-label={t("ask")}
+          title={t("ask")}
+          disabled={!text.trim()}
+          onClick={submit}
+          className="absolute right-1.5 top-1/2 inline-flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-md bg-brand text-white transition-[background-color,transform] duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-95 motion-reduce:transition-none disabled:opacity-50 disabled:pointer-events-none lg:h-8 lg:w-8"
+        >
           <Icon name="send" className="h-4 w-4" />
-        </IconButton>
+        </button>
       </div>
       <ul className="space-y-2" role="feed" aria-label={t("qna")}>
         {sorted.map((q) => {

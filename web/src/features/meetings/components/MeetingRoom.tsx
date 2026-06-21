@@ -57,38 +57,38 @@ export function MeetingRoom() {
   const lobby = lobbyQueue[0];
 
   return (
-    <div className="flex h-full min-h-0">
+    <div className="relative flex h-full min-h-0">
       <div className="flex min-w-0 flex-1 flex-col bg-surface-2">
         {/* Top bar */}
-        <div className="flex items-center gap-3 border-b border-line bg-surface px-4 py-2">
-          <span className="truncate text-base font-semibold text-ink">{activeTitle}</span>
+        <div className="flex items-center gap-2 border-b border-line bg-surface px-3 py-2 sm:gap-3 sm:px-4">
+          <span className="min-w-0 flex-1 truncate text-sm font-semibold text-ink sm:text-base">{activeTitle}</span>
           {recording ? (
-            <span className="inline-flex items-center gap-1 rounded-full bg-red-700 px-2 py-0.5 text-xs font-medium text-white">
+            <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-red-700 px-2 py-0.5 text-xs font-medium text-white">
               <MdFiberManualRecord className="h-3.5 w-3.5" aria-hidden />
-              {t("rec")} {fmt(recordSec)}
+              <span className="hidden sm:inline">{t("rec")} </span>{fmt(recordSec)}
             </span>
           ) : null}
-          <span className="ml-auto text-xs text-muted">
+          <span className="shrink-0 text-xs text-muted">
             {t("participantCount", { n: participants.length })}
           </span>
           {aiCompanion ? (
-            <span className="inline-flex items-center gap-1 text-xs font-medium text-brand">
+            <span className="inline-flex shrink-0 items-center gap-1 text-xs font-medium text-brand">
               <HiOutlineSparkles className="h-3.5 w-3.5" aria-hidden />
-              {t("aiCompanionShort")}
+              <span className="hidden sm:inline">{t("aiCompanionShort")}</span>
             </span>
           ) : null}
         </div>
 
         {/* Lobby banner */}
         {lobby ? (
-          <div className="flex items-center gap-2 border-b border-line bg-primary-50 px-4 py-2">
-            <span className="flex-1 truncate text-sm text-ink">
-              {t("lobbyBanner", { name: lobby.name })} ({lobby.name})
+          <div className="flex items-center gap-2 border-b border-line bg-primary-50 px-3 py-2 sm:px-4">
+            <span className="min-w-0 flex-1 truncate text-sm text-ink">
+              {t("lobbyBanner", { name: lobby.name })}
             </span>
-            <Button size="sm" onClick={() => meetingStore.getState().admit(lobby.id)}>
+            <Button size="sm" className="shrink-0" onClick={() => meetingStore.getState().admit(lobby.id)}>
               {t("admit")}
             </Button>
-            <Button size="sm" variant="ghost" onClick={() => meetingStore.getState().denyLobby(lobby.id)}>
+            <Button size="sm" variant="ghost" className="shrink-0" onClick={() => meetingStore.getState().denyLobby(lobby.id)}>
               {t("deny")}
             </Button>
           </div>

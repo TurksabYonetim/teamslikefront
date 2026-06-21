@@ -1,6 +1,11 @@
 {
-  "landing": { "title": "Meetings", "newMeeting": "New meeting" },
-  "prejoin": { "join": "Join now" },
+  "landing": {
+    "title": "Meetings",
+    "newMeeting": "New meeting"
+  },
+  "prejoin": {
+    "join": "Join now"
+  },
   "landingSubtitle": "Start, schedule, or join a video meeting.",
   "join": "Join",
   "newMeeting": "New meeting",
@@ -30,13 +35,23 @@
   "microphone": "Microphone",
   "aiCompanion": "AI Companion",
   "joinNow": "Join now",
-  "room2": { "participants": "participants", "placeholder": "Loading stage…" },
-  "control": { "mic": "Microphone", "leave": "Leave" },
+  "room2": {
+    "participants": "participants",
+    "placeholder": "Loading stage…"
+  },
+  "control": {
+    "mic": "Microphone",
+    "leave": "Leave"
+  },
   "you": "You",
   "muted": "Muted",
   "handRaised": "Hand raised",
   "spotlighted": "Spotlighted",
-  "quality": { "good": "Good connection", "fair": "Fair connection", "poor": "Poor connection" },
+  "quality": {
+    "good": "Good connection",
+    "fair": "Fair connection",
+    "poor": "Poor connection"
+  },
   "sharingScreen": "{{name}} is sharing",
   "mute": "Mute",
   "unmute": "Unmute",
@@ -88,7 +103,8 @@
     "launch": "Launch poll",
     "close": "Close poll",
     "none": "No active poll.",
-    "votes": "{{n}} votes"
+    "votes": "{{n}} votes",
+    "title": "Poll"
   },
   "qna": "Q&A",
   "qnaPlaceholder": "Ask a question…",
@@ -126,7 +142,11 @@
   "breakoutsHint": "Split participants into smaller rooms.",
   "createRooms": "{{n}} rooms",
   "closeRooms": "Close rooms",
-  "role": { "host": "Host", "cohost": "Co-host", "viewer": "Viewer" },
+  "role": {
+    "host": "Host",
+    "cohost": "Co-host",
+    "viewer": "Viewer"
+  },
   "muteParticipant": "Mute participant",
   "unmuteParticipant": "Unmute participant",
   "spotlight": "Spotlight",
@@ -166,7 +186,11 @@
     "videoLock": "Video lock",
     "requireConsent": "Require recording consent",
     "accessTier": "Access tier",
-    "tier": { "open": "Open", "trusted": "Trusted", "restricted": "Restricted" },
+    "tier": {
+      "open": "Open",
+      "trusted": "Trusted",
+      "restricted": "Restricted"
+    },
     "participants": "Participants",
     "viewer": "Viewer",
     "pin": "Pin",
@@ -181,9 +205,17 @@
     "grantControl": "Grant control",
     "notes": "Take notes for me",
     "generate": "Generate",
-    "section": { "summary": "Summary", "decisions": "Decisions", "nextSteps": "Next steps" },
+    "section": {
+      "summary": "Summary",
+      "decisions": "Decisions",
+      "nextSteps": "Next steps"
+    },
     "recipients": "Recipients",
-    "recipient": { "all": "Everyone", "inorg": "In-org only", "hosts": "Hosts only" },
+    "recipient": {
+      "all": "Everyone",
+      "inorg": "In-org only",
+      "hosts": "Hosts only"
+    },
     "speech": "Speech translation",
     "speechFrom": "Translate from",
     "speechTo": "Translate to",
@@ -192,8 +224,18 @@
     "recvRes": "Receive resolution",
     "bandwidth": "Bandwidth policy",
     "dataSaver": "Data saver",
-    "res": { "auto": "Auto", "fhd": "1080p", "hd": "720p", "sd": "360p", "audio": "Audio only" },
-    "bw": { "auto": "Auto", "limited": "Limited", "audio": "Audio only" }
+    "res": {
+      "auto": "Auto",
+      "fhd": "1080p",
+      "hd": "720p",
+      "sd": "360p",
+      "audio": "Audio only"
+    },
+    "bw": {
+      "auto": "Auto",
+      "limited": "Limited",
+      "audio": "Audio only"
+    }
   },
   "meetParity": "Google Meet parity",
   "companion": "Companion mode",
@@ -228,7 +270,11 @@
   "archiveEmpty": "No matching recordings",
   "facilitator": {
     "title": "AI Facilitator",
-    "items": { "intro": "Intro & goals", "demo": "Demo", "qa": "Q&A" },
+    "items": {
+      "intro": "Intro & goals",
+      "demo": "Demo",
+      "qa": "Q&A"
+    },
     "noAgenda": "No active agenda item",
     "back": "Back",
     "fwd": "Forward",
@@ -470,5 +516,7 @@
       "copied": "Link copied",
       "error": "Token could not be generated."
     }
-  }
+  },
+  "qnaEmpty": "No questions yet. Be the first to ask.",
+  "qnaUpvote": "Upvote"
 }

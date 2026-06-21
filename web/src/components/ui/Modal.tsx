@@ -39,20 +39,20 @@ export function Modal({ open, onClose, title, children, footer, size = "md" }: M
           SIZE[size],
         )}
       >
-        <div className="shrink-0 flex items-center justify-between p-4 border-b border-line">
+        <div className="shrink-0 flex items-center justify-between gap-2 px-4 py-3 sm:p-4 border-b border-line">
           <h3 id={titleId} className="text-base font-semibold text-ink">{title}</h3>
           <button
             type="button"
             aria-label="Close"
             onClick={onClose}
-            className="p-2.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)]"
+            className="-mr-1 p-2 sm:p-2.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-transform motion-safe:active:scale-[0.97] ease-[var(--ease-out)]"
           >
             <Icon name="close" className="w-5 h-5" />
           </button>
         </div>
-        <div className="flex-1 overflow-y-auto overscroll-contain p-5">{children}</div>
+        <div className="flex-1 overflow-y-auto overscroll-contain p-4 sm:p-5">{children}</div>
         {footer && (
-          <div className="shrink-0 flex items-center justify-end gap-2 p-4 border-t border-line bg-surface-2 rounded-b-lg">
+          <div className="shrink-0 flex items-center justify-end gap-2 px-4 py-3 sm:p-4 border-t border-line bg-surface-2 rounded-b-lg">
             {footer}
           </div>
         )}

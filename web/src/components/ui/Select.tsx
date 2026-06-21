@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
+import { CONTROL_HEIGHT } from "./controlSize";
 
 /**
  * Tek tip, erişilebilir özel `Select` (listbox) bileşeni.
@@ -255,7 +256,9 @@ export function Select<T extends string = string>({
     }
   };
 
-  const triggerPad = size === "sm" ? "h-9 px-3 text-xs" : "h-11 px-3.5 text-sm";
+  // md = varsayılan responsive standart (Input/Button ile aynı yükseklik ölçeği).
+  const triggerPad =
+    size === "sm" ? "h-9 px-3 text-xs" : `${CONTROL_HEIGHT} px-3 lg:px-3.5 text-base md:text-sm`;
 
   return (
     <div className={clsx("inline-flex flex-col", className?.includes("w-full") || !className ? "w-full" : undefined)}>

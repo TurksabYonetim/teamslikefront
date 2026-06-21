@@ -39,7 +39,7 @@ export function HostPanel() {
   return (
     <aside
       aria-label={t("hostControls")}
-      className="flex w-full sm:w-80 xl:w-96 shrink-0 flex-col border-l border-line bg-surface"
+      className="absolute inset-0 z-30 flex w-full shrink-0 flex-col border-l border-line bg-surface sm:static sm:inset-auto sm:z-auto sm:w-80 xl:w-96"
     >
       <header className="flex items-center justify-between border-b border-line p-3">
         <span className="text-sm font-semibold text-ink">{t("hostControls")}</span>
