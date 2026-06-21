@@ -55,7 +55,7 @@ function Stat({
         ) : null}
       </div>
 
-      <div className="text-xl font-semibold tabular-nums text-ink dark:text-white">{value}</div>
+      <div className="min-w-0 truncate text-lg font-semibold tabular-nums text-ink sm:text-xl dark:text-white">{value}</div>
 
       {trend && trend.length >= 2 ? (
         <svg className="kpi-spark" viewBox="0 0 100 26" preserveAspectRatio="none" aria-hidden="true">

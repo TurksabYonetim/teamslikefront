@@ -46,12 +46,12 @@ export function ContactPanel() {
           ) : null}
           {contact.identifiers.phone ? (
             <li className="flex items-center gap-2">
-              <Icon name="phone" className="h-3.5 w-3.5 shrink-0" aria-hidden /> {contact.identifiers.phone}
+              <Icon name="phone" className="h-3.5 w-3.5 shrink-0" aria-hidden /> <span className="truncate">{contact.identifiers.phone}</span>
             </li>
           ) : null}
           {contact.identifiers.social ? (
             <li className="flex items-center gap-2">
-              <Icon name="at" className="h-3.5 w-3.5 shrink-0" aria-hidden /> {contact.identifiers.social}
+              <Icon name="at" className="h-3.5 w-3.5 shrink-0" aria-hidden /> <span className="truncate">{contact.identifiers.social}</span>
             </li>
           ) : null}
         </ul>
@@ -64,8 +64,8 @@ export function ContactPanel() {
           <dl className="space-y-1 text-sm">
             {Object.entries(contact.attributes).map(([k, v]) => (
               <div key={k} className="flex justify-between gap-2">
-                <dt className="text-muted">{k}</dt>
-                <dd className="text-ink">{v}</dd>
+                <dt className="shrink-0 text-muted">{k}</dt>
+                <dd className="min-w-0 truncate text-right text-ink">{v}</dd>
               </div>
             ))}
           </dl>

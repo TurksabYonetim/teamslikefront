@@ -391,7 +391,7 @@ export function CanvasPage() {
             <label className="block text-sm font-medium text-ink mb-1.5">
               {t("addModal.typeLabel")}
             </label>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {BLOCK_TYPES.map((type) => (
                 <button
                   key={type}

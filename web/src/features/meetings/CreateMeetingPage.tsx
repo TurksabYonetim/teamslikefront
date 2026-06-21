@@ -46,7 +46,7 @@ export function CreateMeetingPage() {
     <>
 
       <section aria-labelledby="create-title">
-        <div className="mx-auto grid min-h-[calc(100vh-8rem)] max-w-7xl place-items-center gap-16 px-4 md:grid-cols-12 xl:px-0">
+        <div className="mx-auto grid min-h-[calc(100dvh-8rem)] max-w-7xl place-items-center gap-16 px-4 md:grid-cols-12 xl:px-0">
           <div className="col-span-full md:col-span-9 lg:col-span-6">
             <div className="mb-6">
               <Logo className="h-8" />

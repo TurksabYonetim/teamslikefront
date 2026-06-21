@@ -22,8 +22,8 @@ export function CallAnalytics() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto grid h-full w-full max-w-4xl grid-cols-2 gap-3 p-4 sm:grid-cols-3">
-        {Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-20" />)}
+      <div className="mx-auto grid h-full w-full max-w-4xl grid-cols-2 gap-3 p-4 sm:grid-cols-3 lg:grid-cols-4">
+        {Array.from({ length: 8 }).map((_, i) => <Skeleton key={i} className="h-20" />)}
       </div>
     );
   }
@@ -50,7 +50,7 @@ export function CallAnalytics() {
     <div className="mx-auto flex h-full w-full max-w-4xl flex-col gap-6 overflow-y-auto p-4">
       <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{t("analytics.title")}</h2>
 
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {cards.map((c) => (
           <div key={c.label} className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
             <p className="text-xs font-medium text-muted">{c.label}</p>

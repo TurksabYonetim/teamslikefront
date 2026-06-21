@@ -223,24 +223,24 @@ function AuditLogSection() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-end gap-3">
-        <label className="flex flex-col gap-1">
+        <label className="flex w-full flex-col gap-1 sm:w-auto">
           <span className="text-xs text-muted">{t("audit.from")}</span>
           <input
             type="date"
             value={from}
             max={to || undefined}
             onChange={(e) => setFrom(e.target.value)}
-            className={INPUT_CLASS}
+            className={`${INPUT_CLASS} w-full sm:w-auto`}
           />
         </label>
-        <label className="flex flex-col gap-1">
+        <label className="flex w-full flex-col gap-1 sm:w-auto">
           <span className="text-xs text-muted">{t("audit.to")}</span>
           <input
             type="date"
             value={to}
             min={from || undefined}
             onChange={(e) => setTo(e.target.value)}
-            className={INPUT_CLASS}
+            className={`${INPUT_CLASS} w-full sm:w-auto`}
           />
         </label>
         <input
@@ -248,14 +248,14 @@ function AuditLogSection() {
           onChange={(e) => setAction(e.target.value)}
           placeholder={t("audit.actionFilter")}
           aria-label={t("audit.actionFilter")}
-          className={`${INPUT_CLASS} min-w-[160px]`}
+          className={`${INPUT_CLASS} w-full sm:w-auto sm:min-w-[160px]`}
         />
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={t("audit.searchPlaceholder")}
           aria-label={t("audit.searchPlaceholder")}
-          className={`${INPUT_CLASS} flex-1 min-w-[180px]`}
+          className={`${INPUT_CLASS} w-full flex-1 sm:w-auto sm:min-w-[180px]`}
         />
         {hasFilters && (
           <Button variant="ghost" size="sm" onClick={resetFilters}>
@@ -385,9 +385,9 @@ function PolicyRow({ policy }: { policy: Policy }) {
 
   return (
     <div className="flex flex-wrap items-center gap-3 rounded-xl border border-line bg-surface p-3 transition-colors duration-150 ease-out hover:border-ink-3/30">
-      <div className="min-w-[160px]">
+      <div className="w-full min-w-0 sm:w-auto sm:min-w-[160px]">
         <div className="text-xs text-muted">{t("policies.key")}</div>
-        <div className="font-mono text-sm font-medium text-ink">{policy.key}</div>
+        <div className="break-all font-mono text-sm font-medium text-ink">{policy.key}</div>
         <div className="mt-0.5 text-xs text-muted">
           {t("policies.updatedAt", { date: fmtDate(policy.updated_at) })}
         </div>
@@ -403,7 +403,7 @@ function PolicyRow({ policy }: { policy: Policy }) {
               if (e.key === "Enter" && dirty) save();
               if (e.key === "Escape") cancel();
             }}
-            className={`${INPUT_CLASS} flex-1 min-w-[180px]`}
+            className={`${INPUT_CLASS} w-full flex-1 sm:w-auto sm:min-w-[180px]`}
           />
           <Button
             size="sm"
@@ -424,7 +424,7 @@ function PolicyRow({ policy }: { policy: Policy }) {
         </>
       ) : (
         <>
-          <div className="flex-1 min-w-[180px] break-all font-mono text-sm text-ink-2">
+          <div className="w-full min-w-0 flex-1 break-all font-mono text-sm text-ink-2 sm:w-auto sm:min-w-[180px]">
             {policy.value || <span className="text-muted">{t("policies.emptyValue")}</span>}
           </div>
           <Button
@@ -472,7 +472,7 @@ function NewPolicyForm() {
         onChange={(e) => setKey(e.target.value)}
         placeholder={t("policies.keyPlaceholder")}
         aria-label={t("policies.keyPlaceholder")}
-        className={`${INPUT_CLASS} min-w-[160px]`}
+        className={`${INPUT_CLASS} w-full sm:w-auto sm:min-w-[160px]`}
       />
       <input
         value={value}
@@ -482,7 +482,7 @@ function NewPolicyForm() {
         onKeyDown={(e) => {
           if (e.key === "Enter" && key.trim()) add();
         }}
-        className={`${INPUT_CLASS} flex-1 min-w-[180px]`}
+        className={`${INPUT_CLASS} w-full flex-1 sm:w-auto sm:min-w-[180px]`}
       />
       <Button
         size="sm"
@@ -541,7 +541,8 @@ export function AdminPage() {
   return (
     <div className="flex h-full flex-col">
       <Topbar title={t("title")} subtitle={t("subtitle")} />
-      <div className="flex-1 overflow-y-auto p-5">
+      <div className="flex-1 overflow-y-auto p-4 sm:p-5">
+        <div className="mx-auto w-full max-w-screen-2xl">
         <Tabs
           items={[
             {
@@ -581,6 +582,7 @@ export function AdminPage() {
             },
           ]}
         />
+        </div>
       </div>
     </div>
   );

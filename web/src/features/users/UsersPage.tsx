@@ -101,7 +101,7 @@ export function UsersPage() {
       />
 
       <div className="flex-1 overflow-y-auto bg-surface-2 p-4 md:p-6">
-        <div className="bg-surface border border-line rounded-card overflow-hidden">
+        <div className="mx-auto w-full max-w-screen-xl bg-surface border border-line rounded-card overflow-hidden">
           {/* Araç çubuğu: arama + rol filtresi */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 p-4 border-b border-line">
             <div className="relative flex-1 sm:max-w-xs">
@@ -494,7 +494,7 @@ function CreateUserModal({ open, onClose }: { open: boolean; onClose: () => void
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div>
             <Select<Role>
               id="cu-role"

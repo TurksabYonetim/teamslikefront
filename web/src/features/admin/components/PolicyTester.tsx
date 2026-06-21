@@ -56,13 +56,13 @@ export function PolicyTester() {
       </div>
 
       <div className="mt-3 flex flex-wrap items-end gap-2 border-t border-line pt-3">
-        <label className="flex flex-col gap-1 text-sm text-muted">
+        <label className="flex w-full flex-col gap-1 text-sm text-muted sm:w-auto">
           {t("tester.from")}
-          <input value={from} onChange={(e) => setFrom(e.target.value)} className={INPUT_CLASS} />
+          <input value={from} onChange={(e) => setFrom(e.target.value)} className={`${INPUT_CLASS} w-full sm:w-auto`} />
         </label>
-        <label className="flex flex-col gap-1 text-sm text-muted">
+        <label className="flex w-full flex-col gap-1 text-sm text-muted sm:w-auto">
           {t("tester.to")}
-          <input value={to} onChange={(e) => setTo(e.target.value)} className={INPUT_CLASS} />
+          <input value={to} onChange={(e) => setTo(e.target.value)} className={`${INPUT_CLASS} w-full sm:w-auto`} />
         </label>
         <Badge tone={blocked ? "danger" : "positive"}>
           {blocked ? t("tester.barrierBlocked") : t("tester.barrierOk")}

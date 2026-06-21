@@ -16,6 +16,7 @@ export type { SelectOption } from "./Select";
 export { Skeleton, SkeletonText } from "./Skeleton";
 export { Spinner, FullPageSpinner } from "./Spinner";
 export { Tabs } from "./Tabs";
+export { TimeField } from "./TimeField";
 export { Tooltip } from "./Tooltip";
 export { ProductTour } from "./ProductTour";
 export type { TourStep } from "./ProductTour";

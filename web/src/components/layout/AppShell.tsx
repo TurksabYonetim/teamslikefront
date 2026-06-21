@@ -40,7 +40,7 @@ export function AppShell() {
   }, []);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-surface-2">
+    <div className="flex h-[100dvh] overflow-hidden bg-surface-2">
       {/* mobil üst bar */}
       <MobileTopbar onMenu={() => setOpen(true)} />
 

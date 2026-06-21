@@ -33,7 +33,7 @@ export function CanvasEditor() {
   };
 
   return (
-    <div className="card p-5">
+    <div className="card p-4 sm:p-5">
       <div className="mb-4 flex flex-wrap items-center gap-3 border-b border-line pb-4">
         <Select
           value={doc.id}
@@ -43,10 +43,10 @@ export function CanvasEditor() {
             value: d.id,
             label: d.title,
           }))}
-          className="w-64"
+          className="w-full sm:w-64"
         />
         {prog.total > 0 ? (
-          <span className="ml-auto inline-flex items-center gap-2 text-xs text-muted">
+          <span className="inline-flex items-center gap-2 text-xs text-muted sm:ml-auto">
             {t("canvas.progress", { done: prog.done, total: prog.total })}
             <span
               className="inline-flex h-8 w-8"
@@ -127,7 +127,7 @@ export function CanvasEditor() {
             value: ty,
             label: t(`canvas.blockType.${ty}`),
           }))}
-          className="w-44"
+          className="w-full sm:w-44"
         />
         {type !== "divider" ? (
           <input

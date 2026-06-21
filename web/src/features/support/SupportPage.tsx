@@ -107,15 +107,17 @@ export function SupportPage() {
             id={`support-tab-${v.id}`}
             role="tab"
             aria-selected={active}
+            aria-label={t(`views.${v.id}`)}
             tabIndex={active ? 0 : -1}
             onClick={() => setView(v.id)}
             onKeyDown={onTabKey}
             className={clsx(
-              "inline-flex h-9 shrink-0 items-center gap-2 rounded-md px-3 text-sm font-medium outline-none transition-[background-color,transform] duration-150 ease-[var(--ease-out,ease-out)] focus-visible:ring-2 focus-visible:ring-brand active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100",
+              "inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-md px-2.5 text-sm font-medium outline-none transition-[background-color,transform] duration-150 ease-[var(--ease-out,ease-out)] focus-visible:ring-2 focus-visible:ring-brand active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100 sm:px-3",
               active ? "bg-brand text-white" : "text-muted hover:bg-surface-2 hover:text-ink",
             )}
           >
-            <Icon name={v.icon} className="h-4 w-4" /> {t(`views.${v.id}`)}
+            <Icon name={v.icon} className="h-4 w-4 shrink-0" />
+            <span className="hidden sm:inline">{t(`views.${v.id}`)}</span>
           </button>
         );
       })}
@@ -153,7 +155,7 @@ export function SupportPage() {
   return (
     <div
       className={clsx(
-        "flex h-[calc(100vh-3.5rem)] min-h-0 flex-col gap-3",
+        "flex h-[calc(100dvh-3.5rem)] min-h-0 flex-col gap-3",
         isMobile ? "p-3" : "p-4",
       )}
     >

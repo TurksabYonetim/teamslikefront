@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import {
   HiOutlineShieldCheck,
@@ -15,6 +14,7 @@ import { MdMicOff, MdVideocamOff } from "react-icons/md";
 import clsx from "clsx";
 import { meetingStore, useMeeting } from "../meetings.store";
 import { Badge, Button, Select } from "@/components/ui";
+import { MeetingToggleRow } from "./MeetingToggleRow";
 import type {
   AccessTier,
   BandwidthPolicy,
@@ -28,34 +28,6 @@ const BW: BandwidthPolicy[] = ["auto", "limited", "audio"];
 const RECIPIENTS: NotesRecipients[] = ["all", "inorg", "hosts"];
 const LANGS = ["en", "tr", "es", "fr", "de", "pt", "it"];
 const SECTIONS = ["summary", "decisions", "nextSteps"] as const;
-
-function Toggle({
-  label,
-  on,
-  onToggle,
-  icon,
-}: {
-  label: string;
-  on: boolean;
-  onToggle: () => void;
-  icon: ReactNode;
-}) {
-  const { t } = useTranslation("meetings");
-  return (
-    <button
-      type="button"
-      onClick={onToggle}
-      aria-pressed={on}
-      className="flex h-11 w-full items-center gap-2 rounded-md border border-line px-3 text-sm text-ink hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-    >
-      {icon}
-      <span className="flex-1 text-left">{label}</span>
-      <span className={clsx("text-sm", on ? "text-brand" : "text-ink-2")}>
-        {on ? t("gm.on", { defaultValue: t("on") }) : t("gm.off", { defaultValue: t("off") })}
-      </span>
-    </button>
-  );
-}
 
 export function MeetGmPanel() {
   const { t } = useTranslation("meetings");
@@ -87,19 +59,19 @@ export function MeetGmPanel() {
       {/* Granular moderation */}
       <section className="space-y-2">
         <h3 className="text-sm font-semibold text-ink">{t("gm.title")}</h3>
-        <Toggle
+        <MeetingToggleRow
           label={t("gm.audioLock")}
           on={audioLock}
           onToggle={() => act().toggleAudioLock()}
           icon={<MdMicOff className="h-[18px] w-[18px]" aria-hidden />}
         />
-        <Toggle
+        <MeetingToggleRow
           label={t("gm.videoLock")}
           on={videoLock}
           onToggle={() => act().toggleVideoLock()}
           icon={<MdVideocamOff className="h-[18px] w-[18px]" aria-hidden />}
         />
-        <Toggle
+        <MeetingToggleRow
           label={t("gm.requireConsent")}
           on={requireConsent}
           onToggle={() => act().toggleRequireConsent()}
@@ -171,7 +143,7 @@ export function MeetGmPanel() {
 
       {/* Annotation + remote control */}
       <section className="space-y-2">
-        <Toggle
+        <MeetingToggleRow
           label={t("gm.annotate")}
           on={annotateOn}
           onToggle={() => act().toggleAnnotate()}
@@ -270,7 +242,7 @@ export function MeetGmPanel() {
 
       {/* Speech translation */}
       <section className="space-y-2">
-        <Toggle
+        <MeetingToggleRow
           label={t("gm.speech")}
           on={speechTranslation}
           onToggle={() => act().toggleSpeechTranslation()}
@@ -353,7 +325,7 @@ export function MeetGmPanel() {
             }))}
           />
         </div>
-        <Toggle
+        <MeetingToggleRow
           label={t("gm.dataSaver")}
           on={dataSaver}
           onToggle={() => act().toggleDataSaver()}

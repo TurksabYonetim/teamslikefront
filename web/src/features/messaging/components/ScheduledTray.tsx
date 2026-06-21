@@ -21,10 +21,11 @@ export function ScheduledTray({ open, onClose }: { open: boolean; onClose: () =>
         <ul className="space-y-2">
           {scheduled.map((m) => (
             <li key={m.id} className="flex items-center gap-2 rounded-md border border-line bg-surface-2 p-3 dark:border-gray-700">
-              <HiOutlineClock className="h-5 w-5 text-muted" aria-hidden />
-              <span className="flex-1 truncate text-sm text-ink">{m.body}</span>
+              <HiOutlineClock className="h-5 w-5 shrink-0 text-muted" aria-hidden />
+              <span className="min-w-0 flex-1 truncate text-sm text-ink">{m.body}</span>
               <Button
                 size="sm"
+                className="shrink-0"
                 onClick={() => {
                   sendScheduledNow(m.id);
                   onClose();

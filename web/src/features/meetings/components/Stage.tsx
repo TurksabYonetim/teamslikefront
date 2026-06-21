@@ -27,20 +27,20 @@ function Tile({
   return (
     <div
       className={clsx(
-        "relative flex items-center justify-center overflow-hidden rounded-lg bg-gray-800",
-        speaking && "ring-2 ring-brand",
+        "relative flex items-center justify-center overflow-hidden rounded-lg border border-line bg-surface-2 transition-[transform,box-shadow] duration-[var(--dur-pop)] ease-[var(--ease-out)] motion-safe:hover:-translate-y-0.5 hover:shadow-sm",
+        speaking && "ring-[3px] ring-brand",
         spotlighted && "ring-2 ring-amber-400",
         big ? "h-full w-full" : "aspect-video",
       )}
     >
       {p.camOn ? (
-        <div className="absolute inset-0 bg-gradient-to-br from-brand/40 to-gray-700" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-br from-brand/10 to-surface-3" aria-hidden />
       ) : null}
       <Avatar name={p.name} size={big ? "lg" : "md"} />
 
       {p.quality ? (
         <span
-          className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-md bg-black/60 px-1.5 py-0.5 text-xs text-white"
+          className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-md bg-surface/90 px-1.5 py-0.5 text-xs text-ink ring-1 ring-line"
           title={t(`quality.${p.quality}`)}
         >
           <span className={clsx("inline-block h-2 w-2 rounded-full", qualityTone[p.quality])} aria-hidden />
@@ -52,7 +52,7 @@ function Tile({
         </span>
       ) : null}
 
-      <div className="absolute bottom-2 left-2 flex items-center gap-1 rounded-md bg-black/60 px-2 py-0.5 text-xs text-white">
+      <div className="absolute bottom-2 left-2 flex items-center gap-1 rounded-md bg-surface/90 px-2 py-0.5 text-xs text-ink ring-1 ring-line">
         {!p.micOn ? <MdMicOff className="h-3.5 w-3.5" aria-label={t("muted")} /> : null}
         <span className="max-w-[12rem] truncate">{p.isSelf ? t("you") : p.name}</span>
       </div>
@@ -68,9 +68,9 @@ function Tile({
 function Filmstrip({ items }: { items: Participant[] }) {
   const activeSpeakerId = useMeeting((s) => s.activeSpeakerId);
   return (
-    <div className="flex gap-2 overflow-x-auto">
+    <div className="flex gap-2 overflow-x-auto lg:justify-center lg:gap-3">
       {items.map((p) => (
-        <div key={p.id} className="w-40 shrink-0">
+        <div key={p.id} className="w-40 shrink-0 lg:w-44 xl:w-52">
           <Tile p={p} speaking={p.id === activeSpeakerId && p.micOn} />
         </div>
       ))}
@@ -81,8 +81,8 @@ function Filmstrip({ items }: { items: Participant[] }) {
 function ScreenShareView({ presenter }: { presenter: Participant }) {
   const { t } = useTranslation("meetings");
   return (
-    <div className="relative flex h-full items-center justify-center overflow-hidden rounded-lg border border-line bg-gray-900">
-      <div className="flex items-center gap-2 rounded-md bg-black/60 px-3 py-2 text-sm text-white">
+    <div className="relative flex h-full items-center justify-center overflow-hidden rounded-lg border border-line bg-surface-3">
+      <div className="flex items-center gap-2 rounded-md bg-surface/90 px-3 py-2 text-sm text-ink ring-1 ring-line">
         <HiOutlineComputerDesktop className="h-5 w-5" aria-hidden />
         {t("sharingScreen", { name: presenter.isSelf ? t("you") : presenter.name })}
       </div>
@@ -127,7 +127,7 @@ export function Stage() {
   }
 
   return (
-    <div className="grid h-full grid-cols-2 content-center gap-3 p-3 sm:grid-cols-3">
+    <div className="mx-auto grid h-full w-full max-w-7xl grid-cols-1 content-center gap-1.5 p-3 sm:grid-cols-2 md:gap-2 lg:grid-cols-3 lg:gap-2.5 xl:grid-cols-4 xl:gap-3">
       {participants.map((p) => (
         <Tile key={p.id} p={p} speaking={p.id === activeSpeakerId && p.micOn} />
       ))}

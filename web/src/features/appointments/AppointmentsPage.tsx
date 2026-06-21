@@ -91,14 +91,15 @@ export function AppointmentsPage() {
   };
 
   return (
-    <div className="mx-auto max-w-6xl space-y-4 p-6">
+    <div className="flex-1 overflow-y-auto">
+      <div className="mx-auto max-w-6xl space-y-4 p-4 md:p-6">
       <div>
         <h1 className="text-xl font-semibold text-ink">{t("nav")}</h1>
         <p className="mt-1 text-sm text-muted">{t("subtitle")}</p>
       </div>
 
       {/* Üst seviye yüzey seçici (konsol / genel sayfa / çalışma alanı). */}
-      <div role="tablist" aria-label={t("surfaces.label")} className="inline-flex gap-1 rounded-lg border border-line bg-surface-2 p-1">
+      <div role="tablist" aria-label={t("surfaces.label")} className="flex flex-nowrap gap-1 overflow-x-auto rounded-lg border border-line bg-surface-2 p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {SURFACES.map(({ id, icon }, i) => (
           <button
             key={id}
@@ -109,7 +110,7 @@ export function AppointmentsPage() {
             onClick={() => setSurface(id)}
             onKeyDown={(e) => onSurfaceKey(e, i)}
             className={clsx(
-              "inline-flex h-9 items-center gap-2 rounded-md px-3 text-sm font-medium transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.98]",
+              "inline-flex h-9 shrink-0 items-center gap-2 rounded-md px-3 text-sm font-medium transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.98]",
               surface === id ? "bg-surface text-ink shadow-sm" : "text-muted hover:text-ink",
             )}
           >
@@ -120,7 +121,7 @@ export function AppointmentsPage() {
 
       {surface === "console" ? (
         <>
-          <div role="tablist" aria-label={t("nav")} className="flex flex-wrap gap-1 border-b border-line">
+          <div role="tablist" aria-label={t("nav")} className="flex flex-nowrap gap-1 overflow-x-auto border-b border-line [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {CONSOLE_TABS.map(({ id, icon }, i) => (
               <button
                 key={id}
@@ -131,7 +132,7 @@ export function AppointmentsPage() {
                 onClick={() => setTab(id)}
                 onKeyDown={(e) => onTabKey(e, i)}
                 className={clsx(
-                  "inline-flex h-11 items-center gap-2 rounded-t-md border-b-2 px-3 text-sm font-medium transition-[color,border-color] duration-150 ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.98]",
+                  "inline-flex h-11 shrink-0 items-center gap-2 rounded-t-md border-b-2 px-3 text-sm font-medium transition-[color,border-color] duration-150 ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.98]",
                   tab === id ? "border-brand text-brand" : "border-transparent text-muted hover:text-ink",
                 )}
               >
@@ -142,7 +143,7 @@ export function AppointmentsPage() {
 
           <div key={tab} className="tl-fade">
             {tab === "eventTypes" ? (
-              <div className="grid gap-4 lg:grid-cols-2">
+              <div className="tl-stagger grid gap-3 lg:grid-cols-2">
                 <EventTypeList />
                 <EventTypeEditor />
               </div>
@@ -158,6 +159,7 @@ export function AppointmentsPage() {
       ) : (
         <WorkspaceReservation />
       )}
+      </div>
     </div>
   );
 }

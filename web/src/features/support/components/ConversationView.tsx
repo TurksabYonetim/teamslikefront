@@ -74,10 +74,12 @@ export function ConversationView() {
   return (
     <div className="flex min-h-0 min-w-0 flex-col rounded-xl border border-line bg-surface">
       {/* Header */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-line px-3 py-2">
-        <span className="text-sm font-semibold text-ink">{contactName(conv.contactId)}</span>
-        {assigned ? <Badge tone="neutral">{t("conversation.assignedTo", { name: assigned })}</Badge> : null}
-        <div className="ml-auto flex flex-wrap items-center gap-2">
+      <div className="flex flex-col gap-2 border-b border-line px-3 py-2 sm:flex-row sm:flex-wrap sm:items-center">
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
+          <span className="min-w-0 truncate text-sm font-semibold text-ink">{contactName(conv.contactId)}</span>
+          {assigned ? <Badge tone="neutral">{t("conversation.assignedTo", { name: assigned })}</Badge> : null}
+        </div>
+        <div className="grid grid-cols-2 gap-2 sm:ml-auto sm:flex sm:flex-wrap sm:items-center">
           <Button
             size="sm"
             variant="ghost"
@@ -119,7 +121,7 @@ export function ConversationView() {
               label: t(`status.${s}`),
             }))}
             size="sm"
-            className="w-40"
+            className="w-full sm:w-40"
           />
         </div>
       </div>
@@ -138,13 +140,13 @@ export function ConversationView() {
       </div>
 
       {/* Thread */}
-      <div className="min-h-0 flex-1 space-y-2 overflow-y-auto p-3" aria-live="polite">
+      <div className="min-h-0 min-w-0 flex-1 space-y-2 overflow-y-auto p-3" aria-live="polite">
         {conv.messages.map((m) => {
           if (m.authorType === "note") {
             return (
               <div
                 key={m.id}
-                className="rounded-md border border-amber-300 bg-amber-50 px-3 py-1.5 text-sm text-ink dark:bg-amber-900/20"
+                className="break-words rounded-md border border-amber-300 bg-amber-50 px-3 py-1.5 text-sm text-ink dark:bg-amber-900/20"
               >
                 <span className="font-medium text-amber-700 dark:text-amber-300">{t("conversation.note")}: </span>
                 {m.body}
@@ -156,7 +158,7 @@ export function ConversationView() {
             <div key={m.id} className={clsx("flex motion-safe:animate-[tl-fade-in_150ms_var(--ease-out)]", out ? "justify-end" : "justify-start")}>
               <span
                 className={clsx(
-                  "max-w-[80%] rounded-lg px-3 py-1.5 text-sm",
+                  "max-w-[85%] whitespace-pre-wrap break-words rounded-lg px-3 py-1.5 text-sm sm:max-w-[80%]",
                   out ? "bg-brand text-white" : "bg-surface-2 text-ink",
                 )}
               >

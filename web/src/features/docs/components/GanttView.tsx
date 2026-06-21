@@ -59,7 +59,7 @@ export function GanttView({ table }: { table: DataTable }) {
   const rangeHint = dates.length >= 2 ? `${fmtDate(dates[0])} → ${fmtDate(dates[dates.length - 1])}` : "";
 
   return (
-    <div>
+    <div className="min-w-0">
       <h3 className="mb-2 flex flex-wrap items-center gap-1.5 text-sm font-semibold text-ink">
         <Icon name="chartBar" className="h-4 w-4" /> {t("table.gantt")}
         {statusCol ? ` · ${statusCol.name}` : dateCol ? ` · ${dateCol.name}` : ""}
@@ -68,11 +68,11 @@ export function GanttView({ table }: { table: DataTable }) {
 
       <ul className="space-y-2">
         {groups.map((g) => (
-          <li key={g.key} className={`grid grid-cols-[7rem_1fr] items-center gap-3 rounded-lg px-2.5 py-2 ${g.meta.lane}`}>
-            <span className={`inline-flex items-center gap-1.5 text-[0.8125rem] font-semibold ${g.meta.text}`}>
-              <span className={`h-2 w-2 flex-none rounded-full ${g.meta.dot}`} aria-hidden /> {g.meta.label}
+          <li key={g.key} className={`grid grid-cols-[4rem_1fr] items-center gap-2 rounded-lg px-2.5 py-2 sm:grid-cols-[7rem_1fr] sm:gap-3 ${g.meta.lane}`}>
+            <span className={`inline-flex min-w-0 items-center gap-1.5 text-[0.8125rem] font-semibold ${g.meta.text}`}>
+              <span className={`h-2 w-2 flex-none rounded-full ${g.meta.dot}`} aria-hidden /> <span className="truncate">{g.meta.label}</span>
             </span>
-            <div className="relative h-4">
+            <div className="relative h-4 min-w-0 overflow-hidden">
               <div className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 rounded bg-line" aria-hidden />
               {g.rows.map((r) => {
                 const frac = fracById.get(r.id) ?? 0;
@@ -85,7 +85,7 @@ export function GanttView({ table }: { table: DataTable }) {
                     style={{ left: `${frac * 100}%`, transform: "translate(-50%, -50%)" }}
                   >
                     <span className={`h-3 w-3 flex-none rounded-full border-2 border-white ${g.meta.dot} shadow-[0_0_0_1px_rgba(16,24,40,0.12)]`} aria-hidden />
-                    <span className="whitespace-nowrap rounded bg-surface/85 px-1 text-[0.6875rem] text-ink">
+                    <span className="max-w-[40vw] truncate whitespace-nowrap rounded bg-surface/85 px-1 text-[0.6875rem] text-ink sm:max-w-none">
                       {label}
                       {date ? <span className="text-muted"> · {date}</span> : null}
                     </span>

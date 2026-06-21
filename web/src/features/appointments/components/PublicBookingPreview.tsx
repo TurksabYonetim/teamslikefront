@@ -112,7 +112,7 @@ export function PublicBookingPreview() {
                 <Icon name="calendar" className="h-3.5 w-3.5" /> {dateLabel}
               </div>
               {slots.length > 0 ? (
-                <div className="tl-stagger mt-3 grid grid-cols-3 gap-2">
+                <div className="tl-stagger mt-3 grid grid-cols-3 lg:grid-cols-4 gap-2">
                   {slots.map((s) => (
                     <span
                       key={s.startMs}

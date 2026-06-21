@@ -67,7 +67,7 @@ function SegmentList({
                 {seg.timestamp}
               </span>
             )}
-            <span className="text-sm text-ink leading-relaxed whitespace-pre-wrap">
+            <span className="text-sm text-ink leading-relaxed whitespace-pre-wrap break-words">
               <Highlighted text={seg.text} query={query} />
             </span>
           </div>
@@ -113,7 +113,7 @@ export function TranscriptViewer({
   }
 
   return (
-    <p className="text-sm text-ink leading-relaxed whitespace-pre-wrap">
+    <p className="text-sm text-ink leading-relaxed whitespace-pre-wrap break-words">
       <Highlighted text={content} query={query} />
     </p>
   );

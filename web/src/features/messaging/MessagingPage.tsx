@@ -15,7 +15,6 @@ import { MessagingSidebar } from "./components/MessagingSidebar";
 import { ChannelHeader } from "./components/ChannelHeader";
 import { MessageList } from "./components/MessageList";
 import { MessageComposer } from "./components/MessageComposer";
-import { StoriesBar } from "./components/StoriesBar";
 import { PinnedBar } from "./components/PinnedBar";
 import { TypingIndicator } from "./components/TypingIndicator";
 import { ThreadPanel } from "./components/ThreadPanel";
@@ -160,7 +159,6 @@ function ChatShell({ section }: { section: Exclude<Section, "inbox"> }) {
               </button>
             ) : null}
             <ChannelHeader />
-            <StoriesBar />
             <PinnedBar />
 
             {/* Mesaj listesi — kendi scroll'unu yönetir (flex-1 min-h-0 overflow-y-auto) */}

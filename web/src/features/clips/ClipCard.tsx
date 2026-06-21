@@ -56,6 +56,8 @@ export function ClipCard({ clip, onPlay, onEdit, onDelete }: ClipCardProps) {
             src={clip.thumbnail_url ?? undefined}
             alt={clip.title}
             loading="lazy"
+            width={1280}
+            height={720}
             onError={() => setThumbError(true)}
             className="absolute inset-0 w-full h-full object-cover"
           />
@@ -69,6 +71,8 @@ export function ClipCard({ clip, onPlay, onEdit, onDelete }: ClipCardProps) {
         <video
           ref={videoRef}
           src={clip.video_url}
+          width={1280}
+          height={720}
           muted
           playsInline
           preload="none"

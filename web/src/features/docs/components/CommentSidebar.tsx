@@ -38,10 +38,10 @@ export function CommentSidebar() {
   return (
     <div className="card p-4">
       <div className="mb-2 flex items-center gap-2">
-        <h3 className="flex items-center gap-1.5 text-sm font-semibold text-ink">
-          <Icon name="comment" className="h-4 w-4" /> {t("comments.title")}
+        <h3 className="flex min-w-0 items-center gap-1.5 text-sm font-semibold text-ink">
+          <Icon name="comment" className="h-4 w-4 shrink-0" /> <span className="truncate">{t("comments.title")}</span>
         </h3>
-        <div className="ml-auto flex -space-x-2" aria-label={t("comments.viewing")}>
+        <div className="ml-auto flex shrink-0 -space-x-2" aria-label={t("comments.viewing")}>
           {["usr_1", "usr_2", "usr_3"].map((id) => (
             <Avatar key={id} name={memberName(id)} size="xs" className="ring-2 ring-surface" />
           ))}
@@ -72,23 +72,23 @@ export function CommentSidebar() {
           >
             <div className="flex items-center gap-2">
               <Avatar name={memberName(c.authorId)} size="xs" />
-              <span className="text-sm font-medium text-ink">{memberName(c.authorId)}</span>
+              <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink">{memberName(c.authorId)}</span>
               {c.resolved ? (
-                <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
-                  <Icon name="check" className="h-3 w-3" /> {t("comments.resolved")}
+                <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                  <Icon name="check" className="h-3 w-3 shrink-0" /> {t("comments.resolved")}
                 </span>
               ) : (
                 <button
                   type="button"
                   onClick={() => resolveComment(c.id)}
-                  className="ml-auto inline-flex items-center gap-1 rounded-full bg-brand-softer px-2 py-0.5 text-xs font-medium text-brand-600 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-brand-soft motion-safe:active:scale-[0.97]"
+                  className="inline-flex shrink-0 items-center gap-1 rounded-full bg-brand-softer px-2 py-0.5 text-xs font-medium text-brand-600 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-brand-soft motion-safe:active:scale-[0.97]"
                 >
-                  <Icon name="check" className="h-3.5 w-3.5" /> {t("comments.resolve")}
+                  <Icon name="check" className="h-3.5 w-3.5 shrink-0" /> {t("comments.resolve")}
                 </button>
               )}
             </div>
             <p className={"mt-1 text-sm " + (c.resolved ? "text-muted line-through" : "text-ink")}>{c.body}</p>
-            <p className="text-xs text-muted">↳ {snippet(c.blockId)}</p>
+            <p className="truncate text-xs text-muted">↳ {snippet(c.blockId)}</p>
           </li>
         ))}
       </ul>

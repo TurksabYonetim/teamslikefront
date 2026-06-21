@@ -122,7 +122,7 @@ export function Overlay({
 
   return createPortal(
     <div
-      className={clsx("fixed inset-0 flex p-4", OVERLAY_Z[level], ALIGN[align], BACKDROP_APPEARANCE, className)}
+      className={clsx("fixed inset-0 flex p-3 sm:p-4", OVERLAY_Z[level], ALIGN[align], BACKDROP_APPEARANCE, className)}
       onClick={onBackdropClick}
     >
       {children}

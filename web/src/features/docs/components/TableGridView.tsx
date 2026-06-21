@@ -121,10 +121,10 @@ export function TableGridView() {
   };
 
   return (
-    <div className="card p-4">
+    <div className="card min-w-0 p-3 sm:p-4">
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        <h3 className="text-sm font-semibold text-ink">{table.title}</h3>
-        <div className="ml-auto inline-flex overflow-hidden rounded-lg border border-line" role="group" aria-label={t("table.view")}>
+        <h3 className="min-w-0 break-words text-sm font-semibold text-ink">{table.title}</h3>
+        <div className="ml-auto inline-flex max-w-full overflow-x-auto rounded-lg border border-line [scrollbar-width:none]" role="group" aria-label={t("table.view")}>
           {VIEWS.map((v) => (
             <button
               key={v.id}
@@ -132,7 +132,7 @@ export function TableGridView() {
               onClick={() => setView(v.id)}
               aria-pressed={view === v.id}
               className={
-                "inline-flex h-9 items-center gap-1 px-3 text-sm transition-colors motion-safe:active:scale-[0.97] motion-reduce:transition-none " +
+                "inline-flex h-9 flex-none items-center gap-1 whitespace-nowrap px-3 text-sm transition-colors motion-safe:active:scale-[0.97] motion-reduce:transition-none " +
                 (view === v.id ? "bg-blue-800 text-white" : "bg-surface text-muted hover:bg-surface-2")
               }
             >

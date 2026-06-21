@@ -27,7 +27,7 @@ export function AuthShell({ children }: { children: ReactNode }) {
   const { t } = useTranslation("auth");
 
   return (
-    <section className="flex min-h-screen items-center bg-surface-2 dark:bg-gray-900">
+    <section className="flex min-h-[100dvh] items-center bg-surface-2 dark:bg-gray-900">
       <div className="mx-auto w-full max-w-screen-xl px-4 py-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-20">
         {/* Sol tanıtım paneli */}
         <div className="hidden lg:col-span-5 lg:mr-auto lg:flex lg:flex-col lg:justify-between xl:col-span-6 xl:mb-0">

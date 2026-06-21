@@ -51,7 +51,7 @@ export function FlowBuilder() {
             label: f.name,
           }))}
           size="sm"
-          className="w-48"
+          className="w-full sm:w-48"
         />
         <span className="ml-auto text-xs text-muted">
           {Object.entries(stats)

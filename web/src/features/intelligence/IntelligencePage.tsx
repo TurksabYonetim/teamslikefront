@@ -307,7 +307,7 @@ export function IntelligencePage() {
                   <button
                     type="button"
                     title={t("viewer.delete")}
-                    className="opacity-0 group-hover:opacity-100 text-muted hover:text-danger shrink-0"
+                    className="opacity-0 group-hover:opacity-100 focus-visible:opacity-100 [@media(pointer:coarse)]:opacity-100 [@media(pointer:coarse)]:pointer-events-auto text-muted hover:text-danger shrink-0"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleDelete(tr);

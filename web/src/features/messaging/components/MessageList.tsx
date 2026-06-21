@@ -97,6 +97,7 @@ export function MessageList() {
 
   return (
     <div className="min-h-0 flex-1 overflow-y-auto py-3 tl-stagger">
+      <div className="mx-auto w-full max-w-5xl 2xl:max-w-6xl">
       {topLevel.map((m, i) => {
         const prev = topLevel[i - 1];
         const grouped =
@@ -117,6 +118,7 @@ export function MessageList() {
           </React.Fragment>
         );
       })}
+      </div>
       <div ref={endRef} />
     </div>
   );

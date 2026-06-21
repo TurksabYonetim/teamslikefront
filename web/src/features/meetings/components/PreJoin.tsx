@@ -32,7 +32,7 @@ function Toggle({
       className={clsx(
         "inline-flex h-12 w-12 items-center justify-center rounded-full transition-[transform,background-color,border-color,color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
         on
-          ? "border border-gray-600 bg-gray-700 text-white hover:bg-gray-600"
+          ? "border border-line bg-surface-2 text-ink-2 hover:bg-surface-3 hover:text-ink"
           : "bg-danger text-white",
       )}
     >
@@ -51,22 +51,22 @@ export function PreJoin() {
   const name = memberName(ME_ID);
 
   return (
-    <div className="flex h-full items-center justify-center bg-gray-900 p-6">
+    <div className="flex h-full items-center justify-center bg-surface-2 p-6">
       <div className="w-full max-w-3xl">
-        <h1 className="mb-1 text-xl font-semibold text-white">{title}</h1>
-        <p className="mb-4 text-sm text-gray-400">{t("prejoinSubtitle")}</p>
+        <h1 className="mb-1 text-xl font-semibold text-ink">{title}</h1>
+        <p className="mb-4 text-sm text-muted">{t("prejoinSubtitle")}</p>
 
-        <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-xl border border-gray-700 bg-gray-800">
+        <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-xl border border-line bg-surface-2">
           <div
             className={clsx(
-              "absolute inset-0 bg-gradient-to-br from-brand/40 to-gray-800 transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)]",
+              "absolute inset-0 bg-gradient-to-br from-brand/10 to-surface-3 transition-opacity duration-[var(--dur-pop)] ease-[var(--ease-out)]",
               camOn ? "opacity-100" : "opacity-0",
             )}
             aria-hidden
           />
           <Avatar name={name} size="lg" className="relative z-10 !h-26 !w-26 text-2xl" />
           {!camOn ? (
-            <div className="absolute bottom-3 left-3 z-10 rounded-md bg-black/60 px-3 py-1 text-xs text-white">
+            <div className="absolute bottom-3 left-3 z-10 rounded-md bg-surface/90 px-3 py-1 text-xs text-ink ring-1 ring-line">
               {t("cameraOff")}
             </div>
           ) : null}
@@ -126,8 +126,8 @@ export function PreJoin() {
           className={clsx(
             "mt-3 flex w-full items-center gap-2 rounded-md border px-3 py-2 text-left text-sm font-medium transition-[transform,background-color,border-color,color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
             aiCompanion
-              ? "border-brand bg-gray-800 text-white"
-              : "border-gray-700 bg-gray-800/60 text-gray-300",
+              ? "border-brand bg-primary-50 text-ink"
+              : "border-line bg-surface-2 text-ink-2",
           )}
         >
           <HiOutlineSparkles className="h-5 w-5 text-brand" aria-hidden />

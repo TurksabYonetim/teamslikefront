@@ -288,7 +288,7 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
     <>
 
       <section>
-        <div className="mx-auto h-[calc(100vh-8rem)] max-w-7xl place-items-center px-4 py-8 md:grid md:grid-cols-12 md:gap-x-8 lg:py-0 xl:gap-16 xl:px-0">
+        <div className="mx-auto h-[calc(100dvh-8rem)] max-w-7xl place-items-center px-4 py-8 md:grid md:grid-cols-12 md:gap-x-8 lg:py-0 xl:gap-16 xl:px-0">
           <div className="mb-4 md:col-span-6 md:mb-0">
             <div className="relative mb-4">
               {cameraOn ? (
@@ -297,10 +297,10 @@ export function MeetingLobbyPage({ meetingId: meetingIdProp }: MeetingLobbyPageP
                   autoPlay
                   playsInline
                   muted
-                  className="mx-auto h-auto w-[512px] rounded-lg bg-gray-900 shadow-lg lg:mx-0 lg:w-full"
+                  className="mx-auto h-auto w-full md:w-[512px] rounded-lg bg-gray-900 shadow-lg lg:mx-0 lg:w-full"
                 />
               ) : (
-                <div className="relative mx-auto flex aspect-video w-[512px] items-center justify-center rounded-lg bg-gray-900 shadow-lg lg:mx-0 lg:w-full">
+                <div className="relative mx-auto flex aspect-video w-full md:w-[512px] items-center justify-center rounded-lg bg-gray-900 shadow-lg lg:mx-0 lg:w-full">
                   <span className="flex h-24 w-24 items-center justify-center rounded-full bg-primary-700 text-2xl font-semibold text-white">{initials}</span>
                   <span className="absolute bottom-3 end-4 text-xs font-medium text-gray-200">{t("lobby.cameraOff")}</span>
                 </div>

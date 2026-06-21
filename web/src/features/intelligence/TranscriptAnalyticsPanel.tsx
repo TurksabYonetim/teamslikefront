@@ -97,7 +97,9 @@ export function TranscriptAnalyticsPanel({ content }: { content: string }) {
             {t("analytics.frequencyEmpty")}
           </div>
         ) : (
-          <EChart option={freqOption} height={Math.max(160, frequency.length * 26)} />
+          <div className="w-full min-w-0 overflow-x-hidden">
+            <EChart option={freqOption} height={Math.max(160, frequency.length * 26)} />
+          </div>
         )}
       </div>
 
@@ -111,7 +113,7 @@ export function TranscriptAnalyticsPanel({ content }: { content: string }) {
             {speakers.map((sp) => (
               <div key={sp.speaker}>
                 <div className="flex items-center justify-between text-sm mb-1">
-                  <span className="font-medium text-ink truncate">
+                  <span className="min-w-0 font-medium text-ink truncate">
                     {sp.speaker}
                   </span>
                   <span className="text-muted tabular-nums shrink-0 ml-2">

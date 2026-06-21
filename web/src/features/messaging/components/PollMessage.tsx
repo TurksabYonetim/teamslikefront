@@ -27,7 +27,7 @@ export function PollMessage({ message }: { message: Message }) {
       : t("poll.public");
 
   return (
-    <div className="max-w-md rounded-lg border border-line bg-surface p-3 dark:border-gray-700 dark:bg-gray-800">
+    <div className="w-full max-w-md rounded-lg border border-line bg-surface p-3 dark:border-gray-700 dark:bg-gray-800">
       <div className="mb-2 flex items-center gap-2 text-sm text-muted">
         <HiOutlineChartBar className="h-4 w-4" aria-hidden />
         {typeLabel}
@@ -60,10 +60,10 @@ export function PollMessage({ message }: { message: Message }) {
                   aria-hidden
                 />
                 <span className="relative flex items-center gap-2">
-                  {mine ? <HiOutlineCheck className="h-4 w-4 text-brand" aria-hidden /> : null}
-                  <span className="flex-1 text-ink">{o.text}</span>
-                  <span className="text-muted">{pct}%</span>
-                  <span className="w-8 text-right text-muted">{o.votes.length}</span>
+                  {mine ? <HiOutlineCheck className="h-4 w-4 shrink-0 text-brand" aria-hidden /> : null}
+                  <span className="min-w-0 flex-1 break-words text-ink">{o.text}</span>
+                  <span className="shrink-0 text-muted">{pct}%</span>
+                  <span className="w-8 shrink-0 text-right text-muted">{o.votes.length}</span>
                 </span>
               </button>
             </li>

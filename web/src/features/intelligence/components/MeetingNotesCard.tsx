@@ -23,9 +23,9 @@ export function MeetingNotesCard() {
   const nameOf = (st: SpeakerStat) => (st.name !== st.speakerId ? st.name : memberName(st.speakerId));
 
   return (
-    <div className="mnotes rounded-card border border-line bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+    <div className="mnotes rounded-card border border-line bg-white p-3 sm:p-4 dark:border-gray-700 dark:bg-gray-800">
       <h3 className="mb-2 flex items-center gap-1 text-base font-semibold text-ink dark:text-white">
-        <MdGraphicEq size={18} aria-hidden /> {t("notes.title")}
+        <MdGraphicEq size={18} className="shrink-0" aria-hidden /> {t("notes.title")}
       </h3>
       <div className="grid gap-4 sm:grid-cols-3">
         <section>
@@ -33,9 +33,9 @@ export function MeetingNotesCard() {
           <ul className="mnotes-list">
             {stats.map((st) => (
               <li key={st.speakerId} className="mnotes-item">
-                <div className="flex items-center justify-between text-sm text-ink dark:text-white">
-                  <span className="truncate">{nameOf(st)}</span>
-                  <span className="text-xs tabular-nums text-muted">
+                <div className="flex items-center justify-between gap-2 text-sm text-ink dark:text-white">
+                  <span className="min-w-0 truncate">{nameOf(st)}</span>
+                  <span className="shrink-0 text-xs tabular-nums text-muted">
                     {st.wpm} {t("notes.wpmUnit")}
                   </span>
                 </div>
@@ -73,7 +73,7 @@ export function MeetingNotesCard() {
           {actions.length > 0 ? (
             <ul className="ml-4 list-disc space-y-1 text-sm text-ink dark:text-white">
               {actions.map((a, i) => (
-                <li key={i} className="mnotes-act">
+                <li key={i} className="mnotes-act break-words">
                   {a}
                 </li>
               ))}

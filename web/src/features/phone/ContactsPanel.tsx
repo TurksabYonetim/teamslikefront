@@ -366,7 +366,7 @@ export function ContactsPanel({ onCall, onFillDialer }: ContactsPanelProps) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="contact-detail-name"
-            className="w-full max-w-sm rounded-xl bg-surface p-5 shadow-xl dark:bg-gray-800 motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]"
+            className="max-h-[calc(100vh-2rem)] w-full max-w-sm overflow-y-auto rounded-xl bg-surface p-4 shadow-xl dark:bg-gray-800 motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)] sm:p-5"
           >
             <div className="mb-4 flex flex-col items-center text-center">
               <span className="mb-3 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary-100 text-lg font-semibold text-primary-700 dark:bg-primary-900 dark:text-primary-200">

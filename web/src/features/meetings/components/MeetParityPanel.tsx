@@ -23,7 +23,6 @@ import {
   HiOutlineIdentification,
 } from "react-icons/hi2";
 import { MdGraphicEq } from "react-icons/md";
-import clsx from "clsx";
 import { meetingStore, useMeeting } from "../meetings.store";
 import {
   attendanceReport,
@@ -33,6 +32,7 @@ import {
   MEETING_ARCHIVE,
 } from "../meetParity";
 import { Button } from "@/components/ui";
+import { MeetingToggleRow } from "./MeetingToggleRow";
 
 const FX: { key: string; icon: React.ReactNode }[] = [
   { key: "portraitTouchUp", icon: <HiOutlineSparkles className="h-4 w-4" aria-hidden /> },
@@ -50,31 +50,6 @@ const FX: { key: string; icon: React.ReactNode }[] = [
   { key: "aiFraming", icon: <HiOutlineVideoCamera className="h-4 w-4" aria-hidden /> },
   { key: "nameLabels", icon: <HiOutlineIdentification className="h-4 w-4" aria-hidden /> },
 ];
-
-function Toggle({
-  label,
-  on,
-  onToggle,
-  icon,
-}: {
-  label: string;
-  on: boolean;
-  onToggle: () => void;
-  icon: React.ReactNode;
-}) {
-  const { t } = useTranslation("meetings");
-  return (
-    <button
-      onClick={onToggle}
-      aria-pressed={on}
-      className="flex h-11 w-full items-center gap-2 rounded-md border border-border px-3 text-sm text-fg hover:bg-raised"
-    >
-      {icon}
-      <span className="flex-1 text-left">{label}</span>
-      <span className={clsx("text-sm font-medium", on ? "text-accent" : "text-muted")}>{on ? t("on") : t("off")}</span>
-    </button>
-  );
-}
 
 /** Google-Meet parity: companion mode, noise cancellation, breakout timer, attendance. */
 export function MeetParityPanel() {
@@ -104,27 +79,27 @@ export function MeetParityPanel() {
 
   return (
     <section className="space-y-2">
-      <h3 className="text-sm font-semibold text-fg">{t("meetParity")}</h3>
+      <h3 className="text-sm font-semibold text-ink">{t("meetParity")}</h3>
 
-      <Toggle
+      <MeetingToggleRow
         label={t("companion")}
         on={companionMode}
         onToggle={() => meetingStore.getState().toggleCompanion()}
         icon={<HiOutlineDevicePhoneMobile className="h-4 w-4" aria-hidden />}
       />
-      <Toggle
+      <MeetingToggleRow
         label={t("noiseCancellation")}
         on={noiseCancellation}
         onToggle={() => meetingStore.getState().toggleNoiseCancellation()}
         icon={<MdGraphicEq className="h-4 w-4" aria-hidden />}
       />
 
-      <div className="flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm">
+      <div className="flex items-center gap-2 rounded-md border border-line px-3 py-2 text-sm">
         <HiOutlineClock className="h-4 w-4 text-muted" aria-hidden />
-        <span className="flex-1 text-fg">{t("breakoutTimer")}</span>
+        <span className="flex-1 text-ink">{t("breakoutTimer")}</span>
         {cd ? (
           <>
-            <span className="tabular-nums text-accent" aria-live="polite">
+            <span className="tabular-nums text-blue-800" aria-live="polite">
               {cd.expired ? t("timerDone") : t("timerRemaining", { s: cd.remainingSec })}
             </span>
             <Button variant="ghost" onClick={() => meetingStore.getState().clearBreakoutTimer()}>
@@ -138,18 +113,18 @@ export function MeetParityPanel() {
         )}
       </div>
 
-      <div className="flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm">
+      <div className="flex items-center gap-2 rounded-md border border-line px-3 py-2 text-sm">
         <HiOutlineUsers className="h-4 w-4 text-muted" aria-hidden />
-        <span className="flex-1 text-fg">{t("attendance")}</span>
+        <span className="flex-1 text-ink">{t("attendance")}</span>
         <span className="text-xs text-muted">
           {t("attendanceStat", { present: att.present, invited: att.invited })} · {Math.round(att.rate * 100)}%
         </span>
       </div>
 
       {/* Capture & quality effects (Google Meet parity) */}
-      <h3 className="pt-1 text-sm font-semibold text-fg">{t("captureFx")}</h3>
+      <h3 className="pt-1 text-sm font-semibold text-ink">{t("captureFx")}</h3>
       {FX.map(({ key, icon }) => (
-        <Toggle
+        <MeetingToggleRow
           key={key}
           label={t(`fx.${key}`)}
           on={meetFx[key] ?? false}
@@ -158,13 +133,13 @@ export function MeetParityPanel() {
         />
       ))}
       {meetFx.watermark ? (
-        <p className="rounded-md border border-border px-3 py-1.5 text-xs text-muted" aria-live="polite">
+        <p className="rounded-md border border-line px-3 py-1.5 text-xs text-muted" aria-live="polite">
           {t("watermarkLabel")}: {watermarkLabel(t("you"), activeMeetingId ?? "mtg", recordSec)}
         </p>
       ) : null}
 
       {/* Searchable meeting archive (linked recap + transcript + recording) */}
-      <h3 className="pt-1 text-sm font-semibold text-fg">{t("archive")}</h3>
+      <h3 className="pt-1 text-sm font-semibold text-ink">{t("archive")}</h3>
       <div className="relative">
         <HiOutlineMagnifyingGlass
           className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
@@ -180,8 +155,8 @@ export function MeetParityPanel() {
       </div>
       <ul className="space-y-1">
         {archive.map((a) => (
-          <li key={a.id} className="rounded-md border border-border px-3 py-1.5">
-            <div className="flex items-center gap-2 text-sm text-fg">
+          <li key={a.id} className="rounded-md border border-line px-3 py-1.5">
+            <div className="flex items-center gap-2 text-sm text-ink">
               <span className="flex-1 truncate">{a.title}</span>
               {a.hasRecording ? (
                 <span title={t("hasRecording")}>

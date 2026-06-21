@@ -92,7 +92,7 @@ export function PortalChatPage() {
 
   if (!hasToken) {
     return (
-      <div className="h-screen flex flex-col bg-surface-2 dark:bg-gray-950">
+      <div className="h-[100dvh] flex flex-col bg-surface-2 dark:bg-gray-950">
         <PortalTopbar onWhoami={() => {}} />
         <div className="flex-1 grid place-items-center p-6">
           <div className="card p-8 max-w-sm dark:bg-gray-900 dark:border-gray-800">
@@ -119,7 +119,7 @@ export function PortalChatPage() {
         {/* thread listesi — mobilde yalnız "list" görünümünde */}
         <aside
           className={
-            "w-full md:w-72 shrink-0 bg-white dark:bg-gray-900 border-r border-line dark:border-gray-800 flex-col " +
+            "w-full md:w-72 lg:w-80 shrink-0 bg-white dark:bg-gray-900 border-r border-line dark:border-gray-800 flex-col " +
             (mobileView === "list" ? "flex" : "hidden md:flex")
           }
         >
@@ -238,7 +238,7 @@ export function PortalChatPage() {
         >
           {active ? (
             <>
-              <header className="flex items-center gap-3 px-4 md:px-5 h-14 border-b border-line dark:border-gray-800">
+              <header className="flex items-center gap-3 px-4 md:px-5 lg:px-6 h-14 border-b border-line dark:border-gray-800">
                 <button
                   type="button"
                   className="md:hidden -ml-1 p-1.5 rounded-lg text-muted hover:bg-surface-3 dark:hover:bg-gray-800 transition-[transform,background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
@@ -262,7 +262,7 @@ export function PortalChatPage() {
 
               <div
                 ref={scrollRef}
-                className="flex-1 overflow-y-auto p-4 md:p-5 scroll-smooth motion-reduce:scroll-auto"
+                className="flex-1 overflow-y-auto p-4 md:p-5 lg:p-6 scroll-smooth motion-reduce:scroll-auto [&>*]:mx-auto [&>*]:w-full [&>*]:max-w-3xl"
               >
                 {messages.isLoading && (
                   <div className="space-y-4">
@@ -354,14 +354,14 @@ export function PortalChatPage() {
                     e.preventDefault();
                     onSend();
                   }}
-                  className="flex items-center gap-2 rounded-lg border border-line dark:border-gray-700 bg-white dark:bg-gray-800 focus-within:border-brand focus-within:ring-1 focus-within:ring-brand px-3 py-1.5 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]"
+                  className="mx-auto w-full max-w-3xl flex items-center gap-2 rounded-lg border border-line dark:border-gray-700 bg-white dark:bg-gray-800 focus-within:border-brand focus-within:ring-1 focus-within:ring-brand px-3 py-1.5 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]"
                 >
                   <input
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     placeholder={t("chat.messagePlaceholder")}
                     aria-label={t("chat.messagePlaceholder")}
-                    className="flex-1 bg-transparent outline-none text-sm py-1 text-ink dark:text-white placeholder:text-gray-400"
+                    className="flex-1 bg-transparent outline-none text-base md:text-sm py-1 text-ink dark:text-white placeholder:text-gray-400"
                   />
                   <Button
                     type="submit"

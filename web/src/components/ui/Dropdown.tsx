@@ -52,6 +52,9 @@ export function Dropdown({ trigger, label, align = "end", side = "bottom", menuW
           role="menu"
           className={clsx(
             "absolute z-50 rounded-md border border-line bg-surface p-1 shadow-xl dark:border-gray-700 dark:bg-gray-800",
+            "max-h-[min(20rem,calc(100dvh-5rem))] overflow-y-auto overscroll-contain",
+            // 320px taşma-güvenliği: hiçbir menü viewport'tan taşmaz (tüketiciler ayrıca cap'lemek zorunda değil)
+            "max-w-[calc(100vw-1rem)]",
             menuWidth,
             // emil: tetikleyiciden ölçeklenerek aç (origin-aware), merkez değil
             side === "top" ? "bottom-full mb-1" : "top-full mt-1",

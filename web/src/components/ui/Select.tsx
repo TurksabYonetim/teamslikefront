@@ -128,7 +128,7 @@ export function Select<T extends string = string>({
     const spaceAbove = r.top - margin;
     const placement: "top" | "bottom" =
       side === "auto" ? (spaceBelow < 224 && spaceAbove > spaceBelow ? "top" : "bottom") : side;
-    const maxHeight = Math.min(320, Math.max(160, placement === "bottom" ? spaceBelow : spaceAbove));
+    const maxHeight = Math.min(320, Math.max(120, placement === "bottom" ? spaceBelow : spaceAbove));
     // Yatay: panel içeriğe göre genişleyebilsin (min = tetikleyici genişliği) ama
     // viewport'tan taşmasın. Dar tetikleyicilerde seçenekler kesilmesin diye genişler;
     // sağda yer azsa sağ kenara hizalanır (align-end), soldan büyür.

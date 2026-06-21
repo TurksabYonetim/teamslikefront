@@ -89,7 +89,7 @@ export function DocsPage() {
 
           <div key={tab} role="tabpanel" className="animate-[tl-fade-in_180ms_var(--ease-out)] motion-reduce:animate-none">
             {tab === "canvas" ? (
-              <div className="mx-auto flex max-w-3xl flex-col gap-4">
+              <div className="mx-auto grid max-w-3xl gap-4 lg:max-w-none lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start xl:grid-cols-[minmax(0,1fr)_22rem]">
                 <CanvasEditor />
                 <CommentSidebar />
               </div>

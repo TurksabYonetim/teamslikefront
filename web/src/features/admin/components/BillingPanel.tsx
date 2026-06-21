@@ -35,8 +35,8 @@ export function BillingPanel() {
 
         <div className="mb-3 rounded-lg border border-line p-3">
           <div className="mb-1 flex items-center gap-2 text-sm">
-            <Icon name="sparkles" className="h-4 w-4 text-muted" />
-            <span className="flex-1 font-medium text-ink">{t("aiCredits.title")}</span>
+            <Icon name="sparkles" className="h-4 w-4 shrink-0 text-muted" />
+            <span className="min-w-0 flex-1 font-medium text-ink">{t("aiCredits.title")}</span>
             <Badge tone={lvl === "exceeded" ? "danger" : lvl === "warn" ? "warning" : "positive"}>
               {billing.aiCreditsUsed}/{billing.aiCreditsIncluded}
             </Badge>
@@ -57,7 +57,7 @@ export function BillingPanel() {
               value: p,
               label: t(`planName.${p}`),
             }))}
-            className="w-56"
+            className="w-full sm:w-56"
           />
           <ConfirmAction
             label={t("upgrade")}
@@ -77,15 +77,15 @@ export function BillingPanel() {
             <div className="mb-1 text-sm font-medium text-ink">{inv.period}</div>
             <ul className="space-y-0.5">
               {inv.lines.map((l) => (
-                <li key={l.label} className="flex justify-between text-sm text-muted">
-                  <span>{l.label}</span>
-                  <span>${l.amount}</span>
+                <li key={l.label} className="flex justify-between gap-2 text-sm text-muted">
+                  <span className="min-w-0 break-words">{l.label}</span>
+                  <span className="shrink-0">${l.amount}</span>
                 </li>
               ))}
             </ul>
-            <div className="mt-1 flex justify-between border-t border-line pt-1 text-sm font-semibold text-ink">
-              <span>{t("total")}</span>
-              <span>${inv.total}</span>
+            <div className="mt-1 flex justify-between gap-2 border-t border-line pt-1 text-sm font-semibold text-ink">
+              <span className="min-w-0 break-words">{t("total")}</span>
+              <span className="shrink-0">${inv.total}</span>
             </div>
           </div>
         ))}

@@ -96,6 +96,7 @@
   "folders": "Folders",
   "folder": { "all": "All", "unread": "Unread", "dms": "DMs", "channels": "Channels" },
   "pinnedChats": "Pinned",
+  "unreadCount": "{{n}} unread",
   "channels": "Channels",
   "dms": "Direct messages",
   "noChannelsTitle": "No channels yet",
@@ -133,7 +134,7 @@
   },
   "typing": "{{name}} is typing…",
   "pinnedMessage": "Pinned message",
-  "stories": { "add": "Add story", "viewer": "Story" },
+  "stories": { "add": "Add story", "viewer": "Story", "viewOf": "{{name}}'s status", "more": "{{n}} more" },
   "detailsPanel": {
     "title": "Details",
     "members": "Members",

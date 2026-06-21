@@ -12,7 +12,7 @@ function hhmm(min: number): string {
 }
 
 const FIELD =
-  "h-11 w-full rounded-lg border border-gray-300 bg-surface px-3 text-sm text-ink transition-[border-color,box-shadow] duration-[var(--dur-pop)] ease-[var(--ease-out)] hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-600 dark:hover:border-gray-500";
+  "h-11 w-full rounded-lg border border-gray-300 bg-surface px-3 text-base md:text-sm text-ink transition-[border-color,box-shadow] duration-[var(--dur-pop)] ease-[var(--ease-out)] hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-600 dark:hover:border-gray-500";
 
 /** IVR menü ağacı + mesai saatleri. Seçenek ekle/kaldır; isWithinHours ile
  *  şu anki açık/kapalı durumu gösterir. */
@@ -61,17 +61,17 @@ export function IVRBuilder() {
         <p className="mb-2 text-xs font-semibold text-muted">{t("ivr.options")}</p>
         <ul className="mb-4 divide-y divide-gray-100 dark:divide-gray-700">
           {menu.options.map((o) => (
-            <li key={o.key} className="ivr-option flex items-center justify-between py-2 text-sm">
-              <span className="flex items-center gap-2">
-                <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 font-semibold dark:bg-gray-700">{o.key}</span>
-                <span className="text-gray-900 dark:text-white">{o.label}</span>
-                <span className="text-muted">→ {t(`enums.ivrAction.${o.action}`)}{o.target ? ` (${o.target})` : ""}</span>
+            <li key={o.key} className="ivr-option flex items-center justify-between gap-2 py-2 text-sm">
+              <span className="flex min-w-0 flex-1 items-center gap-2">
+                <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-100 font-semibold dark:bg-gray-700">{o.key}</span>
+                <span className="truncate text-gray-900 dark:text-white">{o.label}</span>
+                <span className="truncate text-muted">→ {t(`enums.ivrAction.${o.action}`)}{o.target ? ` (${o.target})` : ""}</span>
               </span>
               <button
                 type="button"
                 onClick={() => pbxStore.getState().removeIvrOption(menu.id, o.key)}
                 aria-label={`${t("ivr.remove")} ${o.key}`}
-                className="text-xs font-medium text-red-600 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] hover:underline motion-safe:active:scale-[0.94] dark:text-red-400"
+                className="shrink-0 text-xs font-medium text-red-600 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] hover:underline motion-safe:active:scale-[0.94] dark:text-red-400"
               >
                 {t("ivr.remove")}
               </button>
@@ -124,14 +124,14 @@ export function IVRBuilder() {
                 <li
                   key={w.day}
                   aria-current={isToday ? "date" : undefined}
-                  className={"ivr-hours-row flex items-center justify-between rounded-md px-2 py-1.5 text-sm " + (isToday ? "bg-primary-50 dark:bg-gray-700" : "")}
+                  className={"ivr-hours-row flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-sm " + (isToday ? "bg-primary-50 dark:bg-gray-700" : "")}
                 >
-                  <span className={isToday ? "flex items-center gap-1.5 font-medium text-ink" : "text-ink-2"}>
+                  <span className={isToday ? "flex min-w-0 items-center gap-1.5 font-medium text-ink" : "min-w-0 truncate text-ink-2"}>
                     {isToday && <span className={"h-1.5 w-1.5 rounded-full " + (open ? "bg-green-700 dark:bg-green-300" : "bg-gray-400")} aria-hidden="true" />}
                     {t(`enums.day.${w.day}`)}
                     {isToday && <span className="text-xs font-normal text-muted">· {t("ivr.today")}</span>}
                   </span>
-                  <span className={"tabular-nums text-ink" + (isToday ? " font-medium" : "")}>{hhmm(w.openMin)}–{hhmm(w.closeMin)}</span>
+                  <span className={"shrink-0 tabular-nums text-ink" + (isToday ? " font-medium" : "")}>{hhmm(w.openMin)}–{hhmm(w.closeMin)}</span>
                 </li>
               );
             })}

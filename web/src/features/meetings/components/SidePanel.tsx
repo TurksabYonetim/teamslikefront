@@ -13,13 +13,14 @@ import {
   HiOutlineUserMinus,
   HiOutlineArrowTopRightOnSquare,
   HiOutlineLink,
+  HiOutlineChatBubbleLeftRight,
 } from "react-icons/hi2";
 import { MdMicOff, MdClosedCaption } from "react-icons/md";
 import clsx from "clsx";
 import { meetingStore, useMeeting } from "../meetings.store";
-import { memberName } from "@/features/messaging/members";
+import { ME_ID, memberName } from "@/features/messaging/members";
 import { useMessaging, messagingStore } from "@/features/messaging/store";
-import { Avatar, Badge, Button, IconButton } from "@/components/ui";
+import { Avatar, Button, IconButton } from "@/components/ui";
 import { BreakoutManager } from "./BreakoutManager";
 import type { CaptionLang, SidePanelTab } from "../meetings.store.types";
 
@@ -56,6 +57,11 @@ export function SidePanel() {
   const act = () => meetingStore.getState();
   const linked = Boolean(linkedTopicId);
 
+  // Sohbet kaynağı tek tip: bağlı kanal mesajları veya yerel toplantı sohbeti.
+  const messages = linked
+    ? linkedMessages.map((m) => ({ id: m.id, authorId: m.authorId, tMin: m.tMinutes, body: m.body }))
+    : chat.map((c) => ({ id: c.id, authorId: c.authorId, tMin: c.tMin, body: c.body }));
+
   const submitChat = () => {
     if (!chatText.trim()) return;
     if (linked) act().postToLinkedChannel(chatText);
@@ -83,7 +89,7 @@ export function SidePanel() {
   return (
     <aside
       aria-label={t("panel")}
-      className="flex w-80 shrink-0 flex-col border-l border-line bg-white dark:border-gray-700 dark:bg-gray-900"
+      className="flex w-full sm:w-80 xl:w-96 shrink-0 flex-col border-l border-line bg-white dark:border-gray-700 dark:bg-gray-900"
     >
       <div className="flex items-center gap-1 border-b border-line p-2 dark:border-gray-700" role="tablist">
         {TABS.map((tb) => (
@@ -108,9 +114,9 @@ export function SidePanel() {
         </IconButton>
       </div>
 
-      <div className="min-h-0 flex-1 overflow-y-auto p-3">
+      <div className="min-h-0 flex-1 overflow-y-auto p-2">
         {tab === "participants" ? (
-          <div className="space-y-3">
+          <div className="space-y-2">
             {lobbyQueue.length > 0 ? (
               <div className="rounded-md border border-amber-300 bg-amber-50 p-2 dark:border-amber-700 dark:bg-amber-950">
                 <div className="mb-1 text-sm font-semibold text-ink dark:text-gray-100">
@@ -135,24 +141,26 @@ export function SidePanel() {
               {t("breakouts")}
             </Button>
 
-            <ul className="space-y-1">
+            <ul className="space-y-0.5">
               {participants.map((p) => (
-                <li key={p.id} className="flex items-center gap-2 rounded-md px-1 py-1">
+                <li key={p.id} className="flex items-center gap-2 rounded-md px-1.5 py-1 hover:bg-surface-2">
                   <Avatar name={p.name} size="sm" />
                   <span className="flex-1 truncate text-sm text-ink dark:text-gray-100">
                     {p.isSelf ? `${p.name} (${t("you")})` : p.name}
                   </span>
                   {p.role !== "attendee" ? (
-                    <Badge tone="accent">{t(`role.${p.role}`)}</Badge>
+                    <span className="inline-flex shrink-0 items-center rounded-full bg-blue-800 px-2 py-0.5 text-xs font-medium text-white">
+                      {t(`role.${p.role}`)}
+                    </span>
                   ) : null}
                   {p.handRaised ? (
-                    <HiOutlineHandRaised className="h-4 w-4 text-amber-500" aria-label={t("handRaised")} />
+                    <HiOutlineHandRaised className="h-4 w-4 text-amber-600" aria-label={t("handRaised")} />
                   ) : null}
                   {p.camOn ? (
                     <HiOutlineVideoCamera className="h-4 w-4 text-muted" aria-hidden />
                   ) : null}
                   {spotlightId === p.id ? (
-                    <HiOutlineMapPin className="h-3.5 w-3.5 text-amber-500" aria-label={t("spotlighted")} />
+                    <HiOutlineMapPin className="h-3.5 w-3.5 text-amber-600" aria-label={t("spotlighted")} />
                   ) : null}
                   <button
                     type="button"
@@ -163,7 +171,7 @@ export function SidePanel() {
                     {p.micOn ? (
                       <HiOutlineMicrophone className="h-4 w-4" aria-hidden />
                     ) : (
-                      <MdMicOff className="h-4 w-4 text-red-500" aria-hidden />
+                      <MdMicOff className="h-4 w-4 text-red-600" aria-hidden />
                     )}
                   </button>
                   {isHost && !p.isSelf ? (
@@ -200,7 +208,7 @@ export function SidePanel() {
                         type="button"
                         onClick={() => act().removeParticipant(p.id)}
                         aria-label={t("removeParticipant")}
-                        className="rounded-md p-1.5 text-red-500 hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-brand dark:hover:bg-gray-800"
+                        className="rounded-md p-1.5 text-red-600 hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-brand dark:hover:bg-gray-800"
                       >
                         <HiOutlineUserMinus className="h-4 w-4" aria-hidden />
                       </button>
@@ -230,27 +238,52 @@ export function SidePanel() {
                 </Button>
               </div>
             ) : null}
-            <ul className="flex-1 space-y-2">
-              {linked
-                ? linkedMessages.map((m) => (
-                    <li key={m.id}>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-sm font-semibold text-ink dark:text-gray-100">{memberName(m.authorId)}</span>
-                        <span className="text-xs text-muted">{relTime(t, m.tMinutes)}</span>
+            {messages.length === 0 ? (
+              <div className="flex flex-1 flex-col items-center justify-center gap-2.5 px-6 py-10 text-center">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-surface-3 dark:bg-gray-800">
+                  <HiOutlineChatBubbleLeftRight className="h-5 w-5 text-muted" aria-hidden />
+                </span>
+                <p className="text-sm text-ink-2 dark:text-gray-300">{t("chatEmpty")}</p>
+              </div>
+            ) : (
+              <ul className="flex flex-1 flex-col">
+                {messages.map((m, i) => {
+                  const mine = m.authorId === ME_ID;
+                  const grouped = i > 0 && messages[i - 1].authorId === m.authorId;
+                  return (
+                    <li
+                      key={m.id}
+                      className={clsx(
+                        "flex flex-col",
+                        grouped ? "mt-0.5" : "mt-3 first:mt-0",
+                        mine ? "items-end" : "items-start",
+                      )}
+                    >
+                      {!grouped ? (
+                        <div className={clsx("mb-1 flex items-baseline gap-2 px-1", mine && "flex-row-reverse")}>
+                          <span className="text-xs font-semibold text-ink dark:text-gray-100">
+                            {mine ? t("you") : memberName(m.authorId)}
+                          </span>
+                          <span className="text-[0.6875rem] text-muted">{relTime(t, m.tMin)}</span>
+                        </div>
+                      ) : null}
+                      <div
+                        className={clsx(
+                          "max-w-[85%] break-words rounded-2xl px-3 py-1.5 text-sm leading-snug",
+                          "motion-safe:transition-[opacity,transform] motion-safe:duration-200 motion-safe:ease-[var(--ease-out)]",
+                          "motion-safe:starting:translate-y-1 motion-safe:starting:opacity-0",
+                          mine
+                            ? "rounded-br-md bg-brand-soft text-brand-700 dark:bg-brand/25 dark:text-blue-100"
+                            : "rounded-bl-md bg-surface-3 text-ink dark:bg-gray-800 dark:text-gray-100",
+                        )}
+                      >
+                        {m.body}
                       </div>
-                      <div className="text-sm text-ink dark:text-gray-100">{m.body}</div>
                     </li>
-                  ))
-                : chat.map((c) => (
-                    <li key={c.id}>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-sm font-semibold text-ink dark:text-gray-100">{memberName(c.authorId)}</span>
-                        <span className="text-xs text-muted">{relTime(t, c.tMin)}</span>
-                      </div>
-                      <div className="text-sm text-ink dark:text-gray-100">{c.body}</div>
-                    </li>
-                  ))}
-            </ul>
+                  );
+                })}
+              </ul>
+            )}
           </div>
         ) : null}
 
@@ -324,7 +357,7 @@ export function SidePanel() {
                 }
               }}
               placeholder={t("chatPlaceholder")}
-              className="input min-h-[2.75rem] flex-1 resize-none"
+              className="input min-h-[2.75rem] flex-1 resize-none placeholder:text-ink-3"
             />
             <IconButton
               label={t("send")}

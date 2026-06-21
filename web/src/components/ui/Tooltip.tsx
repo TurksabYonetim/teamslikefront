@@ -33,7 +33,7 @@ export function Tooltip({ label, side = "bottom", children }: TooltipProps) {
           role="tooltip"
           id={id}
           className={clsx(
-            "pointer-events-none absolute left-1/2 z-40 -translate-x-1/2 whitespace-nowrap rounded-md border border-line bg-surface px-2 py-1 text-xs text-ink shadow-md dark:border-gray-700 dark:bg-gray-800 dark:text-white",
+            "pointer-events-none absolute left-1/2 z-40 -translate-x-1/2 max-w-[min(16rem,calc(100vw-1rem))] whitespace-normal break-words text-balance rounded-md border border-line bg-surface px-2 py-1 text-xs text-ink shadow-md dark:border-gray-700 dark:bg-gray-800 dark:text-white",
             side === "top" ? "bottom-full mb-1.5" : "top-full mt-1.5",
             "motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)]",
           )}

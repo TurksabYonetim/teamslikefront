@@ -217,7 +217,10 @@ export function IntelligenceDashboard() {
   if (!canView) return <Forbidden />;
 
   return (
-    <div data-testid="intel-dashboard" className="flex min-h-0 flex-1 flex-col gap-3 p-4">
+    <div
+      data-testid="intel-dashboard"
+      className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto p-4 lg:overflow-hidden"
+    >
       {/* Header */}
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -236,7 +239,7 @@ export function IntelligenceDashboard() {
                 label: `${s.title} · ${t(`kindLabel.${s.kind}`)}`,
               }))}
               size="sm"
-              className="w-56"
+              className="w-56 max-w-[calc(100vw-7rem)]"
             />
           </div>
 
@@ -312,20 +315,20 @@ export function IntelligenceDashboard() {
         </div>
       </div>
 
-      {/* Tab panels */}
-      <div className="min-h-0 flex-1 overflow-y-auto">
+      {/* Tab panels — lg+: sabit-yükseklik iç kaydırma; altında sayfa doğal kayar. */}
+      <div className="flex-1 lg:min-h-0 lg:overflow-y-auto">
         {tab === "overview" ? (
-          <div id="intel-recap" className="grid grid-cols-1 gap-5 md:h-full md:min-h-0 md:grid-cols-3">
+          <div id="intel-recap" className="grid grid-cols-1 gap-5 md:grid-cols-3 lg:h-full lg:min-h-0">
             {/* Recap (özet + kararlar + aksiyon maddeleri) — tam yükseklik, kolon-içi kaydırma */}
-            <div className="flex flex-col md:min-h-0 md:overflow-y-auto">
+            <div className="flex min-w-0 flex-col lg:min-h-0 lg:overflow-y-auto">
               <RecapPanel />
             </div>
             {/* Önemli anlar */}
-            <div className="flex flex-col md:min-h-0 md:overflow-y-auto">
+            <div className="flex min-w-0 flex-col lg:min-h-0 lg:overflow-y-auto">
               <HighlightReel />
             </div>
             {/* Duygu zaman çizelgesi + niyetler */}
-            <div className="flex flex-col gap-5 md:min-h-0 md:overflow-y-auto">
+            <div className="flex min-w-0 flex-col gap-5 lg:min-h-0 lg:overflow-y-auto">
               <SentimentTimeline />
               <IntentList />
             </div>
@@ -333,17 +336,17 @@ export function IntelligenceDashboard() {
         ) : null}
 
         {tab === "transcript" ? (
-          <div className="grid h-full min-h-0 gap-3 lg:grid-cols-3">
+          <div className="grid gap-3 lg:h-full lg:min-h-0 lg:grid-cols-3">
             {/* Transcript — spans two of three columns on lg. */}
             <div
               id="intel-transcript"
-              className="flex min-h-0 flex-col lg:col-span-2"
+              className="flex min-w-0 flex-col lg:col-span-2 lg:min-h-0"
             >
               <TranscriptViewer />
             </div>
 
             {/* Translation controls + session panel — single side column on lg. */}
-            <div className="flex min-h-0 flex-col gap-3">
+            <div className="flex min-w-0 flex-col gap-3 lg:min-h-0">
 
               <div className="rounded-card border border-line bg-white p-3 dark:border-gray-700 dark:bg-gray-800">
                 <div className="flex flex-col gap-3">
@@ -409,12 +412,14 @@ export function IntelligenceDashboard() {
         ) : null}
 
         {tab === "analytics" ? (
-          <div className="grid gap-4 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             <Scorecard />
             <RubricCard />
             <SpeakerAnalytics />
             <TrackersCard />
-            <MeetingNotesCard />
+            <div className="md:col-span-2 xl:col-span-3">
+              <MeetingNotesCard />
+            </div>
           </div>
         ) : null}
 

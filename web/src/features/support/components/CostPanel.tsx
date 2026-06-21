@@ -48,34 +48,36 @@ export function CostPanel() {
               label: r,
             }))}
             size="sm"
-            className="w-28"
+            className="w-full sm:w-28"
           />
         </div>
       </div>
       <p className="mb-3 text-sm text-muted">{t("cost.subtitle")}</p>
 
-      <table className="w-full border-collapse text-sm">
-        <thead>
-          <tr className="text-muted">
-            <th className="py-1 text-left text-sm font-medium">{t("cost.category")}</th>
-            <th className="py-1 text-right text-sm font-medium">{t("cost.rate")}</th>
-            <th className="py-1 text-right text-sm font-medium">{t("cost.breakdown")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {CATEGORIES.map((c) => (
-            <tr key={c} className="border-t border-line">
-              <td className="py-1 text-ink">{t(`cost.cat.${c}`)}</td>
-              <td className="py-1 text-right tabular-nums text-ink">
-                {card[c] === 0 ? t("cost.free") : `$${card[c].toFixed(4)}`}
-              </td>
-              <td className="py-1 text-right tabular-nums text-muted">
-                {breakdown[c] === 0 ? "—" : `$${breakdown[c].toFixed(2)}`}
-              </td>
+      <div className="-mx-1 overflow-x-auto px-1">
+        <table className="w-full border-collapse text-sm">
+          <thead>
+            <tr className="text-muted">
+              <th className="py-1 text-left text-sm font-medium">{t("cost.category")}</th>
+              <th className="whitespace-nowrap py-1 text-right text-sm font-medium">{t("cost.rate")}</th>
+              <th className="whitespace-nowrap py-1 text-right text-sm font-medium">{t("cost.breakdown")}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {CATEGORIES.map((c) => (
+              <tr key={c} className="border-t border-line">
+                <td className="py-1 text-ink">{t(`cost.cat.${c}`)}</td>
+                <td className="whitespace-nowrap py-1 text-right tabular-nums text-ink">
+                  {card[c] === 0 ? t("cost.free") : `$${card[c].toFixed(4)}`}
+                </td>
+                <td className="whitespace-nowrap py-1 text-right tabular-nums text-muted">
+                  {breakdown[c] === 0 ? "—" : `$${breakdown[c].toFixed(2)}`}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-line pt-3 text-sm">
         <Icon name="clock" className="h-4 w-4 text-muted" aria-hidden />

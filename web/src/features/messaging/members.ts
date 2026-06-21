@@ -26,8 +26,10 @@ export const memberName = (id: string): string => memberById(id)?.name ?? id;
 
 export const presenceOf = (id: string): Presence => memberById(id)?.presence ?? "offline";
 
-/** Deterministik avatar rengi (hash → sabit palet). */
-const AVATAR_COLORS = ["#5b5fc7", "#1d4ed8", "#0e9f6e", "#d97706", "#db2777", "#6d28d9"];
+/** Deterministik avatar rengi (hash → sabit palet).
+ * DESIGN.md §9 "yalnızca mavi + gri": gökkuşağı yerine marka-içi mavi/slate tonları.
+ * Hepsi beyaz baş harf üstünde AAA (≥7:1) ve ayırt edilebilir. */
+const AVATAR_COLORS = ["#1e40af", "#1e3a8a", "#075985", "#0c4a6e", "#334155", "#475569"];
 export function colorFor(seed: string): string {
   let h = 0;
   for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;

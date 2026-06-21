@@ -108,9 +108,9 @@ export function WorkforceView() {
             const text = pct >= 90 ? "text-green-600 dark:text-green-400" : pct >= 80 ? "text-amber-600 dark:text-amber-400" : "text-red-600 dark:text-red-400";
             return (
               <li key={row.agentId}>
-                <div className="mb-1 flex items-center justify-between text-sm">
-                  <span className="text-ink">{agentName(row.agentId)}</span>
-                  <span className={clsx("font-medium tabular-nums", text)}>{pct}%</span>
+                <div className="mb-1 flex items-center justify-between gap-2 text-sm">
+                  <span className="min-w-0 truncate text-ink">{agentName(row.agentId)}</span>
+                  <span className={clsx("shrink-0 font-medium tabular-nums", text)}>{pct}%</span>
                 </div>
                 <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-3">
                   <div
@@ -145,7 +145,7 @@ export function WorkforceView() {
 
           {criteria.map((c) => (
             <div key={c.id} className="flex items-center gap-2">
-              <span className="flex-1 text-sm text-ink">
+              <span className="min-w-0 flex-1 text-sm text-ink">
                 {c.label} <span className="text-muted">×{c.weight}</span>
               </span>
               <Select
@@ -157,7 +157,7 @@ export function WorkforceView() {
                   label: String(n),
                 }))}
                 size="sm"
-                className="w-20"
+                className="w-20 shrink-0"
               />
             </div>
           ))}
@@ -176,9 +176,9 @@ export function WorkforceView() {
         <ul className="space-y-1">
           {evaluations.map((ev) => (
             <li key={ev.id} className="flex items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-sm">
-              <span className="text-ink">{agentName(ev.agentId)}</span>
-              <span className="text-muted">· {ev.conversationId}</span>
-              <Badge tone="positive" className="ml-auto">
+              <span className="shrink-0 text-ink">{agentName(ev.agentId)}</span>
+              <span className="min-w-0 flex-1 truncate text-muted">· {ev.conversationId}</span>
+              <Badge tone="positive" className="ml-auto shrink-0">
                 {scorecardTotal(ev.scores, criteria)}
               </Badge>
             </li>

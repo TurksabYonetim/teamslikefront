@@ -166,7 +166,7 @@ export function ClipDetail({ clip }: { clip: Clip }) {
         {output ? (
           <label className="mt-2 block">
             <span className="sr-only">{t("clip.output")}</span>
-            <textarea readOnly value={output} rows={5} className="input" />
+            <textarea readOnly value={output} rows={5} className="input w-full" />
           </label>
         ) : null}
       </section>
@@ -230,7 +230,7 @@ export function ClipDetail({ clip }: { clip: Clip }) {
             onChange={(e) => setComment(e.target.value)}
             placeholder={t("clip.commentPh")}
             aria-label={t("clip.commentPh")}
-            className="input h-10 flex-1"
+            className="input h-10 min-w-0 flex-1"
           />
           <Button
             onClick={() => {
@@ -287,16 +287,16 @@ export function ClipDetail({ clip }: { clip: Clip }) {
           })}
         </div>
         <div className="flex flex-wrap items-end gap-2">
-          <label className="flex-1">
+          <label className="min-w-[10rem] flex-1">
             <span className="mb-1 flex items-center gap-1 text-sm text-muted">
-              <Icon name="key" className="h-4 w-4" /> {t("clip.password")}
+              <Icon name="key" className="h-4 w-4 shrink-0" /> {t("clip.password")}
             </span>
             <input
               value={pwd}
               onChange={(e) => setPwd(e.target.value)}
               placeholder={t("clip.passwordPh")}
               aria-label={t("clip.password")}
-              className="input h-10"
+              className="input h-10 w-full"
             />
           </label>
           <Button variant="secondary" onClick={() => setPassword(clip.id, pwd)}>
@@ -346,7 +346,7 @@ export function ClipDetail({ clip }: { clip: Clip }) {
               className="input h-10 w-full"
             />
           </label>
-          <div className="flex items-center justify-between gap-2 pt-0.5">
+          <div className="flex flex-wrap items-center justify-between gap-2 pt-0.5">
             {clip.ctaLabel ? (
               <Button onClick={() => clickCta(clip.id)}>{clip.ctaLabel}</Button>
             ) : (

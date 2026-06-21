@@ -57,18 +57,18 @@ export function MeetingRoom() {
   const lobby = lobbyQueue[0];
 
   return (
-    <div data-theme="dark" className="dark flex h-full min-h-0">
-      <div className="flex min-w-0 flex-1 flex-col bg-gray-900">
+    <div className="flex h-full min-h-0">
+      <div className="flex min-w-0 flex-1 flex-col bg-surface-2">
         {/* Top bar */}
-        <div className="flex items-center gap-3 border-b border-gray-800 px-4 py-2">
-          <span className="truncate text-base font-semibold text-white">{activeTitle}</span>
+        <div className="flex items-center gap-3 border-b border-line bg-surface px-4 py-2">
+          <span className="truncate text-base font-semibold text-ink">{activeTitle}</span>
           {recording ? (
             <span className="inline-flex items-center gap-1 rounded-full bg-red-700 px-2 py-0.5 text-xs font-medium text-white">
               <MdFiberManualRecord className="h-3.5 w-3.5" aria-hidden />
               {t("rec")} {fmt(recordSec)}
             </span>
           ) : null}
-          <span className="ml-auto text-xs text-gray-400">
+          <span className="ml-auto text-xs text-muted">
             {t("participantCount", { n: participants.length })}
           </span>
           {aiCompanion ? (
@@ -81,8 +81,8 @@ export function MeetingRoom() {
 
         {/* Lobby banner */}
         {lobby ? (
-          <div className="flex items-center gap-2 border-b border-gray-800 bg-gray-700 px-4 py-2">
-            <span className="flex-1 truncate text-sm text-white">
+          <div className="flex items-center gap-2 border-b border-line bg-primary-50 px-4 py-2">
+            <span className="flex-1 truncate text-sm text-ink">
               {t("lobbyBanner", { name: lobby.name })} ({lobby.name})
             </span>
             <Button size="sm" onClick={() => meetingStore.getState().admit(lobby.id)}>

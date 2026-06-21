@@ -43,7 +43,7 @@ export function HillView({ table }: { table: DataTable }) {
   }));
 
   return (
-    <div>
+    <div className="min-w-0">
       <h3 className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-ink">
         <Icon name="chartBar" className="h-4 w-4" /> {t("table.hill")}
         {statusCol ? ` · ${statusCol.name}` : ""}
@@ -69,9 +69,9 @@ export function HillView({ table }: { table: DataTable }) {
           style={{ gridTemplateColumns: `repeat(${dist.length}, minmax(0, 1fr))` }}
         >
           {dist.map((d) => (
-            <div key={d.opt} className={`rounded-lg border border-line px-3 py-2 ${d.meta.cardBg}`}>
+            <div key={d.opt} className={`min-w-0 rounded-lg border border-line px-2 py-2 sm:px-3 ${d.meta.cardBg}`}>
               <div className={`text-lg font-bold tabular-nums ${d.meta.cardText}`}>{d.n}</div>
-              <div className={`text-xs ${d.meta.cardText}`}>{d.meta.zone || d.opt}</div>
+              <div className={`break-words text-xs ${d.meta.cardText}`}>{d.meta.zone || d.opt}</div>
             </div>
           ))}
         </div>

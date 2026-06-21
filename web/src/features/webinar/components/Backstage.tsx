@@ -21,14 +21,17 @@ export function Backstage() {
   const toast = useToast();
 
   return (
-    <div className="grid gap-4 lg:grid-cols-2">
+    <div className="grid gap-4 md:grid-cols-2">
       <Card>
         <h3 className="mb-2 text-sm font-semibold text-ink">{t("panelists")}</h3>
         <ul className="space-y-1.5">
           {PANELISTS.map((p) => (
-            <li key={p.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-2 text-sm">
-              <Icon name="userCircle" className="h-5 w-5 text-muted" />
-              <span className="flex-1 text-ink">{p.name}</span>
+            <li key={p.id} className="panelist-row flex items-center gap-2.5 rounded-md border border-line px-3 py-2 text-sm">
+              <span className={`panelist-avatar shrink-0${p.role === "host" ? " is-host" : ""}`}>
+                <Icon name="userCircle" className="h-5 w-5 text-muted" />
+                <span className="panelist-dot" aria-hidden="true" />
+              </span>
+              <span className="min-w-0 flex-1 truncate text-ink">{p.name}</span>
               <Badge tone={ROLE_TONE[p.role]}>{t(`role.${p.role}`)}</Badge>
             </li>
           ))}

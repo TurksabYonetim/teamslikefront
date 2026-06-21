@@ -24,8 +24,7 @@ export function MeetingExperience() {
     return (
       <div
         data-testid="meeting-prejoin"
-        data-theme="dark"
-        className="h-full bg-gray-900"
+        className="h-full bg-surface-2"
       >
         <PreJoin />
       </div>

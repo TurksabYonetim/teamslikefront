@@ -32,7 +32,7 @@ export function CommunitiesBar() {
         onClick={() => navigate("/")}
         aria-label={t("common:nav.home")}
         title={t("common:nav.home")}
-        className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface text-muted hover:bg-surface-3 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+        className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface text-muted transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-surface-3 motion-safe:active:scale-95 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
       >
         <HiOutlineSquares2X2 className="h-5 w-5" aria-hidden />
       </button>
@@ -45,9 +45,10 @@ export function CommunitiesBar() {
           aria-current={activeId === c.id ? "page" : undefined}
           title={c.name}
           className={clsx(
-            "flex h-11 w-11 items-center justify-center rounded-xl text-base font-semibold uppercase",
+            "flex h-11 w-11 items-center justify-center rounded-xl text-base font-semibold uppercase transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-95",
+            // Aktif = AAA dolu marka (beyaz üstüne blue-800, 8.6:1; eski bg-brand AA 6.5:1 idi).
             activeId === c.id
-              ? "bg-brand text-white"
+              ? "bg-blue-800 text-white"
               : "bg-white text-ink hover:bg-surface-3 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700",
           )}
         >

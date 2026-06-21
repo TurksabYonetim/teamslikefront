@@ -43,8 +43,8 @@ export function ConfirmAction({
     <div
       className="flex flex-wrap items-end gap-2 rounded-lg border border-danger bg-surface p-2 origin-top-left motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)_both]"
     >
-      <Icon name="warning" className="h-5 w-5 text-danger" />
-      <label className="flex flex-col gap-1 text-sm text-ink">
+      <Icon name="warning" className="h-5 w-5 shrink-0 text-danger" />
+      <label className="flex w-full flex-col gap-1 text-sm text-ink sm:w-auto sm:flex-1">
         {t("typeToConfirm", { word: verifyWord })}
         <input
           autoFocus

@@ -9,8 +9,8 @@ export function CtaBanner() {
   const toast = useToast();
 
   return (
-    <div className="flex flex-wrap items-center gap-2 rounded-lg border border-brand bg-ink px-3 py-2">
-      <span className="text-base font-medium text-surface">{t("ctaTitle")}</span>
+    <div className="flex flex-wrap items-center gap-2 rounded-lg border border-brand bg-brand-softer px-3 py-2">
+      <span className="text-base font-medium text-ink">{t("ctaTitle")}</span>
       <div className="ml-auto flex flex-wrap gap-2">
         {CTAS.map((c) => (
           <Button

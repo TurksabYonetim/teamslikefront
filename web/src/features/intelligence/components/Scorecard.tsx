@@ -68,9 +68,9 @@ export function Scorecard() {
       {sc.predictedCsat ? (
         <div className="mt-3 rounded-md border border-blue-200 bg-blue-50 p-2.5 dark:border-blue-800 dark:bg-blue-900/30">
           <div className="flex items-center gap-1.5 text-sm font-semibold text-ink dark:text-white">
-            <HiOutlineSparkles className="h-4 w-4 text-blue-800 dark:text-blue-300" aria-hidden />
-            {t("predictedCsat")}
-            <span className="ml-auto flex items-center gap-0.5" aria-label={`${sc.predictedCsat} / 5`}>
+            <HiOutlineSparkles className="h-4 w-4 shrink-0 text-blue-800 dark:text-blue-300" aria-hidden />
+            <span className="min-w-0 truncate">{t("predictedCsat")}</span>
+            <span className="ml-auto flex shrink-0 items-center gap-0.5" aria-label={`${sc.predictedCsat} / 5`}>
               {[1, 2, 3, 4, 5].map((nn) =>
                 nn <= sc.predictedCsat! ? (
                   <HiStar key={nn} className="h-3.5 w-3.5 text-amber-500" aria-hidden />

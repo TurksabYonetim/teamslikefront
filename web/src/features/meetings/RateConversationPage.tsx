@@ -47,7 +47,7 @@ export function RateConversationPage() {
     <>
 
       <section>
-        <div className="mx-auto flex h-[calc(100vh-8rem)] max-w-xl items-center justify-center px-4 xl:px-0">
+        <div className="mx-auto flex h-[calc(100dvh-8rem)] max-w-xl items-center justify-center px-4 xl:px-0">
           <div>
             <div className="mb-6">
               <Logo className="h-8" />
@@ -76,7 +76,7 @@ export function RateConversationPage() {
       </section>
 
       {/* submit feedback drawer */}
-      <div id="feedback-drawer" className="fixed right-0 top-0 z-40 h-screen w-full max-w-md translate-x-full overflow-y-auto bg-white p-4 antialiased transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="feedback-drawer-label" aria-hidden="true">
+      <div id="feedback-drawer" className="fixed right-0 top-0 z-40 h-[100dvh] w-full max-w-md translate-x-full overflow-y-auto bg-white p-4 antialiased transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="feedback-drawer-label" aria-hidden="true">
         <h5 id="feedback-drawer-label" className="mb-6 inline-flex items-center text-sm font-semibold text-ink dark:text-white">{t("feedback.submitFeedback")}</h5>
         <button type="button" data-drawer-dismiss="feedback-drawer" aria-controls="feedback-drawer" className="absolute right-2.5 top-2.5 inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
           <svg aria-hidden="true" className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

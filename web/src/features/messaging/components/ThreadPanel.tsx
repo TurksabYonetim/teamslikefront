@@ -32,7 +32,7 @@ export function ThreadPanel() {
       <Backdrop level="drawer" onClick={closeThread} className="lg:hidden" />
       <aside
         aria-label={t("thread.title")}
-        className="fixed inset-y-0 end-0 z-40 flex w-full max-w-md flex-col border-s border-line bg-white shadow-2xl max-lg:motion-safe:[animation:tl-drawer-in-end_var(--dur-modal)_var(--ease-drawer)] lg:static lg:z-auto lg:w-96 lg:max-w-none lg:shadow-none dark:border-gray-700 dark:bg-gray-800"
+        className="fixed inset-y-0 end-0 z-40 flex w-full max-w-[calc(100vw-2rem)] flex-col border-s border-line bg-white shadow-2xl max-lg:motion-safe:[animation:tl-drawer-in-end_var(--dur-modal)_var(--ease-drawer)] sm:max-w-md lg:static lg:z-auto lg:w-96 lg:max-w-none lg:shadow-none dark:border-gray-700 dark:bg-gray-800"
       >
         <header className="flex items-center justify-between gap-2 border-b border-line p-3 dark:border-gray-700">
           <span className="text-sm font-semibold text-ink dark:text-white">{t("thread.title")}</span>

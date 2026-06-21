@@ -8,7 +8,7 @@ import * as React from "react";
 const TOKEN = /(`[^`]+`|\*\*[^*]+\*\*|~~[^~]+~~|\*[^*]+\*|_[^_]+_|\[[^\]]+\]\([^)]+\)|@[\w.-]+)/g;
 
 export function RichText({ text, className }: { text: string; className?: string }) {
-  return <span className={className}>{renderInline(text)}</span>;
+  return <span className={`break-words ${className ?? ""}`}>{renderInline(text)}</span>;
 }
 
 export function renderInline(text: string): React.ReactNode[] {

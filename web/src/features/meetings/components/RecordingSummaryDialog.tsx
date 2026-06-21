@@ -37,7 +37,7 @@ export function RecordingSummaryDialog({
 
   return (
     <Modal open={open} onClose={onClose} title={t("recapTitle")}>
-      <div className="max-h-[70vh] space-y-4 overflow-y-auto">
+      <div className="max-h-[70dvh] space-y-4 overflow-y-auto">
         <section>
           <h3 className="mb-1 flex items-center gap-1 text-base font-semibold text-ink">
             <HiOutlineSparkles className="h-4 w-4" aria-hidden /> {t("aiSummary")}

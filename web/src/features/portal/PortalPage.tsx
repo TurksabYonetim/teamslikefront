@@ -26,13 +26,14 @@ export function PortalTopbar({ onWhoami }: { onWhoami: () => void }) {
   const { data: who } = useWhoami();
   const name = who?.name ?? who?.email ?? t("topbar.guest");
   return (
-    <header className="h-15 flex items-center gap-3 px-4 md:px-6 py-3.5 bg-white dark:bg-gray-900 border-b border-line dark:border-gray-800">
-      <Logo className="h-8" />
-      <span className="badge">{t("topbar.badge")}</span>
+    <header className="sticky top-0 z-10 h-15 flex items-center gap-3 px-4 md:px-6 py-3.5 bg-white dark:bg-gray-900 border-b border-line dark:border-gray-800 min-w-0">
+      <Logo className="h-8 shrink-0" />
+      <span className="badge hidden sm:inline-flex">{t("topbar.badge")}</span>
       <div className="flex-1" />
       <Button
         variant="secondary"
         size="sm"
+        className="shrink-0"
         leftIcon={<Icon name="key" className="w-4 h-4" />}
         onClick={onWhoami}
       >
@@ -144,7 +145,7 @@ function PortalTokenGate({ onSaved }: { onSaved: () => void }) {
           </label>
           <input
             id="portal-secret"
-            className="input font-mono text-xs"
+            className="input font-mono text-base md:text-xs"
             type="password"
             value={signingSecret}
             onChange={(e) => setSigningSecret(e.target.value)}
@@ -211,11 +212,11 @@ export function PortalPage() {
   const sellers = useSellers();
 
   return (
-    <div className="min-h-screen bg-surface-2 dark:bg-gray-950">
+    <div className="min-h-[100dvh] bg-surface-2 dark:bg-gray-950">
       <PortalTopbar onWhoami={() => setWho(true)} />
 
-      <div className="max-w-4xl mx-auto p-4 md:p-8">
-        <h1 className="text-xl font-semibold text-ink dark:text-white">
+      <div className="max-w-4xl xl:max-w-5xl mx-auto p-4 md:p-8 lg:p-10">
+        <h1 className="text-xl font-semibold text-ink dark:text-white lg:text-2xl">
           {t("home.title")}
         </h1>
         <p className="text-sm text-muted mt-1">{t("home.subtitle")}</p>
@@ -248,7 +249,7 @@ export function PortalPage() {
             </h2>
 
             {sellers.isLoading && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                 {Array.from({ length: 4 }).map((_, i) => (
                   <div
                     key={i}
@@ -298,7 +299,7 @@ export function PortalPage() {
             )}
 
             {sellers.data && sellers.data.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 tl-stagger">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 tl-stagger">
                 {sellers.data.map((s) => (
                   <SellerCard key={s.user_id} seller={s} />
                 ))}

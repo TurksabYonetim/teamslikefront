@@ -25,29 +25,35 @@ export function StageView() {
   const liveBadge = mode === "live";
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-lg border border-slate-700 bg-slate-900">
-      <div className="flex items-center gap-2 border-b border-slate-700 px-3 py-2">
+    <div className="flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface">
+      <div className="flex items-center gap-2 border-b border-line px-3 py-2">
+        {pos.live ? (
+          <span className="relative flex h-2 w-2" aria-hidden="true">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75 motion-safe:animate-ping" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-red-600" />
+          </span>
+        ) : null}
         <Badge tone={pos.live ? "danger" : "neutral"}>
           <Icon name="broadcast" className="h-3.5 w-3.5" /> {liveBadge ? t("live") : t(`modeLabel.${mode}`)}
         </Badge>
-        <span className="ml-auto inline-flex items-center gap-1 text-xs text-slate-300" aria-label={t("attendeeCount", { count: attendees })}>
+        <span className="ml-auto inline-flex items-center gap-1 text-xs text-muted" aria-label={t("attendeeCount", { count: attendees })}>
           <Icon name="usersThree" className="h-4 w-4" aria-hidden /> {attendees.toLocaleString()}
         </span>
       </div>
 
-      <div className="flex flex-1 flex-col items-center justify-center gap-3 p-6 text-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand text-white">
+      <div className="group flex flex-1 flex-col items-center justify-center gap-3 bg-surface-2 p-6 text-center">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand text-white transition-transform duration-[var(--dur-pop)] ease-[var(--ease-out)] motion-safe:group-hover:scale-105">
           <Icon name="play" className="h-7 w-7" />
         </div>
-        <div className="text-xl font-semibold text-white">{event.title}</div>
-        <div className="text-sm text-slate-300">{event.sessions[0]?.title}</div>
+        <div className="text-xl font-semibold text-ink">{event.title}</div>
+        <div className="text-sm text-muted">{event.sessions[0]?.title}</div>
       </div>
 
-      <div className="border-t border-slate-700 px-3 py-2" aria-label={t("timeline")}>
-        <div className="h-2 w-full overflow-hidden rounded-full bg-slate-700">
+      <div className="border-t border-line px-3 py-2" aria-label={t("timeline")}>
+        <div className="h-2 w-full overflow-hidden rounded-full bg-line">
           <div className="h-full bg-brand" style={{ width: `${pos.pct}%` }} aria-hidden />
         </div>
-        <div className="mt-1 flex justify-between text-xs text-slate-400">
+        <div className="mt-1 flex justify-between text-xs text-muted">
           <span>{fmt(pos.elapsedSec)}</span>
           <span>{fmt(event.durationSec)}</span>
         </div>

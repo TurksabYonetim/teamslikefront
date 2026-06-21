@@ -27,9 +27,9 @@ export function ShortcutsHelpDialog({ open, onClose }: { open: boolean; onClose:
       <h3 className="mb-2 text-sm font-semibold text-muted">{title}</h3>
       <ul className="space-y-1">
         {rows.map((r) => (
-          <li key={r.keys} className="flex items-center justify-between gap-4 text-sm">
-            <span className="text-ink dark:text-white">{t(r.labelKey)}</span>
-            <kbd className="rounded border border-line bg-surface-2 px-1.5 py-0.5 font-mono text-xs text-ink dark:border-gray-700 dark:text-white">
+          <li key={r.keys} className="flex items-center justify-between gap-3 text-sm">
+            <span className="min-w-0 text-ink dark:text-white">{t(r.labelKey)}</span>
+            <kbd className="shrink-0 rounded border border-line bg-surface-2 px-1.5 py-0.5 font-mono text-xs text-ink dark:border-gray-700 dark:text-white">
               {r.keys}
             </kbd>
           </li>

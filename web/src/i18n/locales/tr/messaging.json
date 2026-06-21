@@ -96,6 +96,7 @@
   "folders": "Klasörler",
   "folder": { "all": "Tümü", "unread": "Okunmamış", "dms": "Mesajlar", "channels": "Kanallar" },
   "pinnedChats": "Sabitlenenler",
+  "unreadCount": "{{n}} okunmamış",
   "channels": "Kanallar",
   "dms": "Direkt mesajlar",
   "noChannelsTitle": "Henüz kanal yok",
@@ -133,7 +134,7 @@
   },
   "typing": "{{name}} yazıyor…",
   "pinnedMessage": "Sabitlenen mesaj",
-  "stories": { "add": "Durum ekle", "viewer": "Durum" },
+  "stories": { "add": "Durum ekle", "viewer": "Durum", "viewOf": "{{name}} durumu", "more": "{{n}} kişi daha" },
   "detailsPanel": {
     "title": "Detaylar",
     "members": "Üyeler",

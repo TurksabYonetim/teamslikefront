@@ -78,19 +78,19 @@ export const BlockCard = forwardRef<HTMLDivElement, BlockCardProps>(
             title={t("actions.drag")}
             disabled={reorderDisabled}
             onPointerDown={(e) => onPointerDownHandle(e, index)}
-            className="-ml-1 p-1 rounded text-muted/60 hover:text-ink hover:bg-surface-3 transition-colors duration-[160ms] ease-[var(--ease-out)] cursor-grab active:cursor-grabbing touch-none disabled:opacity-30 disabled:pointer-events-none"
+            className="-ml-1 shrink-0 p-1 rounded text-muted/60 hover:text-ink hover:bg-surface-3 transition-colors duration-[160ms] ease-[var(--ease-out)] cursor-grab active:cursor-grabbing touch-none disabled:opacity-30 disabled:pointer-events-none"
           >
             <Icon name="selector" className="w-4 h-4" />
           </button>
 
           <span
             className={
-              "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium " +
+              "inline-flex min-w-0 items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium " +
               TYPE_STYLES[block.type]
             }
           >
-            <Icon name={TYPE_ICONS[block.type]} className="w-3 h-3" />
-            {t(`types.${block.type}`)}
+            <Icon name={TYPE_ICONS[block.type]} className="w-3 h-3 shrink-0" />
+            <span className="truncate">{t(`types.${block.type}`)}</span>
           </span>
 
           {/* Pin: sabitlenmişse her zaman görünür (durum göstergesi). */}
@@ -100,10 +100,10 @@ export const BlockCard = forwardRef<HTMLDivElement, BlockCardProps>(
             title={pinned ? t("actions.unpin") : t("actions.pin")}
             onClick={() => onTogglePin(block)}
             className={
-              "p-1 rounded hover:bg-surface-3 active:scale-[0.95] motion-reduce:active:scale-100 " +
+              "shrink-0 p-1 rounded hover:bg-surface-3 active:scale-[0.95] motion-reduce:active:scale-100 " +
               (pinned
                 ? "text-brand opacity-100"
-                : "text-muted hover:text-ink opacity-0 group-hover:opacity-100 focus-visible:opacity-100")
+                : "text-muted hover:text-ink opacity-0 group-hover:opacity-100 focus-visible:opacity-100 [@media(pointer:coarse)]:opacity-100 [@media(pointer:coarse)]:pointer-events-auto")
             }
             style={{ transition: "color 160ms var(--ease-out), opacity 160ms var(--ease-out), transform 120ms var(--ease-out)" }}
           >
@@ -112,7 +112,7 @@ export const BlockCard = forwardRef<HTMLDivElement, BlockCardProps>(
 
           <div className="flex-1" />
 
-          <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-[160ms] ease-[var(--ease-out)]">
+          <div className="flex shrink-0 items-center gap-0.5 opacity-0 group-hover:opacity-100 focus-within:opacity-100 [@media(pointer:coarse)]:opacity-100 [@media(pointer:coarse)]:pointer-events-auto transition-opacity duration-[160ms] ease-[var(--ease-out)]">
             <button
               type="button"
               aria-label={t("actions.moveUp")}

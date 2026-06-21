@@ -73,7 +73,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
   return (
     <Overlay open onClose={onClose} align="top" level="high">
       <div
-        className="w-full max-w-lg overflow-hidden rounded-xl bg-surface shadow-2xl ring-1 ring-black/5 origin-top motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]"
+        className="w-full max-w-lg sm:max-w-xl overflow-hidden rounded-xl bg-surface shadow-2xl ring-1 ring-black/5 origin-top motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]"
         role="dialog"
         aria-modal="true"
         aria-label="Komut paleti"
@@ -94,7 +94,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
           </kbd>
         </div>
 
-        <ul className="max-h-80 overflow-y-auto p-2" role="listbox">
+        <ul className="max-h-80 sm:max-h-96 overflow-y-auto p-2" role="listbox">
           {results.length === 0 && (
             <li className="px-3 py-6 text-center text-sm text-muted">
               Sonuç yok

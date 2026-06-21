@@ -24,12 +24,13 @@ export function LinkPreview({ url }: { url: string }) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="mt-1 block max-w-xs overflow-hidden rounded-lg border border-line hover:border-brand"
+      className="mt-1 block w-full max-w-xs overflow-hidden rounded-lg border border-line hover:border-brand"
     >
       <div className="h-16 bg-brand/10" aria-hidden />
       <div className="p-2">
-        <div className="flex items-center gap-1 truncate text-sm font-medium text-ink">
-          <HiOutlineLink className="h-3.5 w-3.5 shrink-0" aria-hidden /> {domain}
+        <div className="flex items-center gap-1 text-sm font-medium text-ink">
+          <HiOutlineLink className="h-3.5 w-3.5 shrink-0" aria-hidden />
+          <span className="min-w-0 truncate">{domain}</span>
         </div>
         <div className="truncate text-xs text-muted">{t("linkPreview")}</div>
       </div>

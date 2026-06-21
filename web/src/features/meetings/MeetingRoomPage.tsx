@@ -363,8 +363,8 @@ export function MeetingRoomPage() {
   return (
     <>
 
-      <div className="relative flex h-[calc(100vh-7rem)] w-full items-center justify-center bg-gray-50 px-4 dark:bg-gray-900">
-        <div className="max-h-auto relative w-full max-w-6xl overflow-hidden rounded-lg shadow-sm">
+      <div className="relative flex h-[calc(100dvh-7rem)] w-full items-center justify-center bg-gray-50 px-4 dark:bg-gray-900 sm:px-6 lg:px-8">
+        <div className="max-h-auto relative w-full max-w-6xl overflow-hidden rounded-lg shadow-sm 2xl:max-w-7xl">
           {joinUrl ? (
             <>
               <div
@@ -416,7 +416,7 @@ export function MeetingRoomPage() {
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 z-50 grid h-16 w-full grid-cols-1 bg-gray-50 px-4 dark:bg-gray-900 md:grid-cols-3">
+      <div className="fixed bottom-0 left-0 z-50 grid min-h-16 w-full grid-cols-1 bg-gray-50 px-4 pb-[env(safe-area-inset-bottom)] dark:bg-gray-900 md:grid-cols-3">
         <div className="me-auto hidden items-center justify-center text-gray-500 dark:text-gray-400 md:flex">
           <svg className="me-2 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
@@ -426,7 +426,7 @@ export function MeetingRoomPage() {
             {joinedAt == null ? "00:00" : formatElapsed(elapsed)}
           </span>
         </div>
-        <div className="mx-auto flex items-center justify-center">
+        <div className="mx-auto flex flex-wrap items-center justify-center gap-y-2">
           <button onClick={() => run("toggleAudio")} data-tooltip-target="tooltip-microphone" type="button" className={`group me-4 rounded-full p-2.5 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97] focus:outline-none focus:ring-4 ${audioMuted ? "bg-red-600 hover:bg-red-700 focus:ring-red-200 dark:focus:ring-red-800" : "bg-gray-100 hover:bg-gray-200 focus:ring-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"}`}>
             <svg className={`h-4 w-4 ${audioMuted ? "text-white" : "text-gray-500 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white"}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 19">
               <path d="M15 5a1 1 0 0 0-1 1v3a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V6a1 1 0 0 0-2 0v3a6.006 6.006 0 0 0 6 6h1v2H5a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2H9v-2h1a6.006 6.006 0 0 0 6-6V6a1 1 0 0 0-1-1Z" />
@@ -724,7 +724,7 @@ export function MeetingRoomPage() {
       </div>
 
       {/* messages drawer */}
-      <div id="drawer-messages" className="fixed right-0 top-0 z-40 h-[calc(100vh-4rem)] w-80 translate-x-full overflow-y-auto bg-white p-4 transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800 flex justify-between flex-col" tabIndex={-1} aria-labelledby="drawer-messages-label">
+      <div id="drawer-messages" className="fixed right-0 top-0 z-40 h-[calc(100dvh-4rem)] w-[min(20rem,100vw)] translate-x-full overflow-y-auto bg-white p-4 transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800 flex justify-between flex-col" tabIndex={-1} aria-labelledby="drawer-messages-label">
           <div>
               <h5 id="drawer-messages-label" className="mb-4 inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">{t("room.messagesTitle")}</h5>
               <button type="button" data-drawer-hide="drawer-messages" aria-controls="drawer-messages" className="absolute end-2.5 top-2.5 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -734,7 +734,7 @@ export function MeetingRoomPage() {
                   <span className="sr-only">{t("room.closeMenu")}</span>
               </button>
 
-              <div ref={messagesEndRef} className="overflow-scroll h-[calc(100vh-13rem)] mb-2">
+              <div ref={messagesEndRef} className="overflow-scroll h-[calc(100dvh-13rem)] mb-2">
                   {messages.length === 0 ? (
                     <p className="text-sm text-gray-500 dark:text-gray-400">{t("room.noMessages")}</p>
                   ) : (
@@ -797,7 +797,7 @@ export function MeetingRoomPage() {
 
 
       {/* participants drawer */}
-      <div id="drawer-participants" className="fixed right-0 top-0 z-40 h-[calc(100vh-4rem)] w-80 translate-x-full overflow-y-auto bg-white p-4 transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="drawer-participants-label">
+      <div id="drawer-participants" className="fixed right-0 top-0 z-40 h-[calc(100dvh-4rem)] w-[min(20rem,100vw)] translate-x-full overflow-y-auto bg-white p-4 transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="drawer-participants-label">
           <div>
               <h5 id="drawer-participants-label" className="mb-4 inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">{t("room.participantsTitle")}</h5>
               <button type="button" data-drawer-hide="drawer-participants" aria-controls="drawer-participants" className="absolute end-2.5 top-2.5 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -849,7 +849,7 @@ export function MeetingRoomPage() {
 
       {/* settings drawer */}
       {isModerator && (
-      <div id="settings-drawer" className="fixed right-0 top-0 z-40 h-[calc(100vh-4rem)] w-80 translate-x-full overflow-y-auto bg-white p-4 transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="settings-drawer-label">
+      <div id="settings-drawer" className="fixed right-0 top-0 z-40 h-[calc(100dvh-4rem)] w-[min(20rem,100vw)] translate-x-full overflow-y-auto bg-white p-4 transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="settings-drawer-label">
           <div>
               <h5 id="settings-drawer-label" className="mb-4 inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">{t("room.hostControls")}</h5>
               <button type="button" data-drawer-hide="settings-drawer" aria-controls="settings-drawer" className="absolute end-2.5 top-2.5 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -980,7 +980,7 @@ export function MeetingRoomPage() {
 
 
       {/* submit feedback drawer */}
-      <div id="feedback-drawer" className="fixed right-0 top-0 z-40 h-screen w-full max-w-md translate-x-full overflow-y-auto bg-white p-4 antialiased transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="feedback-drawer-label" aria-hidden="true">
+      <div id="feedback-drawer" className="fixed right-0 top-0 z-40 h-[100dvh] w-full max-w-md translate-x-full overflow-y-auto bg-white p-4 antialiased transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="feedback-drawer-label" aria-hidden="true">
         <h5 id="feedback-drawer-label" className="mb-6 inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">{t("feedback.submitFeedback")}</h5>
         <button type="button" data-drawer-dismiss="feedback-drawer" aria-controls="feedback-drawer" className="absolute right-2.5 top-2.5 inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
           <svg aria-hidden="true" className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

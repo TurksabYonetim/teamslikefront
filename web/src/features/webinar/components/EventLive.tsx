@@ -10,26 +10,26 @@ import { PollOverlay } from "./PollOverlay";
 import { QnaBoard } from "./QnaBoard";
 import { CtaBanner } from "./CtaBanner";
 
-/** Attendee deneyimi — koyu yüksek kontrast sahne. */
+/** Attendee deneyimi — açık tema, yüksek kontrast yayın sahnesi. */
 export function EventLive() {
   const { t } = useTranslation("webinar");
   const event = useStore(webinarStore, (s) => s.events.find((e) => e.id === s.activeEventId)!);
   const exitLive = () => webinarStore.getState().exitLive();
 
   return (
-    <div data-theme="dark" className="space-y-3 rounded-xl bg-surface p-4">
+    <div className="space-y-3 rounded-xl border border-line bg-surface p-4">
       <div className="flex items-center gap-2">
-        <h1 className="text-xl font-semibold text-white">{event.title}</h1>
-        <Button variant="secondary" className="ml-auto" onClick={exitLive} leftIcon={<Icon name="signOut" className="h-[18px] w-[18px]" />}>
+        <h1 className="min-w-0 truncate text-lg font-semibold text-ink sm:text-xl">{event.title}</h1>
+        <Button variant="secondary" className="ml-auto shrink-0" onClick={exitLive} leftIcon={<Icon name="signOut" className="h-[18px] w-[18px]" />}>
           {t("exitLive")}
         </Button>
       </div>
 
       <CtaBanner />
 
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="live-enter grid gap-4 lg:grid-cols-3">
         <div className="space-y-3 lg:col-span-2">
-          <div className="h-[58vh]">
+          <div className="min-h-[20rem] lg:h-[58dvh]">
             <StageView />
           </div>
           <CaptionsLayer />

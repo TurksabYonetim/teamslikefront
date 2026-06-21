@@ -20,7 +20,7 @@ import clsx from "clsx";
 import { useWorkspaceId, inActiveWorkspace } from "@/lib/tenantStore";
 import { messagingStore, useMessaging } from "../store";
 import { TOPICS } from "../data";
-import { memberById } from "../members";
+import { memberById, type Presence } from "../members";
 import { Avatar, Badge, Button, Dropdown, DropdownItem, EmptyState, PresenceDot, Tooltip } from "@/components/ui";
 import { CreateChannelDialog } from "./CreateChannelDialog";
 import { NewDmDialog } from "./NewDmDialog";
@@ -32,6 +32,13 @@ const statusTone: Record<ConversationStatus, string> = {
   open: "bg-amber-500",
   pending: "bg-brand",
   resolved: "bg-green-500",
+};
+
+// DM satırı alt-metni için presence → Türkçe durum.
+const PRESENCE_TR: Record<Presence, string> = {
+  online: "Çevrimiçi",
+  away: "Uzakta",
+  offline: "Çevrimdışı",
 };
 
 function Glyph({ kind }: { kind: Channel["kind"] }) {
@@ -78,12 +85,19 @@ export function MessagingSidebar() {
     const isChannel = c.kind !== "dm";
     const topics = TOPICS.filter((tp) => tp.channelId === c.id);
     const hasTopics = isChannel && topics.length > 1;
+    // DM satırı iki-satır: isim + presence/şifreleme/etiket alt-metni. Kanallar tek-satır kalır.
+    const dmSubtitle = !isChannel
+      ? [member ? PRESENCE_TR[member.presence] : null, c.e2ee ? "uçtan uca şifreli" : null, c.label, c.muted ? "sessiz" : null]
+          .filter(Boolean)
+          .join(" · ")
+      : null;
 
     return (
       <div className="group">
         <div
           className={clsx(
-            "flex h-11 items-center gap-1 rounded-md pr-1",
+            "flex items-center gap-1 rounded-md pr-1 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]",
+            isChannel ? "h-10" : "py-1.5",
             active
               ? "bg-surface-2 font-semibold text-ink dark:bg-gray-700 dark:text-white"
               : "text-ink hover:bg-surface-2 dark:text-white dark:hover:bg-gray-700",
@@ -93,44 +107,59 @@ export function MessagingSidebar() {
           <button
             type="button"
             onClick={() => setChannel(c.id)}
-            className="flex h-11 min-w-0 flex-1 items-center gap-2 px-2 text-start text-sm"
+            className={clsx(
+              "flex min-w-0 flex-1 items-center px-2 text-start text-sm",
+              isChannel ? "h-10 gap-2" : "gap-2.5",
+            )}
           >
-            {hasTopics ? (
-              active ? (
-                <HiOutlineChevronDown className="h-3.5 w-3.5" aria-hidden />
-              ) : (
-                <HiOutlineChevronRight className="h-3.5 w-3.5" aria-hidden />
-              )
-            ) : (
-              <span className="w-3.5" aria-hidden />
-            )}
             {isChannel ? (
-              <Glyph kind={c.kind} />
+              <>
+                {hasTopics ? (
+                  active ? (
+                    <HiOutlineChevronDown className="h-3.5 w-3.5" aria-hidden />
+                  ) : (
+                    <HiOutlineChevronRight className="h-3.5 w-3.5" aria-hidden />
+                  )
+                ) : (
+                  <span className="w-3.5" aria-hidden />
+                )}
+                <Glyph kind={c.kind} />
+                <span className="truncate">{c.name}</span>
+                {c.isCustomer && c.status ? (
+                  <span className={clsx("inline-block h-2 w-2 rounded-full", statusTone[c.status])} aria-label={t(`status.${c.status}`)} />
+                ) : null}
+                {c.e2ee ? <HiOutlineLockClosed className="h-3 w-3 text-green-700" aria-hidden /> : null}
+                {c.muted ? <HiOutlineBellSlash className="h-3 w-3 text-muted" aria-hidden /> : null}
+                {c.kind === "broadcast" && c.subscribers ? (
+                  <span className="text-xs text-muted">{(c.subscribers / 1000).toFixed(1)}k</span>
+                ) : null}
+              </>
             ) : (
-              <span className="relative inline-block">
-                <Avatar name={c.name} size="sm" />
-                {member ? <PresenceDot presence={member.presence} className="absolute -bottom-0.5 -right-0.5" /> : null}
-              </span>
+              <>
+                <span className="relative inline-block">
+                  <Avatar name={c.name} size="md" />
+                  {member ? <PresenceDot presence={member.presence} className="absolute -bottom-0.5 -right-0.5" /> : null}
+                </span>
+                <span className="flex min-w-0 flex-col leading-tight">
+                  <span className="truncate">{c.name}</span>
+                  {dmSubtitle ? <span className="truncate text-xs font-normal text-muted">{dmSubtitle}</span> : null}
+                </span>
+              </>
             )}
-            <span className="truncate">{c.name}</span>
-            {c.isCustomer && c.status ? (
-              <span className={clsx("inline-block h-2 w-2 rounded-full", statusTone[c.status])} aria-label={t(`status.${c.status}`)} />
-            ) : null}
-            {c.e2ee ? <HiOutlineLockClosed className="h-3 w-3 text-green-600" aria-hidden /> : null}
-            {c.muted ? <HiOutlineBellSlash className="h-3 w-3 text-muted" aria-hidden /> : null}
-            {c.kind === "broadcast" && c.subscribers ? (
-              <span className="text-xs text-muted">{(c.subscribers / 1000).toFixed(1)}k</span>
-            ) : null}
           </button>
 
           {c.archived ? <Badge tone="neutral">{t("archived")}</Badge> : null}
-          {c.label ? <Badge tone="neutral">{c.label}</Badge> : null}
-          {c.unread ? <Badge tone="accent">{c.unread}</Badge> : null}
+          {c.label && isChannel ? <Badge tone="neutral">{c.label}</Badge> : null}
+          {c.unread ? (
+            <span className="px-1 text-xs font-semibold tabular-nums text-blue-800 dark:text-blue-300" aria-label={t("unreadCount", { n: c.unread })}>
+              {c.unread}
+            </span>
+          ) : null}
 
           <Dropdown
             label={t("chatActions")}
             align="end"
-            triggerClassName="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted opacity-0 focus-visible:opacity-100 group-hover:opacity-100 sm:group-focus-within:opacity-100 max-sm:opacity-100 dark:hover:bg-gray-800"
+            triggerClassName="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted opacity-0 focus-visible:opacity-100 group-hover:opacity-100 sm:group-focus-within:opacity-100 max-sm:opacity-100 [@media(pointer:coarse)]:opacity-100 dark:hover:bg-gray-800"
             trigger={<HiOutlineEllipsisHorizontal className="h-[18px] w-[18px]" aria-hidden />}
           >
             <DropdownItem onSelect={() => togglePinChat(c.id)}>
@@ -176,7 +205,7 @@ export function MessagingSidebar() {
   return (
     <nav
       aria-label={t("sidebar.title")}
-      className="flex w-64 shrink-0 flex-col overflow-y-auto border-r border-line bg-white dark:border-gray-700 dark:bg-gray-800"
+      className="flex min-w-0 flex-1 flex-col overflow-y-auto border-r border-line bg-white md:w-64 md:flex-none md:shrink-0 xl:w-72 2xl:w-80 dark:border-gray-700 dark:bg-gray-800"
     >
       {/* Actions + folders */}
       <div className="space-y-2 border-b border-line p-2 dark:border-gray-700">
@@ -216,7 +245,13 @@ export function MessagingSidebar() {
             </button>
           </Tooltip>
         </div>
-        <div className="flex gap-1" role="tablist" aria-label={t("folders")}>
+        {/* Klasör süzgeçleri — iOS-tarzı segment kontrol: nötr track + beyaz aktif chip
+            (aktif metin text-ink 17:1 AAA; eski bg-brand pill'in AA zayıflığını giderir). */}
+        <div
+          className="flex gap-0.5 rounded-lg bg-surface-2 p-0.5 ring-1 ring-line dark:bg-gray-700 dark:ring-gray-600"
+          role="tablist"
+          aria-label={t("folders")}
+        >
           {FOLDERS.map((f) => (
             <button
               key={f}
@@ -225,8 +260,10 @@ export function MessagingSidebar() {
               aria-selected={folder === f}
               onClick={() => setFolder(f)}
               className={clsx(
-                "h-8 flex-1 whitespace-nowrap rounded-md px-1 text-xs font-medium transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]",
-                folder === f ? "bg-brand text-white" : "text-muted hover:bg-surface-2 dark:hover:bg-gray-700",
+                "h-8 min-w-0 flex-1 truncate rounded-md px-1 text-xs transition-[background-color,color,box-shadow] duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.98]",
+                folder === f
+                  ? "bg-white font-semibold text-ink shadow-sm dark:bg-gray-800 dark:text-white"
+                  : "font-medium text-muted hover:text-ink dark:hover:text-white",
               )}
             >
               {t(`folder.${f}`)}
@@ -235,10 +272,12 @@ export function MessagingSidebar() {
         </div>
       </div>
 
-      <div className="flex-1 space-y-3 p-3">
+      {/* Sohbet listesi — yoğun & sakin: kısa satırlar, küçük bölüm başlıkları,
+          okunmamış sayaç pill yerine AAA mavi metin (text-blue-800, 8.4:1). */}
+      <div className="flex-1 space-y-2 p-2">
         {pinned.length > 0 ? (
           <div>
-            <div className="flex items-center gap-1 px-2 pb-1 text-sm font-semibold text-muted">
+            <div className="flex items-center gap-1 px-2 pb-0.5 text-xs font-semibold text-muted">
               <HiOutlineMapPin className="h-3.5 w-3.5" aria-hidden /> {t("pinnedChats")}
             </div>
             {pinned.map((c) => (
@@ -249,7 +288,7 @@ export function MessagingSidebar() {
 
         {chans.length > 0 ? (
           <div>
-            <div className="px-2 pb-1 text-sm font-semibold text-muted">{t("channels")}</div>
+            <div className="px-2 pb-0.5 text-xs font-semibold text-muted">{t("channels")}</div>
             {chans.map((c) => (
               <ChatRow key={c.id} c={c} />
             ))}
@@ -269,7 +308,7 @@ export function MessagingSidebar() {
 
         {dms.length > 0 ? (
           <div>
-            <div className="px-2 pb-1 text-sm font-semibold text-muted">{t("dms")}</div>
+            <div className="px-2 pb-0.5 text-xs font-semibold text-muted">{t("dms")}</div>
             {dms.map((c) => (
               <ChatRow key={c.id} c={c} />
             ))}

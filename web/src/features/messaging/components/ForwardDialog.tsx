@@ -18,7 +18,7 @@ function KindGlyph({ kind }: { kind: ChannelKind }) {
         : kind === "dm"
           ? HiOutlineChatBubbleOvalLeft
           : HiOutlineHashtag;
-  return <Icon className="size-5" aria-hidden />;
+  return <Icon className="size-5 shrink-0" aria-hidden />;
 }
 
 export function ForwardDialog({
@@ -37,7 +37,7 @@ export function ForwardDialog({
 
   return (
     <Modal open={open} onClose={onClose} title={t("forwardTitle")}>
-      <ul className="max-h-[50vh] overflow-y-auto">
+      <ul className="max-h-[50dvh] overflow-y-auto">
         {channels
           .filter((c) => c.id !== activeChannelId)
           .map((c) => (
@@ -51,7 +51,7 @@ export function ForwardDialog({
                 className="flex h-11 w-full items-center gap-2 rounded-md px-2 text-start text-sm text-ink hover:bg-surface-2"
               >
                 <KindGlyph kind={c.kind} />
-                <span className="truncate">{c.kind === "dm" ? c.name : `#${c.name}`}</span>
+                <span className="min-w-0 truncate">{c.kind === "dm" ? c.name : `#${c.name}`}</span>
               </button>
             </li>
           ))}

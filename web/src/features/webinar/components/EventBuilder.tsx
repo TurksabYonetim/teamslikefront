@@ -25,7 +25,7 @@ export function EventBuilder() {
   const st = eventStatus(event.startsAt, event.durationSec);
 
   return (
-    <div className="grid gap-4 lg:grid-cols-2">
+    <div className="grid gap-4 md:grid-cols-2">
       <Card>
         <h3 className="mb-3 text-base font-semibold text-ink">{t("details")}</h3>
         <dl className="space-y-3 text-sm">
@@ -41,17 +41,18 @@ export function EventBuilder() {
           </div>
           <div>
             <dt className="mb-1 text-muted">{t("mode")}</dt>
-            <dd className="inline-flex flex-wrap overflow-hidden rounded-lg border border-line" role="group" aria-label={t("mode")}>
-              {MODES.map((m, i) => (
+            <dd className="flex flex-wrap gap-2" role="group" aria-label={t("mode")}>
+              {MODES.map((m) => (
                 <button
                   key={m}
                   type="button"
                   aria-pressed={mode === m}
                   onClick={() => setMode(m)}
                   className={clsx(
-                    "h-9 px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none",
-                    i > 0 && "border-l border-line",
-                    mode === m ? "bg-blue-800 text-white" : "bg-surface text-ink-2 hover:bg-surface-2",
+                    "h-9 rounded-lg border px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none",
+                    mode === m
+                      ? "border-brand bg-brand text-white"
+                      : "border-line bg-surface text-ink-2 hover:bg-surface-2",
                   )}
                 >
                   {t(`modeLabel.${m}`)}
@@ -91,9 +92,9 @@ export function EventBuilder() {
             <ul className="space-y-1">
               {event.sessions.slice(1).map((s) => (
                 <li key={s.id} className="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm">
-                  <Icon name="calendar" className="h-4 w-4 text-muted" />
-                  <span className="flex-1 text-ink">{s.title}</span>
-                  <span className="tabular-nums text-muted">
+                  <Icon name="calendar" className="h-4 w-4 shrink-0 text-muted" />
+                  <span className="min-w-0 flex-1 truncate text-ink">{s.title}</span>
+                  <span className="shrink-0 tabular-nums text-muted">
                     {new Date(s.startsAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                   </span>
                 </li>

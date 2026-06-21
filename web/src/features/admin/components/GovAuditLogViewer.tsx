@@ -41,7 +41,7 @@ export function GovAuditLogViewer() {
     <div className="rounded-xl border border-line bg-surface p-4">
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <h3 className="text-sm font-semibold text-ink">{t("audit2")}</h3>
-        <div className="relative ml-auto">
+        <div className="relative w-full sm:ml-auto sm:w-auto">
           <Icon
             name="search"
             className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted"
@@ -51,7 +51,7 @@ export function GovAuditLogViewer() {
             onChange={(e) => setAction(e.target.value)}
             placeholder={t("filterAction")}
             aria-label={t("filterAction")}
-            className={`${INPUT_CLASS} w-44 pl-7`}
+            className={`${INPUT_CLASS} w-full pl-7 sm:w-44`}
           />
         </div>
         <Select
@@ -59,28 +59,28 @@ export function GovAuditLogViewer() {
           onChange={setActorId}
           aria-label={t("filterActor")}
           size="sm"
-          className="w-44"
+          className="w-full sm:w-44"
           options={[
             { value: "", label: t("allActors") },
             ...actors.map((a) => ({ value: a, label: a })),
           ]}
         />
-        <div className="inline-flex items-center gap-1 text-sm text-muted">
-          <span>{t("residency")}</span>
+        <div className="inline-flex w-full items-center gap-1 text-sm text-muted sm:w-auto">
+          <span className="shrink-0">{t("residency")}</span>
           <Select
             value={region}
             onChange={setRegion}
             aria-label={t("residency")}
             size="sm"
-            className="w-32"
+            className="flex-1 sm:w-32 sm:flex-none"
             options={REGIONS.map((r) => ({
               value: r,
               label: r.toUpperCase(),
             }))}
           />
         </div>
-        <label className="inline-flex items-center gap-2 text-sm text-muted">
-          {t("retention")}: {retentionDays}d
+        <label className="inline-flex w-full items-center gap-2 text-sm text-muted sm:w-auto">
+          <span className="shrink-0">{t("retention")}: {retentionDays}d</span>
           <input
             type="range"
             min={0}
@@ -88,7 +88,7 @@ export function GovAuditLogViewer() {
             value={retentionDays}
             onChange={(e) => setRetentionDays(Number(e.target.value))}
             aria-label={t("retention")}
-            className="w-32 accent-brand"
+            className="w-full accent-brand sm:w-32"
           />
         </label>
         {purged > 0 ? (

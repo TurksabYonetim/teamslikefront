@@ -19,7 +19,7 @@ const ICON: Record<PolicyKind, string> = {
   conditionalAccess: "identification",
 };
 
-const CONFIG_INPUT = "input w-32";
+const CONFIG_INPUT = "input w-full min-w-0 sm:w-32";
 
 export function SecurityPolicies() {
   const { t } = useTranslation("admin");
@@ -37,14 +37,14 @@ export function SecurityPolicies() {
               key={p.id}
               className="flex flex-wrap items-center gap-2 rounded-lg border border-line p-3"
             >
-              <Icon name={ICON[p.kind]} className="h-[18px] w-[18px] text-muted" />
+              <Icon name={ICON[p.kind]} className="h-[18px] w-[18px] shrink-0 text-muted" />
               <div className="min-w-0 flex-1">
                 <div className="text-sm font-medium text-ink">{t(`policy.${p.kind}`)}</div>
                 <div className="mt-1 flex flex-wrap gap-2">
                   {Object.entries(p.config).map(([k, v]) => (
                     <label
                       key={k}
-                      className="inline-flex items-center gap-1 text-sm text-muted"
+                      className="flex w-full min-w-0 items-center gap-1 text-sm text-muted sm:inline-flex sm:w-auto"
                     >
                       {k}:
                       <input

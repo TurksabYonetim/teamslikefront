@@ -87,11 +87,11 @@ export function GlobalSearchDialog({ open, onClose }: { open: boolean; onClose: 
             aria-expanded={items.length > 0}
             aria-controls="palette-list"
             aria-activedescendant={items.length > 0 ? `palette-option-${active}` : undefined}
-            className="h-12 flex-1 bg-transparent text-sm text-ink outline-none placeholder:text-muted dark:text-white"
+            className="h-12 flex-1 bg-transparent text-base text-ink outline-none placeholder:text-muted md:text-sm dark:text-white"
           />
         </div>
 
-        <ul id="palette-list" role="listbox" className="max-h-[55vh] overflow-y-auto">
+        <ul id="palette-list" role="listbox" className="max-h-[55dvh] overflow-y-auto">
           {query.length < 1 ? (
             <li className="px-3 py-6 text-center text-sm text-muted">{t("palette.hint")}</li>
           ) : items.length === 0 ? (
@@ -113,14 +113,14 @@ export function GlobalSearchDialog({ open, onClose }: { open: boolean; onClose: 
                   >
                     {item.kind === "conv" ? (
                       <span className="flex items-center gap-2 text-sm font-medium text-ink dark:text-white">
-                        {Icon && <Icon className="h-4 w-4 text-muted" aria-hidden />}
-                        {item.label}
-                        <span className="text-xs text-muted">· {t("palette.conversations")}</span>
+                        {Icon && <Icon className="h-4 w-4 shrink-0 text-muted" aria-hidden />}
+                        <span className="truncate">{item.label}</span>
+                        <span className="shrink-0 text-xs text-muted">· {t("palette.conversations")}</span>
                       </span>
                     ) : (
                       <>
                         <span className="truncate text-sm font-medium text-ink dark:text-white">{item.label}</span>
-                        <span className="text-xs text-muted">{item.meta}</span>
+                        <span className="truncate text-xs text-muted">{item.meta}</span>
                       </>
                     )}
                   </button>

@@ -204,7 +204,7 @@ function OrganizationTab() {
             <Field label={t("organization.tenantId")} htmlFor="org-id">
               <input
                 id="org-id"
-                className={INPUT_CLS + " font-mono text-xs"}
+                className={INPUT_CLS + " font-mono text-base md:text-xs"}
                 value={tenant?.id ?? ""}
                 readOnly
               />
@@ -293,7 +293,7 @@ function ProfileTab() {
             <Field label={t("profile.userId")} htmlFor="pf-id">
               <input
                 id="pf-id"
-                className={INPUT_CLS + " font-mono text-xs"}
+                className={INPUT_CLS + " font-mono text-base md:text-xs"}
                 value={me?.user_id ?? ""}
                 readOnly
               />

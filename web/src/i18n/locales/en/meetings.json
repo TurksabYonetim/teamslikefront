@@ -134,6 +134,7 @@
   "makeCoHost": "Make co-host",
   "removeParticipant": "Remove from meeting",
   "chatPlaceholder": "Type a message…",
+  "chatEmpty": "No messages yet. Start the conversation.",
   "send": "Send",
   "captionsOn": "Captions on",
   "captionsOff": "Captions off",

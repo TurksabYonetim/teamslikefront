@@ -27,13 +27,13 @@ export function CallQueuePanel() {
   }
 
   return (
-    <div className="call-queue-panel mx-auto flex h-full w-full max-w-4xl flex-col gap-6 overflow-y-auto p-4">
+    <div className="call-queue-panel mx-auto flex h-full w-full max-w-4xl flex-col gap-6 overflow-y-auto p-3 sm:p-4">
       <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{t("queues.title")}</h2>
       {queues.map((q) => (
-        <section key={q.id} aria-labelledby={`queue-heading-${q.id}`} className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+        <section key={q.id} aria-labelledby={`queue-heading-${q.id}`} className="rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-800 sm:p-4">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-            <h3 id={`queue-heading-${q.id}`} className="text-base font-semibold text-gray-900 dark:text-white">{q.name}</h3>
-            <div className="flex items-center gap-2 text-sm">
+            <h3 id={`queue-heading-${q.id}`} className="min-w-0 truncate text-base font-semibold text-gray-900 dark:text-white">{q.name}</h3>
+            <div className="flex flex-wrap items-center gap-2 text-sm">
               <Badge><HiOutlineArrowsRightLeft size={13} aria-hidden className="-ml-0.5 mr-1 inline-block align-text-bottom" />{t("queues.strategy")}: {t(`enums.strategy.${q.strategy}`)}</Badge>
               <Badge><HiOutlineClock size={13} aria-hidden className="-ml-0.5 mr-1 inline-block align-text-bottom" />{t("queues.estWait")}: {formatDuration(estimatedWaitSec(q))}</Badge>
             </div>
@@ -71,11 +71,11 @@ export function CallQueuePanel() {
             ))}
           </ul>
 
-          <div className="mb-2 flex items-center justify-between">
-            <p className="text-xs font-semibold text-muted">
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <p className="min-w-0 truncate text-xs font-semibold text-muted">
               {t("queues.waiting")} ({q.waiting.length})
             </p>
-            <Button size="sm" onClick={() => pbxStore.getState().assignNext(q.id)} disabled={q.waiting.length === 0}>
+            <Button size="sm" className="shrink-0" onClick={() => pbxStore.getState().assignNext(q.id)} disabled={q.waiting.length === 0}>
               {t("queues.assignNext")}
             </Button>
           </div>
@@ -88,8 +88,8 @@ export function CallQueuePanel() {
           ) : (
             <ul className="flex flex-col gap-1">
               {q.waiting.map((c) => (
-                <li key={c.id} className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2 dark:bg-gray-700/50">
-                  <span className="text-sm text-gray-900 dark:text-white">{formatNumber(c.from)}</span>
+                <li key={c.id} className="flex items-center justify-between gap-2 rounded-lg bg-gray-50 px-3 py-2 dark:bg-gray-700/50">
+                  <span className="min-w-0 truncate text-sm text-gray-900 dark:text-white">{formatNumber(c.from)}</span>
                   {c.callbackRequested ? (
                     <Badge>{t("queues.callbackRequested")}</Badge>
                   ) : (

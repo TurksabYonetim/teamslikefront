@@ -66,6 +66,14 @@ export function MessageComposer() {
   const slashMatches =
     slashToken !== null ? SLASH_COMMANDS.filter((c) => c.startsWith(slashToken.toLowerCase())) : [];
 
+  // Auto-grow: tek satırdan başlar, içeriğe göre büyür (minimal/sade composer; tavan 160px).
+  React.useLayoutEffect(() => {
+    const ta = taRef.current;
+    if (!ta) return;
+    ta.style.height = "auto";
+    ta.style.height = `${Math.min(ta.scrollHeight, 160)}px`;
+  }, [text]);
+
   // Konu değişince Reply moduna dön.
   React.useEffect(() => {
     setMode("reply");
@@ -146,8 +154,13 @@ export function MessageComposer() {
   const scheduleMessage = messagingStore.getState().scheduleMessage;
   const setReplyTarget = messagingStore.getState().setReplyTarget;
 
+  // Kompakt "dock" düzeni: Reply/Note geçişi biçim çubuğuyla aynı satırda; metin
+  // alanı ile aksiyon kümesi tek satırda birleşir (eskiden ayrı iki satırdı) →
+  // composer belirgin biçimde alçalır. Hareket = mevcut press/hover/focus mikro
+  // geri bildirimleri (Emil: amaçlı, dekoratif değil); kalıcı alana giriş animasyonu yok.
   return (
-    <div className="shrink-0 border-t border-line bg-surface-2 p-3 dark:border-gray-700 dark:bg-gray-700">
+    <div className="shrink-0 border-t border-line bg-surface-2 p-2 dark:border-gray-700 dark:bg-gray-700">
+      <div className="mx-auto w-full max-w-5xl 2xl:max-w-6xl">
       {scheduledCount > 0 ? (
         <div className="mb-2">
           <button type="button" onClick={() => setScheduledOpen(true)} aria-label={t("scheduledTitle")}>
@@ -176,38 +189,43 @@ export function MessageComposer() {
         </div>
       ) : null}
 
-      <div className="mb-2 inline-flex overflow-hidden rounded-md border border-line dark:border-gray-700" role="tablist">
-        {(["reply", "note"] as Mode[]).map((m) => (
-          <button
-            key={m}
-            type="button"
-            role="tab"
-            aria-selected={mode === m}
-            onClick={() => setMode(m)}
-            className={clsx(
-              "h-8 px-3 text-sm transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97]",
-              mode === m
-                ? m === "note"
-                  ? "bg-amber-500 text-white"
-                  : "bg-brand text-white"
-                : "bg-white text-muted hover:bg-surface-2 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700",
-            )}
-          >
-            {m === "reply" ? t("composer.reply") : t("composer.note")}
-          </button>
-        ))}
-      </div>
-
       <div
         className={clsx(
-          "rounded-lg border p-2",
+          "rounded-lg border p-1.5",
           mode === "note"
             ? "border-amber-400 bg-white dark:border-amber-500 dark:bg-gray-800"
             : "border-line bg-white dark:border-gray-700 dark:bg-gray-800",
         )}
       >
-        {/* Biçimlendirme toolbar'ı */}
-        <div className="mb-1 flex items-center gap-0.5 border-b border-line pb-1 dark:border-gray-700">
+        {/* Üst satır: kompakt Yanıt/Not geçişi + biçimlendirme araçları (tek satırda) */}
+        <div className="mb-1.5 flex flex-wrap items-center gap-1">
+          <div
+            className="inline-flex shrink-0 overflow-hidden rounded-md border border-line dark:border-gray-700"
+            role="tablist"
+          >
+            {(["reply", "note"] as Mode[]).map((m) => (
+              <button
+                key={m}
+                type="button"
+                role="tab"
+                aria-selected={mode === m}
+                onClick={() => setMode(m)}
+                className={clsx(
+                  "h-7 px-2.5 text-xs font-medium transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97]",
+                  mode === m
+                    ? m === "note"
+                      ? "bg-amber-500 text-white"
+                      : "bg-brand text-white"
+                    : "bg-white text-muted hover:bg-surface-2 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700",
+                )}
+              >
+                {m === "reply" ? t("composer.reply") : t("composer.note")}
+              </button>
+            ))}
+          </div>
+
+          <span className="mx-0.5 h-5 w-px shrink-0 bg-line dark:bg-gray-700" aria-hidden />
+
           <FmtBtn label={t("bold")} onClick={() => wrap("**")}>
             <HiOutlineBold className="h-4 w-4" aria-hidden />
           </FmtBtn>
@@ -226,61 +244,62 @@ export function MessageComposer() {
           <EmojiPicker onPick={insertEmoji} />
         </div>
 
-        <label htmlFor="composer" className="sr-only">
-          {placeholder}
-        </label>
-        <div className="relative">
-          <textarea
-            id="composer"
-            ref={taRef}
-            rows={2}
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            onKeyDown={onKeyDown}
-            placeholder={placeholder}
-            className="w-full resize-none bg-transparent text-sm text-ink outline-none placeholder:text-gray-400 dark:text-white"
-          />
+        {/* Birleşik satır: metin alanı (flex-1, büyür) + aksiyon kümesi + Gönder */}
+        <div className="flex flex-wrap items-end gap-1">
+          <div className="relative min-w-0 flex-1 basis-full sm:basis-0">
+            <label htmlFor="composer" className="sr-only">
+              {placeholder}
+            </label>
+            <textarea
+              id="composer"
+              ref={taRef}
+              rows={1}
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              onKeyDown={onKeyDown}
+              placeholder={placeholder}
+              className="block max-h-40 w-full resize-none overflow-y-auto bg-transparent px-1 py-2 text-base text-ink outline-none placeholder:text-gray-500 md:text-sm dark:text-white"
+            />
 
-          {mentionMatches.length > 0 ? (
-            <ul
-              role="listbox"
-              aria-label={t("mentionHint")}
-              className="absolute bottom-full left-0 z-20 mb-1 w-56 origin-bottom-left overflow-hidden rounded-md border border-line bg-white p-1 shadow-xl motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)] dark:border-gray-700 dark:bg-gray-800"
-            >
-              {mentionMatches.map((mm) => (
-                <li key={mm.id}>
-                  <button
-                    type="button"
-                    onClick={() => pickMention(mm.name)}
-                    className="flex w-full items-center rounded-md px-2 py-1.5 text-start text-sm text-ink transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-surface-2 dark:text-white dark:hover:bg-gray-700"
-                  >
-                    @{mm.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : slashMatches.length > 0 ? (
-            <ul
-              role="listbox"
-              aria-label="/"
-              className="absolute bottom-full left-0 z-20 mb-1 w-56 origin-bottom-left overflow-hidden rounded-md border border-line bg-white p-1 shadow-xl motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)] dark:border-gray-700 dark:bg-gray-800"
-            >
-              {slashMatches.map((c) => (
-                <li key={c}>
-                  <button
-                    type="button"
-                    onClick={() => pickSlash(c)}
-                    className="flex w-full items-center rounded-md px-2 py-1.5 text-start text-sm text-ink transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-surface-2 dark:text-white dark:hover:bg-gray-700"
-                  >
-                    /{c} <span className="ml-2 text-xs text-muted">{t(`slash.${c}`)}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
+            {mentionMatches.length > 0 ? (
+              <ul
+                role="listbox"
+                aria-label={t("mentionHint")}
+                className="absolute bottom-full left-0 z-20 mb-1 w-56 origin-bottom-left overflow-hidden rounded-md border border-line bg-white p-1 shadow-xl motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)] dark:border-gray-700 dark:bg-gray-800"
+              >
+                {mentionMatches.map((mm) => (
+                  <li key={mm.id}>
+                    <button
+                      type="button"
+                      onClick={() => pickMention(mm.name)}
+                      className="flex w-full items-center rounded-md px-2 py-1.5 text-start text-sm text-ink transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-surface-2 dark:text-white dark:hover:bg-gray-700"
+                    >
+                      @{mm.name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : slashMatches.length > 0 ? (
+              <ul
+                role="listbox"
+                aria-label="/"
+                className="absolute bottom-full left-0 z-20 mb-1 w-56 origin-bottom-left overflow-hidden rounded-md border border-line bg-white p-1 shadow-xl motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)] dark:border-gray-700 dark:bg-gray-800"
+              >
+                {slashMatches.map((c) => (
+                  <li key={c}>
+                    <button
+                      type="button"
+                      onClick={() => pickSlash(c)}
+                      className="flex w-full items-center rounded-md px-2 py-1.5 text-start text-sm text-ink transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-surface-2 dark:text-white dark:hover:bg-gray-700"
+                    >
+                      /{c} <span className="ml-2 text-xs text-muted">{t(`slash.${c}`)}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
 
-        <div className="mt-1 flex items-center gap-1">
           <Dropdown
             label={t("attach")}
             align="start"
@@ -358,13 +377,14 @@ export function MessageComposer() {
             <HiOutlineClock className="h-[18px] w-[18px]" aria-hidden />
           </IconButton>
 
-          <Button className="ml-auto" onClick={submit} disabled={!text.trim()} aria-label={t("send")}>
+          <Button onClick={submit} disabled={!text.trim()} aria-label={t("send")}>
             <HiOutlinePaperAirplane className="h-[18px] w-[18px]" aria-hidden />
             <span className="hidden sm:inline">{t("send")}</span>
           </Button>
         </div>
       </div>
 
+      </div>
       <CreatePollDialog open={pollOpen} onClose={() => setPollOpen(false)} />
       <ScheduledTray open={scheduledOpen} onClose={() => setScheduledOpen(false)} />
     </div>

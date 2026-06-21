@@ -8,6 +8,7 @@ import {
   EmptyState,
   Skeleton,
   Tabs,
+  TimeField,
   useToast,
 } from "@/components/ui";
 import { apiErrorMessage } from "@/lib/api";
@@ -159,14 +160,14 @@ function EventTypesTab() {
 
   return (
     <div className="pt-4">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
         <h2 className="text-base font-semibold text-ink">
           {t("et.list.title")}{" "}
           <span className="text-gray-500 font-normal">
             {t("et.list.count", { count: items.length })}
           </span>
         </h2>
-        <Button leftIcon={<Icon name="plus" className="w-4 h-4" />} onClick={openCreate}>
+        <Button className="shrink-0" leftIcon={<Icon name="plus" className="w-4 h-4" />} onClick={openCreate}>
           {t("et.list.new")}
         </Button>
       </div>
@@ -270,7 +271,7 @@ function EventTypesTab() {
       {drawerOpen && (
         <>
           <Backdrop level="drawer" onClick={() => setDrawerOpen(false)} />
-          <div className="fixed right-0 top-0 z-40 h-screen w-full max-w-sm overflow-y-auto bg-white p-4 motion-safe:[animation:tl-drawer-in-end_var(--dur-modal)_var(--ease-drawer)_both]">
+          <div className="fixed right-0 top-0 z-40 h-[100dvh] w-full max-w-sm overflow-y-auto bg-white p-4 pb-[max(1rem,env(safe-area-inset-bottom))] motion-safe:[animation:tl-drawer-in-end_var(--dur-modal)_var(--ease-drawer)_both]">
             <div className="mb-4 flex items-center justify-between">
               <h4 className="text-sm font-semibold text-ink">
                 {editId ? t("et.form.update") : t("et.form.create")}
@@ -463,81 +464,70 @@ function AvailabilityTab() {
 
   return (
     <div className="pt-4 max-w-2xl">
-      <h2 className="text-base font-semibold text-ink">
-        {t("et.availability.title")}
-      </h2>
-      <p className="text-sm text-gray-500 mb-4">{t("et.availability.description")}</p>
+      <h2 className="text-base font-semibold text-ink">{t("et.availability.title")}</h2>
+      <p className="text-sm text-muted mb-4">{t("et.availability.description")}</p>
 
       {isLoading ? (
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           {Array.from({ length: 7 }).map((_, i) => (
             <Skeleton key={i} className="h-12 w-full" />
           ))}
         </div>
       ) : (
-        <div className="space-y-2">
+        <div className="flex flex-col gap-1.5">
           {rows.map((r, idx) => (
             <div
               key={r.weekday}
-              className="flex items-center gap-3 rounded-lg border border-gray-200 p-3"
+              className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-lg border border-gray-200 px-3 py-2"
             >
-              <label className="flex w-40 items-center gap-2 text-sm font-medium text-gray-900">
+              <label className="flex w-full cursor-pointer items-center gap-2.5 text-sm font-medium text-gray-900 sm:w-44">
                 <input
                   type="checkbox"
-                  className="checkbox"
+                  className="peer sr-only"
                   checked={r.open}
                   onChange={(e) =>
                     setRows((prev) =>
-                      prev.map((x, i) =>
-                        i === idx ? { ...x, open: e.target.checked } : x,
-                      ),
+                      prev.map((x, i) => (i === idx ? { ...x, open: e.target.checked } : x)),
                     )
                   }
                 />
-                {weekdays[r.weekday]}
+                <span
+                  aria-hidden="true"
+                  className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-[1.5px] border-gray-300 bg-white text-sm font-semibold text-ink-3 motion-safe:transition-colors motion-safe:duration-150 motion-safe:ease-[var(--ease-out)] peer-checked:border-brand peer-checked:bg-brand peer-checked:text-white peer-focus-visible:ring-4 peer-focus-visible:ring-blue-300"
+                >
+                  {weekdays[r.weekday].slice(0, 1)}
+                </span>
+                <span className="text-ink-3 peer-checked:text-ink">{weekdays[r.weekday]}</span>
               </label>
-              <input
-                type="time"
-                disabled={!r.open}
-                className="input disabled:opacity-40"
-                value={r.start}
-                onChange={(e) =>
-                  setRows((prev) =>
-                    prev.map((x, i) =>
-                      i === idx ? { ...x, start: e.target.value } : x,
-                    ),
-                  )
-                }
-              />
-              <span className="text-gray-400">–</span>
-              <input
-                type="time"
-                disabled={!r.open}
-                className="input disabled:opacity-40"
-                value={r.end}
-                onChange={(e) =>
-                  setRows((prev) =>
-                    prev.map((x, i) =>
-                      i === idx ? { ...x, end: e.target.value } : x,
-                    ),
-                  )
-                }
-              />
+              <div className="flex items-center gap-1.5">
+                <TimeField
+                  disabled={!r.open}
+                  aria-label={`${weekdays[r.weekday]} ${t("et.availability.start", { defaultValue: "başlangıç" })}`}
+                  value={r.start}
+                  onChange={(v) =>
+                    setRows((prev) => prev.map((x, i) => (i === idx ? { ...x, start: v } : x)))
+                  }
+                />
+                <span className="text-muted">–</span>
+                <TimeField
+                  disabled={!r.open}
+                  aria-label={`${weekdays[r.weekday]} ${t("et.availability.end", { defaultValue: "bitiş" })}`}
+                  value={r.end}
+                  onChange={(v) =>
+                    setRows((prev) => prev.map((x, i) => (i === idx ? { ...x, end: v } : x)))
+                  }
+                />
+              </div>
             </div>
           ))}
         </div>
       )}
 
-      <div className="mt-4 flex items-center gap-3">
+      <div className="mt-4 flex flex-wrap items-center gap-3">
         <label htmlFor="tz" className="text-sm font-medium text-ink">
           {t("et.availability.timezone")}
         </label>
-        <input
-          id="tz"
-          className="input"
-          value={tz}
-          onChange={(e) => setTz(e.target.value)}
-        />
+        <input id="tz" className="input" value={tz} onChange={(e) => setTz(e.target.value)} />
       </div>
 
       <div className="mt-4">
@@ -613,7 +603,8 @@ function BookingsTab() {
 export function BookingPage() {
   const { t } = useTranslation("booking");
   return (
-    <div className="px-4 pt-4 bg-white">
+    <div className="flex-1 overflow-y-auto bg-white px-4 pt-4 pb-6 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-6xl">
       <Tabs
         items={[
           {
@@ -633,6 +624,7 @@ export function BookingPage() {
           },
         ]}
       />
+      </div>
     </div>
   );
 }

@@ -52,7 +52,7 @@ export function Tabs({
     <div>
       <div
         role="tablist"
-        className="relative flex gap-1 border-b border-line"
+        className="relative flex gap-1 border-b border-line overflow-x-auto no-scrollbar"
       >
         {/* emil: origin-left 1px bar; scaleX=genişlik, translateX=konum (saf transform) */}
         <span
@@ -76,7 +76,7 @@ export function Tabs({
               onClick={() => setActive(it.id)}
               onKeyDown={(e) => onKeyDown(e, i)}
               className={clsx(
-                "relative px-4 py-2.5 text-sm font-medium -mb-px transition-[color,transform] motion-safe:active:scale-[0.97] ease-[var(--ease-out)]",
+                "relative shrink-0 whitespace-nowrap px-3 sm:px-4 py-2.5 text-sm font-medium -mb-px transition-[color,transform] motion-safe:active:scale-[0.97] ease-[var(--ease-out)]",
                 "focus:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-t",
                 selected ? "text-brand" : "text-muted hover:text-ink",
               )}

@@ -291,7 +291,7 @@ export function CopilotPage() {
 
       {!messagesLoading && activeId && messages.length === 0 && (
         <>
-          <div data-role="assistant" className="msg-card p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-6 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
+          <div data-role="assistant" className="msg-card p-4 sm:p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-3 sm:gap-6 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
             <img className="msg-avatar h-6 w-6 rounded-full" src="/images/logo.svg" alt="logo" />
             <div className="format dark:format-invert format-blue">
               <p>{t("simulated.empty")}</p>
@@ -313,12 +313,12 @@ export function CopilotPage() {
 
       {messages.map((m) =>
         m.role === "user" ? (
-          <div key={m.id} data-role="user" className="msg-card p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-6 group relative pe-14 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
+          <div key={m.id} data-role="user" className="msg-card p-4 sm:p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-3 sm:gap-6 group relative pe-12 sm:pe-14 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
             <img className="msg-avatar h-6 w-6 rounded-full" src="/images/users/bonnie-green.png" alt="user" />
             <div className="msg-body format dark:format-invert format-blue min-w-0">
               <MessageContent content={m.content} copyLabel={t("message.copyCode")} copiedLabel={t("message.copied")} onCopyCode={(code) => handleCopy(code)} />
             </div>
-            <button type="button" onClick={() => handleCopy(m.content, m.id)} className="msg-copy absolute end-4 top-6 inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-400 opacity-0 transition-opacity duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:opacity-100 group-hover:opacity-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            <button type="button" onClick={() => handleCopy(m.content, m.id)} className="msg-copy absolute end-3 top-4 sm:end-4 sm:top-6 inline-flex cursor-pointer justify-center rounded-lg p-1.5 text-gray-400 opacity-0 transition-opacity duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-gray-100 hover:text-gray-900 focus:opacity-100 group-hover:opacity-100 [@media(pointer:coarse)]:opacity-100 [@media(pointer:coarse)]:pointer-events-auto dark:hover:bg-gray-600 dark:hover:text-white">
               {copiedId === m.id ? (
                 <svg className="w-5 h-5 text-green-600 dark:text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 11.917 9.724 16.5 19 7.5" />
@@ -332,7 +332,7 @@ export function CopilotPage() {
             </button>
           </div>
         ) : (
-          <div key={m.id} data-role="assistant" className="msg-card p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-6 group relative pe-14 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
+          <div key={m.id} data-role="assistant" className="msg-card p-4 sm:p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-3 sm:gap-6 group relative pe-12 sm:pe-14 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]">
             <img className="msg-avatar h-6 w-6 rounded-full" src="/images/logo.svg" alt="assistant" />
             <div className="msg-body format dark:format-invert format-blue min-w-0">
               <MessageContent content={m.content} copyLabel={t("message.copyCode")} copiedLabel={t("message.copied")} onCopyCode={(code) => handleCopy(code)} />
@@ -368,7 +368,7 @@ export function CopilotPage() {
       )}
 
       {sendMessage.isPending && (
-        <div data-role="assistant" className="msg-card p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-6 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]" aria-live="polite">
+        <div data-role="assistant" className="msg-card p-4 sm:p-6 bg-white dark:bg-gray-800 shadow-xs rounded-lg flex items-start gap-3 sm:gap-6 motion-safe:[animation:tl-fade-in_240ms_var(--ease-out)]" aria-live="polite">
           <img className="msg-avatar h-6 w-6 rounded-full" src="/images/logo.svg" alt="assistant" />
           <div className="flex items-center gap-2 text-sm text-muted dark:text-gray-400">
             <span className="flex gap-1">
@@ -501,7 +501,7 @@ export function CopilotPage() {
       </div>
 
       {/* drawer component */}
-      <div id="drawer-chat-history" className="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] translate-x-full bg-white w-80 dark:bg-gray-800" tabIndex={-1} aria-labelledby="drawer-right-label">
+      <div id="drawer-chat-history" className="fixed top-0 right-0 z-40 h-[100dvh] p-4 overflow-y-auto transition-transform duration-[var(--dur-modal)] ease-[var(--ease-drawer)] translate-x-full bg-white w-80 max-w-[calc(100vw-2rem)] dark:bg-gray-800" tabIndex={-1} aria-labelledby="drawer-right-label">
         <div className="border-b border-gray-200 dark:border-gray-700">
           <h5 id="drawer-right-label" className="inline-flex items-center mb-4 text-base font-semibold text-gray-900 dark:text-white">{t("history.title")}</h5>
           <button type="button" data-drawer-hide="drawer-chat-history" aria-controls="drawer-chat-history" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -532,7 +532,7 @@ export function CopilotPage() {
           </div>
         </div>
 
-        <div className="my-5 space-y-5 h-[calc(100vh-19rem)] overflow-y-scroll">
+        <div className="my-5 space-y-5 h-[calc(100dvh-19rem)] overflow-y-scroll">
           {conversationsQuery.isLoading && sessions.length === 0 && (
             <div className="px-1.5">
               <SkeletonText lines={4} />
@@ -721,7 +721,7 @@ export function CopilotPage() {
                   <div className="min-h-[20rem]">
                     {settingsTab === "general" && (
                     <div role="tabpanel">
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                           <div>
                             <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.theme")}</h6>
                             <p className="text-gray-500 text-sm font-normal dark:text-gray-400">{t("settings.themeDescription")}</p>
@@ -752,7 +752,7 @@ export function CopilotPage() {
                             </Dropdown>
                           </div>
                       </div>
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                           <div>
                             <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.showCode")}</h6>
                             <p className="text-gray-500 text-sm font-normal dark:text-gray-400">{t("settings.showCodeDescription")}</p>
@@ -764,7 +764,7 @@ export function CopilotPage() {
                             </label>
                           </div>
                       </div>
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                         <div>
                           <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.language")}</h6>
                           <p className="text-gray-500 text-sm font-normal dark:text-gray-400">{t("settings.languageDescription")}</p>
@@ -801,7 +801,7 @@ export function CopilotPage() {
                           </Dropdown>
                         </div>
                       </div>
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                           <div>
                             <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.archiveAllChats")}</h6>
                             <p className="text-gray-500 text-sm font-normal dark:text-gray-400">{t("settings.archiveAllChatsDescription")}</p>
@@ -813,7 +813,7 @@ export function CopilotPage() {
                             </label>
                           </div>
                       </div>
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                           <div>
                             <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.deleteChats")}</h6>
                             <p className="text-gray-500 text-sm font-normal dark:text-gray-400">{t("settings.deleteChatsDescription")}</p>
@@ -828,7 +828,7 @@ export function CopilotPage() {
                     )}
                     {settingsTab === "data" && (
                     <div role="tabpanel">
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                         <div>
                           <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.improveModel")}</h6>
                           <p className="text-gray-500 text-sm font-normal dark:text-gray-400 max-w-md">{t("settings.improveModelDescription")}</p>
@@ -854,7 +854,7 @@ export function CopilotPage() {
                           </Dropdown>
                         </div>
                       </div>
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                         <div>
                           <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.sharedLinks")}</h6>
                           <p className="text-gray-500 text-sm font-normal dark:text-gray-400">{t("settings.sharedLinksDescription")}</p>
@@ -865,7 +865,7 @@ export function CopilotPage() {
                           </button>
                         </div>
                       </div>
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                         <div>
                           <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.exportData")}</h6>
                           <p className="text-gray-500 text-sm font-normal dark:text-gray-400">{t("settings.exportDataDescription")}</p>
@@ -879,7 +879,7 @@ export function CopilotPage() {
                           </button>
                         </div>
                       </div>
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                           <div>
                             <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.deleteAccount")}</h6>
                             <p className="text-gray-500 text-sm font-normal dark:text-gray-400">{t("settings.deleteAccountDescription")}</p>
@@ -895,7 +895,7 @@ export function CopilotPage() {
                     {settingsTab === "applications" && (
                     <div role="tabpanel">
                       <h6 className="text-sm text-gray-900 dark:text-white font-medium py-5 border-b border-gray-200 dark:border-gray-700">{t("settings.connectApps")}</h6>
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                         <div>
                           <h6 className="text-gray-900 dark:text-white text-base font-medium mb-3 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" className="me-2 h-6" viewBox="0 0 1443.061 1249.993">
                             <path fill="#3777e3" d="M240.525 1249.993l240.492-416.664h962.044l-240.514 416.664z"></path>
@@ -910,7 +910,7 @@ export function CopilotPage() {
                           </button>
                         </div>
                       </div>
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                         <div>
                           <h6 className="text-gray-900 dark:text-white text-base font-medium mb-3 flex items-center">Mailchimp</h6>
                           <p className="text-gray-500 text-sm font-normal dark:text-gray-400 max-w-md">{t("settings.mailchimpDescription")}</p>
@@ -921,7 +921,7 @@ export function CopilotPage() {
                           </button>
                         </div>
                       </div>
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                         <div>
                           <h6 className="text-gray-900 dark:text-white text-base font-medium mb-3 flex items-center">Flowbite</h6>
                           <p className="text-gray-500 text-sm font-normal dark:text-gray-400 max-w-md">{t("settings.flowbiteDescription")}</p>
@@ -932,7 +932,7 @@ export function CopilotPage() {
                           </button>
                         </div>
                       </div>
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                         <div>
                           <h6 className="text-gray-900 dark:text-white text-base font-medium mb-3 flex items-center">Figma</h6>
                           <p className="text-gray-500 text-sm font-normal dark:text-gray-400 max-w-md">{t("settings.figmaDescription")}</p>
@@ -947,7 +947,7 @@ export function CopilotPage() {
                     )}
                     {settingsTab === "security" && (
                     <div role="tabpanel">
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                         <div>
                           <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.multiFactorAuth")}</h6>
                           <p className="text-gray-500 text-sm font-normal dark:text-gray-400 max-w-md">{t("settings.multiFactorAuthDescription")}</p>
@@ -958,7 +958,7 @@ export function CopilotPage() {
                           </button>
                         </div>
                       </div>
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                         <div>
                           <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.logOutAllDevices")}</h6>
                           <p className="text-gray-500 text-sm font-normal dark:text-gray-400 max-w-md">{t("settings.logOutAllDevicesDescription")}</p>
@@ -969,7 +969,7 @@ export function CopilotPage() {
                           </button>
                         </div>
                       </div>
-                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex items-center gap-4 justify-between">
+                      <div className="py-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-4 justify-between">
                         <div>
                           <h6 className="text-gray-900 dark:text-white text-base font-medium mb-1">{t("settings.logOutThisDevice")}</h6>
                           <p className="text-gray-500 text-sm font-normal dark:text-gray-400 max-w-md">{t("settings.logOutThisDeviceDescription")}</p>

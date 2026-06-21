@@ -171,7 +171,7 @@ export function Sidebar() {
       <div
         className={clsx(
           "overflow-y-auto no-scrollbar relative py-5 px-3 h-full bg-surface border-r border-line transition-[width] duration-200 ease-drawer",
-          collapsed ? "w-16" : "w-64 max-w-[calc(86vw-4rem)] md:max-w-none",
+          collapsed ? "w-16" : "w-64 xl:w-72 max-w-[calc(86vw-4rem)] md:max-w-none",
         )}
       >
         {/* panel başlığı: logo (daraltılmışken yalnız ikon) */}
@@ -217,21 +217,22 @@ export function Sidebar() {
             <LanguageSwitcher />
           </div>
         )}
-
-        {/* daralt / genişlet (sadece masaüstü) */}
-        <button
-          onClick={() => setCollapsed((c) => !c)}
-          aria-label={collapsed ? t("panel.show") : t("panel.hide")}
-          title={collapsed ? t("panel.show") : t("panel.hide")}
-          aria-expanded={!collapsed}
-          className={clsx(
-            "hidden md:inline-flex absolute bottom-2 p-2 text-muted rounded-full cursor-pointer transition-[background-color,color,transform] duration-150 ease-out hover:text-ink hover:bg-gray-100 active:scale-90",
-            collapsed ? "left-1/2 -translate-x-1/2" : "right-2",
-          )}
-        >
-          <Icon name={collapsed ? "chevronRight" : "chevronLeft"} aria-hidden className="w-6 h-6" />
-        </button>
       </div>
+
+      {/* daralt / genişlet (sadece masaüstü) — panelin alt kenarına sabit,
+          kaydırma akışından bağımsız (dropdown açılınca yukarı kaymaz) */}
+      <button
+        onClick={() => setCollapsed((c) => !c)}
+        aria-label={collapsed ? t("panel.show") : t("panel.hide")}
+        title={collapsed ? t("panel.show") : t("panel.hide")}
+        aria-expanded={!collapsed}
+        className={clsx(
+          "hidden md:inline-flex absolute bottom-2 p-2 text-muted rounded-full cursor-pointer transition-[background-color,color,transform] duration-150 ease-out hover:text-ink hover:bg-gray-100 active:scale-90",
+          collapsed ? "left-1/2 -translate-x-1/2" : "right-2",
+        )}
+      >
+        <Icon name={collapsed ? "chevronRight" : "chevronLeft"} aria-hidden className="w-6 h-6" />
+      </button>
     </div>
   );
 }

@@ -7,9 +7,10 @@ import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
+import trLocale from "@fullcalendar/core/locales/tr";
 import i18n from "@/i18n/i18n";
 import { Icon } from "@/components/Icon";
-import { Badge, Button, ConfirmDialog, Modal, useToast } from "@/components/ui";
+import { Badge, Button, ConfirmDialog, Modal, TimeField, useToast } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { appointmentsStore } from "../appointments.store";
 import { HOST_NAMES } from "../appointments.data";
@@ -92,6 +93,7 @@ export function BookingsCalendar() {
       plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
       initialView: isMobile ? "listWeek" : "dayGridMonth",
       height: "auto",
+      locale: isTr ? trLocale : "en",
       firstDay: isTr ? 1 : 0,
       headerToolbar: { left: "prev,next today", center: "title", right: "dayGridMonth,timeGridWeek,listWeek" },
       events: bookingsRef.current.map(toEvent),
@@ -195,7 +197,7 @@ export function BookingsCalendar() {
               <div className="mb-1 text-muted">{t("reschedule")}</div>
               <div className="flex flex-wrap items-center gap-2">
                 <input type="date" value={rDate} onChange={(e) => setRDate(e.target.value)} aria-label={t("newDate")} className={inputCls} disabled={isCancelled} />
-                <input type="time" value={rTime} onChange={(e) => setRTime(e.target.value)} aria-label={t("newTime")} className={inputCls} disabled={isCancelled} />
+                <TimeField value={rTime} onChange={setRTime} aria-label={t("newTime")} disabled={isCancelled} />
               </div>
             </div>
 

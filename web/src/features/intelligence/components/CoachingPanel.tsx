@@ -58,9 +58,9 @@ export function CoachingPanel() {
           const { Icon, tone } = KIND[c.kind];
           return (
             <li key={c.id} className="flex items-start gap-2 text-sm">
-              <Icon size={16} className={`mt-0.5 ${tone}`} aria-hidden />
-              <span className="flex-1 text-ink dark:text-white">{c.text}</span>
-              <span className="text-xs text-muted">{fmtClock(c.tSec)}</span>
+              <Icon size={16} className={`mt-0.5 shrink-0 ${tone}`} aria-hidden />
+              <span className="min-w-0 flex-1 break-words text-ink dark:text-white">{c.text}</span>
+              <span className="shrink-0 text-xs text-muted tabular-nums">{fmtClock(c.tSec)}</span>
             </li>
           );
         })}

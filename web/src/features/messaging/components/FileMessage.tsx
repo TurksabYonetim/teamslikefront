@@ -12,7 +12,7 @@ export function FileMessage({ file }: { file: FileAttachment }) {
 
   if (file.isImage) {
     return (
-      <div className="max-w-xs overflow-hidden rounded-lg border border-line dark:border-gray-700">
+      <div className="w-full max-w-xs overflow-hidden rounded-lg border border-line dark:border-gray-700">
         <div
           data-thumb
           className="flex h-40 items-center justify-center bg-surface-2 text-muted"
@@ -32,7 +32,7 @@ export function FileMessage({ file }: { file: FileAttachment }) {
       type="button"
       onClick={() => console.debug("download mock:", file.name)}
       aria-label={t("file.download")}
-      className="flex items-center gap-3 rounded-lg border border-line bg-surface px-3 py-2 text-left hover:border-brand dark:border-gray-700 dark:bg-gray-800"
+      className="flex max-w-full items-center gap-3 rounded-lg border border-line bg-surface px-3 py-2 text-left hover:border-brand dark:border-gray-700 dark:bg-gray-800"
     >
       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-surface-2 text-brand">
         <HiOutlineDocument className="h-5 w-5" aria-hidden />

@@ -28,10 +28,10 @@ export function SpeakerAnalytics() {
           const name = s.name ?? memberName(s.speakerId);
           const sent = sentimentFromValue(s.sentiment);
           return (
-            <li key={s.speakerId} className="sa-row -mx-1.5 flex items-center gap-2.5 rounded px-1.5 py-1">
-              <span className="w-24 shrink-0 truncate text-sm font-medium text-ink dark:text-white">{name}</span>
+            <li key={s.speakerId} className="sa-row -mx-1.5 flex items-center gap-2 rounded px-1.5 py-1 sm:gap-2.5">
+              <span className="w-16 shrink-0 truncate text-sm font-medium text-ink dark:text-white sm:w-24">{name}</span>
               <span
-                className="h-2 flex-1 overflow-hidden rounded-full bg-line dark:bg-gray-700"
+                className="h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-line dark:bg-gray-700"
                 role="progressbar"
                 aria-valuenow={pct}
                 aria-valuemin={0}

@@ -16,7 +16,7 @@ export function GifStickerPicker({ onSend }: { onSend: (sticker: string) => void
       triggerClassName="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted hover:bg-surface-2 dark:text-gray-400 dark:hover:bg-gray-700"
       trigger={<HiOutlineGif className="h-[18px] w-[18px]" aria-hidden />}
     >
-      <div className="grid grid-cols-6 gap-1">
+      <div className="grid max-w-[calc(100vw-2rem)] grid-cols-6 gap-1">
         {STICKERS.map((s) => (
           <button
             key={s}

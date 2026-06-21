@@ -55,11 +55,12 @@ export function PromptBar({ onRun, disabled }: PromptBarProps) {
           placeholder={t("prompt.placeholder")}
           aria-label={t("prompt.aria")}
           disabled={disabled}
-          className="input flex-1 border-0 bg-transparent px-0 focus:ring-0"
+          className="input min-w-0 flex-1 border-0 bg-transparent px-0 focus:ring-0"
         />
         <Button
           onClick={() => run(value)}
           disabled={disabled || !value.trim()}
+          className="shrink-0"
         >
           <Icon name="sparkles" className="w-4 h-4" /> {t("prompt.run")}
         </Button>

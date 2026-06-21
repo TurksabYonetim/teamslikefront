@@ -106,23 +106,23 @@ export function KanbanBoard() {
                       tone.cardHover
                     }
                   >
-                    <div className="text-sm text-ink">{cd.title}</div>
+                    <div className="break-words text-sm text-ink">{cd.title}</div>
                     <div className="mt-1 flex items-center gap-2">
                       {cd.assigneeId ? (
-                        <span className="inline-flex items-center gap-1.5 text-xs text-muted">
+                        <span className="inline-flex min-w-0 items-center gap-1.5 text-xs text-muted">
                           <span
                             aria-hidden="true"
                             className={
-                              "inline-flex h-5 w-5 items-center justify-center rounded-full text-[0.625rem] font-semibold " +
+                              "inline-flex h-5 w-5 flex-none items-center justify-center rounded-full text-[0.625rem] font-semibold " +
                               tone.ava
                             }
                           >
                             {initials(memberName(cd.assigneeId))}
                           </span>
-                          {memberName(cd.assigneeId)}
+                          <span className="truncate">{memberName(cd.assigneeId)}</span>
                         </span>
                       ) : null}
-                      <span className="ml-auto flex items-center gap-1">
+                      <span className="ml-auto flex flex-none items-center gap-1">
                         <IconButton
                           label={t("board.moveLeft")}
                           disabled={idx === 0}

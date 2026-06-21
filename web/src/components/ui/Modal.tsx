@@ -35,10 +35,11 @@ export function Modal({ open, onClose, title, children, footer, size = "md" }: M
         aria-labelledby={titleId}
         className={clsx(
           "w-full bg-surface rounded-lg shadow-xl origin-center motion-safe:[animation:tl-modal-in_var(--dur-modal)_var(--ease-out)]",
+          "max-h-[calc(100dvh-2rem)] overflow-hidden flex flex-col",
           SIZE[size],
         )}
       >
-        <div className="flex items-center justify-between p-4 border-b border-line">
+        <div className="shrink-0 flex items-center justify-between p-4 border-b border-line">
           <h3 id={titleId} className="text-base font-semibold text-ink">{title}</h3>
           <button
             type="button"
@@ -49,9 +50,9 @@ export function Modal({ open, onClose, title, children, footer, size = "md" }: M
             <Icon name="close" className="w-5 h-5" />
           </button>
         </div>
-        <div className="p-5">{children}</div>
+        <div className="flex-1 overflow-y-auto overscroll-contain p-5">{children}</div>
         {footer && (
-          <div className="flex items-center justify-end gap-2 p-4 border-t border-line bg-surface-2 rounded-b-lg">
+          <div className="shrink-0 flex items-center justify-end gap-2 p-4 border-t border-line bg-surface-2 rounded-b-lg">
             {footer}
           </div>
         )}

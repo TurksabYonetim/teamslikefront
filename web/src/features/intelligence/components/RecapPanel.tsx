@@ -37,11 +37,11 @@ export function RecapPanel() {
   ];
 
   return (
-    <div className="rounded-card border border-line bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+    <div className="rounded-card border border-line bg-white p-3 sm:p-4 dark:border-gray-700 dark:bg-gray-800">
       <h3 className="mb-1 flex items-center gap-1.5 text-base font-semibold text-ink dark:text-white">
-        <HiOutlineCheckBadge size={16} className="text-brand dark:text-blue-400" aria-hidden /> {t("recap")}
+        <HiOutlineCheckBadge size={16} className="shrink-0 text-brand dark:text-blue-400" aria-hidden /> {t("recap")}
       </h3>
-      <p className="text-sm text-ink-2 dark:text-white">{recap.tldr}</p>
+      <p className="break-words text-sm text-ink-2 dark:text-white">{recap.tldr}</p>
 
       {flow.length > 0 ? (
         <>
@@ -52,7 +52,7 @@ export function RecapPanel() {
                 <span className="rp-flow-dot" aria-hidden />
                 <span className="rp-flow-line" aria-hidden />
                 <span className="block text-xs font-medium text-muted dark:text-gray-400">{s.kind}</span>
-                <span className="block text-sm text-ink-2 dark:text-white">{s.text}</span>
+                <span className="block break-words text-sm text-ink-2 dark:text-white">{s.text}</span>
               </li>
             ))}
           </ul>
@@ -73,14 +73,14 @@ export function RecapPanel() {
                 <Avatar name={memberName(a.ownerId)} size="sm" />
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-xs text-muted dark:text-gray-400">{memberName(a.ownerId)}</span>
-                  <span className="block text-sm text-ink dark:text-white">{a.text}</span>
+                  <span className="block break-words text-sm text-ink dark:text-white">{a.text}</span>
                 </span>
                 <button
                   type="button"
                   onClick={() => sendToChat(a.text)}
                   aria-label={t("sendToChat")}
                   title={t("sendToChat")}
-                  className="rp-send inline-flex h-8 w-8 items-center justify-center rounded-md border border-line text-blue-800 hover:bg-gray-50 dark:border-gray-700 dark:text-blue-400 dark:hover:bg-gray-700"
+                  className="rp-send inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-line text-blue-800 hover:bg-gray-50 dark:border-gray-700 dark:text-blue-400 dark:hover:bg-gray-700"
                 >
                   <HiOutlinePaperAirplane size={16} className="rp-send-ic" aria-hidden />
                 </button>

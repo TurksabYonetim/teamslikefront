@@ -139,7 +139,7 @@ export function EventManager() {
             </Badge>
           ) : null}
         </div>
-        <div className="scroll-brand -mr-1.5 h-[13rem] overflow-y-auto pr-1.5 lg:h-[6.25rem]">
+        <div className="scroll-brand -mr-1.5 max-h-[13rem] min-h-0 overflow-y-auto pr-1.5 lg:max-h-[6.25rem]">
         {days.map((d) => (
           <div key={d.day} className="mb-3.5 last:mb-0">
             <h3 className="mb-2 text-xs font-bold uppercase tracking-[0.04em] text-ink-3">{d.day}</h3>
@@ -153,7 +153,7 @@ export function EventManager() {
                     {item.start}–{item.end}
                   </span>
                   <span className="flex min-w-0 flex-col gap-0.5">
-                    <span className="text-[0.9375rem] font-semibold text-ink">{item.title}</span>
+                    <span className="truncate text-sm font-semibold text-ink sm:text-[0.9375rem]">{item.title}</span>
                     <span className="flex flex-wrap gap-1.5 text-xs text-muted">
                       <span>{item.track}</span>
                       {item.speaker ? <span className="before:mr-1.5 before:text-line before:content-['·']">{item.speaker}</span> : null}
@@ -169,41 +169,42 @@ export function EventManager() {
         ))}
         </div>
         <div className="mt-3.5 flex shrink-0 flex-wrap items-end gap-2 border-t border-line pt-3.5">
-          <input value={aDay} onChange={(e) => setADay(e.target.value)} aria-label={t("events.day")} className={`basis-[calc(50%-0.25rem)] ${inputCls} sm:basis-auto sm:w-24`} />
-          <input value={aTrack} onChange={(e) => setATrack(e.target.value)} aria-label={t("events.track")} className={`basis-[calc(50%-0.25rem)] ${inputCls} sm:basis-auto sm:w-32`} />
-          <input value={aStart} onChange={(e) => setAStart(e.target.value)} aria-label={t("events.start")} className={`basis-[calc(50%-0.25rem)] ${inputCls} sm:basis-auto sm:w-20`} />
-          <input value={aEnd} onChange={(e) => setAEnd(e.target.value)} aria-label={t("events.end")} className={`basis-[calc(50%-0.25rem)] ${inputCls} sm:basis-auto sm:w-20`} />
-          <input value={aTitle} onChange={(e) => setATitle(e.target.value)} placeholder={t("events.sessionPh")} aria-label={t("events.sessionPh")} className={`basis-full ${inputCls} sm:basis-0 sm:grow`} />
-          <Button
-            className="basis-full sm:basis-auto sm:w-auto"
-            leftIcon={<Icon name="plus" className="h-[18px] w-[18px]" />}
-            onClick={() => {
-              if (!aTitle.trim()) return;
-              a.addAgendaItem({ day: aDay, track: aTrack, start: aStart, end: aEnd, title: aTitle.trim() });
-              setATitle("");
-            }}
-          >
-            {t("events.addSession")}
-          </Button>
-        </div>
+              <input value={aDay} onChange={(e) => setADay(e.target.value)} aria-label={t("events.day")} className={`basis-[calc(50%-0.25rem)] ${inputCls} sm:basis-auto sm:w-24`} />
+              <input value={aTrack} onChange={(e) => setATrack(e.target.value)} aria-label={t("events.track")} className={`basis-[calc(50%-0.25rem)] ${inputCls} sm:basis-auto sm:w-32`} />
+              <input value={aStart} onChange={(e) => setAStart(e.target.value)} aria-label={t("events.start")} className={`basis-[calc(50%-0.25rem)] ${inputCls} sm:basis-auto sm:w-20`} />
+              <input value={aEnd} onChange={(e) => setAEnd(e.target.value)} aria-label={t("events.end")} className={`basis-[calc(50%-0.25rem)] ${inputCls} sm:basis-auto sm:w-20`} />
+              <input value={aTitle} onChange={(e) => setATitle(e.target.value)} placeholder={t("events.sessionPh")} aria-label={t("events.sessionPh")} className={`basis-full ${inputCls} sm:basis-0 sm:grow`} />
+              <Button
+                className="basis-full sm:basis-auto sm:w-auto"
+                leftIcon={<Icon name="plus" className="h-[18px] w-[18px]" />}
+                onClick={() => {
+                  if (!aTitle.trim()) return;
+                  a.addAgendaItem({ day: aDay, track: aTrack, start: aStart, end: aEnd, title: aTitle.trim() });
+                  setATitle("");
+                }}
+              >
+                {t("events.addSession")}
+              </Button>
+            </div>
       </Card>
 
-      {/* Yaka kartları */}
-      <Card className="min-w-0">
+      {/* Yaka kartları — fiziksel konferans rozeti önizlemesi (bkz. index.css .lanyard) */}
+      <Card className="min-w-0 lanyard-card">
         <div className="mb-3 flex items-center gap-2">
           <Icon name="identification" className="h-5 w-5 text-brand" />
           <h2 className="text-base font-semibold text-ink">{t("events.badges")}</h2>
         </div>
-
-        <div className="mb-3 rounded-lg border border-line p-3">
-          <div className="text-xs text-muted">{t("events.badgePreview")}</div>
-          {badge.fields.map((f) => (
-            <div key={f} className={f === "name" ? "text-xl font-semibold text-ink" : "text-sm text-ink"}>
-              {sample.values[f] ?? "—"}
-            </div>
-          ))}
+        <div className="lanyard-stage mb-3">
+          <div className="lanyard" tabIndex={0} aria-label={t("events.badgePreview")}>
+            <span className="lanyard-accent" aria-hidden="true" />
+            <div className="text-xs text-muted">{t("events.badgePreview")}</div>
+            {badge.fields.map((f) => (
+              <div key={f} className={f === "name" ? "text-xl font-semibold text-ink" : "text-sm text-ink"}>
+                {sample.values[f] ?? "—"}
+              </div>
+            ))}
+          </div>
         </div>
-
         <fieldset className="mb-3">
           <legend className="mb-1 text-sm font-medium text-ink">{t("events.badgeFields")}</legend>
           <div className="flex flex-wrap gap-3">
@@ -215,7 +216,6 @@ export function EventManager() {
             ))}
           </div>
         </fieldset>
-
         <div className="flex flex-wrap items-center gap-2">
           <Button leftIcon={<Icon name="printer" className="h-[18px] w-[18px]" />} onClick={() => a.queueBadges(confirmedIds)}>
             {t("events.printConfirmed")}

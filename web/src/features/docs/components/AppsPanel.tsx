@@ -68,17 +68,17 @@ export function AppsPanel() {
         </div>
         <ul className="space-y-1.5">
           {approvals.map((a) => (
-            <li key={a.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm">
-              <span className="min-w-0 flex-1 truncate text-ink">{a.title}</span>
+            <li key={a.id} className="flex flex-wrap items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm">
+              <span className="min-w-[8rem] flex-1 truncate text-ink">{a.title}</span>
               {a.status === "pending" ? (
-                <>
+                <div className="flex flex-none flex-wrap gap-1.5">
                   <button type="button" className={APPROVE_BTN} onClick={() => decideApproval(a.id, "approved")}>
-                    <Icon name="checkCircle" className="h-4 w-4" /> {t("apps.approve")}
+                    <Icon name="checkCircle" className="h-4 w-4 shrink-0" /> {t("apps.approve")}
                   </button>
                   <button type="button" className={REJECT_BTN} onClick={() => decideApproval(a.id, "rejected")}>
-                    <Icon name="close" className="h-4 w-4" /> {t("apps.reject")}
+                    <Icon name="close" className="h-4 w-4 shrink-0" /> {t("apps.reject")}
                   </button>
-                </>
+                </div>
               ) : (
                 <Badge tone={a.status === "approved" ? "positive" : "danger"}>{t(`apps.status.${a.status}`)}</Badge>
               )}
@@ -98,21 +98,21 @@ export function AppsPanel() {
         </div>
         <ul className="space-y-1">
           {shifts.map((sh) => (
-            <li key={sh.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm">
-              <span className="w-8 text-muted">{days[sh.day]}</span>
-              <span className="flex-1 text-ink">
+            <li key={sh.id} className="flex flex-wrap items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm">
+              <span className="w-8 flex-none text-muted">{days[sh.day]}</span>
+              <span className="min-w-0 flex-1 text-ink">
                 {hhmm(sh.startMin)}–{hhmm(sh.endMin)} · {sh.role}
               </span>
               {sh.open || sh.userId === "" ? (
                 <button
                   type="button"
                   onClick={() => claimShift(sh.id)}
-                  className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-blue-800 px-3 text-xs font-medium text-white transition-transform motion-safe:active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none"
+                  className="inline-flex h-8 flex-none items-center gap-1.5 rounded-lg bg-blue-800 px-3 text-xs font-medium text-white transition-transform motion-safe:active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none"
                 >
-                  <Icon name="handRaised" className="h-4 w-4" /> {t("apps.claim")}
+                  <Icon name="handRaised" className="h-4 w-4 shrink-0" /> {t("apps.claim")}
                 </button>
               ) : (
-                <span className="text-muted">{sh.userName}</span>
+                <span className="flex-none text-muted">{sh.userName}</span>
               )}
             </li>
           ))}

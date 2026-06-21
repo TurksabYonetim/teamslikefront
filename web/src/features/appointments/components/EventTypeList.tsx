@@ -40,18 +40,20 @@ export function EventTypeList() {
     setTitle("");
   };
 
-  return (
-    <Card>
-      <h3 className="mb-2 text-base font-semibold text-ink">{t("eventTypes")}</h3>
+  const listBody = (
+    <>
+      <h3 className="mb-2 text-sm font-semibold text-ink">{t("eventTypes")}</h3>
       <ul className="space-y-1.5">
         {eventTypes.map((et) => (
-          <li key={et.id} className="flex items-stretch gap-1.5">
+          <li key={et.id} className="relative">
             <button
               onClick={() => setActive(et.id)}
               aria-current={activeId === et.id}
               className={clsx(
-                "flex flex-1 flex-col gap-1 rounded-md border px-3 py-2 text-left",
-                activeId === et.id ? "border-brand bg-surface-2" : "border-line hover:bg-surface-2",
+                "relative flex w-full flex-col gap-1 rounded-md border py-2 pl-3 pr-12 text-left motion-safe:transition-colors motion-safe:duration-150 motion-safe:ease-[var(--ease-out)]",
+                activeId === et.id
+                  ? "border-brand bg-surface-2 after:absolute after:bottom-2.5 after:right-3 after:size-[7px] after:scale-110 after:rounded-full after:bg-brand after:content-['']"
+                  : "border-line hover:bg-surface-2",
               )}
             >
               <span className="text-sm font-semibold text-ink">{et.title}</span>
@@ -69,6 +71,7 @@ export function EventTypeList() {
               variant="ghost"
               disabled={eventTypes.length <= 1}
               onClick={() => remove(et.id)}
+              className="absolute right-1.5 top-1.5"
             >
               <Icon name="trash" className="h-4 w-4" />
             </IconButton>
@@ -82,7 +85,7 @@ export function EventTypeList() {
           onChange={(e) => setTitle(e.target.value)}
           placeholder={t("titlePh")}
           aria-label={t("titlePh")}
-          className="input h-11 flex-1"
+          className="input min-h-9 h-9 flex-1 text-sm"
         />
         <input
           type="number"
@@ -90,10 +93,12 @@ export function EventTypeList() {
           value={duration}
           onChange={(e) => setDuration(Number(e.target.value))}
           aria-label={t("duration")}
-          className="input h-11 w-20"
+          className="input min-h-9 h-9 w-16 text-sm"
         />
-        <Button onClick={add} leftIcon={<Icon name="plus" className="h-4 w-4" />}>{t("addEventType")}</Button>
+        <Button size="sm" onClick={add} leftIcon={<Icon name="plus" className="h-4 w-4" />}>{t("addEventType")}</Button>
       </div>
-    </Card>
+    </>
   );
+
+  return <Card>{listBody}</Card>;
 }

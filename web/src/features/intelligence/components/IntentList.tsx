@@ -13,9 +13,9 @@ export function IntentList() {
   const intents = INTENTS[id] ?? [];
 
   return (
-    <div className="rounded-card border border-line bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+    <div className="rounded-card border border-line bg-white p-3 sm:p-4 dark:border-gray-700 dark:bg-gray-800">
       <h3 className="mb-2 flex items-center gap-1.5 text-base font-semibold text-ink dark:text-white">
-        <HiOutlineViewfinderCircle size={16} className="text-brand dark:text-blue-400" aria-hidden /> {t("intents")}
+        <HiOutlineViewfinderCircle size={16} className="shrink-0 text-brand dark:text-blue-400" aria-hidden /> {t("intents")}
       </h3>
       {intents.length === 0 ? (
         <p className="text-sm text-muted dark:text-gray-400">{t("none")}</p>
@@ -26,9 +26,9 @@ export function IntentList() {
             const on = Math.round(i.confidence * SEGMENTS);
             return (
               <li key={i.id}>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-ink dark:text-white">{i.label}</span>
-                  <span className="font-semibold tabular-nums text-ink dark:text-white">{pct}%</span>
+                <div className="flex items-center justify-between gap-2 text-sm">
+                  <span className="min-w-0 truncate text-ink dark:text-white">{i.label}</span>
+                  <span className="shrink-0 font-semibold tabular-nums text-ink dark:text-white">{pct}%</span>
                 </div>
                 <div
                   className="mt-1.5 flex gap-1"

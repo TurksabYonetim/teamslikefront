@@ -32,15 +32,15 @@ export function AttendantConsole() {
     <div className="mx-auto flex h-full w-full max-w-3xl flex-col gap-4 overflow-y-auto p-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-xl font-semibold text-ink">{t("attendant.title")}</h2>
-        <div className="flex items-center gap-2 text-sm">
-          <span className="text-ink-2">{t("attendant.transferTo")}</span>
+        <div className="flex min-w-0 flex-1 items-center gap-2 text-sm sm:flex-initial">
+          <span className="shrink-0 text-ink-2">{t("attendant.transferTo")}</span>
           <Select
             value={target}
             onChange={setTarget}
             options={extensions.map((ext) => ({ value: ext.number, label: `${ext.number} · ${ext.label}` }))}
             aria-label={t("attendant.selectExtension")}
             size="sm"
-            className="w-56"
+            className="w-full max-w-[14rem] min-w-0"
           />
         </div>
       </div>
@@ -66,12 +66,12 @@ export function AttendantConsole() {
           {waiting.map(({ queueId, queueName, call }) => (
             <li
               key={call.id}
-              className="flex items-center justify-between rounded-lg border border-line bg-surface px-4 py-3"
+              className="flex items-center justify-between gap-3 rounded-lg border border-line bg-surface px-3 py-3 sm:px-4"
             >
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium text-ink">{formatNumber(call.from)}</p>
                 <p className="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-muted">
-                  <span className="rounded-full bg-surface-2 px-2 py-0.5 font-medium text-ink-2">{queueName}</span>
+                  <span className="truncate rounded-full bg-surface-2 px-2 py-0.5 font-medium text-ink-2">{queueName}</span>
                   <span className="tabular-nums">
                     {t("attendant.waitingFor")} {formatDuration(Math.max(0, Math.floor((now - call.since) / 1000)))}
                   </span>
@@ -79,6 +79,7 @@ export function AttendantConsole() {
               </div>
               <Button
                 size="sm"
+                className="shrink-0"
                 onClick={() => pbxStore.getState().removeWaiting(queueId, call.id)}
                 disabled={!target}
                 aria-label={`${t("attendant.transfer")} ${formatNumber(call.from)} → ${target}`}

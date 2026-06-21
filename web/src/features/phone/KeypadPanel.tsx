@@ -27,7 +27,7 @@ export function KeypadPanel() {
   };
 
   return (
-    <div className="mx-auto flex h-full w-full max-w-5xl flex-col gap-6 p-4 lg:flex-row lg:items-start">
+    <div className="mx-auto flex h-full min-h-0 w-full max-w-5xl flex-col gap-6 overflow-y-auto p-4 lg:flex-row lg:items-start">
       <div className="w-full lg:max-w-sm">
         <Dialer
           number={number}

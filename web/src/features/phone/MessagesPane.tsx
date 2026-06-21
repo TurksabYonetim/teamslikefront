@@ -83,13 +83,13 @@ export function MessagesPane() {
   };
 
   return (
-    <div className="messages-pane mx-auto flex h-full w-full max-w-5xl gap-4 p-4">
-      <aside className="flex w-full max-w-xs shrink-0 flex-col">
+    <div className="messages-pane mx-auto flex h-full min-h-0 w-full max-w-5xl flex-col gap-4 p-4 md:flex-row">
+      <aside className="flex min-h-0 w-full shrink-0 flex-col md:max-w-xs">
         <h2 className="mb-3 text-base font-semibold text-ink">{t("messages.threads")}</h2>
         {threads.length === 0 ? (
           <EmptyState title={t("messages.empty")} description={t("messages.emptyDescription")} />
         ) : (
-          <ul className="tl-stagger flex flex-col gap-1 overflow-y-auto">
+          <ul className="tl-stagger flex min-h-0 flex-col gap-1 overflow-y-auto">
             {threads.map((th) => {
               const selected = th.id === activeThreadId;
               return (
@@ -121,7 +121,7 @@ export function MessagesPane() {
         )}
       </aside>
 
-      <section className="flex min-w-0 flex-1 flex-col rounded-lg border border-line bg-surface dark:border-gray-700 dark:bg-gray-800">
+      <section className="flex min-h-0 min-w-0 flex-1 flex-col rounded-lg border border-line bg-surface dark:border-gray-700 dark:bg-gray-800">
         {!active ? (
           <div className="msg-empty flex h-full flex-col items-center justify-center gap-3 p-6 text-center">
             <HiOutlineChatBubbleLeftRight className="msg-empty-illus" size={56} aria-hidden />
@@ -178,10 +178,10 @@ export function MessagesPane() {
                   <HiOutlinePaperClip size={14} aria-hidden /> {t("messages.attached")}
                 </div>
               )}
-              <div className="flex items-end gap-2">
+              <div className="flex items-end gap-1.5 sm:gap-2">
                 <Dropdown
                   label={t("messages.template")}
-                  triggerClassName="inline-flex h-10 w-10 items-center justify-center rounded-lg text-muted transition-colors motion-safe:active:scale-[0.97] hover:bg-surface-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 dark:text-gray-400 dark:hover:bg-gray-700"
+                  triggerClassName="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-muted transition-colors motion-safe:active:scale-[0.97] hover:bg-surface-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 dark:text-gray-400 dark:hover:bg-gray-700"
                   trigger={<HiOutlineDocumentText size={20} aria-hidden />}
                 >
                   {templates.map((tpl) => (
@@ -195,7 +195,7 @@ export function MessagesPane() {
                   type="button"
                   aria-label={t("messages.attach")}
                   onClick={() => setPendingMedia([{ kind: "image", name: "image.jpg" }])}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-muted transition-colors motion-safe:active:scale-[0.97] hover:bg-surface-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 dark:text-gray-400 dark:hover:bg-gray-700"
+                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-muted transition-colors motion-safe:active:scale-[0.97] hover:bg-surface-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 dark:text-gray-400 dark:hover:bg-gray-700"
                 >
                   <HiOutlinePaperClip size={20} aria-hidden />
                 </button>
@@ -206,7 +206,7 @@ export function MessagesPane() {
                   placeholder={t("messages.composerPlaceholder")}
                   aria-label={t("messages.composerPlaceholder")}
                   rows={1}
-                  className="msg-input input min-h-[2.5rem] flex-1 resize-none"
+                  className="msg-input input min-h-[2.5rem] min-w-0 flex-1 resize-none"
                 />
 
                 <button
@@ -214,13 +214,13 @@ export function MessagesPane() {
                   aria-label={t("messages.schedule")}
                   onClick={() => setScheduleOpen(true)}
                   disabled={!draft.trim()}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-muted transition-colors motion-safe:active:scale-[0.97] hover:bg-surface-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 disabled:opacity-40 dark:text-gray-400 dark:hover:bg-gray-700"
+                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-muted transition-colors motion-safe:active:scale-[0.97] hover:bg-surface-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 disabled:opacity-40 dark:text-gray-400 dark:hover:bg-gray-700"
                 >
                   <HiOutlineClock size={20} aria-hidden />
                 </button>
 
-                <Button className="msg-send" onClick={send} disabled={!draft.trim()}>
-                  <HiOutlinePaperAirplane size={16} aria-hidden /> <span className="ml-1">{t("messages.send")}</span>
+                <Button className="msg-send shrink-0" onClick={send} disabled={!draft.trim()} aria-label={t("messages.send")}>
+                  <HiOutlinePaperAirplane size={16} aria-hidden /> <span className="ml-1 hidden sm:inline">{t("messages.send")}</span>
                 </Button>
               </div>
 

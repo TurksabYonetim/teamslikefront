@@ -36,8 +36,8 @@ export function MessageInfoDialog({
             return (
               <li key={r.id} className="flex items-center gap-3">
                 <Avatar name={r.name} color={colorFor(r.id)} size="sm" />
-                <span className="flex-1 truncate text-sm text-ink">{r.name}</span>
-                <span className="inline-flex items-center gap-1 text-sm text-muted">
+                <span className="min-w-0 flex-1 truncate text-sm text-ink">{r.name}</span>
+                <span className="inline-flex shrink-0 items-center gap-1 text-xs text-muted sm:text-sm">
                   <DeliveryTicks status={read ? "read" : "delivered"} />
                   <span>{read ? t("readBy") : t("deliveredTo")}</span>
                   <span>· {relMinutes(t, (i + 1) * 3)}</span>

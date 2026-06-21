@@ -78,7 +78,7 @@ export function CreatePollDialog({ open, onClose }: { open: boolean; onClose: ()
               <input
                 value={o}
                 onChange={(e) => setOptions(options.map((x, j) => (j === i ? e.target.value : x)))}
-                className="input h-11 flex-1"
+                className="input h-11 min-w-0 flex-1"
                 placeholder={`${t("poll.option")} ${i + 1}`}
               />
               {options.length > 2 ? (

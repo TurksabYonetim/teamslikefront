@@ -161,9 +161,9 @@ export function PublicBookingPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="h-15 flex items-center gap-3 px-6 py-4 bg-white border-b border-gray-200">
-        <Logo className="h-8" />
+    <div className="min-h-[100dvh] bg-gray-50">
+      <header className="min-h-15 flex flex-wrap items-center gap-x-3 gap-y-2 px-4 py-3 sm:px-6 sm:py-4 bg-white border-b border-gray-200">
+        <Logo className="h-8 shrink-0" />
         <span className="badge">{t("pub.badge")}</span>
         <div className="flex-1" />
         {data?.availability?.[0]?.timezone && (
@@ -173,9 +173,9 @@ export function PublicBookingPage() {
         )}
       </header>
 
-      <div className="max-w-4xl mx-auto p-4 md:p-8">
+      <div className="max-w-4xl xl:max-w-5xl mx-auto p-4 md:p-8 lg:p-10">
         {isLoading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {Array.from({ length: 4 }).map((_, i) => (
               <Skeleton key={i} className="h-28 w-full" />
             ))}
@@ -204,7 +204,7 @@ export function PublicBookingPage() {
                 title={t("pub.noTypes")}
               />
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 tl-stagger">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 tl-stagger">
                 {data.event_types.map((e) => (
                   <button
                     key={e.id}
@@ -236,8 +236,8 @@ export function PublicBookingPage() {
 
         {/* 2 — takvim + slotlar */}
         {step === "slots" && et && (
-          <div className="card grid grid-cols-1 md:grid-cols-[260px_1fr_220px] overflow-hidden">
-            <div className="p-6 border-b md:border-b-0 md:border-r border-gray-100">
+          <div className="card grid grid-cols-1 md:grid-cols-[260px_1fr_220px] xl:grid-cols-[280px_1fr_260px] overflow-hidden">
+            <div className="p-4 sm:p-6 border-b md:border-b-0 md:border-r border-gray-100">
               <button
                 onClick={() => setStep("pick")}
                 className="text-sm text-gray-500 hover:text-gray-900 inline-flex items-center gap-1 mb-4 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:active:scale-[0.97]"
@@ -256,11 +256,11 @@ export function PublicBookingPage() {
                 </div>
               </div>
             </div>
-            <div className="p-6 border-b md:border-b-0 md:border-r border-gray-100">
+            <div className="p-4 sm:p-6 border-b md:border-b-0 md:border-r border-gray-100">
               <div className="flex items-center justify-between mb-3">
                 <b className="text-gray-900">{monthLabel}</b>
               </div>
-              <div className="grid grid-cols-7 gap-1">
+              <div className="grid grid-cols-7 gap-0.5 sm:gap-1 md:gap-1.5">
                 {DOWS.map((d) => (
                   <div
                     key={d}
@@ -298,7 +298,7 @@ export function PublicBookingPage() {
                 })}
               </div>
             </div>
-            <div className="p-6 flex flex-col">
+            <div className="p-4 sm:p-6 flex flex-col">
               <b className="text-gray-900 mb-3">
                 {day ? `${day}` : t("pub.pickDate")}
               </b>
@@ -330,7 +330,7 @@ export function PublicBookingPage() {
 
         {/* 3 — form */}
         {step === "form" && et && (
-          <div className="max-w-lg mx-auto card p-6">
+          <div className="max-w-lg mx-auto card p-4 sm:p-6">
             <button
               onClick={() => setStep("slots")}
               className="text-sm text-gray-500 hover:text-gray-900 inline-flex items-center gap-1 mb-4"
@@ -382,7 +382,7 @@ export function PublicBookingPage() {
 
         {/* 4 — onay */}
         {step === "done" && et && (
-          <div className="max-w-md mx-auto card p-8 text-center mt-6">
+          <div className="max-w-md mx-auto card p-6 sm:p-8 text-center mt-6">
             <span className="w-16 h-16 rounded-2xl bg-green-100 text-green-700 grid place-items-center mx-auto mb-4">
               <Icon name="check" className="w-8 h-8" />
             </span>

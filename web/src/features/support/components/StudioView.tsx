@@ -207,11 +207,11 @@ export function StudioView() {
         ) : (
           <ul className="mb-3 space-y-2">
             {testLog.map((turn) => (
-              <li key={turn.id} className={clsx("flex gap-2", turn.who === "user" ? "flex-row-reverse" : "")}>
+              <li key={turn.id} className={clsx("flex min-w-0 gap-2", turn.who === "user" ? "flex-row-reverse" : "")}>
                 <span className={clsx("mt-0.5 shrink-0", turn.who === "agent" ? "text-brand" : "text-muted")}>
                   <Icon name={turn.who === "agent" ? "sparkles" : "userCircle"} className="h-4 w-4" aria-hidden />
                 </span>
-                <span className={clsx("max-w-[80%] rounded-lg px-3 py-1.5 text-sm", turn.who === "agent" ? "bg-surface-2 text-ink" : "bg-brand text-white")}>
+                <span className={clsx("max-w-[80%] break-words rounded-lg px-3 py-1.5 text-sm", turn.who === "agent" ? "bg-surface-2 text-ink" : "bg-brand text-white")}>
                   {turn.text}
                 </span>
               </li>
@@ -249,7 +249,7 @@ export function StudioView() {
         ) : (
           <div className="flex items-start gap-1.5 rounded-md border border-amber-300 bg-amber-50 p-2 text-sm text-amber-700 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-300">
             <Icon name="warning" className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
-            <span>
+            <span className="min-w-0 break-words">
               {t("studio.missing")}: {ready.missing.map((m) => t(`studio.req.${m}`)).join(", ")}
             </span>
           </div>

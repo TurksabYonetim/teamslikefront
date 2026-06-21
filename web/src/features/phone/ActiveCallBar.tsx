@@ -131,7 +131,7 @@ export function ActiveCallBar() {
       {/* Danışma kutusu — aktif danışma varken kontrol şeridi */}
       {consult && <ConsultStrip target={consult.name || formatNumber(consult.peer)} />}
 
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-3 px-4 py-3">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-3 px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-4">
         {/* Arayan kimliği + durum */}
         <span
           aria-hidden
@@ -156,14 +156,14 @@ export function ActiveCallBar() {
 
         {/* Gelen çağrı: kabul / reddet */}
         {isIncomingRinging ? (
-          <div className="flex items-center gap-2">
-            <span className="mr-1 inline-flex items-center gap-1 rounded-full bg-surface-2 px-2 py-0.5 text-xs font-medium text-muted dark:bg-gray-700 dark:text-gray-300">
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            <span className="inline-flex items-center gap-1 rounded-full bg-surface-2 px-2 py-0.5 text-xs font-medium text-muted dark:bg-gray-700 dark:text-gray-300">
               {t(`enums.callerClass.${classifyCaller(normalizeNumber(peer), { contacts: (contacts ?? []).map((c) => ({ name: c.name, e164: normalizeNumber(c.number) })), blocklist })}`)}
             </span>
             <button
               type="button"
               onClick={() => callStore.getState().blockNumber(peer)}
-              className="mr-1 text-xs font-medium text-red-600 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300 dark:text-red-400"
+              className="text-xs font-medium text-red-600 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300 dark:text-red-400"
             >
               {t("bar.block")}
             </button>
@@ -172,14 +172,14 @@ export function ActiveCallBar() {
               onClick={() => callStore.getState().answer()}
               className="call-accept inline-flex h-11 items-center gap-2 rounded-full bg-green-600 px-4 text-sm font-medium text-white transition-transform duration-150 ease-[var(--ease-out)] hover:bg-green-700 motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300"
             >
-              <HiOutlinePhone size={18} aria-hidden /> {t("bar.accept")}
+              <HiOutlinePhone size={18} aria-hidden className="shrink-0" /> {t("bar.accept")}
             </button>
             <button
               type="button"
               onClick={() => callStore.getState().decline()}
               className="call-decline inline-flex h-11 items-center gap-2 rounded-full bg-red-600 px-4 text-sm font-medium text-white transition-transform duration-150 ease-[var(--ease-out)] hover:bg-red-700 motion-safe:active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
             >
-              <HiOutlinePhoneXMark size={18} aria-hidden /> {t("bar.decline")}
+              <HiOutlinePhoneXMark size={18} aria-hidden className="shrink-0" /> {t("bar.decline")}
             </button>
           </div>
         ) : isOutgoingRinging ? (
@@ -194,7 +194,7 @@ export function ActiveCallBar() {
           </button>
         ) : (
           /* Aktif / beklemede: tam kontrol seti */
-          <div className="relative flex items-center gap-1.5">
+          <div className="relative flex flex-wrap items-center justify-end gap-1.5">
             <BarButton
               label={muted ? t("bar.unmute") : t("bar.mute")}
               active={muted}
@@ -265,7 +265,7 @@ export function ActiveCallBar() {
                 role="dialog"
                 aria-label={t("consult.title")}
                 style={{ animation: "tl-pop-in var(--dur-pop) var(--ease-out)" }}
-                className="absolute bottom-14 right-0 z-10 w-64 origin-bottom-right rounded-xl border border-line bg-white p-3 shadow-xl dark:border-gray-700 dark:bg-gray-800"
+                className="absolute bottom-14 right-0 z-10 w-64 max-w-[calc(100vw-1.5rem)] origin-bottom-right rounded-xl border border-line bg-white p-3 shadow-xl dark:border-gray-700 dark:bg-gray-800"
               >
                 <label className="mb-1 block text-xs font-medium text-muted" htmlFor="consult-target">
                   {t("consult.targetLabel")}
@@ -455,7 +455,7 @@ function ParkedStrip({ embedded }: { embedded?: boolean }) {
     <div
       role="region"
       aria-label={t("parked.title")}
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-gray-50 shadow-2xl dark:border-gray-700 dark:bg-gray-800/95"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-gray-50 pb-[env(safe-area-inset-bottom)] shadow-2xl dark:border-gray-700 dark:bg-gray-800/95"
     >
       {inner}
     </div>

@@ -10,7 +10,13 @@ import {
   HiOutlineLink,
   HiOutlineClipboard,
 } from "react-icons/hi2";
-import { Avatar, Badge, Button, IconButton, ConfirmDialog } from "@/components/ui";
+import {
+  Avatar,
+  Badge,
+  Button,
+  IconButton,
+  ConfirmDialog,
+} from "@/components/ui";
 import { memberName } from "@/features/messaging/members";
 import { meetingStore, useMeeting } from "../meetings.store";
 import { MEETINGS } from "../meetings.data";
@@ -36,7 +42,7 @@ export function MeetingsLanding() {
   const deleteRoom = (id: string) => meetingStore.getState().deleteRoom(id);
 
   return (
-    <div className="mx-auto max-w-5xl p-6">
+    <div className="mx-auto max-w-5xl p-6 xl:max-w-6xl xl:p-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-semibold text-ink dark:text-white">
@@ -49,13 +55,17 @@ export function MeetingsLanding() {
         <div className="flex gap-2">
           <Button
             variant="secondary"
-            leftIcon={<HiOutlineUsers className="h-[18px] w-[18px]" aria-hidden />}
+            leftIcon={
+              <HiOutlineUsers className="h-[18px] w-[18px]" aria-hidden />
+            }
             onClick={() => openPrejoin(MEETINGS[0].id, MEETINGS[0].title)}
           >
             {t("join")}
           </Button>
           <Button
-            leftIcon={<HiOutlinePlus className="h-[18px] w-[18px]" aria-hidden />}
+            leftIcon={
+              <HiOutlinePlus className="h-[18px] w-[18px]" aria-hidden />
+            }
             onClick={startInstant}
           >
             {t("newMeeting")}
@@ -113,7 +123,9 @@ export function MeetingsLanding() {
             <div className="mt-4 flex items-center justify-between">
               <div
                 className="flex -space-x-2"
-                aria-label={t("participantCount", { n: m.participantIds.length })}
+                aria-label={t("participantCount", {
+                  n: m.participantIds.length,
+                })}
               >
                 {m.participantIds.slice(0, 4).map((id) => (
                   <span
@@ -155,7 +167,10 @@ export function MeetingsLanding() {
           <div key={r.id} className={`${cardClass} flex items-center gap-3`}>
             <span className="flex h-11 w-11 items-center justify-center rounded-md bg-surface-2 text-brand dark:bg-gray-700">
               {r.locked ? (
-                <HiOutlineLockClosed className="h-[22px] w-[22px]" aria-hidden />
+                <HiOutlineLockClosed
+                  className="h-[22px] w-[22px]"
+                  aria-hidden
+                />
               ) : (
                 <HiOutlineLockOpen className="h-[22px] w-[22px]" aria-hidden />
               )}
@@ -180,7 +195,10 @@ export function MeetingsLanding() {
         ))}
       </div>
 
-      <CreateRoomDialog open={roomDialog} onClose={() => setRoomDialog(false)} />
+      <CreateRoomDialog
+        open={roomDialog}
+        onClose={() => setRoomDialog(false)}
+      />
       <ConfirmDialog
         open={confirmRoom !== null}
         title={t("deleteRoom")}

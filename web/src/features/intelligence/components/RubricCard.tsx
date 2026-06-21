@@ -13,9 +13,9 @@ export function RubricCard() {
   const passed = rubric.filter((r) => r.pass).length;
 
   return (
-    <div className="rounded-card border border-line bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-      <div className="mb-2 flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-ink dark:text-white">{t("rubric")}</h3>
+    <div className="rounded-card border border-line bg-white p-3 sm:p-4 dark:border-gray-700 dark:bg-gray-800">
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <h3 className="min-w-0 truncate text-sm font-semibold text-ink dark:text-white">{t("rubric")}</h3>
         <Badge tone={passed === rubric.length ? "positive" : "warning"}>
           {passed}/{rubric.length}
         </Badge>
@@ -24,11 +24,11 @@ export function RubricCard() {
         {rubric.map((r) => (
           <li key={r.id} className="flex items-start gap-2 text-sm">
             {r.pass ? (
-              <HiCheckCircle className="mt-0.5 h-[18px] w-[18px] text-green-600 dark:text-green-400" aria-label={t("pass")} />
+              <HiCheckCircle className="mt-0.5 h-[18px] w-[18px] shrink-0 text-green-600 dark:text-green-400" aria-label={t("pass")} />
             ) : (
-              <HiXCircle className="mt-0.5 h-[18px] w-[18px] text-danger dark:text-red-400" aria-label={t("fail")} />
+              <HiXCircle className="mt-0.5 h-[18px] w-[18px] shrink-0 text-danger dark:text-red-400" aria-label={t("fail")} />
             )}
-            <span className={r.pass ? "text-ink dark:text-white" : "text-muted dark:text-gray-400"}>{r.label}</span>
+            <span className={"min-w-0 break-words " + (r.pass ? "text-ink dark:text-white" : "text-muted dark:text-gray-400")}>{r.label}</span>
           </li>
         ))}
       </ul>

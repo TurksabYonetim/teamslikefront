@@ -76,16 +76,16 @@ export function ReceptionistBuilder() {
   const detectedLabel = config.intents.find((i) => i.id === session.detectedIntentId)?.label;
 
   return (
-    <div className="reception-builder mx-auto flex h-full w-full max-w-4xl flex-col gap-6 overflow-y-auto p-4 lg:flex-row lg:items-start">
+    <div className="reception-builder mx-auto flex h-full w-full max-w-4xl flex-col gap-6 overflow-y-auto p-4 lg:max-w-5xl lg:flex-row lg:items-start xl:gap-8">
       <div className="flex w-full flex-col gap-4 lg:max-w-md">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-ink">{t("reception.title")}</h2>
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="min-w-0 truncate text-xl font-semibold text-ink">{t("reception.title")}</h2>
           <button
             type="button"
             onClick={() => receptionistStore.getState().toggleEnabled()}
             aria-pressed={config.enabled}
             className={
-              "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 " +
+              "inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 " +
               (config.enabled ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200" : "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300")
             }
           >
@@ -139,7 +139,7 @@ export function ReceptionistBuilder() {
                 aria-label={t("reception.action")}
                 className="flex-1"
               />
-              <input value={target} onChange={(e) => setTarget(e.target.value)} placeholder={t("reception.target")} aria-label={t("reception.target")} className="input w-28" />
+              <input value={target} onChange={(e) => setTarget(e.target.value)} placeholder={t("reception.target")} aria-label={t("reception.target")} className="input w-28 min-w-0" />
             </div>
             <Button size="sm" onClick={addIntent} disabled={!label.trim()}>{t("reception.addIntent")}</Button>
           </div>

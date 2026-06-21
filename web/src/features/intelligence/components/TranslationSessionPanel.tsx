@@ -27,8 +27,8 @@ export function TranslationSessionPanel() {
   return (
     <div className="rounded-card border border-line bg-white p-3 dark:border-gray-700 dark:bg-gray-800">
       <div className="mb-2 flex flex-wrap items-center gap-2">
-        <h3 className="flex items-center gap-1.5 text-sm font-semibold text-ink dark:text-white">
-          <HiOutlineLanguage className="h-4 w-4 text-brand dark:text-blue-400" aria-hidden /> {t("session.title")}
+        <h3 className="flex min-w-0 items-center gap-1.5 text-sm font-semibold text-ink dark:text-white">
+          <HiOutlineLanguage className="h-4 w-4 shrink-0 text-brand dark:text-blue-400" aria-hidden /> <span className="min-w-0 truncate">{t("session.title")}</span>
         </h3>
         {session ? (
           <>

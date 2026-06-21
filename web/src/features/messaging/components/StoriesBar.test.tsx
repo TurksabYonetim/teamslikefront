@@ -11,14 +11,14 @@ beforeEach(() => S().reset());
 describe("StoriesBar", () => {
   it("renders the seed story authors", () => {
     render(<StoriesBar />);
-    expect(screen.getByText(/Defne/)).toBeInTheDocument();
+    // Facepile: yazar adı avatar düğmesinin erişilebilir adında (aria-label) taşınır.
+    expect(screen.getByRole("button", { name: /Defne/ })).toBeInTheDocument();
   });
 
   it("clicking a story marks it seen by me", () => {
     render(<StoriesBar />);
     const unseen = S().stories.find((s) => !s.seenBy.includes(ME_ID))!;
-    // story butonu yazar adını içerir
-    const btn = screen.getAllByRole("button").find((b) => b.textContent?.includes("Defne"))!;
+    const btn = screen.getByRole("button", { name: /Defne/ });
     fireEvent.click(btn);
     const after = S().stories.find((s) => s.id === unseen.id)!;
     expect(after.seenBy).toContain(ME_ID);

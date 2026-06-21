@@ -431,10 +431,29 @@ export function MeetingsPage() {
             <h3 className="mb-3 text-sm font-semibold text-ink-2">
               {t("list.past")}
             </h3>
-            <div className="tl-stagger grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {ended.map((m) => (
-                <MeetingCard key={m.id} m={m} />
-              ))}
+            <div className="overflow-x-auto rounded-card border border-line bg-surface">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="border-b border-line text-xs text-muted">
+                    <th className="px-4 py-2 font-medium">{t("list.colMeeting", { defaultValue: "Toplantı" })}</th>
+                    <th className="px-4 py-2 font-medium">{t("list.colRoom", { defaultValue: "Oda" })}</th>
+                    <th className="px-4 py-2 font-medium">{t("list.colDate", { defaultValue: "Tarih" })}</th>
+                    <th className="px-4 py-2 font-medium">{t("list.colDuration", { defaultValue: "Süre" })}</th>
+                    <th className="px-4 py-2 font-medium">{t("list.colStatus", { defaultValue: "Durum" })}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ended.map((m) => (
+                    <tr key={m.id} className="border-b border-line transition-colors duration-[var(--dur-press)] last:border-0 hover:bg-surface-2">
+                      <td className="px-4 py-2.5 font-medium text-ink"><span className="flex items-center gap-2"><Icon name="video" className="h-4 w-4 text-muted" />{m.title}</span></td>
+                      <td className="px-4 py-2.5 font-mono text-xs text-muted">{m.room_name}</td>
+                      <td className="px-4 py-2.5 tabular-nums text-muted">{formatWhen(m.scheduled_at)}</td>
+                      <td className="px-4 py-2.5 tabular-nums text-muted">{m.duration_minutes} {t("list.minutesShort")}</td>
+                      <td className="px-4 py-2.5"><span className="rounded-md bg-surface-3 px-2 py-0.5 text-xs font-medium text-muted">{t("list.endedBadge")}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </section>
         )}

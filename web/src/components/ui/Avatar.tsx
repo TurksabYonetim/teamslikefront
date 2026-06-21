@@ -28,7 +28,7 @@ function toInitials(name?: string) {
 export function Avatar({
   name,
   initials,
-  color = "#5b5fc7",
+  color = "#1e40af",
   size = "md",
   className,
 }: AvatarProps) {

@@ -17,11 +17,11 @@ import {
   HiOutlineXMark,
   HiOutlineSparkles,
   HiOutlineCpuChip,
-  HiOutlineSignal,
 } from "react-icons/hi2";
 import { messagingStore, useMessaging } from "../store";
 import { TOPICS } from "../data";
 import { Button, Badge, IconButton, Dropdown, DropdownItem, useToast } from "@/components/ui";
+import { StoriesBar } from "./StoriesBar";
 import type { ChannelKind, ConversationStatus } from "../types";
 
 const STATUSES: ConversationStatus[] = ["open", "pending", "resolved"];
@@ -94,32 +94,22 @@ export function ChannelHeader() {
 
   return (
     <>
-      {channel?.ongoingMeetingId ? (
-        <div
-          data-testid="ongoing-meeting-bar"
-          className="flex items-center gap-2 border-b border-line bg-brand/10 px-4 py-2 text-sm text-brand dark:border-gray-700"
-          style={{ animation: "tl-bar-in var(--dur-pop) var(--ease-out) both" }}
-        >
-          <span className="relative flex h-2 w-2" aria-hidden>
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75 motion-reduce:hidden" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
-          </span>
-          <HiOutlineSignal className="h-4 w-4" aria-hidden />
-          <span className="font-medium">{t("ongoingMeeting.label")}</span>
-          <Button
-            className="ml-auto"
-            onClick={() => navigate("/room")}
-            leftIcon={<HiOutlineVideoCamera className="h-4 w-4" aria-hidden />}
-          >
-            {t("ongoingMeeting.join")}
-          </Button>
-        </div>
-      ) : null}
-      <header className="flex items-center gap-3 border-b border-line bg-surface-2 px-4 py-3 dark:border-gray-700 dark:bg-gray-700">
-        <div className="min-w-0">
-          <div className="flex items-center gap-1 text-xl font-semibold text-ink dark:text-white">
+      {/* Tek satırlık birleşik başlık (sakin mono): kimlik · canlı toplantı (sade pill) · durum facepile · aksiyonlar */}
+      <header className="flex h-14 items-center gap-2 border-b border-line bg-surface-2 px-2 sm:gap-3 sm:px-4 dark:border-gray-700 dark:bg-gray-700">
+        <div className="flex min-w-0 items-center gap-2">
+          <h1 className="flex min-w-0 items-center gap-1.5 text-lg font-semibold text-ink sm:text-xl dark:text-white">
             {channel ? <KindGlyph kind={channel.kind} /> : null}
             <span className="truncate">{channel?.name}</span>
+          </h1>
+          {subtitle ? (
+            <span className="hidden min-w-0 items-center gap-2 text-sm text-muted md:flex">
+              <span aria-hidden className="text-line dark:text-gray-600">
+                ·
+              </span>
+              <span className="truncate">{subtitle}</span>
+            </span>
+          ) : null}
+          <div className="flex shrink-0 items-center gap-1.5">
             {channel?.e2ee ? (
               <Badge tone="positive">
                 <HiOutlineLockClosed className="h-3.5 w-3.5" aria-hidden /> {t("e2ee")}
@@ -132,8 +122,10 @@ export function ChannelHeader() {
             ) : null}
             {channel?.kind === "shared" ? (
               <Badge tone="accent">
-                <HiOutlineUsers className="h-3.5 w-3.5" aria-hidden />{" "}
-                {channel.externalOrgs?.length ? channel.externalOrgs.join(", ") : t("sharedChannel")}
+                <HiOutlineUsers className="h-3.5 w-3.5 shrink-0" aria-hidden />{" "}
+                <span className="inline-block max-w-[12ch] truncate align-bottom">
+                  {channel.externalOrgs?.length ? channel.externalOrgs.join(", ") : t("sharedChannel")}
+                </span>
               </Badge>
             ) : null}
             {channel?.isCustomer && channel.status ? (
@@ -156,11 +148,34 @@ export function ChannelHeader() {
               </Dropdown>
             ) : null}
           </div>
-          <div className="truncate text-sm text-muted">{subtitle}</div>
         </div>
 
-        <div className="ml-auto flex items-center gap-2">
-          <div className="relative hidden sm:block">
+        {/* Canlı toplantı — renk-kısıtlı sade outline pill; durum = nokta + metin (renk tek taşıyıcı değil).
+            Katıl AAA mavi metin (blue-800, 8.4:1). */}
+        {channel?.ongoingMeetingId ? (
+          <div
+            data-testid="ongoing-meeting-bar"
+            className="flex shrink-0 items-center gap-2 rounded-full border border-line bg-white py-1 pl-3 pr-1 text-sm dark:border-gray-600 dark:bg-gray-800"
+          >
+            <span className="h-2 w-2 rounded-full bg-brand" aria-hidden />
+            <span className="hidden font-medium text-ink-2 sm:inline dark:text-gray-200">{t("ongoingMeeting.label")}</span>
+            <button
+              type="button"
+              onClick={() => navigate("/room")}
+              className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-xs font-medium text-blue-800 transition-[background-color,transform] duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 motion-safe:active:scale-[0.97] dark:text-blue-300 dark:hover:bg-gray-700"
+            >
+              <HiOutlineVideoCamera className="h-4 w-4" aria-hidden />
+              {t("ongoingMeeting.join")}
+            </button>
+          </div>
+        ) : null}
+
+        <div className="ml-auto flex shrink-0 items-center gap-0.5 sm:gap-1.5">
+          <div className="hidden sm:flex">
+            <StoriesBar />
+          </div>
+          <span className="mx-0.5 hidden h-6 w-px bg-line dark:bg-gray-600 sm:block" aria-hidden />
+          <div className="relative hidden lg:block">
             <HiOutlineMagnifyingGlass className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" aria-hidden />
             <input
               value={search}
@@ -174,7 +189,7 @@ export function ChannelHeader() {
             label={t("search")}
             variant={searchOpen ? "primary" : "ghost"}
             aria-expanded={searchOpen}
-            className="sm:hidden"
+            className="lg:hidden"
             onClick={() => setSearchOpen((v) => !v)}
           >
             <HiOutlineMagnifyingGlass className="h-5 w-5" aria-hidden />
@@ -198,7 +213,7 @@ export function ChannelHeader() {
               <HiOutlineCpuChip className="h-5 w-5" aria-hidden />
             </IconButton>
           ) : null}
-          {channel && channel.kind !== "broadcast" ? (
+          {channel && channel.kind !== "broadcast" && !channel.ongoingMeetingId ? (
             <Button onClick={() => navigate("/room")} leftIcon={<HiOutlineVideoCamera className="h-[18px] w-[18px]" aria-hidden />}>
               <span className="hidden sm:inline">{t("startMeeting")}</span>
             </Button>
@@ -213,7 +228,7 @@ export function ChannelHeader() {
       </header>
 
       {searchOpen ? (
-        <div className="flex items-center gap-2 border-b border-line bg-surface-2 px-4 py-2 dark:border-gray-700 dark:bg-gray-700 sm:hidden">
+        <div className="flex items-center gap-2 border-b border-line bg-surface-2 px-2 py-2 sm:px-4 dark:border-gray-700 dark:bg-gray-700 lg:hidden">
           <div className="relative flex-1">
             <HiOutlineMagnifyingGlass className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" aria-hidden />
             <input

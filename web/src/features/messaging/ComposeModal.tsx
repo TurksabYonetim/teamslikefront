@@ -368,7 +368,7 @@ export function ComposeModal({ open, onClose, onSend, initialTo, initialSubject 
                   onBlur={saveSelection}
                   onKeyUp={saveSelection}
                   onMouseUp={saveSelection}
-                  className="tl-rte block min-h-[12rem] w-full border-0 bg-white px-0 text-sm leading-relaxed text-gray-800 focus:outline-none focus:ring-0 empty:before:pointer-events-none empty:before:text-gray-400 empty:before:content-[attr(data-placeholder)] dark:bg-gray-800 dark:text-white dark:empty:before:text-gray-500"
+                  className="tl-rte block min-h-[12rem] w-full break-words border-0 bg-white px-0 text-sm leading-relaxed text-gray-800 focus:outline-none focus:ring-0 empty:before:pointer-events-none empty:before:text-gray-400 empty:before:content-[attr(data-placeholder)] dark:bg-gray-800 dark:text-white dark:empty:before:text-gray-500"
                 />
               </div>
             </div>

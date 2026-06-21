@@ -24,7 +24,7 @@ export function NewDmDialog({ open, onClose }: { open: boolean; onClose: () => v
   return (
     <Modal open={open} onClose={onClose} title={t("newDmTitle")}>
       <div className="space-y-3">
-        <ul className="max-h-[40vh] space-y-1 overflow-y-auto">
+        <ul className="max-h-[40dvh] space-y-1 overflow-y-auto">
           {candidates.map((m) => {
             const on = sel.includes(m.id);
             return (
@@ -40,12 +40,12 @@ export function NewDmDialog({ open, onClose }: { open: boolean; onClose: () => v
                       : "border-transparent hover:bg-surface-2",
                   )}
                 >
-                  <span className="relative inline-block">
+                  <span className="relative inline-block shrink-0">
                     <Avatar name={m.name} size="sm" />
                     <PresenceDot presence={m.presence} className="absolute -bottom-0.5 -right-0.5" />
                   </span>
-                  <span className="flex-1 truncate text-ink">{m.name}</span>
-                  {on ? <HiOutlineCheck className="h-4 w-4 text-brand" aria-hidden /> : null}
+                  <span className="min-w-0 flex-1 truncate text-ink">{m.name}</span>
+                  {on ? <HiOutlineCheck className="h-4 w-4 shrink-0 text-brand" aria-hidden /> : null}
                 </button>
               </li>
             );

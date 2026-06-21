@@ -64,7 +64,7 @@ export function CapacityPanel() {
               <dd className="tabular-nums text-ink">{free.toLocaleString()}</dd>
             </div>
           )}
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <dt className="text-muted">{t("cap.waitlist")}</dt>
             <dd className="tabular-nums text-ink">{cap.waitlisted}</dd>
             {cap.waitlisted > 0 ? (

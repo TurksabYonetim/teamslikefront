@@ -83,8 +83,8 @@ export function WorkflowBuilder() {
   const stepValue = (kind: string, value: string) => (kind === "assign" && value ? memberName(value) : value);
 
   return (
-    <div className="grid gap-4 lg:grid-cols-3">
-      <div className="card p-3 lg:col-span-1">
+    <div className="grid min-w-0 gap-4 lg:grid-cols-3">
+      <div className="card min-w-0 p-3 lg:col-span-1">
         <h3 className="mb-2 text-sm font-semibold text-ink">{t("tabs.workflows")}</h3>
         <ul className="space-y-1">
           {workflows.map((w) => (
@@ -98,7 +98,7 @@ export function WorkflowBuilder() {
                   (wf?.id === w.id ? "bg-surface-3 text-ink" : "text-muted hover:bg-surface-2")
                 }
               >
-                <Icon name="bolt" className="h-4 w-4" /> {w.name}
+                <Icon name="bolt" className="h-4 w-4 flex-none" /> <span className="truncate">{w.name}</span>
               </button>
             </li>
           ))}
@@ -133,11 +133,11 @@ export function WorkflowBuilder() {
         </div>
       </div>
 
-      <div className="card p-4 lg:col-span-2">
+      <div className="card min-w-0 p-3 sm:p-4 lg:col-span-2">
         {wf ? (
           <>
             <div className="mb-3 flex flex-wrap items-center gap-2">
-              <h3 className="text-sm font-semibold text-ink">{wf.name}</h3>
+              <h3 className="min-w-0 break-words text-sm font-semibold text-ink">{wf.name}</h3>
               <Button className="ml-auto" size="sm" onClick={() => runWorkflow(wf.id)}>
                 <Icon name="play" className="h-4 w-4" /> {t("workflows.run")}
               </Button>

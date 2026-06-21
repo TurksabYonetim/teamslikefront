@@ -14,7 +14,10 @@ export function WebinarPage() {
   const { t } = useTranslation("webinar");
   const canView = useCan("webinar.view");
   const phase = useStore(webinarStore, (s) => s.phase);
-  const event = useStore(webinarStore, (s) => s.events.find((e) => e.id === s.activeEventId)!);
+  const event = useStore(
+    webinarStore,
+    (s) => s.events.find((e) => e.id === s.activeEventId)!,
+  );
   const activeEventId = useStore(webinarStore, (s) => s.activeEventId);
   const events = useStore(webinarStore, (s) => s.events);
 
@@ -32,39 +35,51 @@ export function WebinarPage() {
   const exitLive = () => webinarStore.getState().exitLive();
 
   return (
-    <div className="mx-auto max-w-6xl space-y-4 p-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="text-xl font-semibold text-ink">{t("nav")}</h1>
-          <p className="mt-1 text-sm text-muted">{event.title}</p>
-        </div>
-        <div className="flex items-center gap-1 border-b border-line" role="tablist" aria-label={t("view")}>
-          <button
-            role="tab"
-            aria-selected={phase === "console"}
-            onClick={exitLive}
-            className={clsx(
-              "-mb-px inline-flex h-11 items-center gap-2 border-b-2 px-3 text-sm transition-colors motion-reduce:transition-none",
-              phase === "console" ? "border-blue-600 font-semibold text-blue-800" : "border-transparent font-medium text-ink-2 hover:text-ink",
-            )}
+    <div className="flex-1 overflow-y-auto">
+      <div className="mx-auto max-w-6xl space-y-4 p-4 sm:p-6">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div className="min-w-0">
+            <h1 className="text-xl font-semibold text-ink">{t("nav")}</h1>
+            <p className="mt-1 truncate text-sm text-muted">{event.title}</p>
+          </div>
+          <div
+            className="flex max-w-full items-center gap-1 overflow-x-auto no-scrollbar border-b border-line"
+            role="tablist"
+            aria-label={t("view")}
           >
-            <Icon name="monitor" className="h-[18px] w-[18px]" /> {t("console")}
-          </button>
-          <button
-            role="tab"
-            aria-selected={phase === "live"}
-            onClick={goLive}
-            className={clsx(
-              "-mb-px inline-flex h-11 items-center gap-2 border-b-2 px-3 text-sm transition-colors motion-reduce:transition-none",
-              phase === "live" ? "border-blue-600 font-semibold text-blue-800" : "border-transparent font-medium text-ink-2 hover:text-ink",
-            )}
-          >
-            <Icon name="tv" className="h-[18px] w-[18px]" /> {t("livePreview")}
-          </button>
+            <button
+              role="tab"
+              aria-selected={phase === "console"}
+              onClick={exitLive}
+              className={clsx(
+                "-mb-px inline-flex h-11 shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-3 text-sm transition-colors motion-reduce:transition-none",
+                phase === "console"
+                  ? "border-brand font-semibold text-brand"
+                  : "border-transparent font-medium text-ink-2 hover:text-ink",
+              )}
+            >
+              <Icon name="monitor" className="h-[18px] w-[18px]" />{" "}
+              {t("console")}
+            </button>
+            <button
+              role="tab"
+              aria-selected={phase === "live"}
+              onClick={goLive}
+              className={clsx(
+                "-mb-px inline-flex h-11 shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-3 text-sm transition-colors motion-reduce:transition-none",
+                phase === "live"
+                  ? "border-brand font-semibold text-brand"
+                  : "border-transparent font-medium text-ink-2 hover:text-ink",
+              )}
+            >
+              <Icon name="tv" className="h-[18px] w-[18px]" />{" "}
+              {t("livePreview")}
+            </button>
+          </div>
         </div>
-      </div>
 
-      {phase === "console" ? <EventConsole /> : <EventLive />}
+        {phase === "console" ? <EventConsole /> : <EventLive />}
+      </div>
     </div>
   );
 }

@@ -172,10 +172,10 @@ export function MailReply() {
       <div className="p-4 xl:p-8">
         <div className="mb-4 items-center justify-between border-b border-gray-200 pb-4 dark:border-gray-800">
           <div className="mb-4 flex items-center justify-between gap-4 border-b border-gray-200 pb-4 dark:border-gray-800">
-            <h2 className="text-base font-semibold text-ink dark:text-white sm:mb-1.5 sm:flex sm:text-xl sm:leading-none">
+            <h2 className="min-w-0 break-words text-base font-semibold text-ink dark:text-white sm:mb-1.5 sm:flex sm:text-xl sm:leading-none">
               RE: Inquiry about design services <span className="me-2 ms-3 hidden rounded-sm bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300 sm:flex">External</span>
             </h2>
-            <div className="flex items-center space-x-1">
+            <div className="flex shrink-0 items-center space-x-1">
               <a href="#" data-tooltip-target="tooltip-print" className="inline-flex cursor-pointer justify-center rounded-lg p-2 text-gray-500 transition-transform ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
                 <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                   <path fillRule="evenodd" d="M8 3a2 2 0 0 0-2 2v3h12V5a2 2 0 0 0-2-2H8Zm-3 7a2 2 0 0 0-2 2v5c0 1.1.9 2 2 2h1v-4c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v4h1a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2H5Zm4 11a1 1 0 0 1-1-1v-4h8v4c0 .6-.4 1-1 1H9Z" clipRule="evenodd" />
@@ -199,10 +199,10 @@ export function MailReply() {
               </div>
             </div>
           </div>
-          <div className="flex w-full items-center justify-between">
-            <div className="flex items-center gap-4">
-              <img className="h-10 w-10 rounded-full" src="/images/users/avatar-4.png" alt="Avatar" />
-              <div className="font-semibold dark:text-white">
+          <div className="flex w-full items-center justify-between gap-2">
+            <div className="flex min-w-0 items-center gap-4">
+              <img className="h-10 w-10 shrink-0 rounded-full" src="/images/users/avatar-4.png" alt="Avatar" />
+              <div className="min-w-0 font-semibold dark:text-white">
                 <div>Contact</div>
                 <button id="mailDetailsDropdownButton" type="button" data-dropdown-toggle="mailDetailsDropdown" className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
                   to Flowbite Support, me
@@ -210,7 +210,7 @@ export function MailReply() {
                     <path fillRule="evenodd" d="M18.4 10.3A2 2 0 0 0 17 7H7a2 2 0 0 0-1.5 3.3l4.9 5.9a2 2 0 0 0 3 0l5-6Z" clipRule="evenodd" />
                   </svg>
                 </button>
-                <div id="mailDetailsDropdown" className="z-50 hidden w-[360px] origin-top-left rounded-sm bg-white p-4 shadow-sm motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)] dark:bg-gray-700">
+                <div id="mailDetailsDropdown" className="z-50 hidden w-[min(360px,90vw)] origin-top-left rounded-sm bg-white p-4 shadow-sm motion-safe:[animation:tl-pop-in_var(--dur-pop)_var(--ease-out)] dark:bg-gray-700">
                   <ul className="space-y-2 text-sm font-normal" aria-labelledby="mailDetailsDropdownButton">
                     <li className="flex items-center text-gray-500 dark:text-gray-400">
                       <div className="w-16">From:</div>
@@ -236,7 +236,7 @@ export function MailReply() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center">
+            <div className="flex shrink-0 items-center">
               <p className="me-4 hidden text-xs text-gray-500 dark:text-gray-400 sm:flex sm:text-sm">Mon,<time dateTime="2025-07-31 15:20">Jul 31, 3:20 PM</time> (2 hours ago)</p>
               <a href="#" data-tooltip-target="tooltip-favorites" className="inline-flex cursor-pointer justify-center rounded-lg p-2 text-gray-500 transition-transform ease-[var(--ease-out)] motion-safe:active:scale-[0.97] hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
                 <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -354,7 +354,7 @@ export function MailReply() {
             </div>
             <div className="rounded-b-lg bg-white px-4 py-2 dark:bg-gray-800">
               <label htmlFor="editor" className="sr-only">Publish post</label>
-              <textarea id="editor" rows={8} autoFocus className="block w-full border-0 bg-white px-0 text-sm text-gray-800 focus:ring-0 focus-visible:ring-2 focus-visible:ring-blue-500 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400" placeholder="Write your reply…" required></textarea>
+              <textarea id="editor" rows={8} autoFocus className="block w-full border-0 bg-white px-0 text-base text-gray-800 focus:ring-0 focus-visible:ring-2 focus-visible:ring-blue-500 md:text-sm dark:bg-gray-800 dark:text-white dark:placeholder-gray-400" placeholder="Write your reply…" required></textarea>
             </div>
           </div>
           <div className="flex flex-wrap items-center divide-gray-200 rounded-b-lg border-t border-gray-200 px-4 py-3 dark:divide-gray-700 dark:border-gray-700 sm:divide-x sm:rtl:divide-x-reverse">

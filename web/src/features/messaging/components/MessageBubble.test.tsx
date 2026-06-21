@@ -79,7 +79,9 @@ describe("MessageBubble", () => {
     const m = mk({ id: "mtr1", body: "hello" });
     messagingStore.setState((s) => ({ messages: [...s.messages, m] }));
     renderBubble(m);
-    fireEvent.click(screen.getByRole("button", { name: /translate|çevir/i }));
+    // Çevir artık ⋮ menüsünde (kompakt toolbar).
+    fireEvent.click(screen.getByLabelText(/more|diğer|işlem/i));
+    fireEvent.click(screen.getByRole("menuitem", { name: /translate|çevir/i }));
     expect(messagingStore.getState().messages.find((x) => x.id === "mtr1")!.translating).toBe(true);
   });
 

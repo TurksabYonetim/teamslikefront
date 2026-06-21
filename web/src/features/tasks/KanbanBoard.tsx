@@ -246,8 +246,8 @@ export function KanbanBoard() {
 
   return (
     <>
-
-      <div className="grid grid-cols-12 gap-4 border-b border-gray-200 bg-white pb-4 dark:border-gray-700 dark:bg-gray-800">
+      <div className="flex h-full min-h-0 flex-col">
+      <div className="shrink-0 grid grid-cols-12 gap-4 border-b border-gray-200 bg-white pb-4 dark:border-gray-700 dark:bg-gray-800">
         <div className="col-span-full mx-4 mt-4 ">
           <nav className="mb-4 flex" aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -281,7 +281,7 @@ export function KanbanBoard() {
             <div className="relative w-full xl:max-w-96">
               <label htmlFor="simple-search" className="sr-only">{t("search.label")}</label>
               <span className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3"><svg className="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" /></svg></span>
-              <input type="text" id="simple-search" value={search} onChange={(e) => setSearch(e.target.value)} aria-label={t("search.label")} placeholder={t("search.placeholder")} className="h-10 w-full rounded-lg border border-gray-300 bg-surface ps-9 pe-3 text-sm text-ink transition-[border-color,box-shadow] duration-[var(--dur-pop)] ease-[var(--ease-out)] hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-600" />
+              <input type="text" id="simple-search" value={search} onChange={(e) => setSearch(e.target.value)} aria-label={t("search.label")} placeholder={t("search.placeholder")} className="h-10 w-full rounded-lg border border-gray-300 bg-surface ps-9 pe-3 text-base text-ink transition-[border-color,box-shadow] duration-[var(--dur-pop)] ease-[var(--ease-out)] hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 md:text-sm dark:border-gray-600" />
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <button type="button" className="inline-flex h-10 items-center gap-1.5 rounded-lg px-3 text-sm font-medium text-ink-2 transition-colors hover:bg-surface-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300"><svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 3A3.5 3.5 0 0 0 14 7L8.1 9.8A3.5 3.5 0 0 0 2 12a3.5 3.5 0 0 0 6.1 2.3l6 2.7-.1.5a3.5 3.5 0 1 0 1-2.3l-6-2.7a3.5 3.5 0 0 0 0-1L15 9a3.5 3.5 0 0 0 6-2.4c0-2-1.6-3.5-3.5-3.5Z" /></svg>Paylaş</button>
@@ -293,7 +293,7 @@ export function KanbanBoard() {
         </div>
       </div>
 
-      <div className="mt-2 flex flex-col">
+      <div className="mt-2 flex flex-1 min-h-0 flex-col overflow-y-auto">
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">
             <div className="overflow-hidden shadow-sm">
@@ -302,11 +302,11 @@ export function KanbanBoard() {
                   <EmptyState title={t("state.errorTitle")} description={t("state.errorDescription")} />
                 </div>
               ) : (
-                <div className="mb-6 flex items-start justify-start gap-4 overflow-x-auto px-4 relative">
+                <div className="mb-6 flex items-start justify-start gap-4 lg:gap-6 overflow-x-auto lg:overflow-x-visible px-4 relative snap-x snap-mandatory sm:snap-none">
                   {COLUMNS.map((column, colIndex) => {
                     const cards = visibleTasks(column.status);
                     return (
-                      <div key={column.status} className="w-full min-w-0 shrink-0 sm:w-80 sm:min-w-[20rem]">
+                      <div key={column.status} className="w-full min-w-0 shrink-0 snap-start sm:w-80 sm:min-w-[20rem] lg:w-auto lg:min-w-0 lg:flex-1 lg:max-w-md">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2 py-4 text-base font-semibold text-gray-900 dark:text-gray-300">
                             {t(column.titleKey)}
@@ -383,6 +383,7 @@ export function KanbanBoard() {
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       {/* Yeni görev modalı — ortak Modal (Overlay: backdrop + ESC + scroll-lock) */}

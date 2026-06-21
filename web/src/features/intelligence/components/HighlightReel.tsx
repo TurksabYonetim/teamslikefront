@@ -30,7 +30,7 @@ export function HighlightReel() {
   };
 
   return (
-    <div className="rounded-card border border-line bg-surface p-4 dark:border-gray-700 dark:bg-gray-800">
+    <div className="rounded-card border border-line bg-surface p-3 sm:p-4 dark:border-gray-700 dark:bg-gray-800">
       <h3 className="mb-2 text-sm font-semibold text-ink dark:text-white">{t("highlights")}</h3>
       {highlights.length === 0 ? (
         <p className="text-sm text-muted dark:text-gray-400">{t("none")}</p>
@@ -45,9 +45,9 @@ export function HighlightReel() {
                   className="hl-card flex w-full flex-col items-start gap-1.5 rounded-md border border-line p-2.5 text-left dark:border-gray-700"
                 >
                   <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium ${pill}`}>
-                    <Icon size={13} aria-hidden /> {t(`kind.${h.kind}`)}
+                    <Icon size={13} className="shrink-0" aria-hidden /> {t(`kind.${h.kind}`)}
                   </span>
-                  <span className="text-sm text-ink dark:text-white">{h.text}</span>
+                  <span className="w-full break-words text-sm text-ink dark:text-white">{h.text}</span>
                   <span className="hl-jump inline-flex items-center gap-1 text-xs font-medium text-blue-800 dark:text-blue-400">
                     {t("jumpToTranscript")} <HiOutlineArrowRight size={13} aria-hidden />
                   </span>

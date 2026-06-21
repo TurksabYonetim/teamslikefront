@@ -134,6 +134,7 @@
   "makeCoHost": "Yardımcı sahip yap",
   "removeParticipant": "Toplantıdan çıkar",
   "chatPlaceholder": "Bir mesaj yazın…",
+  "chatEmpty": "Henüz mesaj yok. Sohbeti başlatın.",
   "send": "Gönder",
   "captionsOn": "Altyazılar açık",
   "captionsOff": "Altyazılar kapalı",

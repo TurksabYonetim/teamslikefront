@@ -49,13 +49,13 @@ export function CreateChannelDialog({ open, onClose }: { open: boolean; onClose:
               onClick={() => setKind(k)}
               aria-pressed={kind === k}
               className={clsx(
-                "flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border text-sm",
+                "flex h-11 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg border px-1.5 text-sm",
                 kind === k
                   ? "border-brand bg-surface-2 text-brand"
                   : "border-line text-muted hover:bg-surface-2 dark:border-gray-700 dark:hover:bg-gray-700",
               )}
             >
-              <Icon className="h-4 w-4" aria-hidden /> {t(labelKey)}
+              <Icon className="h-4 w-4 shrink-0" aria-hidden /> <span className="truncate">{t(labelKey)}</span>
             </button>
           ))}
         </div>

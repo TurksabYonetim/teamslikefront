@@ -24,12 +24,12 @@ export function FederationSettings() {
         };
         return (
           <div key={f.id} className="rounded-xl border border-line bg-surface p-4">
-            <div className="mb-2 flex items-center gap-2">
-              <Icon name="globe" className="h-[18px] w-[18px] text-muted" />
-              <span className="text-sm font-semibold text-ink">
+            <div className="mb-2 flex flex-wrap items-center gap-2">
+              <Icon name="globe" className="h-[18px] w-[18px] shrink-0 text-muted" />
+              <span className="min-w-0 break-words text-sm font-semibold text-ink">
                 {f.protocol} · {f.remote}
               </span>
-              <Badge tone={f.connected ? "positive" : "neutral"} className="ml-auto">
+              <Badge tone={f.connected ? "positive" : "neutral"} className="ml-auto shrink-0">
                 {f.connected ? t("connected") : t("disconnected")}
               </Badge>
             </div>
@@ -43,7 +43,7 @@ export function FederationSettings() {
                 <span className="text-sm text-muted">{t("noBridges")}</span>
               ) : null}
             </div>
-            <div className="flex items-end gap-2">
+            <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-end">
               <input
                 value={draft}
                 onChange={(e) => setDrafts((d) => ({ ...d, [f.id]: e.target.value }))}

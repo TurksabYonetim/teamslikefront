@@ -97,13 +97,13 @@ export function Dialer({
         )}
       </div>
 
-      <div className="grid w-full grid-cols-3 gap-3">
+      <div className="grid w-full grid-cols-3 gap-2 sm:gap-3">
         {KEYS.map((k) => (
           <button
             key={k}
             type="button"
             onClick={() => onDigit(k)}
-            className="dial-key flex h-16 items-center justify-center rounded-full border border-line bg-surface text-2xl font-medium text-ink transition-transform duration-150 ease-[var(--ease-out)] hover:bg-surface-2 active:scale-95 focus:outline-none focus:ring-4 focus:ring-line"
+            className="dial-key flex h-14 items-center justify-center rounded-full border border-line bg-surface text-xl font-medium text-ink transition-transform duration-150 ease-[var(--ease-out)] hover:bg-surface-2 active:scale-95 focus:outline-none focus:ring-4 focus:ring-line sm:h-16 sm:text-2xl"
           >
             {k}
           </button>

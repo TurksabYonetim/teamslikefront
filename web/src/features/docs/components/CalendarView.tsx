@@ -89,11 +89,11 @@ export function CalendarView({ table }: { table: DataTable }) {
         key={i.row.id}
         className="flex items-center gap-2 rounded-md px-1 py-1.5 text-sm text-ink transition-colors hover:bg-surface-2 motion-reduce:transition-none"
       >
-        <span className="w-16 flex-none text-xs tabular-nums text-muted">{`${day} ${m}`}</span>
+        <span className="w-12 flex-none text-xs tabular-nums text-muted sm:w-16">{`${day} ${m}`}</span>
         <span className={`h-2 w-2 flex-none rounded-full ${DOT[r.kind]}`} aria-hidden />
-        <span className="flex-1 truncate">{i.label}</span>
-        {chip(r.kind, r.text)}
-        {i.person ? <span className="text-xs text-muted">{i.person}</span> : null}
+        <span className="min-w-0 flex-1 truncate">{i.label}</span>
+        {chip(r.kind, r.text, "flex-none")}
+        {i.person ? <span className="hidden max-w-[6rem] flex-none truncate text-xs text-muted sm:inline">{i.person}</span> : null}
       </li>
     );
   };
@@ -155,10 +155,10 @@ export function CalendarView({ table }: { table: DataTable }) {
                 key={i.row.id}
                 className="flex items-center gap-2 rounded-md px-1 py-1.5 text-sm text-ink transition-colors hover:bg-surface-2 motion-reduce:transition-none"
               >
-                <span className="w-16 flex-none text-xs text-muted">—</span>
+                <span className="w-12 flex-none text-xs text-muted sm:w-16">—</span>
                 <span className="h-2 w-2 flex-none rounded-full bg-gray-300" aria-hidden />
-                <span className="flex-1 truncate">{i.label}</span>
-                {i.person ? <span className="text-xs text-muted">{i.person}</span> : null}
+                <span className="min-w-0 flex-1 truncate">{i.label}</span>
+                {i.person ? <span className="hidden max-w-[6rem] flex-none truncate text-xs text-muted sm:inline">{i.person}</span> : null}
               </li>
             ))}
           </ul>

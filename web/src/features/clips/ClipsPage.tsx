@@ -173,7 +173,7 @@ export function ClipsPage() {
                 className="input pl-9 pr-3"
               />
             </div>
-            <div className="inline-flex items-center gap-2 text-sm">
+            <div className="flex items-center gap-2 text-sm">
               <span className="whitespace-nowrap text-muted">
                 {t("toolbar.sortLabel")}
               </span>
@@ -186,14 +186,14 @@ export function ClipsPage() {
                   label: t(`toolbar.sort.${s}`),
                 }))}
                 size="sm"
-                className="w-44"
+                className="w-full sm:w-44"
               />
             </div>
           </div>
         )}
 
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 lg:gap-5">
             {Array.from({ length: 6 }).map((_, i) => (
               <div key={i} className="card overflow-hidden">
                 <Skeleton className="w-full aspect-video rounded-none" />
@@ -232,7 +232,7 @@ export function ClipsPage() {
         ) : (
           <div
             key={`${query}|${sort}`}
-            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 tl-stagger"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 lg:gap-5 tl-stagger"
           >
             {visibleClips.map((c) => (
               <ClipCard

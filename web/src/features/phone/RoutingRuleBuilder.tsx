@@ -10,7 +10,7 @@ const CONDITIONS: RoutingCondition[] = ["always", "afterHours", "busy", "noAnswe
 const ACTION_KINDS: RoutingActionKind[] = ["forward", "voicemail", "ivr"];
 
 const FIELD =
-  "h-11 w-full rounded-lg border border-gray-300 bg-surface px-3 text-sm text-ink transition-[border-color,box-shadow] duration-[var(--dur-pop)] ease-[var(--ease-out)] hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-600 dark:hover:border-gray-500";
+  "h-11 w-full rounded-lg border border-gray-300 bg-surface px-3 text-base md:text-sm text-ink transition-[border-color,box-shadow] duration-[var(--dur-pop)] ease-[var(--ease-out)] hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-600 dark:hover:border-gray-500";
 
 /** Koşula göre renk-kodlu çip (AAA: 800 metin / 100 zemin). */
 function conditionChip(c: RoutingCondition): string {

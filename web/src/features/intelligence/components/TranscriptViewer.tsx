@@ -149,11 +149,11 @@ export function TranscriptViewer() {
                       {t(`sentiment.${seg.sentiment}`)}
                     </span>
                   </div>
-                  <div className="text-sm text-ink dark:text-white">
+                  <div className="break-words text-sm text-ink dark:text-white">
                     {highlight(redact ? redactText(seg.en) : seg.en, search.trim())}
                   </div>
                   {targetLang !== "off" ? (
-                    <div className="mt-0.5 rounded-md border border-line bg-surface-2 px-2 py-1 text-sm text-ink dark:border-gray-700 dark:bg-gray-800 dark:text-white">
+                    <div className="mt-0.5 break-words rounded-md border border-line bg-surface-2 px-2 py-1 text-sm text-ink dark:border-gray-700 dark:bg-gray-800 dark:text-white">
                       {redact ? redactText(translate(seg)) : translate(seg)}
                     </div>
                   ) : null}

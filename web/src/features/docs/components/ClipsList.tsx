@@ -55,7 +55,7 @@ export function ClipsList() {
           (selected?.id === c.id ? "border-brand bg-brand-softer" : "border-line hover:bg-surface-2")
         }
       >
-        <span className="flex h-9 w-12 items-center justify-center rounded bg-surface-3 text-muted">
+        <span className="flex h-9 w-12 flex-none items-center justify-center rounded bg-surface-3 text-muted">
           <Icon name="video" className="h-4 w-4" />
         </span>
         <span className="min-w-0 flex-1">
@@ -64,9 +64,9 @@ export function ClipsList() {
             {memberName(c.authorId)} · {fmt(c.durationSec)}
           </span>
         </span>
-        {c.summary ? <Icon name="sparkles" className="h-4 w-4 text-brand" /> : null}
-        {c.privacy === "link" ? <Badge tone="warning">{t("clip.privacy.link")}</Badge> : null}
-        <span className="inline-flex items-center gap-1 text-xs text-muted">
+        {c.summary ? <Icon name="sparkles" className="h-4 w-4 shrink-0 text-brand" /> : null}
+        {c.privacy === "link" ? <Badge tone="warning" className="shrink-0">{t("clip.privacy.link")}</Badge> : null}
+        <span className="inline-flex shrink-0 items-center gap-1 text-xs text-muted">
           <Icon name="info" className="h-3.5 w-3.5" /> {c.views}
         </span>
       </button>
@@ -77,11 +77,11 @@ export function ClipsList() {
     <div className="grid gap-4 lg:grid-cols-[22rem_1fr]">
       <div className="card p-4">
         <div className="mb-2 flex items-center gap-2">
-          <h3 className="flex items-center gap-1.5 text-sm font-semibold text-ink">
-            <Icon name="video" className="h-4 w-4" /> {t("tabs.clips")}
+          <h3 className="flex min-w-0 items-center gap-1.5 text-sm font-semibold text-ink">
+            <Icon name="video" className="h-4 w-4 shrink-0" /> <span className="truncate">{t("tabs.clips")}</span>
           </h3>
-          <Button className="ml-auto" size="sm" onClick={() => addClip(t("clip.newClip"), SELF_ID)}>
-            <Icon name="video" className="h-4 w-4" /> {t("clip.record")}
+          <Button className="ml-auto shrink-0" size="sm" onClick={() => addClip(t("clip.newClip"), SELF_ID)}>
+            <Icon name="video" className="h-4 w-4 shrink-0" /> {t("clip.record")}
           </Button>
         </div>
 
