@@ -47,12 +47,14 @@ const GROUPS: { labelKey: string; icon: string; items: Item[] }[] = [
 
 /* ---- stiller (Flowbite) ----------------------------------------------- */
 const ITEM =
-  "flex items-center p-2 text-sm font-medium rounded-lg group transition-[background-color,color,transform] duration-[var(--dur-press)] ease-[var(--ease-out)] active:scale-[0.98]";
+  "flex items-center p-2 text-sm tracking-[-0.01em] antialiased rounded-lg group transition-[background-color,color,transform] duration-[var(--dur-press)] ease-[var(--ease-out)] active:scale-[0.98]";
 const itemCls = (active: boolean, collapsed?: boolean) =>
   clsx(
     ITEM,
     collapsed && "justify-center",
-    active ? "bg-primary-50 text-primary-700" : "text-ink hover:bg-gray-100",
+    active
+      ? "bg-primary-50 text-primary-700 font-semibold"
+      : "font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900",
   );
 
 function Badge({ n }: { n?: number }) {
@@ -112,7 +114,7 @@ function Group({ labelKey, icon, items, collapsed, onExpand }: { labelKey: strin
         onClick={handleClick}
         title={collapsed ? t(labelKey) : undefined}
         aria-expanded={!collapsed && open}
-        className={clsx(ITEM, "w-full hover:bg-gray-100", collapsed && "justify-center", active ? "text-primary-700" : "text-ink")}
+        className={clsx(ITEM, "w-full hover:bg-gray-100", collapsed && "justify-center", active ? "text-primary-700 font-semibold" : "font-medium text-gray-600 hover:text-gray-900")}
       >
         <Icon name={icon} aria-hidden className={clsx("w-5 h-5 shrink-0 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]", active ? "text-primary-700" : "text-gray-400 group-hover:text-gray-900")} />
         {!collapsed && (
@@ -203,7 +205,7 @@ export function Sidebar() {
               onClick={logout}
               aria-label={t("nav.logout")}
               title={collapsed ? t("nav.logout") : undefined}
-              className={clsx(ITEM, "w-full text-muted hover:bg-gray-100 hover:text-ink", collapsed && "justify-center")}
+              className={clsx(ITEM, "w-full font-medium text-muted hover:bg-gray-100 hover:text-gray-900", collapsed && "justify-center")}
             >
               <Icon name="logout" aria-hidden className="w-5 h-5 shrink-0 text-gray-400 group-hover:text-gray-900 transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)]" />
               {!collapsed && <span className="flex-1 ml-3 text-left whitespace-nowrap">{t("nav.logout")}</span>}

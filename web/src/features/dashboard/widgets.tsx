@@ -14,15 +14,15 @@ const TINT: Record<Stat["tint"], string> = {
 
 export function StatCard({ stat }: { stat: Stat }) {
   return (
-    <div className="card p-5 transition-shadow duration-[var(--dur-pop)] ease-[var(--ease-out)] hover:shadow-md dark:bg-surface dark:border-line">
+    <div className="card p-4 sm:p-5 transition-shadow duration-[var(--dur-pop)] ease-[var(--ease-out)] hover:shadow-md dark:bg-surface dark:border-line">
       <div className="flex items-center justify-between">
         <span
           className={clsx(
-            "w-11 h-11 rounded-lg grid place-items-center",
+            "w-9 h-9 sm:w-11 sm:h-11 rounded-lg grid place-items-center",
             TINT[stat.tint],
           )}
         >
-          <Icon name={stat.icon} className="w-6 h-6" />
+          <Icon name={stat.icon} className="w-5 h-5 sm:w-6 sm:h-6" />
         </span>
         <span
           className={clsx(
@@ -35,7 +35,7 @@ export function StatCard({ stat }: { stat: Stat }) {
           {stat.delta}
         </span>
       </div>
-      <div className="mt-3 text-2xl font-semibold text-ink tracking-tight tabular-nums">
+      <div className="mt-2 sm:mt-3 text-xl sm:text-2xl font-semibold text-ink tracking-tight tabular-nums">
         {stat.value}
       </div>
       <div className="text-sm text-muted">{stat.label}</div>
@@ -46,12 +46,12 @@ export function StatCard({ stat }: { stat: Stat }) {
 /** İstatistik kartı yükleniyor iskeleti. */
 export function StatCardSkeleton() {
   return (
-    <div className="card p-5 dark:bg-surface dark:border-line">
+    <div className="card p-4 sm:p-5 dark:bg-surface dark:border-line">
       <div className="flex items-center justify-between">
-        <Skeleton className="w-11 h-11 rounded-lg" />
+        <Skeleton className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg" />
         <Skeleton className="h-4 w-12" />
       </div>
-      <Skeleton className="mt-3 h-8 w-16" />
+      <Skeleton className="mt-2 sm:mt-3 h-7 sm:h-8 w-16" />
       <Skeleton className="mt-2 h-4 w-24" />
     </div>
   );
