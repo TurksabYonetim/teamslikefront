@@ -62,33 +62,43 @@ describe("ConversationView", () => {
     expect(screen.getByText("conversation.noneTitle")).toBeInTheDocument();
   });
 
-  it("Çözümle tek tıkla resolved yapar, Yeniden aç tersine çevirir", () => {
+  // ⋯ İşlemler menüsünü açan yardımcı.
+  const openActions = () =>
+    fireEvent.click(screen.getByRole("button", { name: /işlemler|actions|conversation\.actions/i }));
+
+  it("İşlemler menüsünden durum değiştirir (Çözüldü ↔ Açık)", () => {
     const id = conversationStore.getState().conversations[0].id;
     conversationStore.getState().setActive(id);
     conversationStore.getState().setStatus(id, "open");
     render(<ConversationView />);
-    fireEvent.click(screen.getByRole("button", { name: /çöz|resolve|conversation\.resolve/i }));
+    openActions();
+    fireEvent.click(screen.getByRole("menuitem", { name: /çözüldü|resolved|status\.resolved/i }));
     expect(conversationStore.getState().conversations.find((c) => c.id === id)!.status).toBe("resolved");
-    fireEvent.click(screen.getByRole("button", { name: /yeniden aç|reopen|conversation\.reopen/i }));
+    openActions();
+    fireEvent.click(screen.getByRole("menuitem", { name: /^açık$|^open$|status\.open/i }));
     expect(conversationStore.getState().conversations.find((c) => c.id === id)!.status).toBe("open");
   });
 
-  it("Bana ata aktif konuşmayı ME_ID'ye atar", () => {
+  it("İşlemler menüsünden Bana ata konuşmayı ME_ID'ye atar", () => {
     const id = conversationStore.getState().conversations[0].id;
     conversationStore.getState().setActive(id);
     conversationStore.getState().assign(id, "someone_else");
     render(<ConversationView />);
-    fireEvent.click(screen.getByRole("button", { name: /bana ata|assign to me|assignToMe/i }));
+    openActions();
+    fireEvent.click(screen.getByRole("menuitem", { name: /bana ata|assign to me|assignToMe/i }));
     expect(conversationStore.getState().conversations.find((c) => c.id === id)!.assigneeId).toBe(ME_ID);
-    expect(screen.getByRole("button", { name: /bana ata|assign to me|assignToMe/i })).toBeDisabled();
+    // Kendine atalıyken "Bana ata" öğesi gizlenir.
+    openActions();
+    expect(screen.queryByRole("menuitem", { name: /bana ata|assign to me|assignToMe/i })).toBeNull();
   });
 
-  it("Sıradakine ata bir ajana atar", () => {
+  it("İşlemler menüsünden Sıradakine ata bir ajana atar", () => {
     const id = conversationStore.getState().conversations[0].id;
     conversationStore.getState().setActive(id);
     conversationStore.getState().assign(id, "");           // bilinen falsy başlangıç
     render(<ConversationView />);
-    fireEvent.click(screen.getByRole("button", { name: /sıradakine|assign next|assignNext/i }));
+    openActions();
+    fireEvent.click(screen.getByRole("menuitem", { name: /sıradakine|assign next|assignNext/i }));
     const after = conversationStore.getState().conversations.find((c) => c.id === id)!.assigneeId;
     expect(after).toBeTruthy();                              // artık gerçek atama
     expect(after).not.toBe("");

@@ -63,7 +63,11 @@ export function DocsPage() {
 
       <div className="flex-1 overflow-y-auto bg-surface-2">
         <div className="mx-auto max-w-6xl space-y-4 p-4 md:p-6">
-          <div role="tablist" aria-label={t("title")} className="flex flex-wrap gap-1">
+          <div
+            role="tablist"
+            aria-label={t("title")}
+            className="grid grid-cols-2 gap-1 rounded-xl border border-line bg-surface p-1 min-[420px]:grid-cols-3 lg:inline-flex lg:flex-wrap"
+          >
             {TABS.map(({ id, icon }, i) => (
               <button
                 key={id}
@@ -76,13 +80,14 @@ export function DocsPage() {
                 onClick={() => setTab(id)}
                 onKeyDown={(e) => onTabKey(e, i)}
                 className={
-                  "inline-flex h-10 items-center gap-2 rounded-lg border px-3 text-sm font-medium transition-[color,background-color,transform] motion-safe:active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none " +
+                  "inline-flex h-9 min-w-0 items-center justify-center gap-2 rounded-lg px-3 text-sm font-medium transition-[color,background-color,box-shadow,transform] duration-150 ease-[var(--ease-out)] motion-safe:active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-1 focus-visible:ring-offset-surface motion-reduce:transition-none lg:h-10 lg:justify-start " +
                   (tab === id
-                    ? "border-brand-soft bg-brand-softer text-brand"
-                    : "border-transparent text-muted hover:bg-surface-3 hover:text-ink")
+                    ? "bg-brand-softer text-blue-800 shadow-sm"
+                    : "text-ink-3 hover:bg-surface-2 hover:text-ink")
                 }
               >
-                <Icon name={icon} className="h-4 w-4" /> {t(`tabs.${id}`)}
+                <Icon name={icon} className="h-4 w-4 shrink-0" />
+                <span className="truncate">{t(`tabs.${id}`)}</span>
               </button>
             ))}
           </div>

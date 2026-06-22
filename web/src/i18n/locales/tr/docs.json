@@ -40,7 +40,14 @@
     "deleteRow": "Satırı sil",
     "deleteColumn": "Sütunu sil",
     "noDate": "Tarih kolonu yok",
-    "noStatus": "Durum kolonu yok"
+    "noStatus": "Durum kolonu yok",
+    "row": "Satır {{n}}",
+    "totals": "Toplamlar",
+    "addSection": "Satır / sütun ekle",
+    "noUpcoming": "Yaklaşan teslim yok",
+    "undated": "Tarihsiz",
+    "upcoming": "Yaklaşan",
+    "pastDue": "Geçmiş teslimler"
   },
   "workflows": {
     "name": "İş akışı adı",
@@ -68,6 +75,7 @@
     "showArchived": "Arşivlenenleri göster",
     "empty": "Klip bulunamadı",
     "selectClip": "Bir klip seçin",
+    "backToList": "Kliplere dön",
     "group": {
       "ai": "AI özetli",
       "other": "Diğer"

@@ -81,7 +81,7 @@ export function KanbanBoard() {
           >
             <h3
               className={
-                "flex items-center justify-between border-b px-3.5 py-2.5 text-sm font-semibold " +
+                "flex items-center justify-between border-b px-3 py-2 text-sm font-semibold sm:px-3.5 sm:py-2.5 " +
                 tone.head
               }
             >
@@ -96,7 +96,7 @@ export function KanbanBoard() {
               </span>
             </h3>
 
-            <div className="flex flex-col p-3">
+            <div className="flex flex-col p-2.5 sm:p-3">
               <ul className="tl-stagger space-y-2">
                 {cards.map((cd) => (
                   <li
@@ -145,7 +145,7 @@ export function KanbanBoard() {
                 ))}
               </ul>
 
-              <div className="mt-2 flex items-center gap-1">
+              <div className="mt-2 flex h-9 items-center gap-1 rounded-lg border border-gray-300 bg-gray-50 pr-1 transition-[border-color,box-shadow] focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 motion-reduce:transition-none">
                 <input
                   value={draft[col.id] ?? ""}
                   onChange={(e) => setDraft((d) => ({ ...d, [col.id]: e.target.value }))}
@@ -154,11 +154,17 @@ export function KanbanBoard() {
                   }}
                   placeholder={t("board.addCard")}
                   aria-label={t("board.addCard")}
-                  className="input h-9 flex-1"
+                  className="h-full min-w-0 flex-1 bg-transparent px-3 text-base text-gray-900 outline-none placeholder:text-gray-500 md:text-sm"
                 />
-                <IconButton label={t("board.addCard")} onClick={() => submitCard(col.id)}>
+                <button
+                  type="button"
+                  onClick={() => submitCard(col.id)}
+                  disabled={!(draft[col.id] ?? "").trim()}
+                  aria-label={t("board.addCard")}
+                  className="grid aspect-square h-7 shrink-0 place-items-center rounded-md bg-blue-700 text-white transition-[background-color,transform] duration-[140ms] ease-[var(--ease-out)] hover:bg-blue-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 disabled:opacity-50 motion-safe:active:scale-95 motion-reduce:transition-none"
+                >
                   <Icon name="plus" className="h-4 w-4" />
-                </IconButton>
+                </button>
               </div>
             </div>
           </section>

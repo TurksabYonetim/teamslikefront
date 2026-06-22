@@ -38,9 +38,12 @@
     "macro": "Makro",
     "applyMacro": "Makro uygula",
     "assign": "Ata",
+    "actions": "İşlemler",
     "assignToMe": "Bana ata",
     "assignNext": "Sıradakine ata",
     "assignedTo": "{{name}} adlı temsilciye atandı",
+  "assignedToYou": "Sana atandı",
+  "unassigned": "Henüz atanmadı",
     "statusLabel": "Durum",
     "priorityLabel": "Öncelik",
     "resolve": "Çöz",
@@ -88,6 +91,7 @@
     "coexistence": "Coexistence",
     "advance": "Kuruluma devam et",
     "advanceFor": "{{name}} için kuruluma devam et",
+    "connectedLabel": "Bağlı",
     "reset": "Sıfırla",
     "resetFor": "{{name}} sıfırla",
     "embeddedSignup": "Meta Embedded Signup",
@@ -198,6 +202,8 @@
     }
   },
   "common": {
-    "delete": "Sil"
+    "delete": "Sil",
+    "readMore": "Daha fazla",
+    "readLess": "Daha az"
   }
 }

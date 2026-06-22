@@ -6,9 +6,10 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { useStore } from "@/lib/createStore";
 import { inboxStore } from "../inbox.store";
-import { advanceConnection, channelOnboardingState, canEnableCoexistence, connectedCount } from "../channels.dom";
+import { advanceConnection, channelOnboardingState, connectedCount } from "../channels.dom";
 import { CHANNEL_ICON, CONNECTION_TONE } from "../shared";
 import { Card } from "./Card";
+import { PanelHint } from "./PanelHint";
 import type { ChannelConnection, Inbox } from "../support.types";
 
 /**
@@ -40,55 +41,50 @@ export function ChannelsPanel() {
           <Icon name="sparkles" className="h-3.5 w-3.5" aria-hidden /> {t("channels.embeddedSignup")}
         </span>
       </div>
-      <p className="mb-3 text-sm text-muted">{t("channels.subtitle")}</p>
+      <PanelHint>{t("channels.subtitle")}</PanelHint>
 
       <ul className="tl-stagger space-y-1.5">
         {inboxes.map((ib) => {
           const c = connOf(ib);
           const step = channelOnboardingState(c);
           const live = c === "connected";
+          const changed = c !== (ib.connection ?? "disconnected");
           return (
-            <li key={ib.id} className="rounded-lg border border-line px-3 py-2">
-              <div className="flex flex-wrap items-center gap-2 text-sm">
-                <Icon name={CHANNEL_ICON[ib.channelType]} className="h-4 w-4 text-muted" aria-hidden />
-                <span className="min-w-0 flex-1 truncate text-ink">{ib.name}</span>
-                {canEnableCoexistence(withConn(ib)) ? <Badge tone="accent">{t("channels.coexistence")}</Badge> : null}
-                <Badge tone={CONNECTION_TONE[c]}>{t(`channels.step.${step.step}`)}</Badge>
+            <li key={ib.id} className="rounded-lg border border-line p-3">
+              <div className="flex items-start gap-2.5">
+                <Icon name={CHANNEL_ICON[ib.channelType]} className="mt-0.5 h-4 w-4 shrink-0 text-muted" aria-hidden />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-medium text-ink">{ib.name}</p>
+                  <Badge tone={CONNECTION_TONE[c]} className="mt-1">{t(`channels.step.${step.step}`)}</Badge>
+                </div>
               </div>
 
-              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-surface-3" aria-hidden>
-                <div
-                  className="h-full w-full origin-left rounded-full bg-brand transition-transform duration-200 ease-[var(--ease-out,ease-out)] motion-reduce:transition-none"
-                  style={{ transform: `scaleX(${step.progress})` }}
-                />
-              </div>
-
-              <div className="mt-2 flex items-center gap-2">
-                <Button
-                  size="sm"
-                  variant={live ? "secondary" : "primary"}
-                  disabled={live}
-                  aria-label={t("channels.advanceFor", { name: ib.name })}
-                  onClick={() => setConn((s) => ({ ...s, [ib.id]: advanceConnection(c) }))}
-                >
-                  {live ? (
-                    <>
-                      <Icon name="check" className="h-4 w-4" aria-hidden /> {t("channels.step.live")}
-                    </>
-                  ) : (
-                    <>
-                      <Icon name="arrow" className="h-4 w-4" aria-hidden /> {t("channels.advance")}
-                    </>
-                  )}
-                </Button>
-                {c !== (ib.connection ?? "disconnected") ? (
+              {/* Alt aksiyon satırı her kartta var → tüm kutular eşit yükseklik */}
+              <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                {live ? (
+                  <span className="inline-flex h-8 w-full items-center justify-center gap-1.5 rounded-lg border border-line bg-surface-2 px-4 text-xs font-medium text-muted sm:w-auto">
+                    <Icon name="check" className="h-3.5 w-3.5 shrink-0 text-green-600" aria-hidden /> {t("channels.connectedLabel")}
+                  </span>
+                ) : (
+                  <Button
+                    size="sm"
+                    variant="primary"
+                    className="w-full sm:w-auto"
+                    aria-label={t("channels.advanceFor", { name: ib.name })}
+                    onClick={() => setConn((s) => ({ ...s, [ib.id]: advanceConnection(c) }))}
+                  >
+                    <Icon name="arrow" className="h-4 w-4 shrink-0" aria-hidden /> {t("channels.advance")}
+                  </Button>
+                )}
+                {changed ? (
                   <Button
                     size="sm"
                     variant="ghost"
+                    className="w-full sm:w-auto"
                     aria-label={t("channels.resetFor", { name: ib.name })}
                     onClick={() => setConn((s) => ({ ...s, [ib.id]: ib.connection ?? "disconnected" }))}
                   >
-                    <Icon name="reschedule" className="h-4 w-4" aria-hidden /> {t("channels.reset")}
+                    <Icon name="reschedule" className="h-4 w-4 shrink-0" aria-hidden /> {t("channels.reset")}
                   </Button>
                 ) : null}
               </div>

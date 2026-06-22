@@ -54,14 +54,6 @@ function StepIcon({ kind }: { kind: string }) {
   );
 }
 
-const ArrowSep = () => (
-  <span className="inline-flex items-center text-gray-400" aria-hidden>
-    <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-    </svg>
-  </span>
-);
-
 /**
  * Workflows — otomasyon iş akışı oluşturucu. Sol: iş akışı listesi + ekleme.
  * Sağ: seçili akış yatay bir pipeline olarak — tetikleyici çipinden başlar,
@@ -136,9 +128,9 @@ export function WorkflowBuilder() {
       <div className="card min-w-0 p-3 sm:p-4 lg:col-span-2">
         {wf ? (
           <>
-            <div className="mb-3 flex flex-wrap items-center gap-2">
-              <h3 className="min-w-0 break-words text-sm font-semibold text-ink">{wf.name}</h3>
-              <Button className="ml-auto" size="sm" onClick={() => runWorkflow(wf.id)}>
+            <div className="mb-3 flex items-center justify-between gap-3 border-b border-line pb-3">
+              <h3 className="min-w-0 flex-1 truncate text-sm font-semibold text-ink">{wf.name}</h3>
+              <Button className="shrink-0" size="sm" onClick={() => runWorkflow(wf.id)}>
                 <Icon name="play" className="h-4 w-4" /> {t("workflows.run")}
               </Button>
             </div>
@@ -146,31 +138,45 @@ export function WorkflowBuilder() {
             {wf.steps.length === 0 ? (
               <p className="text-sm text-muted">{t("workflows.noSteps")}</p>
             ) : (
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 rounded-lg bg-blue-800 px-2.5 py-1.5 text-xs font-medium text-white">
-                  {t("workflows.triggerLabel")} · {t(`workflows.trigger.${wf.trigger}`)}
-                </span>
-                {wf.steps.map((s) => {
+              /* Dikey stepper — tetikleyici düğümünden başlar, adımlar bağlayıcı
+                 çizgiyle zincirlenir. Uzun değerler ikinci satıra sarar (kaos yok). */
+              <ol className="mt-1">
+                <li className="relative flex gap-3">
+                  <div className="flex flex-none flex-col items-center">
+                    <span className="z-10 grid h-8 w-8 flex-none place-items-center rounded-full bg-blue-800 text-white">
+                      <Icon name="bolt" className="h-4 w-4" />
+                    </span>
+                    <span className="w-px flex-1 bg-line" aria-hidden />
+                  </div>
+                  <div className="min-w-0 flex-1 pb-4">
+                    <div className="text-xs font-medium text-muted">{t("workflows.triggerLabel")}</div>
+                    <div className="break-words text-sm font-semibold text-ink">
+                      {t(`workflows.trigger.${wf.trigger}`)}
+                    </div>
+                  </div>
+                </li>
+                {wf.steps.map((s, i) => {
                   const meta = stepMeta(s.kind);
                   const val = stepValue(s.kind, s.value);
+                  const isLast = i === wf.steps.length - 1;
                   return (
-                    <span key={s.id} className="contents">
-                      <ArrowSep />
-                      <span className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs ${meta.chip}`}>
-                        <span className={`inline-flex h-5 w-5 flex-none items-center justify-center rounded-md ${meta.badge}`} aria-hidden>
-                          <span className="h-3.5 w-3.5">
+                    <li key={s.id} className="relative flex gap-3">
+                      <div className="flex flex-none flex-col items-center">
+                        <span className={`z-10 grid h-8 w-8 flex-none place-items-center rounded-full ${meta.badge}`} aria-hidden>
+                          <span className="h-4 w-4">
                             <StepIcon kind={s.kind} />
                           </span>
                         </span>
-                        <span className={`font-medium ${meta.text}`}>
-                          {t(`workflows.stepKind.${s.kind}`)}
-                          {val ? <span className="font-normal"> · {val}</span> : null}
-                        </span>
-                      </span>
-                    </span>
+                        {!isLast ? <span className="w-px flex-1 bg-line" aria-hidden /> : null}
+                      </div>
+                      <div className={"min-w-0 flex-1 " + (isLast ? "" : "pb-4")}>
+                        <div className="text-sm font-medium text-ink">{t(`workflows.stepKind.${s.kind}`)}</div>
+                        {val ? <div className="mt-0.5 break-words text-sm text-muted">{val}</div> : null}
+                      </div>
+                    </li>
                   );
                 })}
-              </div>
+              </ol>
             )}
 
             {lastRun ? (

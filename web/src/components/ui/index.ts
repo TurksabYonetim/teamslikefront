@@ -11,6 +11,7 @@ export { EmptyState } from "./EmptyState";
 export { Forbidden } from "./Forbidden";
 export { ErrorBoundary } from "./ErrorBoundary";
 export { Modal } from "./Modal";
+export { DateField } from "./DateField";
 export { Overlay, Backdrop, OVERLAY_Z, BACKDROP_APPEARANCE } from "./Overlay";
 export type { OverlayLevel } from "./Overlay";
 export { Select } from "./Select";

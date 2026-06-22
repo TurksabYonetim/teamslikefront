@@ -38,9 +38,12 @@
     "macro": "Macro",
     "applyMacro": "Apply macro",
     "assign": "Assign",
+    "actions": "Actions",
     "assignToMe": "Assign to me",
     "assignNext": "Assign next",
     "assignedTo": "Assigned to {{name}}",
+  "assignedToYou": "Assigned to you",
+  "unassigned": "Not yet assigned",
     "statusLabel": "Status",
     "priorityLabel": "Priority",
     "resolve": "Resolve",
@@ -88,6 +91,7 @@
     "coexistence": "Coexistence",
     "advance": "Continue setup",
     "advanceFor": "Continue setup for {{name}}",
+    "connectedLabel": "Connected",
     "reset": "Reset",
     "resetFor": "Reset {{name}}",
     "embeddedSignup": "Meta Embedded Signup",
@@ -198,6 +202,8 @@
     }
   },
   "common": {
-    "delete": "Delete"
+    "delete": "Delete",
+    "readMore": "Read more",
+    "readLess": "Read less"
   }
 }

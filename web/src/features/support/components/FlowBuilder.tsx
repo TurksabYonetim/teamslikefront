@@ -10,6 +10,7 @@ import { botflowStore, activeFlow, useBotflowStore } from "../botflow.store";
 import { traverse, nodeById, flowStats, danglingTargets, unreachableNodes } from "../botflow.dom";
 import { NODE_ICON } from "../shared";
 import { Card } from "./Card";
+import { PanelHint } from "./PanelHint";
 import type { BotNodeKind } from "../support.types";
 
 const ADDABLE: BotNodeKind[] = ["message", "question", "collect", "condition", "handoff", "end"];
@@ -60,7 +61,7 @@ export function FlowBuilder() {
             .join(" · ")}
         </span>
       </div>
-      <p className="mb-3 text-sm text-muted">{t("flow.subtitle")}</p>
+      <PanelHint>{t("flow.subtitle")}</PanelHint>
 
       {dangling.length > 0 ? (
         <p className="mb-2 flex items-center gap-1 rounded-md border border-danger px-3 py-1.5 text-sm text-danger" aria-live="polite">
@@ -79,8 +80,8 @@ export function FlowBuilder() {
             <Icon name={NODE_ICON[n.kind]} className="h-4 w-4 text-muted" aria-hidden />
             <Badge tone="neutral">{t(`flow.kind.${n.kind}`)}</Badge>
             <span className="min-w-0 flex-1 truncate text-ink">{n.text}</span>
-            {n.id === flow.startId ? <Badge tone="accent">{t("flow.start")}</Badge> : null}
-            {n.kind === "collect" ? <Badge tone="accent">{t("flow.waFlow")}</Badge> : null}
+            {n.id === flow.startId ? <Badge tone="info">{t("flow.start")}</Badge> : null}
+            {n.kind === "collect" ? <Badge tone="neutral">{t("flow.waFlow")}</Badge> : null}
             <IconButton label={t("flow.remove")} onClick={() => act().removeNode(n.id)}>
               <Icon name="trash" className="h-4 w-4" aria-hidden />
             </IconButton>

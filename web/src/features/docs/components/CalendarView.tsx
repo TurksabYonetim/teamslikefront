@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
 import { memberName } from "../workspace.data";
@@ -98,6 +99,26 @@ export function CalendarView({ table }: { table: DataTable }) {
     );
   };
 
+  // Açılır-kapanır ikincil bölüm (Yaklaşan / Geçmiş / Tarihsiz) — sayaç + kaydırma kutusu.
+  const section = (title: string, count: number, children: ReactNode, openByDefault = false) => (
+    <details
+      {...(openByDefault ? { open: true } : {})}
+      className="group mt-3 overflow-hidden rounded-lg border border-line bg-surface-2 transition-colors open:bg-surface motion-reduce:transition-none"
+    >
+      <summary className="flex cursor-pointer list-none items-center gap-2 rounded-lg px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand [&::-webkit-details-marker]:hidden">
+        <span className="flex-1 text-xs font-semibold text-muted">{title}</span>
+        <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-surface px-1.5 text-[0.6875rem] font-semibold tabular-nums text-ink-2 ring-1 ring-line">
+          {count}
+        </span>
+        <Icon
+          name="chevronDown"
+          className="h-4 w-4 shrink-0 text-muted transition-transform duration-200 ease-[var(--ease-out)] [[open]_&]:rotate-180 motion-reduce:transition-none"
+        />
+      </summary>
+      <ul className="max-h-64 overflow-y-auto overscroll-contain px-2 pb-2">{children}</ul>
+    </details>
+  );
+
   return (
     <div>
       <h3 className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-ink">
@@ -129,28 +150,22 @@ export function CalendarView({ table }: { table: DataTable }) {
           );
         })()
       ) : (
-        <p className="rounded-xl border border-line bg-surface-2 px-3.5 py-3 text-sm text-muted">{t("table.noDate")}</p>
+        <p className="flex items-center gap-2 rounded-xl border border-line bg-surface-2 px-3.5 py-3 text-sm text-muted">
+          <Icon name="calendar" className="h-4 w-4 shrink-0 text-muted" /> {t("table.noUpcoming")}
+        </p>
       )}
 
-      {restUpcoming.length > 0 ? (
-        <>
-          <p className="mb-1 mt-3 text-[0.6875rem] font-semibold text-muted">Yaklaşan</p>
-          <ul>{restUpcoming.map(compactRow)}</ul>
-        </>
-      ) : null}
+      {restUpcoming.length > 0
+        ? section(t("table.upcoming"), restUpcoming.length, restUpcoming.map(compactRow), true)
+        : null}
 
-      {past.length > 0 ? (
-        <>
-          <p className="mb-1 mt-3 text-[0.6875rem] font-semibold text-muted">Geçmiş teslimler</p>
-          <ul>{past.map(compactRow)}</ul>
-        </>
-      ) : null}
+      {past.length > 0 ? section(t("table.pastDue"), past.length, past.map(compactRow)) : null}
 
-      {undated.length > 0 ? (
-        <>
-          <p className="mb-1 mt-3 text-[0.6875rem] font-semibold text-muted">{t("table.noDate")}</p>
-          <ul>
-            {undated.map((i) => (
+      {undated.length > 0
+        ? section(
+            t("table.undated"),
+            undated.length,
+            undated.map((i) => (
               <li
                 key={i.row.id}
                 className="flex items-center gap-2 rounded-md px-1 py-1.5 text-sm text-ink transition-colors hover:bg-surface-2 motion-reduce:transition-none"
@@ -158,12 +173,13 @@ export function CalendarView({ table }: { table: DataTable }) {
                 <span className="w-12 flex-none text-xs text-muted sm:w-16">—</span>
                 <span className="h-2 w-2 flex-none rounded-full bg-gray-300" aria-hidden />
                 <span className="min-w-0 flex-1 truncate">{i.label}</span>
-                {i.person ? <span className="hidden max-w-[6rem] flex-none truncate text-xs text-muted sm:inline">{i.person}</span> : null}
+                {i.person ? (
+                  <span className="hidden max-w-[6rem] flex-none truncate text-xs text-muted sm:inline">{i.person}</span>
+                ) : null}
               </li>
-            ))}
-          </ul>
-        </>
-      ) : null}
+            )),
+          )
+        : null}
     </div>
   );
 }

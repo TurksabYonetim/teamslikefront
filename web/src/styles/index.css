@@ -79,8 +79,11 @@ body {
   color: var(--color-ink);
   background: var(--color-surface-2);
   -webkit-font-smoothing: antialiased;
-  /* Uzun kelimeler/URL'ler dar ekranda yatay taşma yapmasın (taban kural). */
-  overflow-wrap: anywhere;
+  /* Uzun kelimeler/URL'ler dar ekranda yatay taşma yapmasın (taban kural).
+     `break-word` (anywhere değil): yalnızca gerçekten taşacak kelimeyi kırar ve
+     min-content genişliğini düşürmez — normal kelimeler ("Bölge", "Pazarlama")
+     dar flex/tablo kolonlarında ortadan kırılmaz. */
+  overflow-wrap: break-word;
 }
 
 /* thin scrollbars */

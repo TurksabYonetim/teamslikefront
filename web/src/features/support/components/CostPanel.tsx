@@ -9,6 +9,7 @@ import {
 } from "../messagingCost.dom";
 import type { BillingContext, MessageCategory } from "../messagingCost.dom";
 import { Card } from "./Card";
+import { PanelHint } from "./PanelHint";
 
 const CATEGORIES: MessageCategory[] = ["marketing", "utility", "authentication", "service"];
 
@@ -37,8 +38,8 @@ export function CostPanel() {
         <h3 className="flex items-center gap-1.5 text-base font-semibold text-ink">
           <Icon name="money" className="h-5 w-5" aria-hidden /> {t("cost.title")}
         </h3>
-        <div className="ml-auto flex items-center gap-2 text-sm text-muted">
-          <span>{t("cost.region")}</span>
+        <div className="ml-auto flex shrink-0 items-center gap-2 text-sm text-muted">
+          <span className="whitespace-nowrap">{t("cost.region")}</span>
           <Select
             value={region}
             onChange={setRegion}
@@ -48,29 +49,29 @@ export function CostPanel() {
               label: r,
             }))}
             size="sm"
-            className="w-full sm:w-28"
+            className="w-24"
           />
         </div>
       </div>
-      <p className="mb-3 text-sm text-muted">{t("cost.subtitle")}</p>
+      <PanelHint>{t("cost.subtitle")}</PanelHint>
 
       <div className="-mx-1 overflow-x-auto px-1">
         <table className="w-full border-collapse text-sm">
           <thead>
             <tr className="text-muted">
-              <th className="py-1 text-left text-sm font-medium">{t("cost.category")}</th>
-              <th className="whitespace-nowrap py-1 text-right text-sm font-medium">{t("cost.rate")}</th>
+              <th className="py-1 pr-3 text-left text-sm font-medium">{t("cost.category")}</th>
+              <th className="whitespace-nowrap py-1 pr-3 text-right text-sm font-medium">{t("cost.rate")}</th>
               <th className="whitespace-nowrap py-1 text-right text-sm font-medium">{t("cost.breakdown")}</th>
             </tr>
           </thead>
           <tbody>
             {CATEGORIES.map((c) => (
               <tr key={c} className="border-t border-line">
-                <td className="py-1 text-ink">{t(`cost.cat.${c}`)}</td>
-                <td className="whitespace-nowrap py-1 text-right tabular-nums text-ink">
+                <td className="py-1.5 pr-3 text-ink">{t(`cost.cat.${c}`)}</td>
+                <td className="whitespace-nowrap py-1.5 pr-3 text-right tabular-nums text-ink">
                   {card[c] === 0 ? t("cost.free") : `$${card[c].toFixed(4)}`}
                 </td>
-                <td className="whitespace-nowrap py-1 text-right tabular-nums text-muted">
+                <td className="whitespace-nowrap py-1.5 text-right tabular-nums text-muted">
                   {breakdown[c] === 0 ? "—" : `$${breakdown[c].toFixed(2)}`}
                 </td>
               </tr>

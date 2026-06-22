@@ -28,16 +28,30 @@ function Stat({
   value,
   trend,
   fmtDelta,
+  className,
+  wide = false,
 }: {
   label: string;
   value: ReactNode;
   trend?: number[];
   fmtDelta?: (d: number) => string;
+  className?: string;
+  /** Below lg, lay the tile out horizontally (label ↔ value) so a spanning,
+   *  sparkline-less tile fills its row instead of leaving dead space. */
+  wide?: boolean;
 }) {
   const delta = trend && trend.length >= 2 ? trend[trend.length - 1] - trend[0] : null;
 
   return (
-    <div className="flex flex-col gap-1.5 rounded-card border border-line bg-white p-2.5 transition-shadow duration-[var(--dur-pop)] ease-[var(--ease-out)] hover:shadow-sm dark:border-gray-700 dark:bg-gray-800">
+    <div
+      className={clsx(
+        "flex rounded-card border border-line bg-white p-2.5 transition-shadow duration-[var(--dur-pop)] ease-[var(--ease-out)] hover:shadow-sm dark:border-gray-700 dark:bg-gray-800",
+        wide
+          ? "flex-row items-center justify-between gap-3 lg:flex-col lg:items-stretch lg:justify-start lg:gap-1.5"
+          : "flex-col gap-1.5",
+        className,
+      )}
+    >
       <div className="flex items-center justify-between gap-2">
         <span className="truncate text-xs text-muted dark:text-gray-400">{label}</span>
         {delta !== null && delta !== 0 && fmtDelta ? (
@@ -75,7 +89,7 @@ export function IntelKpis() {
   const dash = "—";
 
   return (
-    <div id="intel-kpis" className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
+    <div id="intel-kpis" className="grid grid-cols-2 gap-2 lg:grid-cols-5">
       <Stat
         label={t("talkRatio")}
         value={sc ? `${sc.talkRatio}%` : dash}
@@ -101,14 +115,21 @@ export function IntelKpis() {
         fmtDelta={(d) => `${Math.round(Math.abs(d))}`}
       />
       <Stat
+        wide
+        className="col-span-2 lg:col-span-1"
         label={t("csat")}
         value={
           sc?.csat ? (
-            <span className="inline-flex items-center gap-0.5">
+            <span className="inline-flex items-center gap-0.5" aria-label={`${sc.csat}/5`}>
               {[1, 2, 3, 4, 5].map((n) => (
                 <HiOutlineStar
                   key={n}
-                  className={"h-4 w-4 " + (n <= (sc.csat ?? 0) ? "text-amber-400" : "text-line dark:text-gray-600")}
+                  className={
+                    "h-4 w-4 " +
+                    (n <= (sc.csat ?? 0)
+                      ? "fill-amber-400 text-amber-400"
+                      : "text-line dark:text-gray-600")
+                  }
                   aria-hidden
                 />
               ))}

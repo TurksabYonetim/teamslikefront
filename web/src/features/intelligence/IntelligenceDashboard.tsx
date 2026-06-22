@@ -57,7 +57,7 @@ function TabBtn({
       aria-selected={active}
       onClick={onClick}
       className={clsx(
-        "inline-flex items-center gap-1.5 border-b-2 px-4 py-2.5 text-sm font-medium transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:transition-transform motion-safe:active:scale-[0.97]",
+        "inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap border-b-2 px-3 py-2.5 text-sm font-medium transition-colors duration-[var(--dur-press)] ease-[var(--ease-out)] motion-safe:transition-transform motion-safe:active:scale-[0.97]",
         active
           ? "border-brand text-brand"
           : "border-transparent text-muted hover:border-line hover:text-ink dark:text-gray-400 dark:hover:text-white",
@@ -221,15 +221,17 @@ export function IntelligenceDashboard() {
       data-testid="intel-dashboard"
       className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto p-4 lg:overflow-hidden"
     >
-      {/* Header */}
-      <div className="flex flex-wrap items-start justify-between gap-3">
+      {/* Header — mobilde dikey simetrik akış, lg'de tek satır */}
+      <div className="flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-start lg:justify-between">
         <div>
           <h1 className="text-xl font-semibold text-ink dark:text-white">{t("dash.title")}</h1>
           <p className="text-sm text-muted dark:text-gray-400">{t("subtitle")}</p>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <div id="intel-source" className="flex items-center gap-1.5 text-sm text-muted dark:text-gray-400">
-            <span>{t("source")}</span>
+
+        <div className="flex flex-col gap-2.5 lg:flex-row lg:flex-wrap lg:items-center">
+          {/* Kaynak — etiket + tam genişlik temiz select */}
+          <div id="intel-source" className="flex items-center gap-2 text-sm text-muted dark:text-gray-400">
+            <span className="shrink-0 font-medium text-ink-2 dark:text-gray-300">{t("source")}</span>
             <Select
               value={activeSourceId}
               onChange={(v) => intelStore.getState().setSource(v)}
@@ -239,67 +241,68 @@ export function IntelligenceDashboard() {
                 label: `${s.title} · ${t(`kindLabel.${s.kind}`)}`,
               }))}
               size="sm"
-              className="w-56 max-w-[calc(100vw-7rem)]"
+              className="min-w-0 flex-1 sm:w-60 sm:flex-none"
             />
           </div>
 
-          {/* İkincil aksiyonlar — ikon-only 44px (erişilebilir ad: aria-label + title). */}
-          {[
-            { Icon: HiOutlineSparkles, label: t("summarize"), onClick: () => runCopilot("summarize") },
-            { Icon: HiOutlineClipboardDocumentCheck, label: t("actionItems"), onClick: () => runCopilot("actions") },
-            { Icon: HiOutlineArrowDownTray, label: t("export"), onClick: exportRecap },
-          ].map((b) => (
+          {/* Aksiyonlar — kompakt tek satır (minimal, h-9) */}
+          <div className="flex items-center gap-1">
             <button
-              key={b.label}
+              id="intel-live"
               type="button"
-              onClick={b.onClick}
-              aria-label={b.label}
-              title={b.label}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-line text-ink hover:bg-surface-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:transition-[transform,background-color] motion-safe:duration-[var(--dur-press)] motion-safe:ease-[var(--ease-out)] motion-safe:active:scale-[0.97] dark:border-gray-700 dark:text-white"
+              onClick={() => intelStore.getState().toggleLive()}
+              aria-pressed={live}
+              className={clsx(
+                "inline-flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md px-2.5 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:transition-[transform,background-color] motion-safe:duration-[var(--dur-press)] motion-safe:ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
+                live
+                  ? "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200"
+                  : "border border-blue-800 text-blue-800 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-300",
+              )}
             >
-              <b.Icon className="h-5 w-5" aria-hidden />
+              {live ? (
+                <span className="il-rec h-2 w-2 rounded-full bg-red-600 dark:bg-red-400" aria-hidden />
+              ) : (
+                <HiOutlineSignal className="h-4 w-4" aria-hidden />
+              )}
+              {live ? t("liveOn") : t("goLive")}
             </button>
-          ))}
 
-          {/* Birincil CTA — canlı durum vurgulu (AAA: red-800/red-100 veya blue-800 metin). */}
-          <button
-            id="intel-live"
-            type="button"
-            onClick={() => intelStore.getState().toggleLive()}
-            aria-pressed={live}
-            className={clsx(
-              "inline-flex h-11 items-center gap-1.5 rounded-md px-4 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:transition-[transform,background-color] motion-safe:duration-[var(--dur-press)] motion-safe:ease-[var(--ease-out)] motion-safe:active:scale-[0.97]",
-              live
-                ? "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200"
-                : "border border-blue-800 text-blue-800 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-300",
-            )}
-          >
-            {live ? (
-              <span className="il-rec h-2.5 w-2.5 rounded-full bg-red-600 dark:bg-red-400" aria-hidden />
-            ) : (
-              <HiOutlineSignal className="h-4 w-4" aria-hidden />
-            )}
-            {live ? t("liveOn") : t("goLive")}
-          </button>
-
-          <button
-            id="intel-help"
-            type="button"
-            onClick={() => setTourOpen(true)}
-            aria-label={t("tour.replay")}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-line text-muted hover:bg-surface-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:transition-transform motion-safe:active:scale-[0.97] dark:border-gray-700 dark:text-gray-400"
-          >
-            <HiOutlineQuestionMarkCircle className="h-5 w-5" aria-hidden />
-          </button>
+            {[
+              { id: "summarize", Icon: HiOutlineSparkles, label: t("summarize"), onClick: () => runCopilot("summarize") },
+              { id: "actions", Icon: HiOutlineClipboardDocumentCheck, label: t("actionItems"), onClick: () => runCopilot("actions") },
+              { id: "export", Icon: HiOutlineArrowDownTray, label: t("export"), onClick: exportRecap },
+            ].map((b) => (
+              <button
+                key={b.id}
+                type="button"
+                onClick={b.onClick}
+                aria-label={b.label}
+                title={b.label}
+                className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-line text-ink hover:bg-surface-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:transition-[transform,background-color] motion-safe:duration-[var(--dur-press)] motion-safe:ease-[var(--ease-out)] motion-safe:active:scale-[0.97] dark:border-gray-700 dark:text-white"
+              >
+                <b.Icon className="h-[1.15rem] w-[1.15rem]" aria-hidden />
+              </button>
+            ))}
+            <button
+              id="intel-help"
+              type="button"
+              onClick={() => setTourOpen(true)}
+              aria-label={t("tour.replay")}
+              title={t("tour.replay")}
+              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-line text-muted hover:bg-surface-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 motion-safe:transition-transform motion-safe:active:scale-[0.97] dark:border-gray-700 dark:text-gray-400"
+            >
+              <HiOutlineQuestionMarkCircle className="h-[1.15rem] w-[1.15rem]" aria-hidden />
+            </button>
+          </div>
         </div>
       </div>
 
       {/* KPI row */}
       <IntelKpis />
 
-      {/* Tabs */}
-      <div id="intel-tabs" className="border-b border-line dark:border-gray-700">
-        <div role="tablist" className="-mb-px flex flex-wrap gap-1">
+      {/* Tabs — tek satır, yatay kaydırmalı; sağ kenarda çok hafif mavi fade kaydırma ipucu verir */}
+      <div className="relative border-b border-line after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:w-10 after:bg-gradient-to-l after:from-blue-500/10 after:to-transparent after:content-[''] lg:after:hidden dark:border-gray-700">
+        <div id="intel-tabs" role="tablist" className="-mb-px flex gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <TabBtn active={tab === "overview"} onClick={() => setTab("overview")}>
             <HiOutlineSquares2X2 className="h-4 w-4" aria-hidden /> {t("tabs.overview")}
           </TabBtn>

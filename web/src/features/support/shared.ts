@@ -33,7 +33,7 @@ export const PRIORITY_TONE: Record<Priority, SupportBadgeTone> = {
 /** Kanal bağlantı durumu → Badge tonu (onboarding adımı renklendirme). */
 export const CONNECTION_TONE: Record<ChannelConnection, SupportBadgeTone> = {
   connected: "positive",
-  coexistence: "accent",
+  coexistence: "neutral", // mavi rozet yığılmasını önle; durum metni zaten "Taşınıyor"
   pending: "warning",
   disconnected: "neutral",
 };

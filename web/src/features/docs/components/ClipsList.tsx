@@ -23,6 +23,8 @@ export function ClipsList() {
   const [query, setQuery] = useState("");
   const [showArchived, setShowArchived] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  // Mobilde master-detail: aynı anda ya liste ya detay görünür (lg+'da yan yana).
+  const [mobileView, setMobileView] = useState<"list" | "detail">("list");
 
   const q = query.trim().toLowerCase();
   const list = clips
@@ -48,7 +50,10 @@ export function ClipsList() {
     <li key={c.id}>
       <button
         type="button"
-        onClick={() => setSelectedId(c.id)}
+        onClick={() => {
+          setSelectedId(c.id);
+          setMobileView("detail");
+        }}
         aria-current={selected?.id === c.id ? "true" : undefined}
         className={
           "flex w-full items-center gap-2 rounded-lg border p-2 text-left transition-[transform,background-color,border-color] duration-150 ease-[var(--ease-out)] motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-reduce:transition-none " +
@@ -60,12 +65,18 @@ export function ClipsList() {
         </span>
         <span className="min-w-0 flex-1">
           <span className="block truncate text-sm text-ink">{c.title}</span>
-          <span className="block truncate text-xs text-muted">
-            {memberName(c.authorId)} · {fmt(c.durationSec)}
+          <span className="mt-0.5 flex min-w-0 items-center gap-1.5 text-xs text-muted">
+            <span className="truncate">
+              {memberName(c.authorId)} · {fmt(c.durationSec)}
+            </span>
+            {c.privacy === "link" ? (
+              <Badge tone="warning" className="shrink-0">
+                {t("clip.privacy.link")}
+              </Badge>
+            ) : null}
           </span>
         </span>
         {c.summary ? <Icon name="sparkles" className="h-4 w-4 shrink-0 text-brand" /> : null}
-        {c.privacy === "link" ? <Badge tone="warning" className="shrink-0">{t("clip.privacy.link")}</Badge> : null}
         <span className="inline-flex shrink-0 items-center gap-1 text-xs text-muted">
           <Icon name="info" className="h-3.5 w-3.5" /> {c.views}
         </span>
@@ -75,7 +86,7 @@ export function ClipsList() {
 
   return (
     <div className="grid gap-4 lg:grid-cols-[22rem_1fr]">
-      <div className="card p-4">
+      <div className={"card p-4 " + (mobileView === "detail" ? "hidden lg:block" : "")}>
         <div className="mb-2 flex items-center gap-2">
           <h3 className="flex min-w-0 items-center gap-1.5 text-sm font-semibold text-ink">
             <Icon name="video" className="h-4 w-4 shrink-0" /> <span className="truncate">{t("tabs.clips")}</span>
@@ -118,9 +129,18 @@ export function ClipsList() {
       </div>
 
       {selected ? (
-        <ClipDetail clip={selected} />
+        <div className={"min-w-0 " + (mobileView === "list" ? "hidden lg:block" : "")}>
+          <button
+            type="button"
+            onClick={() => setMobileView("list")}
+            className="mb-3 inline-flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm font-medium text-ink-2 transition-colors hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97] motion-reduce:transition-none lg:hidden"
+          >
+            <Icon name="chevronLeft" className="h-4 w-4" /> {t("clip.backToList")}
+          </button>
+          <ClipDetail clip={selected} />
+        </div>
       ) : (
-        <div className="card p-4">
+        <div className={"card p-4 " + (mobileView === "list" ? "hidden lg:block" : "")}>
           <EmptyState title={t("clip.selectClip")} />
         </div>
       )}

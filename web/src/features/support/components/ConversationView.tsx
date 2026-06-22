@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { Icon } from "@/components/Icon";
-import { Badge, Button, IconButton, Select } from "@/components/ui";
+import { Avatar, Badge, Button, Dropdown, DropdownItem } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { conversationStore } from "../conversation.store";
 import { aiSuggest } from "../support.api";
@@ -13,6 +13,58 @@ import { agentName, contactName } from "../shared";
 import type { ConversationStatus } from "../support.types";
 
 const STATUSES: ConversationStatus[] = ["open", "pending", "snoozed", "resolved"];
+
+// Durum → nokta rengi. Renk tek başına anlam taşımaz; etiket metni daima yanında (AAA 1.4.1).
+const STATUS_DOT: Record<ConversationStatus, string> = {
+  open: "bg-brand",
+  pending: "bg-amber-500",
+  snoozed: "bg-gray-400",
+  resolved: "bg-green-600",
+};
+
+// Durum → Badge tonu (renk + metin birlikte; AAA 1.4.1).
+const STATUS_TONE: Record<ConversationStatus, "neutral" | "accent" | "positive" | "warning"> = {
+  open: "accent",
+  pending: "warning",
+  snoozed: "neutral",
+  resolved: "positive",
+};
+
+/** Besteci içi yuvarlak aksiyon düğmesi — kompakt, marka-tutarlı. */
+function ComposerButton({
+  label,
+  active,
+  primary,
+  disabled,
+  onClick,
+  children,
+}: {
+  label: string;
+  active?: boolean;
+  primary?: boolean;
+  disabled?: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      title={label}
+      aria-pressed={active}
+      disabled={disabled}
+      onClick={onClick}
+      className={clsx(
+        "inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full outline-none transition-[transform,background-color,color] duration-150 ease-[var(--ease-out)] focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.94] motion-reduce:active:scale-100 disabled:pointer-events-none disabled:opacity-50",
+        primary || active
+          ? "bg-brand text-white hover:bg-brand-600"
+          : "text-muted hover:bg-surface-3 hover:text-ink",
+      )}
+    >
+      {children}
+    </button>
+  );
+}
 
 export function ConversationView() {
   const { t } = useTranslation("support");
@@ -35,7 +87,7 @@ export function ConversationView() {
 
   if (!conv) {
     return (
-      <div className="flex min-h-0 flex-col items-center justify-center rounded-xl border border-line bg-surface p-6 text-center">
+      <div className="flex h-full min-h-0 flex-col items-center justify-center rounded-xl border border-line bg-surface p-6 text-center">
         <Icon name="chat" className="mb-2 h-8 w-8 text-muted" aria-hidden />
         <p className="text-base font-medium text-ink">{t("conversation.noneTitle")}</p>
         <p className="text-sm text-muted">{t("conversation.noneHint")}</p>
@@ -70,60 +122,53 @@ export function ConversationView() {
   };
 
   const assigned = agentName(conv.assigneeId);
+  const assignedToMe = conv.assigneeId === ME_ID;
 
   return (
-    <div className="flex min-h-0 min-w-0 flex-col rounded-xl border border-line bg-surface">
-      {/* Header */}
-      <div className="flex flex-col gap-2 border-b border-line px-3 py-2 sm:flex-row sm:flex-wrap sm:items-center">
-        <div className="flex min-w-0 flex-wrap items-center gap-2">
-          <span className="min-w-0 truncate text-sm font-semibold text-ink">{contactName(conv.contactId)}</span>
-          {assigned ? <Badge tone="neutral">{t("conversation.assignedTo", { name: assigned })}</Badge> : null}
+    <div className="flex h-full min-h-0 min-w-0 flex-col rounded-xl border border-line bg-surface">
+      {/* Header — kimlik + durum rozeti + tüm aksiyonlar tek ⋯ menüsünde */}
+      <div className="flex items-center gap-2.5 border-b border-line px-3 py-2.5">
+        <Avatar name={contactName(conv.contactId)} size="sm" />
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-semibold leading-tight text-ink">
+            {contactName(conv.contactId)}
+          </p>
+          <p className="truncate text-xs leading-tight text-muted">
+            {assigned
+              ? assignedToMe
+                ? t("conversation.assignedToYou")
+                : t("conversation.assignedTo", { name: assigned })
+              : t("conversation.unassigned")}
+          </p>
         </div>
-        <div className="grid grid-cols-2 gap-2 sm:ml-auto sm:flex sm:flex-wrap sm:items-center">
-          <Button
-            size="sm"
-            variant="ghost"
-            disabled={conv.assigneeId === ME_ID}
-            onClick={() => conversationStore.getState().assign(conv.id, ME_ID)}
-          >
-            <Icon name="userPlus" className="h-3.5 w-3.5" aria-hidden /> {t("conversation.assignToMe")}
-          </Button>
-          <Button
-            size="sm"
-            variant="ghost"
-            onClick={() => conversationStore.getState().assignNext(conv.id)}
-          >
-            <Icon name="users" className="h-3.5 w-3.5" aria-hidden /> {t("conversation.assignNext")}
-          </Button>
-          {conv.status === "resolved" ? (
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() => conversationStore.getState().setStatus(conv.id, "open")}
-            >
-              <Icon name="arrow" className="h-3.5 w-3.5" aria-hidden /> {t("conversation.reopen")}
-            </Button>
-          ) : (
-            <Button
-              size="sm"
-              variant="primary"
-              onClick={() => conversationStore.getState().setStatus(conv.id, "resolved")}
-            >
-              <Icon name="check" className="h-3.5 w-3.5" aria-hidden /> {t("conversation.resolve")}
-            </Button>
-          )}
-          <Select<ConversationStatus>
-            value={conv.status}
-            onChange={(v) => conversationStore.getState().setStatus(conv.id, v)}
-            aria-label={t("conversation.statusLabel")}
-            options={STATUSES.map((s) => ({
-              value: s,
-              label: t(`status.${s}`),
-            }))}
-            size="sm"
-            className="w-full sm:w-40"
-          />
-        </div>
+        <Badge tone={STATUS_TONE[conv.status]} className="shrink-0">
+          {t(`status.${conv.status}`)}
+        </Badge>
+        <Dropdown
+          label={t("conversation.actions")}
+          align="end"
+          menuWidth="w-56"
+          triggerClassName="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-muted outline-none transition-colors hover:bg-surface-2 hover:text-ink focus-visible:ring-2 focus-visible:ring-brand"
+          trigger={<Icon name="ellipsis" className="h-5 w-5" aria-hidden />}
+        >
+          <p className="px-2 pb-0.5 pt-1 text-xs font-semibold text-muted">{t("conversation.statusLabel")}</p>
+          {STATUSES.map((s) => (
+            <DropdownItem key={s} onSelect={() => conversationStore.getState().setStatus(conv.id, s)}>
+              <span className={clsx("h-2 w-2 shrink-0 rounded-full", STATUS_DOT[s])} aria-hidden />
+              <span className="flex-1">{t(`status.${s}`)}</span>
+              {conv.status === s ? <Icon name="check" className="h-4 w-4 shrink-0 text-brand" aria-hidden /> : null}
+            </DropdownItem>
+          ))}
+          <div className="my-1 h-px bg-line" role="separator" />
+          {!assignedToMe ? (
+            <DropdownItem onSelect={() => conversationStore.getState().assign(conv.id, ME_ID)}>
+              <Icon name="userPlus" className="h-4 w-4 shrink-0 text-muted" aria-hidden /> {t("conversation.assignToMe")}
+            </DropdownItem>
+          ) : null}
+          <DropdownItem onSelect={() => conversationStore.getState().assignNext(conv.id)}>
+            <Icon name="users" className="h-4 w-4 shrink-0 text-muted" aria-hidden /> {t("conversation.assignNext")}
+          </DropdownItem>
+        </Dropdown>
       </div>
 
       {/* Macros */}
@@ -209,33 +254,46 @@ export function ConversationView() {
         </div>
       ) : null}
 
-      {/* Reply box */}
+      {/* Reply box — tek parça besteci; içerik küçülebilir (min-w-0) → 320px'de taşmaz */}
       <div className="border-t border-line p-2">
-        <div className="flex items-end gap-2">
-          <IconButton
+        <div
+          className={clsx(
+            "flex items-center gap-1 rounded-lg border bg-surface-2 pl-1 pr-1 transition-colors focus-within:ring-1",
+            note
+              ? "border-amber-400 focus-within:border-amber-500 focus-within:ring-amber-400"
+              : "border-line focus-within:border-brand focus-within:ring-brand",
+          )}
+        >
+          <ComposerButton
             label={note ? t("conversation.replyMode") : t("conversation.noteMode")}
-            variant={note ? "primary" : "ghost"}
+            active={note}
             onClick={() => setNote((v) => !v)}
           >
-            <Icon name="pencil" className="h-5 w-5" aria-hidden />
-          </IconButton>
-          <IconButton label={t("conversation.aiSuggest")} variant="ghost" disabled={loadingAi} onClick={runAi}>
-            <Icon name="sparkles" className="h-5 w-5" aria-hidden />
-          </IconButton>
+            <Icon name="pencil" className="h-4 w-4" aria-hidden />
+          </ComposerButton>
+          <ComposerButton
+            label={t("conversation.aiSuggest")}
+            disabled={loadingAi}
+            onClick={runAi}
+          >
+            <Icon name="sparkles" className="h-4 w-4" aria-hidden />
+          </ComposerButton>
           <input
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && submit()}
             placeholder={note ? t("conversation.notePlaceholder") : t("conversation.replyPlaceholder")}
             aria-label={note ? t("conversation.notePlaceholder") : t("conversation.replyPlaceholder")}
-            className={clsx(
-              "h-11 flex-1 rounded-md border bg-surface-2 px-3 text-sm text-ink outline-none placeholder:text-muted focus:border-brand focus:ring-1 focus:ring-brand",
-              note ? "border-amber-400" : "border-line",
-            )}
+            className="h-11 min-w-0 flex-1 border-0 bg-transparent px-1.5 text-sm text-ink outline-none placeholder:text-muted"
           />
-          <IconButton label={t("conversation.send")} variant="primary" disabled={!draft.trim()} onClick={submit}>
-            <Icon name="send" className="h-5 w-5" aria-hidden />
-          </IconButton>
+          <ComposerButton
+            label={t("conversation.send")}
+            primary
+            disabled={!draft.trim()}
+            onClick={submit}
+          >
+            <Icon name="send" className="h-4 w-4" aria-hidden />
+          </ComposerButton>
         </div>
       </div>
     </div>

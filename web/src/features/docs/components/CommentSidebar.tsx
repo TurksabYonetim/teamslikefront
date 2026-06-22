@@ -36,7 +36,7 @@ export function CommentSidebar() {
   };
 
   return (
-    <div className="card p-4">
+    <div className="card min-w-0 p-4">
       <div className="mb-2 flex items-center gap-2">
         <h3 className="flex min-w-0 items-center gap-1.5 text-sm font-semibold text-ink">
           <Icon name="comment" className="h-4 w-4 shrink-0" /> <span className="truncate">{t("comments.title")}</span>
@@ -66,7 +66,7 @@ export function CommentSidebar() {
           <li
             key={c.id}
             className={
-              "rounded-lg border border-line bg-surface p-3 transition-opacity duration-200 ease-[var(--ease-out)] motion-reduce:transition-none " +
+              "min-w-0 rounded-lg bg-surface-2 p-3 transition-opacity duration-200 ease-[var(--ease-out)] motion-reduce:transition-none " +
               (c.resolved ? "opacity-60" : "")
             }
           >
@@ -81,7 +81,7 @@ export function CommentSidebar() {
                 <button
                   type="button"
                   onClick={() => resolveComment(c.id)}
-                  className="inline-flex shrink-0 items-center gap-1 rounded-full bg-brand-softer px-2 py-0.5 text-xs font-medium text-brand-600 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-brand-soft motion-safe:active:scale-[0.97]"
+                  className="inline-flex shrink-0 items-center gap-1 rounded-full bg-brand-softer px-2 py-0.5 text-xs font-medium text-blue-800 transition-[background-color,transform] duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-brand-soft motion-safe:active:scale-[0.97] motion-reduce:transition-none"
                 >
                   <Icon name="check" className="h-3.5 w-3.5 shrink-0" /> {t("comments.resolve")}
                 </button>

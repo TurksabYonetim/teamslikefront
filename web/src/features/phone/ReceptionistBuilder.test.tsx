@@ -19,7 +19,7 @@ describe("ReceptionistBuilder", () => {
 
   it("canlı simülasyonda intent algılar", () => {
     render(<ReceptionistBuilder />);
-    const input = screen.getByPlaceholderText("Type what the caller says…");
+    const input = screen.getByPlaceholderText("Type a phrase…");
     fireEvent.change(input, { target: { value: "fiyat" } });
     act(() => screen.getByRole("button", { name: "Send" }).click());
     expect(receptionistStore.getState().session.turns.length).toBe(2);

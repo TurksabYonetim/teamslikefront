@@ -40,7 +40,14 @@
     "deleteRow": "Delete row",
     "deleteColumn": "Delete column",
     "noDate": "No date column",
-    "noStatus": "No status column"
+    "noStatus": "No status column",
+    "row": "Row {{n}}",
+    "totals": "Totals",
+    "addSection": "Add row / column",
+    "noUpcoming": "No upcoming deliveries",
+    "undated": "Undated",
+    "upcoming": "Upcoming",
+    "pastDue": "Past due"
   },
   "workflows": {
     "name": "Workflow name",
@@ -68,6 +75,7 @@
     "showArchived": "Show archived",
     "empty": "No clips found",
     "selectClip": "Select a clip",
+    "backToList": "Back to clips",
     "group": {
       "ai": "AI summarized",
       "other": "Other"

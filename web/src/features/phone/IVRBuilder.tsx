@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Badge, Button, EmptyState, Select } from "@/components/ui";
+import { HiOutlineTrash, HiOutlinePlus, HiOutlineChevronDown } from "react-icons/hi2";
+import clsx from "clsx";
+import { Badge, Button, EmptyState, Input, Select } from "@/components/ui";
 import { usePbx, pbxStore } from "./pbxStore";
 import { isWithinHours } from "./pbx";
 import type { IVROptionAction } from "./phone.types";
@@ -10,9 +12,6 @@ const ACTIONS: IVROptionAction[] = ["menu", "queue", "voicemail", "forward", "ex
 function hhmm(min: number): string {
   return `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
 }
-
-const FIELD =
-  "h-11 w-full rounded-lg border border-gray-300 bg-surface px-3 text-base md:text-sm text-ink transition-[border-color,box-shadow] duration-[var(--dur-pop)] ease-[var(--ease-out)] hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-600 dark:hover:border-gray-500";
 
 /** IVR menü ağacı + mesai saatleri. Seçenek ekle/kaldır; isWithinHours ile
  *  şu anki açık/kapalı durumu gösterir. */
@@ -24,6 +23,7 @@ export function IVRBuilder() {
   const [label, setLabel] = useState("");
   const [action, setAction] = useState<IVROptionAction>("extension");
   const [target, setTarget] = useState("");
+  const [formOpen, setFormOpen] = useState(false);
 
   const menu = menus[0];
   const hours = businessHours[0];
@@ -48,9 +48,9 @@ export function IVRBuilder() {
   };
 
   return (
-    <div className="ivr-builder mx-auto flex h-full w-full max-w-3xl flex-col gap-6 overflow-y-auto p-4">
+    <div className="ivr-builder mx-auto flex h-full w-full max-w-3xl flex-col gap-6 overflow-y-auto p-3 sm:p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-xl font-semibold text-ink">{t("ivr.title")}</h2>
+        <h2 className="min-w-0 truncate text-lg font-semibold text-ink sm:text-xl">{t("ivr.title")}</h2>
         <Badge>{open ? t("ivr.openNow") : t("ivr.closedNow")}</Badge>
       </div>
 
@@ -61,36 +61,66 @@ export function IVRBuilder() {
         <p className="mb-2 text-xs font-semibold text-muted">{t("ivr.options")}</p>
         <ul className="mb-4 divide-y divide-gray-100 dark:divide-gray-700">
           {menu.options.map((o) => (
-            <li key={o.key} className="ivr-option flex items-center justify-between gap-2 py-2 text-sm">
-              <span className="flex min-w-0 flex-1 items-center gap-2">
-                <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-100 font-semibold dark:bg-gray-700">{o.key}</span>
-                <span className="truncate text-gray-900 dark:text-white">{o.label}</span>
-                <span className="truncate text-muted">→ {t(`enums.ivrAction.${o.action}`)}{o.target ? ` (${o.target})` : ""}</span>
-              </span>
-              <button
-                type="button"
-                onClick={() => pbxStore.getState().removeIvrOption(menu.id, o.key)}
-                aria-label={`${t("ivr.remove")} ${o.key}`}
-                className="shrink-0 text-xs font-medium text-red-600 transition-transform duration-[var(--dur-press)] ease-[var(--ease-out)] hover:underline motion-safe:active:scale-[0.94] dark:text-red-400"
-              >
-                {t("ivr.remove")}
-              </button>
+            <li key={o.key} className="ivr-option flex items-start gap-2.5 py-2">
+              <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-100 text-sm font-semibold text-ink tabular-nums dark:bg-gray-700 dark:text-white">{o.key}</span>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-start justify-between gap-2">
+                  <span className="truncate text-sm font-medium text-gray-900 dark:text-white">{o.label}</span>
+                  <button
+                    type="button"
+                    onClick={() => pbxStore.getState().removeIvrOption(menu.id, o.key)}
+                    aria-label={`${t("ivr.remove")} ${o.key}`}
+                    className="-me-1 -mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-muted transition-colors hover:bg-red-50 hover:text-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300 motion-safe:active:scale-[0.94] dark:hover:bg-red-900/30 dark:hover:text-red-400"
+                  >
+                    <HiOutlineTrash size={15} aria-hidden />
+                  </button>
+                </div>
+                <span className="block truncate text-xs text-muted">
+                  → {t(`enums.ivrAction.${o.action}`)}{o.target ? ` · ${o.target}` : ""}
+                </span>
+              </div>
             </li>
           ))}
         </ul>
 
-        {/* Yeni seçenek — hizalı inset kart, 44px AAA hedefler, alan altı yardım metinleri */}
-        <div className="rounded-lg border border-line bg-surface-2 p-4">
-          <p className="mb-3 text-sm font-semibold text-ink">{t("ivr.newOption")}</p>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {/* Yeni seçenek — açılır kapanır inset kart (impeccable accordion) */}
+        <div className="rounded-lg border border-line bg-surface-2 p-3 sm:p-4">
+          <button
+            type="button"
+            onClick={() => setFormOpen((o) => !o)}
+            aria-expanded={formOpen}
+            aria-controls="ivr-new-option"
+            className="flex w-full items-center justify-between gap-2 rounded-lg text-sm font-semibold text-brand transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+          >
+            <span className="flex items-center gap-1.5">
+              <HiOutlinePlus size={16} aria-hidden /> {t("ivr.newOption")}
+            </span>
+            <HiOutlineChevronDown
+              size={16}
+              aria-hidden
+              className={clsx(
+                "shrink-0 transition-transform duration-200 ease-out motion-reduce:transition-none",
+                formOpen && "rotate-180",
+              )}
+            />
+          </button>
+          <div
+            id="ivr-new-option"
+            className={clsx(
+              "grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none",
+              formOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+            )}
+          >
+            <div className="overflow-hidden">
+              <div className="grid grid-cols-1 gap-3 pt-3 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
               <span className="text-xs font-medium text-ink-2">{t("ivr.key")}</span>
-              <input value={key} onChange={(e) => setKey(e.target.value)} aria-label={t("ivr.key")} maxLength={1} className={FIELD + " text-center font-mono"} />
+              <Input value={key} onChange={(e) => setKey(e.target.value)} aria-label={t("ivr.key")} maxLength={1} className="text-center font-mono" />
               <span className="text-xs text-muted">{t("ivr.keyHint")}</span>
             </label>
             <label className="flex flex-col gap-1">
               <span className="text-xs font-medium text-ink-2">{t("ivr.label")}</span>
-              <input value={label} onChange={(e) => setLabel(e.target.value)} aria-label={t("ivr.label")} className={FIELD} />
+              <Input value={label} onChange={(e) => setLabel(e.target.value)} aria-label={t("ivr.label")} />
               <span className="text-xs text-muted">{t("ivr.labelHint")}</span>
             </label>
             <div className="flex flex-col gap-1">
@@ -106,11 +136,13 @@ export function IVRBuilder() {
             </div>
             <label className="flex flex-col gap-1">
               <span className="text-xs font-medium text-ink-2">{t("ivr.target")}</span>
-              <input value={target} onChange={(e) => setTarget(e.target.value)} aria-label={t("ivr.target")} className={FIELD} />
+              <Input value={target} onChange={(e) => setTarget(e.target.value)} aria-label={t("ivr.target")} />
               <span className="text-xs text-muted">{t("ivr.targetHint")}</span>
             </label>
+              </div>
+              <Button size="sm" onClick={addOption} disabled={!key.trim()} className="mt-3 w-full">{t("ivr.addOption")}</Button>
+            </div>
           </div>
-          <Button onClick={addOption} disabled={!key.trim()} className="mt-3 h-11 w-full motion-safe:hover:-translate-y-px">{t("ivr.addOption")}</Button>
         </div>
       </div>
 

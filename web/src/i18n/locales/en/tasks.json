@@ -81,7 +81,8 @@
     "deleteGroup": "Delete group"
   },
   "card": {
-    "addNewTask": "Add new task"
+    "addNewTask": "Add new task",
+    "moveTo": "Move"
   },
   "taskModal": {
     "addNewTask": "Add new task",
@@ -169,7 +170,8 @@
     "created": "Task created",
     "updated": "Task updated",
     "deleted": "Task deleted",
-    "undo": "Undo"
+    "undo": "Undo",
+    "moved": "Moved → {{column}}"
   },
   "state": {
     "errorTitle": "Could not load tasks",

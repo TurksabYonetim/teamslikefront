@@ -81,7 +81,8 @@
     "deleteGroup": "Grubu sil"
   },
   "card": {
-    "addNewTask": "Yeni görev ekle"
+    "addNewTask": "Yeni görev ekle",
+    "moveTo": "Taşı"
   },
   "taskModal": {
     "addNewTask": "Yeni görev ekle",
@@ -169,7 +170,8 @@
     "created": "Görev oluşturuldu",
     "updated": "Görev güncellendi",
     "deleted": "Görev silindi",
-    "undo": "Geri al"
+    "undo": "Geri al",
+    "moved": "Taşındı → {{column}}"
   },
   "state": {
     "errorTitle": "Görevler yüklenemedi",

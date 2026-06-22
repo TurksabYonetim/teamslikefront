@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
-import { Badge, IconButton } from "@/components/ui";
+import { Badge } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { workhubStore, WORKHUB_SELF_ID } from "../workhub.store";
 import { approvalSummary, hasShiftConflict, openShifts, tallyResponses, weeklyHours } from "../workspace.workhub";
@@ -9,9 +9,9 @@ import { approvalSummary, hasShiftConflict, openShifts, tallyResponses, weeklyHo
 const hhmm = (min: number) => `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
 
 const APPROVE_BTN =
-  "inline-flex h-8 items-center gap-1 rounded-md bg-green-50 px-2.5 text-xs font-medium text-green-900 ring-1 ring-green-200 transition-colors hover:bg-green-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97] motion-reduce:transition-none";
+  "inline-flex h-8 w-8 items-center justify-center rounded-md bg-green-50 text-green-900 ring-1 ring-green-200 transition-colors hover:bg-green-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97] motion-reduce:transition-none";
 const REJECT_BTN =
-  "inline-flex h-8 items-center gap-1 rounded-md bg-red-50 px-2.5 text-xs font-medium text-red-900 ring-1 ring-red-200 transition-colors hover:bg-red-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97] motion-reduce:transition-none";
+  "inline-flex h-8 w-8 items-center justify-center rounded-md bg-red-50 text-red-900 ring-1 ring-red-200 transition-colors hover:bg-red-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97] motion-reduce:transition-none";
 
 /**
  * Apps — birleşik iş uygulamaları hub'ı: Onaylar · Vardiyalar · Formlar.
@@ -42,16 +42,20 @@ export function AppsPanel() {
   return (
     <div className="grid gap-4 lg:grid-cols-3">
       {/* Approvals */}
-      <div className="card p-4">
+      <div className="card min-w-0 p-4">
         <h3 className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-ink">
           <Icon name="clipboard" className="h-4 w-4" /> {t("apps.approvals")}
         </h3>
-        <div className="mb-2 flex gap-2 text-sm">
+        <div className="mb-2 flex flex-wrap gap-2 text-sm">
           <Badge tone="warning">{t("apps.pending", { n: sum.pending })}</Badge>
-          <Badge tone="positive">{sum.approved}</Badge>
-          <Badge tone="danger">{sum.rejected}</Badge>
+          <Badge tone="positive">
+            <Icon name="checkCircle" className="h-3.5 w-3.5 shrink-0" /> {sum.approved}
+          </Badge>
+          <Badge tone="danger">
+            <Icon name="close" className="h-3.5 w-3.5 shrink-0" /> {sum.rejected}
+          </Badge>
         </div>
-        <div className="mb-2 flex items-center gap-1">
+        <div className="mb-2 flex h-9 items-center gap-1 rounded-lg border border-gray-300 bg-gray-50 pr-1 transition-[border-color,box-shadow] focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 motion-reduce:transition-none">
           <input
             value={reqTitle}
             onChange={(e) => setReqTitle(e.target.value)}
@@ -60,27 +64,47 @@ export function AppsPanel() {
             }}
             placeholder={t("apps.requestPh")}
             aria-label={t("apps.request")}
-            className="input h-9 flex-1"
+            className="h-full min-w-0 flex-1 bg-transparent px-3 text-base text-gray-900 outline-none placeholder:text-gray-500 md:text-sm"
           />
-          <IconButton label={t("apps.request")} onClick={submitRequest}>
+          <button
+            type="button"
+            onClick={submitRequest}
+            disabled={!reqTitle.trim()}
+            aria-label={t("apps.request")}
+            className="grid aspect-square h-7 shrink-0 place-items-center rounded-md bg-blue-700 text-white transition-[background-color,transform] duration-[140ms] ease-[var(--ease-out)] hover:bg-blue-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 disabled:opacity-50 motion-safe:active:scale-95 motion-reduce:transition-none"
+          >
             <Icon name="plus" className="h-4 w-4" />
-          </IconButton>
+          </button>
         </div>
         <ul className="space-y-1.5">
           {approvals.map((a) => (
-            <li key={a.id} className="flex flex-wrap items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm">
-              <span className="min-w-[8rem] flex-1 truncate text-ink">{a.title}</span>
+            <li key={a.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm">
+              <span className="min-w-0 flex-1 truncate text-ink">{a.title}</span>
               {a.status === "pending" ? (
-                <div className="flex flex-none flex-wrap gap-1.5">
-                  <button type="button" className={APPROVE_BTN} onClick={() => decideApproval(a.id, "approved")}>
-                    <Icon name="checkCircle" className="h-4 w-4 shrink-0" /> {t("apps.approve")}
+                <div className="flex flex-none items-center gap-1.5">
+                  <button
+                    type="button"
+                    className={APPROVE_BTN}
+                    onClick={() => decideApproval(a.id, "approved")}
+                    aria-label={t("apps.approve")}
+                    title={t("apps.approve")}
+                  >
+                    <Icon name="checkCircle" className="h-4 w-4 shrink-0" />
                   </button>
-                  <button type="button" className={REJECT_BTN} onClick={() => decideApproval(a.id, "rejected")}>
-                    <Icon name="close" className="h-4 w-4 shrink-0" /> {t("apps.reject")}
+                  <button
+                    type="button"
+                    className={REJECT_BTN}
+                    onClick={() => decideApproval(a.id, "rejected")}
+                    aria-label={t("apps.reject")}
+                    title={t("apps.reject")}
+                  >
+                    <Icon name="close" className="h-4 w-4 shrink-0" />
                   </button>
                 </div>
               ) : (
-                <Badge tone={a.status === "approved" ? "positive" : "danger"}>{t(`apps.status.${a.status}`)}</Badge>
+                <Badge tone={a.status === "approved" ? "positive" : "danger"} className="shrink-0">
+                  {t(`apps.status.${a.status}`)}
+                </Badge>
               )}
             </li>
           ))}
@@ -88,7 +112,7 @@ export function AppsPanel() {
       </div>
 
       {/* Shifts */}
-      <div className="card p-4">
+      <div className="card min-w-0 p-4">
         <h3 className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-ink">
           <Icon name="calendar" className="h-4 w-4" /> {t("apps.shifts")}
         </h3>
@@ -98,10 +122,13 @@ export function AppsPanel() {
         </div>
         <ul className="space-y-1">
           {shifts.map((sh) => (
-            <li key={sh.id} className="flex flex-wrap items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm">
+            <li key={sh.id} className="flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm">
               <span className="w-8 flex-none text-muted">{days[sh.day]}</span>
-              <span className="min-w-0 flex-1 text-ink">
-                {hhmm(sh.startMin)}–{hhmm(sh.endMin)} · {sh.role}
+              <span className="min-w-0 flex-1 truncate text-ink">
+                <span className="tabular-nums">
+                  {hhmm(sh.startMin)}–{hhmm(sh.endMin)}
+                </span>{" "}
+                · {sh.role}
               </span>
               {sh.open || sh.userId === "" ? (
                 <button
@@ -121,7 +148,7 @@ export function AppsPanel() {
       </div>
 
       {/* Forms */}
-      <div className="card p-4">
+      <div className="card min-w-0 p-4">
         <h3 className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-ink">
           <Icon name="chartBar" className="h-4 w-4" /> {t("apps.forms")}
         </h3>

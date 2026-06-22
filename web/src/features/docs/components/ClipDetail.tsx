@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
 import { Badge, Button } from "@/components/ui";
@@ -40,6 +41,42 @@ function PrivacyIcon({ p }: { p: ClipPrivacy }) {
 }
 
 /**
+ * Açılır-kapanır ikincil bölüm — uzun klip detayını sadeleştirir (mobil + desktop).
+ * native <details>: klavye/SR erişilebilir; chevron [open] durumuna göre döner.
+ */
+function Section({
+  title,
+  icon,
+  trailing,
+  defaultOpen = false,
+  children,
+}: {
+  title: string;
+  icon?: ReactNode;
+  trailing?: ReactNode;
+  defaultOpen?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <details
+      {...(defaultOpen ? { open: true } : {})}
+      className="group overflow-hidden rounded-xl border border-line bg-surface transition-colors motion-reduce:transition-none"
+    >
+      <summary className="flex cursor-pointer list-none items-center gap-2 px-3 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand [&::-webkit-details-marker]:hidden sm:px-4">
+        {icon}
+        <h4 className="min-w-0 flex-1 truncate text-sm font-semibold text-ink">{title}</h4>
+        {trailing}
+        <Icon
+          name="chevronDown"
+          className="h-4 w-4 shrink-0 text-muted transition-transform duration-200 ease-[var(--ease-out)] [[open]_&]:rotate-180 motion-reduce:transition-none"
+        />
+      </summary>
+      <div className="border-t border-line p-3 sm:p-4">{children}</div>
+    </details>
+  );
+}
+
+/**
  * Klip detayı — oynatıcı, AI üretimi, düzenleme, yorumlar, paylaşım, CTA.
  * AI bölümü tonlu bir kart; yorumlar avatar + sohbet baloncuğu; gizlilik
  * açıklamalı radyo kartlarıyla seçilir. Durum renk + metin taşır (renk tek
@@ -74,7 +111,7 @@ export function ClipDetail({ clip }: { clip: Clip }) {
   const privacy = clip.privacy ?? "workspace";
 
   return (
-    <article className="card space-y-4 p-4">
+    <article className="card min-w-0 space-y-4 p-4">
       {/* Header + player placeholder */}
       <div>
         <div className="mb-1 flex flex-wrap items-center gap-2">
@@ -172,17 +209,24 @@ export function ClipDetail({ clip }: { clip: Clip }) {
       </section>
 
       {/* Transcript */}
-      <section>
-        <h4 className="mb-1 text-sm font-semibold text-ink">{t("clip.transcript")}</h4>
+      <Section title={t("clip.transcript")} icon={<Icon name="clipboard" className="h-4 w-4 shrink-0 text-muted" />}>
         <p className="text-sm text-muted">{clip.transcript || "—"}</p>
-      </section>
+      </Section>
 
       {/* Comments + reactions — avatar + sohbet baloncukları */}
-      <section>
-        <div className="mb-3 flex items-center gap-2">
-          <Icon name="comment" className="h-4 w-4 text-brand" />
-          <h4 className="text-sm font-semibold text-ink">{t("clip.comments")}</h4>
-          <div className="ml-auto flex gap-1">
+      <Section
+        title={t("clip.comments")}
+        icon={<Icon name="comment" className="h-4 w-4 shrink-0 text-brand" />}
+        trailing={
+          (clip.comments?.length ?? 0) > 0 ? (
+            <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-surface-2 px-1.5 text-xs font-semibold tabular-nums text-ink-2 ring-1 ring-line">
+              {clip.comments?.length}
+            </span>
+          ) : null
+        }
+        defaultOpen
+      >
+        <div className="mb-3 flex flex-wrap gap-1">
             {EMOJIS.map((e) => {
               const hit = clip.reactions?.find((r) => r.emoji === e);
               return (
@@ -201,8 +245,10 @@ export function ClipDetail({ clip }: { clip: Clip }) {
               );
             })}
           </div>
-        </div>
         <ul className="mb-3 flex flex-col gap-2.5">
+          {(clip.comments ?? []).length === 0 ? (
+            <li className="text-sm text-muted">—</li>
+          ) : null}
           {(clip.comments ?? []).map((c, i) => (
             <li key={c.id} className="flex gap-2">
               <span
@@ -225,36 +271,44 @@ export function ClipDetail({ clip }: { clip: Clip }) {
           <span aria-hidden className="inline-flex h-8 w-8 flex-none items-center justify-center rounded-full bg-blue-100 text-xs font-semibold text-blue-900">
             {initials(memberName(SELF_ID))}
           </span>
-          <input
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            placeholder={t("clip.commentPh")}
-            aria-label={t("clip.commentPh")}
-            className="input h-10 min-w-0 flex-1"
-          />
-          <Button
-            onClick={() => {
-              if (!comment.trim()) return;
-              addComment(clip.id, SELF_ID, 0, comment.trim());
-              setComment("");
-            }}
-          >
-            {t("clip.addComment")}
-          </Button>
+          <div className="flex h-10 min-w-0 flex-1 items-center rounded-lg border border-gray-300 bg-gray-50 pr-1 transition-[border-color,box-shadow] focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 motion-reduce:transition-none">
+            <input
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && comment.trim()) {
+                  addComment(clip.id, SELF_ID, 0, comment.trim());
+                  setComment("");
+                }
+              }}
+              placeholder={t("clip.commentPh")}
+              aria-label={t("clip.commentPh")}
+              className="h-full min-w-0 flex-1 bg-transparent px-3 text-base text-gray-900 outline-none placeholder:text-gray-500 md:text-sm"
+            />
+            <button
+              type="button"
+              onClick={() => {
+                if (!comment.trim()) return;
+                addComment(clip.id, SELF_ID, 0, comment.trim());
+                setComment("");
+              }}
+              disabled={!comment.trim()}
+              aria-label={t("clip.addComment")}
+              className="grid aspect-square h-8 shrink-0 place-items-center rounded-md bg-blue-700 text-white transition-[background-color,transform] duration-[140ms] ease-[var(--ease-out)] hover:bg-blue-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 disabled:opacity-50 motion-safe:active:scale-95 motion-reduce:transition-none"
+            >
+              <Icon name="send" className="h-4 w-4" />
+            </button>
+          </div>
         </div>
-      </section>
+      </Section>
 
       {/* Sharing & privacy — gizlilik açıklamalı radyo kartları */}
-      <section className="space-y-2">
-        <div className="flex items-center gap-2">
-          <Icon name="link" className="h-4 w-4 text-brand" />
-          <h4 className="text-sm font-semibold text-ink">{t("clip.sharing")}</h4>
-          {expired ? (
-            <Badge tone="danger" className="ml-auto">
-              {t("clip.expired")}
-            </Badge>
-          ) : null}
-        </div>
+      <Section
+        title={t("clip.sharing")}
+        icon={<Icon name="link" className="h-4 w-4 shrink-0 text-brand" />}
+        trailing={expired ? <Badge tone="danger">{t("clip.expired")}</Badge> : null}
+      >
+        <div className="space-y-2.5">
         <div role="radiogroup" aria-label={t("clip.privacyLabel")} className="flex flex-col gap-1.5">
           {PRIVACIES.map((p) => {
             const sel = privacy === p;
@@ -314,18 +368,16 @@ export function ClipDetail({ clip }: { clip: Clip }) {
             {t("clip.noExpiry")}
           </Button>
         </div>
-      </section>
+        </div>
+      </Section>
 
       {/* CTA — etiketli form kartı */}
-      <section className="space-y-3">
-        <div className="flex items-center gap-2">
-          <Icon name="bolt" className="h-4 w-4 text-brand" />
-          <h4 className="text-sm font-semibold text-ink">{t("clip.cta")}</h4>
-          <Badge tone="neutral" className="ml-auto">
-            {t("clip.ctaClicks", { n: clip.ctaClicks ?? 0 })}
-          </Badge>
-        </div>
-        <div className="space-y-2.5 rounded-xl border border-line bg-surface-2 p-3">
+      <Section
+        title={t("clip.cta")}
+        icon={<Icon name="bolt" className="h-4 w-4 shrink-0 text-brand" />}
+        trailing={<Badge tone="neutral">{t("clip.ctaClicks", { n: clip.ctaClicks ?? 0 })}</Badge>}
+      >
+        <div className="space-y-2.5">
           <label className="block">
             <span className="mb-1 block text-xs font-medium text-muted">{t("clip.ctaLabelPh")}</span>
             <input
@@ -346,27 +398,23 @@ export function ClipDetail({ clip }: { clip: Clip }) {
               className="input h-10 w-full"
             />
           </label>
-          <div className="flex flex-wrap items-center justify-between gap-2 pt-0.5">
+          <div className="flex flex-col gap-2 pt-0.5">
             {clip.ctaLabel ? (
-              <Button onClick={() => clickCta(clip.id)}>{clip.ctaLabel}</Button>
-            ) : (
-              <span className="text-xs text-muted">{t("clip.ctaLabelPh")}</span>
-            )}
-            <Button variant="secondary" onClick={() => setCta(clip.id, ctaLabel, ctaUrl)}>
+              <Button className="w-full justify-center" onClick={() => clickCta(clip.id)}>
+                {clip.ctaLabel}
+              </Button>
+            ) : null}
+            <Button variant="secondary" className="w-full justify-center" onClick={() => setCta(clip.id, ctaLabel, ctaUrl)}>
               {t("clip.setCta")}
             </Button>
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* Variables — açıklamalı kart */}
-      <section>
-        <div className="space-y-2 rounded-xl border border-line bg-surface-2 p-3">
-          <div>
-            <span className="block text-sm font-medium text-ink">{t("clip.variables")}</span>
-            <p className="mt-0.5 text-xs text-muted">{t("clip.variablesHelp")}</p>
-          </div>
-          <div className="flex flex-wrap items-end gap-2">
+      <Section title={t("clip.variables")} icon={<Icon name="sparkles" className="h-4 w-4 shrink-0 text-brand" />}>
+        <p className="mb-2.5 text-xs text-muted">{t("clip.variablesHelp")}</p>
+        <div className="flex flex-wrap items-end gap-2">
             <input
               type="number"
               min={1}
@@ -381,8 +429,7 @@ export function ClipDetail({ clip }: { clip: Clip }) {
             </Button>
             {clip.variablesCopies ? <Badge tone="positive">{t("clip.copies", { n: clip.variablesCopies })}</Badge> : null}
           </div>
-        </div>
-      </section>
+      </Section>
     </article>
   );
 }

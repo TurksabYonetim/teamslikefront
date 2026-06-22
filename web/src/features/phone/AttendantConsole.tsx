@@ -29,18 +29,18 @@ export function AttendantConsole() {
   }, [waiting.length]);
 
   return (
-    <div className="mx-auto flex h-full w-full max-w-3xl flex-col gap-4 overflow-y-auto p-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-xl font-semibold text-ink">{t("attendant.title")}</h2>
-        <div className="flex min-w-0 flex-1 items-center gap-2 text-sm sm:flex-initial">
-          <span className="shrink-0 text-ink-2">{t("attendant.transferTo")}</span>
+    <div className="attendant-console mx-auto flex h-full w-full max-w-3xl flex-col gap-4 overflow-y-auto p-3 sm:p-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+        <h2 className="text-lg font-semibold text-ink sm:text-xl">{t("attendant.title")}</h2>
+        <div className="flex min-w-0 flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-2">
+          <span className="text-sm font-medium text-ink-2 sm:shrink-0 sm:font-normal">{t("attendant.transferTo")}</span>
           <Select
             value={target}
             onChange={setTarget}
             options={extensions.map((ext) => ({ value: ext.number, label: `${ext.number} · ${ext.label}` }))}
             aria-label={t("attendant.selectExtension")}
             size="sm"
-            className="w-full max-w-[14rem] min-w-0"
+            className="w-full min-w-0 sm:w-56"
           />
         </div>
       </div>

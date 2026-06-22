@@ -66,9 +66,34 @@ export function GanttView({ table }: { table: DataTable }) {
         {rangeHint ? <span className="ml-1 text-xs font-normal text-muted tabular-nums">{rangeHint}</span> : null}
       </h3>
 
-      <ul className="space-y-2">
+      {/* Mobil (< md): pozisyonlu eksen dar ekranda çakışır → duruma göre gruplu sade liste */}
+      <ul className="space-y-2 md:hidden">
         {groups.map((g) => (
-          <li key={g.key} className={`grid grid-cols-[4rem_1fr] items-center gap-2 rounded-lg px-2.5 py-2 sm:grid-cols-[7rem_1fr] sm:gap-3 ${g.meta.lane}`}>
+          <li key={g.key} className={`rounded-lg px-3 py-2.5 ${g.meta.lane}`}>
+            <div className={`mb-1.5 flex items-center gap-1.5 text-xs font-semibold ${g.meta.text}`}>
+              <span className={`h-2 w-2 flex-none rounded-full ${g.meta.dot}`} aria-hidden />
+              {g.meta.label}
+            </div>
+            <ul className="space-y-1">
+              {g.rows.map((r) => {
+                const label = labelById.get(r.id) || "—";
+                const date = dateCol ? fmtDate(r.cells[dateCol.id] ?? "") : "";
+                return (
+                  <li key={r.id} className="flex items-center gap-2 text-sm text-ink">
+                    <span className="min-w-0 flex-1 truncate">{label}</span>
+                    {date ? <span className="flex-none text-xs tabular-nums text-muted">{date}</span> : null}
+                  </li>
+                );
+              })}
+            </ul>
+          </li>
+        ))}
+      </ul>
+
+      {/* md+: paylaşılan eksende pozisyonlu Gantt zaman çizelgesi */}
+      <ul className="hidden space-y-2 md:block">
+        {groups.map((g) => (
+          <li key={g.key} className={`grid grid-cols-[7rem_1fr] items-center gap-3 rounded-lg px-2.5 py-2 ${g.meta.lane}`}>
             <span className={`inline-flex min-w-0 items-center gap-1.5 text-[0.8125rem] font-semibold ${g.meta.text}`}>
               <span className={`h-2 w-2 flex-none rounded-full ${g.meta.dot}`} aria-hidden /> <span className="truncate">{g.meta.label}</span>
             </span>

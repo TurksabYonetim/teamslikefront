@@ -90,7 +90,7 @@ export function TableGridView() {
             ...(col.options ?? []).map((o) => ({ value: o, label: o })),
           ]}
           size="sm"
-          className="min-w-[6rem]"
+          className="w-full min-w-[6rem]"
         />
       );
     }
@@ -105,7 +105,7 @@ export function TableGridView() {
             ...MEMBERS.map(([id, name]) => ({ value: id, label: name })),
           ]}
           size="sm"
-          className="min-w-[6rem]"
+          className="w-full min-w-[6rem]"
         />
       );
     }
@@ -149,12 +149,96 @@ export function TableGridView() {
       ) : view === "hill" ? (
         <HillView table={table} />
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-left">
+        <>
+          {/* Mobil (< md): satır = açılır kart (accordion). Kapalı = tek satır özet;
+              açık = etiket-üstte tam genişlik kontroller (tarih tam görünür, simetrik).
+              Liste sabit yükseklikli bir kutuda kayar → uzun tablo sayfayı şişirmez. */}
+          <div className="md:hidden">
+            <ul className="tl-stagger max-h-[24rem] space-y-2 overflow-y-auto overscroll-contain pr-0.5">
+              {table.rows.map((r, i) => {
+                const titleCol = table.columns.find((c) => c.type === "text") ?? table.columns[0];
+                const title =
+                  (titleCol && (r.cells[titleCol.id] ?? "").trim()) || t("table.row", { n: i + 1 });
+                const metricCol =
+                  table.columns.find((c) => c.type === "formula") ??
+                  table.columns.find((c) => c.type === "number");
+                const metric = metricCol
+                  ? metricCol.type === "formula"
+                    ? computeCell(table, r, metricCol)
+                    : r.cells[metricCol.id] ?? ""
+                  : "";
+                return (
+                  <li key={r.id}>
+                    <details className="group overflow-hidden rounded-xl border border-line bg-surface-2 transition-colors open:border-brand-soft open:bg-surface motion-reduce:transition-none">
+                      <summary className="flex cursor-pointer list-none items-center gap-2 rounded-xl px-3 py-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand [&::-webkit-details-marker]:hidden">
+                        <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink">{title}</span>
+                        {metric !== "" ? (
+                          <span className="shrink-0 text-sm font-semibold tabular-nums text-ink-2">{metric}</span>
+                        ) : null}
+                        <Icon
+                          name="chevronDown"
+                          className="h-4 w-4 shrink-0 text-muted transition-transform duration-200 ease-[var(--ease-out)] [[open]_&]:rotate-180 motion-reduce:transition-none"
+                        />
+                      </summary>
+                      <div className="space-y-3 border-t border-line px-3 pb-3 pt-3">
+                        {table.columns.map((c) => (
+                          <div key={c.id}>
+                            <label className="mb-1 flex items-center gap-1 text-xs font-medium text-muted">
+                              <span className="truncate">{c.name}</span>
+                              {c.type === "formula" ? (
+                                <span className="text-brand" aria-hidden>
+                                  ƒ
+                                </span>
+                              ) : null}
+                            </label>
+                            {cell(r, c)}
+                          </div>
+                        ))}
+                        <div className="flex justify-end pt-1">
+                          <button
+                            type="button"
+                            onClick={() => deleteTableRow(table.id, r.id)}
+                            className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium text-muted transition-colors hover:bg-surface-2 hover:text-danger focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand motion-safe:active:scale-[0.97] motion-reduce:transition-none"
+                          >
+                            <Icon name="trash" className="h-4 w-4" /> {t("table.deleteRow")}
+                          </button>
+                        </div>
+                      </div>
+                    </details>
+                  </li>
+                );
+              })}
+            </ul>
+
+            {table.columns.some((c) => c.type === "number" || c.type === "formula") ? (
+              <div className="mt-2.5 rounded-xl border border-blue-200 bg-blue-50 p-3">
+                <div className="mb-2 text-xs font-semibold text-blue-900">{t("table.totals")}</div>
+                <dl className="space-y-1.5">
+                  {table.columns
+                    .filter((c) => c.type === "number" || c.type === "formula")
+                    .map((c) => (
+                      <div key={c.id} className="flex items-center justify-between gap-2">
+                        <dt className="inline-flex min-w-0 items-center gap-1 text-xs font-medium text-blue-900">
+                          <span className="truncate">{c.name}</span>
+                          {c.type === "formula" ? <span aria-hidden>ƒ</span> : null}
+                        </dt>
+                        <dd className="shrink-0 text-sm font-semibold tabular-nums text-blue-900">
+                          Σ {Math.round(columnTotal(table, c) * 100) / 100}
+                        </dd>
+                      </div>
+                    ))}
+                </dl>
+              </div>
+            ) : null}
+          </div>
+
+          {/* md+: yatay kaydırmalı tablo — nowrap başlık + min genişlik (ezilme yok) */}
+          <div className="hidden overflow-x-auto md:block">
+            <table className="w-full min-w-[36rem] border-collapse text-left">
             <thead>
               <tr>
                 {table.columns.map((c) => (
-                  <th key={c.id} scope="col" className="border-b border-line px-2 pb-1 text-sm font-semibold text-muted">
+                  <th key={c.id} scope="col" className="whitespace-nowrap border-b border-line px-2 pb-1 text-sm font-semibold text-muted">
                     <span className="inline-flex items-center gap-1">
                       {c.name}
                       {c.type === "formula" ? (
@@ -216,36 +300,51 @@ export function TableGridView() {
                 <td aria-hidden className="border-t-2 border-blue-700" />
               </tr>
             </tfoot>
-          </table>
-        </div>
+            </table>
+          </div>
+        </>
       )}
 
-      <div className="mt-3 flex flex-wrap items-center gap-2">
-        <Button variant="secondary" size="sm" onClick={() => addTableRow(table.id)}>
+      <details className="group mt-3 rounded-xl border border-line bg-surface-2 transition-colors open:bg-surface motion-reduce:transition-none">
+        <summary className="flex cursor-pointer list-none items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand [&::-webkit-details-marker]:hidden">
+          <Icon name="plus" className="h-4 w-4 shrink-0 text-brand" />
+          <span className="flex-1">{t("table.addSection")}</span>
+          <Icon
+            name="chevronDown"
+            className="h-4 w-4 shrink-0 text-muted transition-transform duration-200 ease-[var(--ease-out)] [[open]_&]:rotate-180 motion-reduce:transition-none"
+          />
+        </summary>
+        <div className="flex flex-col gap-2 border-t border-line p-3 sm:flex-row sm:flex-wrap sm:items-center">
+        <Button
+          variant="secondary"
+          size="sm"
+          className="w-full justify-center sm:w-auto"
+          onClick={() => addTableRow(table.id)}
+        >
           <Icon name="plus" className="h-4 w-4" /> {t("table.addRow")}
         </Button>
-        <span className="inline-flex items-center gap-1">
-          <input
-            value={newColName}
-            onChange={(e) => setNewColName(e.target.value)}
-            placeholder={t("table.newColumn")}
-            aria-label={t("table.newColumn")}
-            className="input h-9 w-32"
-          />
-          <Select<ColumnType>
-            value={newColType}
-            onChange={setNewColType}
-            aria-label={t("table.addColumn")}
-            options={NEW_COL_TYPES.map((ty) => ({
-              value: ty,
-              label: ty,
-            }))}
-            size="sm"
-            className="w-32"
-          />
+        <input
+          value={newColName}
+          onChange={(e) => setNewColName(e.target.value)}
+          placeholder={t("table.newColumn")}
+          aria-label={t("table.newColumn")}
+          className="input h-9 w-full sm:w-32"
+        />
+        <div className="flex items-center gap-1.5">
+          <div className="min-w-0 flex-1 sm:w-28 sm:flex-none">
+            <Select<ColumnType>
+              value={newColType}
+              onChange={setNewColType}
+              aria-label={t("table.addColumn")}
+              options={NEW_COL_TYPES.map((ty) => ({ value: ty, label: ty }))}
+              size="sm"
+              className="w-full"
+            />
+          </div>
           <Button
             variant="ghost"
             size="sm"
+            className="shrink-0"
             onClick={() => {
               addTableColumn(table.id, newColName.trim() || t("table.newColumn"), newColType);
               setNewColName("");
@@ -253,8 +352,9 @@ export function TableGridView() {
           >
             <Icon name="plus" className="h-4 w-4" /> {t("table.addColumn")}
           </Button>
-        </span>
-      </div>
+        </div>
+        </div>
+      </details>
     </div>
   );
 }

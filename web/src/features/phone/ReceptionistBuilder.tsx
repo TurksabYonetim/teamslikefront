@@ -8,8 +8,13 @@ import {
   HiOutlineMicrophone,
   HiOutlineUser,
   HiOutlineChatBubbleLeftRight,
+  HiOutlinePaperAirplane,
+  HiOutlineTrash,
+  HiOutlinePlus,
+  HiOutlineChevronDown,
 } from "react-icons/hi2";
 import type { IconType } from "react-icons";
+import clsx from "clsx";
 import { Badge, Button, Select } from "@/components/ui";
 import { useReceptionist, receptionistStore } from "./receptionistStore";
 import type { CaptureField, ReceptionistActionKind } from "./phone.types";
@@ -51,6 +56,7 @@ export function ReceptionistBuilder() {
   const [action, setAction] = useState<ReceptionistActionKind>("route_queue");
   const [target, setTarget] = useState("");
   const [utterance, setUtterance] = useState("");
+  const [formOpen, setFormOpen] = useState(false);
 
   const addIntent = () => {
     const l = label.trim();
@@ -79,7 +85,7 @@ export function ReceptionistBuilder() {
     <div className="reception-builder mx-auto flex h-full w-full max-w-4xl flex-col gap-6 overflow-y-auto p-4 lg:max-w-5xl lg:flex-row lg:items-start xl:gap-8">
       <div className="flex w-full flex-col gap-4 lg:max-w-md">
         <div className="flex items-center justify-between gap-2">
-          <h2 className="min-w-0 truncate text-xl font-semibold text-ink">{t("reception.title")}</h2>
+          <h2 className="min-w-0 truncate text-lg font-semibold text-ink sm:text-xl">{t("reception.title")}</h2>
           <button
             type="button"
             onClick={() => receptionistStore.getState().toggleEnabled()}
@@ -104,44 +110,79 @@ export function ReceptionistBuilder() {
                 <li
                   key={i.id}
                   className={
-                    "flex items-center gap-2.5 rounded-lg px-2 py-2 text-sm " +
+                    "flex items-start gap-2.5 rounded-lg px-2 py-2 " +
                     (matched ? "reception-intent--matched" : "")
                   }
                 >
-                  <span className={"reception-ico reception-ico--" + tone} aria-hidden="true">
+                  <span className={"reception-ico reception-ico--" + tone + " mt-0.5 shrink-0"} aria-hidden="true">
                     <Icon size={16} />
                   </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="font-medium text-gray-900 dark:text-white">{i.label}</span>
-                    <span className="ml-2 text-sm text-muted">{t(`enums.receptionAction.${i.action}`)}{i.target ? ` (${i.target})` : ""}</span>
-                    <span className="block truncate text-xs text-muted">{i.phrases.join(", ")}</span>
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => receptionistStore.getState().removeIntent(i.id)}
-                    aria-label={`${t("reception.remove")} ${i.label}`}
-                    className="shrink-0 text-xs font-medium text-red-600 hover:underline dark:text-red-400"
-                  >
-                    {t("reception.remove")}
-                  </button>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="truncate text-sm font-medium text-gray-900 dark:text-white">{i.label}</span>
+                      <button
+                        type="button"
+                        onClick={() => receptionistStore.getState().removeIntent(i.id)}
+                        aria-label={`${t("reception.remove")} ${i.label}`}
+                        className="-me-1 -mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-muted transition-colors hover:bg-red-50 hover:text-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+                      >
+                        <HiOutlineTrash size={15} aria-hidden />
+                      </button>
+                    </div>
+                    <span className="block text-xs text-muted">
+                      {t(`enums.receptionAction.${i.action}`)}{i.target ? ` · ${i.target}` : ""}
+                    </span>
+                    {i.phrases.length > 0 && (
+                      <span className="mt-0.5 block truncate text-xs text-muted/90">{i.phrases.join(", ")}</span>
+                    )}
+                  </div>
                 </li>
               );
             })}
           </ul>
-          <div className="flex flex-col gap-2">
-            <input value={label} onChange={(e) => setLabel(e.target.value)} placeholder={t("reception.label")} aria-label={t("reception.label")} className="input" />
-            <input value={phrases} onChange={(e) => setPhrases(e.target.value)} placeholder={t("reception.phrases")} aria-label={t("reception.phrases")} className="input" />
-            <div className="flex gap-2">
-              <Select<ReceptionistActionKind>
-                value={action}
-                onChange={setAction}
-                options={ACTIONS.map((a) => ({ value: a, label: t(`enums.receptionAction.${a}`) }))}
-                aria-label={t("reception.action")}
-                className="flex-1"
+          <div className="border-t border-line pt-2 dark:border-gray-700">
+            <button
+              type="button"
+              onClick={() => setFormOpen((o) => !o)}
+              aria-expanded={formOpen}
+              aria-controls="reception-add-form"
+              className="flex w-full items-center justify-between gap-2 rounded-lg px-1 py-1.5 text-sm font-medium text-brand transition-colors hover:bg-brand-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            >
+              <span className="flex items-center gap-1.5">
+                <HiOutlinePlus size={16} aria-hidden /> {t("reception.addIntent")}
+              </span>
+              <HiOutlineChevronDown
+                size={16}
+                aria-hidden
+                className={clsx(
+                  "shrink-0 transition-transform duration-200 ease-out motion-reduce:transition-none",
+                  formOpen && "rotate-180",
+                )}
               />
-              <input value={target} onChange={(e) => setTarget(e.target.value)} placeholder={t("reception.target")} aria-label={t("reception.target")} className="input w-28 min-w-0" />
+            </button>
+            <div
+              id="reception-add-form"
+              className={clsx(
+                "grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none",
+                formOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+              )}
+            >
+              <div className="overflow-hidden">
+                <div className="flex flex-col gap-2 pt-2">
+                  <input value={label} onChange={(e) => setLabel(e.target.value)} placeholder={t("reception.label")} aria-label={t("reception.label")} className="input" />
+                  <input value={phrases} onChange={(e) => setPhrases(e.target.value)} placeholder={t("reception.phrases")} aria-label={t("reception.phrases")} className="input" />
+                  <Select<ReceptionistActionKind>
+                    value={action}
+                    onChange={setAction}
+                    options={ACTIONS.map((a) => ({ value: a, label: t(`enums.receptionAction.${a}`) }))}
+                    aria-label={t("reception.action")}
+                    className="w-full"
+                  />
+                  <input value={target} onChange={(e) => setTarget(e.target.value)} placeholder={t("reception.target")} aria-label={t("reception.target")} className="input" />
+                  <Button size="sm" onClick={addIntent} disabled={!label.trim()} className="w-full">{t("reception.add")}</Button>
+                </div>
+              </div>
             </div>
-            <Button size="sm" onClick={addIntent} disabled={!label.trim()}>{t("reception.addIntent")}</Button>
           </div>
         </div>
 
@@ -201,16 +242,32 @@ export function ReceptionistBuilder() {
           </div>
         )}
 
-        <div className="flex items-end gap-2 border-t border-gray-200 p-3 dark:border-gray-700">
-          <textarea
-            value={utterance}
-            onChange={(e) => setUtterance(e.target.value)}
-            placeholder={t("reception.simPlaceholder")}
-            aria-label={t("reception.simPlaceholder")}
-            rows={1}
-            className="input min-h-[2.5rem] flex-1 resize-none"
-          />
-          <Button onClick={send} disabled={!utterance.trim()}>{t("reception.send")}</Button>
+        <div className="border-t border-gray-200 p-3 dark:border-gray-700">
+          <div className="relative">
+            <textarea
+              value={utterance}
+              onChange={(e) => setUtterance(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  send();
+                }
+              }}
+              placeholder={t("reception.simPlaceholder")}
+              aria-label={t("reception.simPlaceholder")}
+              rows={1}
+              className="input min-h-[2.75rem] w-full resize-none pe-12"
+            />
+            <button
+              type="button"
+              onClick={send}
+              disabled={!utterance.trim()}
+              aria-label={t("reception.send")}
+              className="absolute bottom-1.5 end-1.5 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-brand text-white transition-[transform,background-color,opacity] duration-[var(--dur-press)] ease-[var(--ease-out)] hover:bg-brand-600 motion-safe:active:scale-[0.95] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand disabled:opacity-40 disabled:hover:bg-brand"
+            >
+              <HiOutlinePaperAirplane size={18} aria-hidden />
+            </button>
+          </div>
         </div>
       </div>
     </div>
