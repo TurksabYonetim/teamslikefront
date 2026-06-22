@@ -30,9 +30,9 @@ export function WorkforceView() {
   const liveTotal = scorecardTotal(scores, criteria);
 
   return (
-    <div className="tl-stagger grid flex-1 gap-4 overflow-y-auto pb-4 lg:grid-cols-2">
+    <div className="tl-stagger flex min-w-0 flex-1 flex-col gap-4 overflow-y-auto pb-4 lg:grid lg:grid-cols-2">
       {/* Tahmin & personel */}
-      <Card className="lg:col-span-2">
+      <Card className="min-w-0 lg:col-span-2">
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <Icon name="chartBar" className="h-5 w-5 text-brand" aria-hidden />
           <h2 className="text-base font-semibold text-ink">{t("wfo.forecast")}</h2>
@@ -64,7 +64,7 @@ export function WorkforceView() {
                 const tone = gap < 0 ? "danger" : gap === 0 ? "neutral" : "positive";
                 return (
                   <tr key={i.id}>
-                    <td className="border-b border-line px-2 py-1 text-ink">{i.label}</td>
+                    <td className="whitespace-nowrap border-b border-line px-2 py-1 font-medium tabular-nums text-ink">{i.label}</td>
                     <td className="border-b border-line px-2 py-1">
                       <input
                         type="number"
@@ -72,11 +72,11 @@ export function WorkforceView() {
                         value={i.forecastVolume}
                         onChange={(e) => act().setVolume(i.id, Number(e.target.value))}
                         aria-label={`${i.label} ${t("wfo.volume")}`}
-                        className="input w-20"
+                        className="input w-16 tabular-nums"
                       />
                     </td>
-                    <td className="border-b border-line px-2 py-1 text-ink">{i.required}</td>
-                    <td className="border-b border-line px-2 py-1 text-ink">{i.scheduled}</td>
+                    <td className="border-b border-line px-2 py-1 tabular-nums text-ink">{i.required}</td>
+                    <td className="border-b border-line px-2 py-1 tabular-nums text-ink">{i.scheduled}</td>
                     <td className="border-b border-line px-2 py-1">
                       <Badge tone={tone}>{gap > 0 ? `+${gap}` : gap}</Badge>
                     </td>
@@ -96,7 +96,7 @@ export function WorkforceView() {
       </Card>
 
       {/* Uyum */}
-      <Card>
+      <Card className="min-w-0">
         <div className="mb-3 flex items-center gap-2">
           <Icon name="chartBar" className="h-5 w-5 text-brand" aria-hidden />
           <h2 className="text-base font-semibold text-ink">{t("wfo.adherence")}</h2>
@@ -125,7 +125,7 @@ export function WorkforceView() {
       </Card>
 
       {/* Kalite skorkartı */}
-      <Card>
+      <Card className="min-w-0">
         <div className="mb-3 flex items-center gap-2">
           <Icon name="clipboard" className="h-5 w-5 text-brand" aria-hidden />
           <h2 className="text-base font-semibold text-ink">{t("wfo.quality")}</h2>
@@ -163,7 +163,7 @@ export function WorkforceView() {
           ))}
 
           <div className="flex items-center gap-2">
-            <Badge tone="accent">
+            <Badge tone="info">
               {t("wfo.total")}: {liveTotal}
             </Badge>
             <Button size="sm" className="ml-auto" onClick={() => act().addEvaluation(agentId, "cv1", scores)}>
