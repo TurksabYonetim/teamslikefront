@@ -14,12 +14,15 @@ export function ConfirmAction({
   verifyWord,
   onConfirm,
   variant = "danger",
+  triggerClassName,
 }: {
   label: string;
   verifyWord: string;
   onConfirm: () => void;
   /** "secondary", local Button'da "secondary" varyantına eşlenir. */
   variant?: "danger" | "primary" | "secondary";
+  /** Kapalı durumdaki tetikleyici butona eklenir (ör. mobilde `w-full`). */
+  triggerClassName?: string;
 }) {
   const { t } = useTranslation("admin");
   const [open, setOpen] = useState(false);
@@ -27,7 +30,7 @@ export function ConfirmAction({
 
   if (!open) {
     return (
-      <Button variant={variant} size="sm" onClick={() => setOpen(true)}>
+      <Button variant={variant} size="sm" className={triggerClassName} onClick={() => setOpen(true)}>
         {label}
       </Button>
     );

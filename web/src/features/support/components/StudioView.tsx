@@ -53,9 +53,9 @@ export function StudioView() {
   };
 
   return (
-    <div className="tl-stagger grid flex-1 gap-4 overflow-y-auto pb-4 lg:grid-cols-[16rem_1fr_20rem]">
+    <div className="tl-stagger flex flex-1 flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 md:grid md:grid-cols-2 md:gap-4 lg:grid-cols-[15rem_minmax(0,1fr)_19rem] xl:grid-cols-[16rem_minmax(0,1fr)_20rem]">
       {/* Agent listesi */}
-      <Card>
+      <Card className="min-w-0 md:col-span-2 lg:col-span-1">
         <div className="mb-2 flex items-center gap-2">
           <Icon name="sparkles" className="h-5 w-5 text-brand" aria-hidden />
           <h2 className="text-base font-semibold text-ink">{t("studio.agents")}</h2>
@@ -71,7 +71,7 @@ export function StudioView() {
                   a.id === activeId ? "bg-brand text-white" : "text-ink hover:bg-surface-2",
                 )}
               >
-                <span className="flex-1 truncate">{a.name}</span>
+                <span className="min-w-0 flex-1 truncate">{a.name}</span>
                 <Badge tone={STATUS_TONE[a.status]}>{t(`studio.status.${a.status}`)}</Badge>
               </button>
             </li>
@@ -99,7 +99,7 @@ export function StudioView() {
       </Card>
 
       {/* Tasarım */}
-      <Card>
+      <Card className="min-w-0">
         <label className="mb-1 block text-sm font-medium text-ink" htmlFor="ag-name">
           {t("studio.name")}
         </label>
@@ -193,7 +193,7 @@ export function StudioView() {
       </Card>
 
       {/* Test + yayın */}
-      <Card>
+      <Card className="min-w-0">
         <div className="mb-2 flex items-center gap-2">
           <h2 className="text-base font-semibold text-ink">{t("studio.sandbox")}</h2>
           <Badge tone="accent" className="ml-auto">
@@ -234,7 +234,7 @@ export function StudioView() {
               }
             }}
             placeholder={t("studio.sandboxPh")}
-            className="input flex-1"
+            className="input min-w-0 flex-1"
           />
           <IconButton label={t("studio.run")} variant="primary" onClick={send} disabled={!utterance.trim()}>
             <Icon name="send" className="h-4 w-4" aria-hidden />

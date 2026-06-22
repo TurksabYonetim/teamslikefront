@@ -86,7 +86,7 @@ export function ClipsList() {
 
   return (
     <div className="grid gap-4 lg:grid-cols-[22rem_1fr]">
-      <div className={"card p-4 " + (mobileView === "detail" ? "hidden lg:block" : "")}>
+      <div className={"card min-w-0 p-4 " + (mobileView === "detail" ? "hidden lg:block" : "")}>
         <div className="mb-2 flex items-center gap-2">
           <h3 className="flex min-w-0 items-center gap-1.5 text-sm font-semibold text-ink">
             <Icon name="video" className="h-4 w-4 shrink-0" /> <span className="truncate">{t("tabs.clips")}</span>

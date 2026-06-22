@@ -24,6 +24,10 @@ interface DateFieldProps {
   disabled?: boolean;
   placeholder?: string;
   "aria-label"?: string;
+  /** Seçilebilir en erken tarih (dahil), ISO `YYYY-MM-DD`. */
+  min?: string;
+  /** Seçilebilir en geç tarih (dahil), ISO `YYYY-MM-DD`. */
+  max?: string;
   /** Tetikleyiciye ek sınıf (genişlik vb.). */
   className?: string;
 }
@@ -73,6 +77,8 @@ export function DateField({
   disabled = false,
   placeholder = "gg.aa.yyyy",
   "aria-label": ariaLabel,
+  min,
+  max,
   className,
 }: DateFieldProps) {
   const [open, setOpen] = React.useState(false);
@@ -165,6 +171,10 @@ export function DateField({
   const isToday = (d: number) =>
     d === today.getDate() && view.mo === today.getMonth() && view.y === today.getFullYear();
   const isSelected = (d: number) => !!parsed && parsed.y === view.y && parsed.mo === view.mo && parsed.d === d;
+  const isOutOfRange = (d: number) => {
+    const v = iso(view.y, view.mo, d);
+    return (!!min && v < min) || (!!max && v > max);
+  };
 
   const shiftMonth = (delta: number) => {
     setView((v) => {
@@ -174,6 +184,7 @@ export function DateField({
   };
 
   const pick = (d: number) => {
+    if (isOutOfRange(d)) return;
     onChange(iso(view.y, view.mo, d));
     setOpen(false);
     triggerRef.current?.focus();
@@ -295,6 +306,7 @@ export function DateField({
                       data-day={iso(view.y, view.mo, d)}
                       data-focus={d === focusDay ? "true" : undefined}
                       tabIndex={d === focusDay ? 0 : -1}
+                      disabled={isOutOfRange(d)}
                       aria-pressed={isSelected(d)}
                       aria-current={isToday(d) ? "date" : undefined}
                       aria-label={`${d} ${MONTHS_TR[view.mo]} ${view.y}`}
@@ -309,11 +321,13 @@ export function DateField({
                       }}
                       className={clsx(
                         "grid h-9 place-items-center rounded-md text-sm tabular-nums outline-none transition-colors",
-                        isSelected(d)
-                          ? "bg-brand font-semibold text-white"
-                          : isToday(d)
-                            ? "font-semibold text-blue-800 ring-1 ring-blue-300 hover:bg-surface-2"
-                            : "text-ink hover:bg-surface-2 focus-visible:bg-surface-2 focus-visible:ring-1 focus-visible:ring-blue-500",
+                        isOutOfRange(d)
+                          ? "cursor-not-allowed text-ink-3/40"
+                          : isSelected(d)
+                            ? "bg-brand font-semibold text-white"
+                            : isToday(d)
+                              ? "font-semibold text-blue-800 ring-1 ring-blue-300 hover:bg-surface-2"
+                              : "text-ink hover:bg-surface-2 focus-visible:bg-surface-2 focus-visible:ring-1 focus-visible:ring-blue-500",
                       )}
                     >
                       {d}

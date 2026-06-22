@@ -4,6 +4,7 @@ import { Topbar } from "@/components/layout/Topbar";
 import { Icon } from "@/components/Icon";
 import {
   Button,
+  DateField,
   EmptyState,
   Skeleton,
   Tabs,
@@ -225,22 +226,22 @@ function AuditLogSection() {
       <div className="flex flex-wrap items-end gap-3">
         <label className="flex w-full flex-col gap-1 sm:w-auto">
           <span className="text-xs text-muted">{t("audit.from")}</span>
-          <input
-            type="date"
+          <DateField
             value={from}
             max={to || undefined}
-            onChange={(e) => setFrom(e.target.value)}
-            className={`${INPUT_CLASS} w-full sm:w-auto`}
+            onChange={setFrom}
+            aria-label={t("audit.from")}
+            className="w-full sm:w-44"
           />
         </label>
         <label className="flex w-full flex-col gap-1 sm:w-auto">
           <span className="text-xs text-muted">{t("audit.to")}</span>
-          <input
-            type="date"
+          <DateField
             value={to}
             min={from || undefined}
-            onChange={(e) => setTo(e.target.value)}
-            className={`${INPUT_CLASS} w-full sm:w-auto`}
+            onChange={setTo}
+            aria-label={t("audit.to")}
+            className="w-full sm:w-44"
           />
         </label>
         <input

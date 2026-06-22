@@ -73,6 +73,15 @@ body,
 #root {
   height: 100%;
 }
+html {
+  /* Yatay viewport scroll'unu kapat. Uygulama içeriği her ekranda (≥260px'e
+     kadar ölçüldü) konteynerine sığar; tek yatay taşma kaynağı, viewport'u
+     ~9px aşan dev-only React Query Devtools yüzen butonunun logosuydu (fixed,
+     <main>'in overflow-hidden'ı dışında). `clip` (hidden değil) yeni bir scroll
+     konteyneri/BFC kurmaz ve position:sticky'yi etkilemez; meşru içerik
+     taşmadığından hiçbir şey kırpılmaz — yalnızca sahte yatay scroll'u önler. */
+  overflow-x: clip;
+}
 body {
   margin: 0;
   font-family: var(--font-sans);

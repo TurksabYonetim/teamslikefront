@@ -11,7 +11,7 @@ import listPlugin from "@fullcalendar/list";
 import trLocale from "@fullcalendar/core/locales/tr";
 import i18n from "@/i18n/i18n";
 import { Icon } from "@/components/Icon";
-import { Badge, Button, ConfirmDialog, Modal, TimeField, useToast } from "@/components/ui";
+import { Badge, Button, ConfirmDialog, DateField, Modal, TimeField, useToast } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { appointmentsStore } from "../appointments.store";
 import { HOST_NAMES } from "../appointments.data";
@@ -64,8 +64,6 @@ const toTimeInput = (ms: number) => {
   const d = new Date(ms);
   return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
 };
-
-const inputCls = "input";
 
 /** Takvim görünümleri — kendi (Tailwind) toolbar'ımızda segment olarak gösterilir. */
 type CalView = "dayGridMonth" | "timeGridWeek" | "listWeek";
@@ -288,7 +286,7 @@ export function BookingsCalendar() {
             <div className="border-t border-line pt-2">
               <div className="mb-1 text-muted">{t("reschedule")}</div>
               <div className="flex flex-wrap items-center gap-2">
-                <input type="date" value={rDate} onChange={(e) => setRDate(e.target.value)} aria-label={t("newDate")} className={inputCls} disabled={isCancelled} />
+                <DateField value={rDate} onChange={setRDate} aria-label={t("newDate")} className="w-40" disabled={isCancelled} />
                 <TimeField value={rTime} onChange={setRTime} aria-label={t("newTime")} disabled={isCancelled} />
               </div>
             </div>

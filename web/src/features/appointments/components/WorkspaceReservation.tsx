@@ -2,7 +2,7 @@
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { Icon } from "@/components/Icon";
-import { Badge, Button, IconButton } from "@/components/ui";
+import { Badge, Button, DateField, IconButton } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { workspaceStore } from "../workspace.store";
 import { deskAvailability, occupancyRate } from "../appointments.workspace";
@@ -17,8 +17,6 @@ const SLOT_KEY: Record<DeskSlot, string> = {
   full: "workspace.slotFull",
 };
 const name = (id: string) => HOST_NAMES[id] ?? id;
-
-const inputCls = "input h-10";
 
 export function WorkspaceReservation() {
   const { t } = useTranslation("appointments");
@@ -48,12 +46,11 @@ export function WorkspaceReservation() {
             {/* Tarih: mobilde etiket üstte + input tam genişlik; sm+ yan yana. */}
             <label className="flex flex-col gap-1.5 text-sm font-medium text-ink sm:flex-row sm:items-center sm:gap-2">
               <span className="shrink-0">{t("workspace.date")}</span>
-              <input
-                type="date"
+              <DateField
                 value={dateISO}
-                onChange={(e) => act().setDate(e.target.value)}
+                onChange={(v) => act().setDate(v)}
                 aria-label={t("workspace.date")}
-                className={`${inputCls} w-full sm:w-auto`}
+                className="w-full sm:w-44"
               />
             </label>
             {/* Slot seçici: tam genişlik 3 eşit hücre — dar ekranda taşmaz, simetrik. */}

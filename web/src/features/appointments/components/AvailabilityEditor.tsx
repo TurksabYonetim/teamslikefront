@@ -1,7 +1,7 @@
 // web/src/features/appointments/components/AvailabilityEditor.tsx
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { TimeField } from "@/components/ui";
+import { DateField, TimeField } from "@/components/ui";
 import { useStore } from "@/lib/createStore";
 import { appointmentsStore } from "../appointments.store";
 import { generateSlots } from "../slots";
@@ -104,7 +104,7 @@ export function AvailabilityEditor() {
             <button type="button" onClick={() => stepDay(-1)} aria-label={t("prevDay", { defaultValue: "Önceki gün" })} className={navBtn}>
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12 5l-5 5 5 5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </button>
-            <input type="date" value={previewDate} onChange={(e) => setPreviewDate(e.target.value)} aria-label={t("pickDate")} className="h-9 rounded-lg border border-line bg-surface px-2 text-base text-ink tabular-nums focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 md:text-xs" />
+            <DateField value={previewDate} onChange={setPreviewDate} aria-label={t("pickDate")} className="w-36" />
             <button type="button" onClick={() => stepDay(1)} aria-label={t("nextDay", { defaultValue: "Sonraki gün" })} className={navBtn}>
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M8 5l5 5-5 5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </button>
