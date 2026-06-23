@@ -8,6 +8,7 @@ işi doğru role devredebilir. Agent'lar `.md` dosyaları olarak otomatik keşfe
 
 | Agent | Rol | Ne zaman devreye girer | Renk |
 | --- | --- | --- | --- |
+| `workflow-coordinator` | Agent Koordinatörü | Çok rollü/belirsiz işlerde agent seçimi, görev atama, sıra ve kalite kapısı belirleme | orange |
 | `design-engineer` | Tasarım Mühendisi | Her UI işi — **her zaman** `emil-design-eng` + `impeccable` standartlarını uygular/denetler | pink |
 | `project-manager` | Proje Yöneticisi | Kapsam, plan, bağımlılık, risk, teslimat sırası | blue |
 | `scrum-master` | Scrum Master | Sprint, standup, retro, refinement, bloker kaldırma | yellow |
@@ -23,6 +24,7 @@ işi doğru role devredebilir. Agent'lar `.md` dosyaları olarak otomatik keşfe
 
 ## Tipik akış
 
+0. **workflow-coordinator** — isteği sınıflandırır; hangi agent'ların hangi sırayla çalışacağını belirler.
 1. **product-owner** — neyin, neden inşa edileceğini ve kabul kriterini tanımlar.
 2. **project-manager** — işi parçalara ayırır, bağımlılık/risk/sıra çıkarır.
 3. **scrum-master** — sprint'e alır, akışı korur, blokerleri kaldırır.
@@ -35,10 +37,19 @@ işi doğru role devredebilir. Agent'lar `.md` dosyaları olarak otomatik keşfe
 10. **devops-engineer** — CI/CD ile test edip teslim eder.
 11. **tech-writer** — dokümante eder.
 
+## Kim Yönetir?
+
+- **Ana yürütücü:** Claude/Codex ana oturumu. Tool çağırma, dosya düzenleme ve nihai teslim burada yapılır.
+- **Koordinatör:** `workflow-coordinator`. Büyük veya belirsiz işlerde hangi agent'ın devreye gireceğini, görev sırasını, paralel çalışabilecek alanları ve kalite kapılarını belirler.
+- **Teslimat planı sahibi:** `project-manager`. Koordinatörün seçtiği iş akışını efor, bağımlılık, risk ve teslimat sırasına çevirir.
+- **Süreç sahibi:** `scrum-master`. Sprint, standup, retro, refinement ve bloker takibi yapar; teknik görev atayıcısı değildir.
+- **Uygulama sahibi:** `software-developer`, UI standardı için `design-engineer`, mimari kararlar için `frontend-architect`/`backend-architect`.
+
 ## Notlar
 
 - Tüm agent'lar proje talimatlarına (`CLAUDE.md`, `DESIGN.md`, `PRODUCT.md`) tabidir;
   çakışmada **proje talimatı önceliklidir**.
+- `workflow-coordinator` kod yazmaz; görev atar, sırayı belirler ve kalite kapılarını zorunlu kılar.
 - `design-engineer`, UI işinde `skills:` frontmatter ile `emil-design-eng` ve
   `impeccable` skill'lerini her zaman önden yükler.
 - `product-owner`, `project-manager` ve `scrum-master` salt-okunur çalışır.
