@@ -5,10 +5,34 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
+  // GitHub Pages proje sayfası alt-yoldan servis eder
+  // (turksabyonetim.github.io/teamslikefront/). CI build'i VITE_BASE_PATH=/teamslikefront/
+  // verir; lokal dev'de değişken yoktur → kök "/" kullanılır.
+  base: process.env.VITE_BASE_PATH ?? "/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        // Ağır 3rd-party kütüphaneleri ayrı, uzun süre cache'lenebilir chunk'lara
+        // böl. Böylece bir sayfada güncelleme olduğunda echarts/fullcalendar gibi
+        // devler yeniden indirilmez ve route chunk'ları şişmez.
+        manualChunks: {
+          "vendor-react": ["react", "react-dom", "react-router-dom"],
+          "vendor-charts": ["echarts", "echarts-for-react"],
+          "vendor-calendar": [
+            "@fullcalendar/core",
+            "@fullcalendar/daygrid",
+            "@fullcalendar/timegrid",
+            "@fullcalendar/interaction",
+            "@fullcalendar/list",
+          ],
+        },
+      },
     },
   },
   server: {
