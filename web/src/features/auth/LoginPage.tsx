@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useLogin } from "./auth.hooks";
+import { useLogin, useDemoLogin } from "./auth.hooks";
 import { apiErrorMessage } from "@/lib/api";
 import { AuthShell } from "./AuthShell";
 import { AuthField } from "./AuthField";
@@ -13,6 +13,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export function LoginPage() {
   const navigate = useNavigate();
   const login = useLogin();
+  const demoLogin = useDemoLogin();
   const toast = useToast();
   const { t } = useTranslation("auth");
 
@@ -57,11 +58,14 @@ export function LoginPage() {
     error: errors[key],
   });
 
+  // Offline demo: backend'e gitmeden sahte oturum açar (GitHub Pages'te CORS olmadan
+  // çalışsın diye). Gerçek backend hazır olduğunda yukarıdaki submit(...) ile değiştir.
   const onDemo = () =>
-    submit({
-      tenant_slug: "teamslike-demo",
-      email: "demo-admin@teamslike.dev",
-      password: "Demo!2026Teams",
+    demoLogin.mutate(undefined, {
+      onSuccess: () => {
+        toast.show({ message: t("login.success"), variant: "success" });
+        navigate("/", { replace: true });
+      },
     });
 
   return (
@@ -138,7 +142,8 @@ export function LoginPage() {
           type="button"
           variant="secondary"
           onClick={onDemo}
-          disabled={login.isPending}
+          loading={demoLogin.isPending}
+          disabled={login.isPending || demoLogin.isPending}
           className="w-full"
         >
           {t("login.demo")}

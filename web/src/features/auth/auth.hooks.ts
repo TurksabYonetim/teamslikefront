@@ -40,6 +40,23 @@ export function useLogin() {
   });
 }
 
+/**
+ * Offline demo girişi: backend'e hiç gitmeden sahte demo token'ı saklar.
+ * useMe() bu token'ı görünce DEMO_USER döndürür; böylece API/CORS olmadan
+ * (ör. GitHub Pages'te) demo oturumu açılır. Mutation API çağırmadığı için
+ * anında biter — UI'da gerçek login ile aynı şekilde kullanılır.
+ */
+export function useDemoLogin() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => Promise.resolve(),
+    onSuccess: () => {
+      tokenStore.set(config.demoToken, config.demoToken);
+      qc.invalidateQueries({ queryKey: ME_KEY });
+    },
+  });
+}
+
 /** Tenant signup mutation'ı. Başarıda admin token saklanır. */
 export function useSignup() {
   const qc = useQueryClient();
