@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { config } from "@/config";
 import { tokenStore } from "@/lib/token";
+import { installDemoAdapter } from "@/lib/demoApi";
 
 /**
  * Merkezi axios instance.
@@ -12,6 +13,10 @@ export const api = axios.create({
   baseURL: config.apiBaseUrl,
   headers: { "Content-Type": "application/json" },
 });
+
+// Offline demo modu: demo token aktifse istekler ağa çıkmadan örnek veriyle
+// karşılanır (gerçek oturumda devre dışı). Bkz. lib/demoApi.ts
+installDemoAdapter(api);
 
 api.interceptors.request.use((cfg) => {
   const token = tokenStore.get();
