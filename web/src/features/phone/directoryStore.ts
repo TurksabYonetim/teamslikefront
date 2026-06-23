@@ -1,23 +1,15 @@
 import { createStore, useStore } from "@/lib/createStore";
+import { loadJson, saveJson } from "@/lib/persist";
 
 const STORAGE_KEY = "tl.phone.directory.favorites.v1";
 
 function load(): string[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    const parsed = raw ? JSON.parse(raw) : null;
-    return Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === "string") : [];
-  } catch {
-    return [];
-  }
+  const parsed = loadJson<unknown>(STORAGE_KEY, null);
+  return Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === "string") : [];
 }
 
 function persist(ids: string[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
-  } catch {
-    /* SSR/test ortamı — yoksay */
-  }
+  saveJson(STORAGE_KEY, ids);
 }
 
 export interface DirectoryState {

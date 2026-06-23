@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Sortable from "sortablejs";
 import { useInitFlowbite } from "@/lib/flowbite";
@@ -283,16 +283,22 @@ export function KanbanBoard() {
   };
 
   const q = search.trim().toLowerCase();
-  const visibleTasks = (status: TaskStatus) =>
-    tasks
-      .filter((tk) => tk.status === status)
-      .filter(
-        (tk) =>
-          !q ||
-          tk.title.toLowerCase().includes(q) ||
-          tk.description.toLowerCase().includes(q),
-      )
-      .sort((a, b) => a.position - b.position);
+  // Tek geçişte status'a göre grupla + q filtrele + position sırala (her kolonda
+  // tüm listeyi yeniden filtrelemek yerine). Davranış aynı; tasks/q değişince yeniden.
+  const visibleByStatus = useMemo(() => {
+    const matches = (tk: Task) =>
+      !q || tk.title.toLowerCase().includes(q) || tk.description.toLowerCase().includes(q);
+    const buckets = new Map<TaskStatus, Task[]>();
+    for (const tk of tasks) {
+      if (!matches(tk)) continue;
+      const arr = buckets.get(tk.status);
+      if (arr) arr.push(tk);
+      else buckets.set(tk.status, [tk]);
+    }
+    for (const arr of buckets.values()) arr.sort((a, b) => a.position - b.position);
+    return buckets;
+  }, [tasks, q]);
+  const visibleTasks = (status: TaskStatus): Task[] => visibleByStatus.get(status) ?? [];
 
   const formatDue = (iso: string | null): string | null => {
     if (!iso) return null;

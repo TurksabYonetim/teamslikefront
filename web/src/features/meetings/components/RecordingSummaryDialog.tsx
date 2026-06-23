@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { HiOutlineArrowDownTray, HiOutlineSparkles } from "react-icons/hi2";
 import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
-import { useToast } from "@/components/ui/Toast";
+import { useOptionalToast } from "@/components/ui/Toast";
 import { memberName } from "@/features/messaging/members";
 import { CAPTION_SCRIPT } from "../meetings.data";
 
@@ -16,12 +16,7 @@ export function RecordingSummaryDialog({
 }) {
   const { t } = useTranslation("meetings");
 
-  let toast: ReturnType<typeof useToast> | undefined;
-  try {
-    toast = useToast();
-  } catch {
-    /* tests / no ToastProvider */
-  }
+  const toast = useOptionalToast();
 
   const downloadRecap = () => {
     const text = CAPTION_SCRIPT.map((l) => `${memberName(l.speakerId)}: ${l.en}`).join("\n");

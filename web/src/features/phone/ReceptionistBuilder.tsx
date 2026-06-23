@@ -22,10 +22,7 @@ import type { CaptureField, ReceptionistActionKind } from "./phone.types";
 const ACTIONS: ReceptionistActionKind[] = ["route_queue", "route_extension", "answer_faq", "book", "voicemail", "human"];
 const CAPTURE_FIELDS: CaptureField[] = ["name", "phone", "reason"];
 
-const uid = () =>
-  typeof crypto !== "undefined" && "randomUUID" in crypto
-    ? crypto.randomUUID()
-    : Math.random().toString(36).slice(2);
+import { uid } from "@/lib/uid";
 
 /** Eylem tipine göre ikon rozeti + renk tonu (yapılandırma tarafı görsel ipucu). */
 function actionMeta(action: ReceptionistActionKind): { tone: "blue" | "green" | "amber" | "gray"; Icon: IconType } {

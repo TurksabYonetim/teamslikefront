@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useMemo, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Topbar } from "@/components/layout/Topbar";
@@ -83,12 +83,15 @@ export function DashboardPage() {
   const { users, appointments, meetings, conversations, isLoading, isError, refetch } =
     useDashboardData();
 
-  const inputs = { users, appointments, meetings, conversations };
-  const stats = deriveStats(inputs);
-  const upcomingMeetings = deriveUpcomingMeetings(meetings);
-  const team = deriveTeam(users);
-  const recentBookings = deriveBookings(appointments);
-  const activity = deriveActivity(inputs);
+  const inputs = useMemo(
+    () => ({ users, appointments, meetings, conversations }),
+    [users, appointments, meetings, conversations],
+  );
+  const stats = useMemo(() => deriveStats(inputs), [inputs]);
+  const upcomingMeetings = useMemo(() => deriveUpcomingMeetings(meetings), [meetings]);
+  const team = useMemo(() => deriveTeam(users), [users]);
+  const recentBookings = useMemo(() => deriveBookings(appointments), [appointments]);
+  const activity = useMemo(() => deriveActivity(inputs), [inputs]);
 
   const firstName = me
     ? (me.full_name || me.email || "").split(/[@\s]/)[0]

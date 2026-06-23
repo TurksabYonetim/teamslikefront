@@ -1,6 +1,8 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
+import { usePopover } from "./usePopover";
+import { CONTROL_HEIGHT } from "./controlSize";
 
 /**
  * Özel, marka-tutarlı zaman seçici (HH:MM).
@@ -40,11 +42,6 @@ export function TimeField({
   className,
 }: TimeFieldProps) {
   const [open, setOpen] = React.useState(false);
-  const [coords, setCoords] = React.useState<{
-    left: number;
-    top: number;
-    placement: "top" | "bottom";
-  } | null>(null);
 
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
   const panelRef = React.useRef<HTMLDivElement | null>(null);
@@ -63,56 +60,7 @@ export function TimeField({
 
   const PANEL_W = 168; // px — iki sütun + boşluk
 
-  const computeCoords = React.useCallback(() => {
-    const el = triggerRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const margin = 8;
-    const panelH = 248;
-    const spaceBelow = window.innerHeight - r.bottom - margin;
-    const placement: "top" | "bottom" =
-      spaceBelow < panelH && r.top - margin > spaceBelow ? "top" : "bottom";
-    const left = Math.max(margin, Math.min(r.left, window.innerWidth - PANEL_W - margin));
-    setCoords({
-      left,
-      top: placement === "bottom" ? r.bottom + 4 : r.top - 4,
-      placement,
-    });
-  }, []);
-
-  React.useLayoutEffect(() => {
-    if (!open) return;
-    computeCoords();
-    const onScroll = () => computeCoords();
-    window.addEventListener("scroll", onScroll, true);
-    window.addEventListener("resize", computeCoords);
-    return () => {
-      window.removeEventListener("scroll", onScroll, true);
-      window.removeEventListener("resize", computeCoords);
-    };
-  }, [open, computeCoords]);
-
-  // Dış tıklama / Esc ile kapat.
-  React.useEffect(() => {
-    if (!open) return;
-    const onDown = (e: PointerEvent) => {
-      const t = e.target as Node;
-      if (triggerRef.current?.contains(t) || panelRef.current?.contains(t)) return;
-      setOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setOpen(false);
-        triggerRef.current?.focus();
-      }
-    };
-    document.addEventListener("pointerdown", onDown, true);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("pointerdown", onDown, true);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
+  const coords = usePopover({ open, onClose: () => setOpen(false), triggerRef, panelRef, panelW: PANEL_W, panelH: 248 });
 
   // Açılınca seçili saat/dakikayı görünür alana kaydır.
   React.useEffect(() => {
@@ -153,7 +101,7 @@ export function TimeField({
         aria-expanded={open}
         onClick={() => !disabled && setOpen((v) => !v)}
         className={clsx(
-          "inline-flex h-9 items-center justify-between gap-1.5 rounded-lg border bg-gray-50 px-2.5 text-sm tabular-nums text-gray-900 sm:h-10",
+          `inline-flex ${CONTROL_HEIGHT} items-center justify-between gap-1.5 rounded-lg border bg-surface px-2.5 text-sm tabular-nums text-ink`,
           "transition-[transform,border-color,box-shadow] duration-[var(--dur-press)] ease-[var(--ease-out)]",
           "motion-safe:active:scale-[0.99] focus:outline-none focus-visible:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500",
           open ? "border-blue-500 ring-1 ring-blue-500" : "border-gray-300 hover:border-gray-400",

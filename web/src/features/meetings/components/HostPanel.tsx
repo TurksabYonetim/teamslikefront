@@ -11,7 +11,7 @@ import {
 } from "react-icons/hi2";
 import { MdMicOff } from "react-icons/md";
 import { meetingStore, useMeeting } from "../meetings.store";
-import { IconButton, Button, useToast } from "@/components/ui";
+import { IconButton, Button, useOptionalToast } from "@/components/ui";
 import { MeetParityPanel } from "./MeetParityPanel";
 import { MeetGmPanel } from "./MeetGmPanel";
 import { FacilitatorPanel } from "./FacilitatorPanel";
@@ -19,12 +19,7 @@ import { MeetingToggleRow } from "./MeetingToggleRow";
 
 export function HostPanel() {
   const { t } = useTranslation("meetings");
-  let toast: ReturnType<typeof useToast> | undefined;
-  try {
-    toast = useToast();
-  } catch {
-    toast = undefined;
-  }
+  const toast = useOptionalToast();
 
   const sidePanel = useMeeting((s) => s.sidePanel);
   const locked = useMeeting((s) => s.locked);

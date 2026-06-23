@@ -7,10 +7,7 @@ import type {
   DisappearTimer, FileAttachment, Message, MessagePriority, Poll, Topic,
 } from "./types";
 
-const uid = () =>
-  typeof crypto !== "undefined" && "randomUUID" in crypto
-    ? crypto.randomUUID()
-    : Math.random().toString(36).slice(2);
+import { uid } from "@/lib/uid";
 
 const firstTopicOf = (topics: Topic[], channelId: string) =>
   topics.find((t) => t.channelId === channelId)?.id ?? "";

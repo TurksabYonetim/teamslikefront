@@ -3,12 +3,9 @@ import { RECEPTIONIST_CONFIG } from "./data";
 import { matchIntent, receptionistReply, resolveAction } from "./receptionist";
 import type { CaptureField, ReceptionistConfig, ReceptionistIntent, ReceptionistSession } from "./phone.types";
 
-const uid = () =>
-  typeof crypto !== "undefined" && "randomUUID" in crypto
-    ? crypto.randomUUID()
-    : Math.random().toString(36).slice(2);
+import { uid } from "@/lib/uid";
 
-const clone = <T,>(x: T): T => JSON.parse(JSON.stringify(x));
+import { jsonClone as clone } from "@/lib/clone";
 
 export interface ReceptionistState {
   config: ReceptionistConfig;

@@ -5,10 +5,7 @@ import type { SmsMedia, SmsMessage, SmsTemplate, SmsThread, ScheduledSms } from 
 /** Birincil hat — giden SMS'lerin "from"u (mock). */
 const PRIMARY_LINE = LINES[0];
 
-const uid = () =>
-  typeof crypto !== "undefined" && "randomUUID" in crypto
-    ? crypto.randomUUID()
-    : Math.random().toString(36).slice(2);
+import { uid } from "@/lib/uid";
 
 export interface SmsState {
   threads: SmsThread[];

@@ -11,6 +11,7 @@ import {
   useToast,
 } from "@/components/ui";
 import { apiErrorMessage } from "@/lib/api";
+import { formatDateTime as fmtDate } from "@/lib/dateFormat";
 import {
   useAdminOverview,
   useAuditLogs,
@@ -31,12 +32,6 @@ import { SecurityPolicies } from "./components/SecurityPolicies";
 import { FederationSettings } from "./components/FederationSettings";
 import { BillingPanel } from "./components/BillingPanel";
 
-/* ---- yardımcılar ------------------------------------------------------ */
-function fmtDate(iso: string | null): string {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return Number.isNaN(d.getTime()) ? "—" : d.toLocaleString();
-}
 
 function shortId(id: string | null): string {
   if (!id) return "—";

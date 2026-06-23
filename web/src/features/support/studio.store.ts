@@ -5,6 +5,7 @@
  * (geçici test günlüğü hariç); backend yoktur. Yanıt simülasyonu `studio.dom.ts`.
  */
 import { createStore, useStore } from "@/lib/createStore";
+import { loadJson, saveJson } from "@/lib/persist";
 import { STUDIO_AGENTS } from "./support.data";
 import { runAgentTest } from "./studio.dom";
 import type { AgentChannel, AgentIntent, AgentTestTurn, StudioAgent } from "./support.types";
@@ -34,27 +35,16 @@ function defaults(): PersistShape {
 }
 
 function load(): PersistShape {
-  if (typeof window === "undefined") return defaults();
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return defaults();
-    const p = JSON.parse(raw) as Partial<PersistShape>;
-    const d = defaults();
-    const agents = Array.isArray(p.agents) && p.agents.length > 0 ? p.agents : d.agents;
-    const activeAgentId = agents.some((a) => a.id === p.activeAgentId) ? p.activeAgentId! : agents[0].id;
-    return { agents, activeAgentId };
-  } catch {
-    return defaults();
-  }
+  const p = loadJson<Partial<PersistShape> | null>(STORAGE_KEY, null);
+  const d = defaults();
+  if (!p) return d;
+  const agents = Array.isArray(p.agents) && p.agents.length > 0 ? p.agents : d.agents;
+  const activeAgentId = agents.some((a) => a.id === p.activeAgentId) ? p.activeAgentId! : agents[0].id;
+  return { agents, activeAgentId };
 }
 
 function persist(s: PersistShape): void {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ agents: s.agents, activeAgentId: s.activeAgentId }));
-  } catch {
-    /* yoksay */
-  }
+  saveJson(STORAGE_KEY, { agents: s.agents, activeAgentId: s.activeAgentId });
 }
 
 export interface StudioState extends PersistShape {

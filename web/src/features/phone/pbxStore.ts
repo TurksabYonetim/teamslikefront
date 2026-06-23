@@ -22,7 +22,7 @@ export interface PbxState {
   resetStore: () => void;
 }
 
-const clone = <T,>(x: T): T => JSON.parse(JSON.stringify(x));
+import { jsonClone as clone } from "@/lib/clone";
 
 const seed = () => ({
   queues: clone(CALL_QUEUES) as CallQueue[],

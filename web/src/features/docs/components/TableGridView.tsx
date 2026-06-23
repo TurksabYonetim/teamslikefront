@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/components/Icon";
 import { Button, Select } from "@/components/ui";
@@ -55,10 +55,11 @@ export function TableGridView() {
   const [newColType, setNewColType] = useState<ColumnType>("text");
 
   const table = tables.find((tb) => tb.id === activeTableId) ?? tables[0];
+  // useMemo, early-return'den ÖNCE (Rules of Hooks); table yoksa boş harita.
+  const colMax = useMemo(() => (table ? numericMaxByColumn(table) : {}), [table]);
   if (!table) return null;
 
   const inputBase = "input h-9 min-w-[6rem]";
-  const colMax = numericMaxByColumn(table);
 
   const cell = (row: TableRow, col: TableColumn) => {
     const v = row.cells[col.id] ?? "";

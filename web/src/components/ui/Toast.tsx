@@ -55,6 +55,16 @@ export function useToast(): ToastApi {
   return ctx;
 }
 
+/**
+ * Provider zorunlu olmayan güvenli varyant: ToastProvider yoksa throw etmek yerine
+ * `null` döner. Toast'u opsiyonel kullanan bileşenler (ör. test/provider'sız bağlam)
+ * `useOptionalToast()?.show(...)` ile çağırır — Rules-of-Hooks ihlali olan try/catch
+ * sarmalamasına gerek kalmaz.
+ */
+export function useOptionalToast(): ToastApi | null {
+  return useContext(ToastContext);
+}
+
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<ToastItem[]>([]);
   const [heights, setHeights] = useState<Record<number, number>>({});

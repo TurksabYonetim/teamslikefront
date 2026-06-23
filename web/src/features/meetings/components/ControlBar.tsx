@@ -22,7 +22,7 @@ import {
   MdFiberManualRecord,
 } from "react-icons/md";
 import clsx from "clsx";
-import { useToast } from "@/components/ui";
+import { useOptionalToast } from "@/components/ui";
 import { useOpenIntelligence } from "@/features/integration";
 import { meetingStore, useMeeting } from "../meetings.store";
 import { useAskCopilot } from "../meetings.ai";
@@ -65,12 +65,7 @@ RoundBtn.displayName = "RoundBtn";
 export function ControlBar() {
   const { t } = useTranslation("meetings");
   const openIntel = useOpenIntelligence();
-  let toast: ReturnType<typeof useToast> | undefined;
-  try {
-    toast = useToast();
-  } catch {
-    toast = undefined;
-  }
+  const toast = useOptionalToast();
   // AI notları → Copilot stub; toast ile yapılandırılmış not özetini bildirir.
   const askCopilot = useAskCopilot((message) => toast?.show({ message }));
 

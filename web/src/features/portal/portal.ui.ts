@@ -1,4 +1,5 @@
 /** Portal görünüm yardımcıları (avatar rengi/baş harfleri, zaman biçimi). */
+import { formatTime } from "@/lib/dateFormat";
 
 /** Deterministik avatar rengi (key'den; örn. user_id veya ad). */
 const COLORS = ["#0d9488", "#dc2626", "#ea580c", "#2563eb", "#7c3aed", "#0891b2"];
@@ -22,9 +23,4 @@ export function initialsOf(name?: string | null) {
 }
 
 /** ISO/epoch → HH:MM (yerel). Geçersizse boş string. */
-export function fmtTime(iso?: string | null) {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-}
+export const fmtTime = (iso?: string | null): string => formatTime(iso);

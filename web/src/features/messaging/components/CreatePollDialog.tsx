@@ -6,6 +6,24 @@ import { Modal, Button } from "@/components/ui";
 import { messagingStore } from "../store";
 import { ME_ID } from "../members";
 
+// Modül seviyesinde: her render'da yeni bileşen tipi üretip remount/focus kaybına
+// yol açmasın diye component dışında tanımlı (saf props).
+function Toggle({ on, set, label }: { on: boolean; set: (v: boolean) => void; label: string }) {
+  return (
+    <button
+      type="button"
+      onClick={() => set(!on)}
+      aria-pressed={on}
+      className={clsx(
+        "h-9 rounded-md border px-3 text-sm",
+        on ? "border-brand bg-surface-2 text-brand" : "border-line text-muted dark:border-gray-700",
+      )}
+    >
+      {label}
+    </button>
+  );
+}
+
 export function CreatePollDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useTranslation("messaging");
   const createPoll = messagingStore.getState().createPoll;
@@ -34,20 +52,6 @@ export function CreatePollDialog({ open, onClose }: { open: boolean; onClose: ()
     reset();
     onClose();
   };
-
-  const Toggle = ({ on, set, label }: { on: boolean; set: (v: boolean) => void; label: string }) => (
-    <button
-      type="button"
-      onClick={() => set(!on)}
-      aria-pressed={on}
-      className={clsx(
-        "h-9 rounded-md border px-3 text-sm",
-        on ? "border-brand bg-surface-2 text-brand" : "border-line text-muted dark:border-gray-700",
-      )}
-    >
-      {label}
-    </button>
-  );
 
   return (
     <Modal open={open} onClose={onClose} title={t("poll.create")}>

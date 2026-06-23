@@ -1,13 +1,12 @@
 // web/src/features/support/conversation.store.ts
 import { createStore } from "@/lib/createStore";
+import { capArray } from "@/lib/capArray";
 import { AGENTS, CONVERSATIONS } from "./support.data";
 import { expandMacro, pickAgent } from "./support.dom";
 import type { Agent, Conversation, ConversationStatus, Macro, MessageItem, Priority, SupportEvent } from "./support.types";
 
 let seq = 0;
 const mid = () => `m_${Date.now()}_${seq++}`;
-/** Diziyi son N elemana sınırla (mesaj geçmişi şişmesin). */
-const capArray = <T>(arr: T[], n: number): T[] => (arr.length > n ? arr.slice(arr.length - n) : arr);
 const clone = (): Conversation[] =>
   CONVERSATIONS.map((c) => ({ ...c, labels: [...c.labels], messages: c.messages.map((m) => ({ ...m })) }));
 

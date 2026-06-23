@@ -9,16 +9,13 @@ import { appointmentsStore } from "../appointments.store";
 import { generateSlots } from "../slots";
 import { Card } from "./Card";
 import type { EventType } from "../appointments.types";
+import { formatTime as fmtTime } from "@/lib/dateFormat";
 
 /**
  * Konsol içi "Genel Sayfa" önizlemesi: davetlinin göreceği herkese açık rezervasyon
  * akışının salt-okunur bir simülasyonu. Gerçek ağ yok — aktif çalışma alanına göre
  * süzülmüş etkinlik türleri + saf `generateSlots` ile beslenir.
  */
-function fmtTime(ms: number): string {
-  return new Date(ms).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
-}
-
 export function PublicBookingPreview() {
   const { t } = useTranslation("appointments");
   const allEventTypes = useStore(appointmentsStore, (s) => s.eventTypes);

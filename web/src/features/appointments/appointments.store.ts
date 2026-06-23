@@ -2,6 +2,7 @@
 import { createStore } from "@/lib/createStore";
 import { BOOKINGS, EVENT_TYPES, ME_ID, SCHEDULES } from "./appointments.data";
 import { pickRoundRobin, rescheduleBooking } from "./slots";
+import { updateById, removeById } from "@/lib/storeArray";
 import type { AvailabilitySchedule, Booking, EventType, SchedulingEvent } from "./appointments.types";
 
 let seq = 0;
@@ -58,16 +59,16 @@ export const appointmentsStore = createStore<SchedState>((set) => ({
       ],
     })),
   updateEventType: (id, patch) =>
-    set((s) => ({ eventTypes: s.eventTypes.map((e) => (e.id === id ? { ...e, ...patch } : e)) })),
+    set((s) => ({ eventTypes: updateById(s.eventTypes, id, (e) => ({ ...e, ...patch })) })),
   removeEventType: (id) =>
     set((s) => {
-      const eventTypes = s.eventTypes.filter((e) => e.id !== id);
+      const eventTypes = removeById(s.eventTypes, id);
       const activeEventTypeId = s.activeEventTypeId === id ? (eventTypes[0]?.id ?? "") : s.activeEventTypeId;
       return { eventTypes, activeEventTypeId };
     }),
 
   updateSchedule: (id, patch) =>
-    set((s) => ({ schedules: s.schedules.map((sc) => (sc.id === id ? { ...sc, ...patch } : sc)) })),
+    set((s) => ({ schedules: updateById(s.schedules, id, (sc) => ({ ...sc, ...patch })) })),
 
   book: (eventTypeId, name, email, startMs) =>
     set((s) => {
@@ -88,12 +89,11 @@ export const appointmentsStore = createStore<SchedState>((set) => ({
     }),
 
   cancel: (bookingId) =>
-    set((s) => ({ bookings: s.bookings.map((b) => (b.id === bookingId ? { ...b, status: "cancelled" } : b)) })),
+    set((s) => ({ bookings: updateById(s.bookings, bookingId, (b) => ({ ...b, status: "cancelled" })) })),
 
   reschedule: (bookingId, newStartMs) =>
     set((s) => ({
-      bookings: s.bookings.map((b) => {
-        if (b.id !== bookingId) return b;
+      bookings: updateById(s.bookings, bookingId, (b) => {
         const et = s.eventTypes.find((e) => e.id === b.eventTypeId);
         return rescheduleBooking(b, newStartMs, et?.durationMin ?? Math.round((b.endMs - b.startMs) / 60000));
       }),
@@ -108,14 +108,14 @@ export const appointmentsStore = createStore<SchedState>((set) => ({
           return { bookings: [...s.bookings, event.booking] };
         }
         case "booking.confirmed":
-          return { bookings: s.bookings.map((b) => (b.id === event.bookingId ? { ...b, status: "confirmed" } : b)) };
+          return { bookings: updateById(s.bookings, event.bookingId, (b) => ({ ...b, status: "confirmed" })) };
         case "booking.cancelled":
-          return { bookings: s.bookings.map((b) => (b.id === event.bookingId ? { ...b, status: "cancelled" } : b)) };
+          return { bookings: updateById(s.bookings, event.bookingId, (b) => ({ ...b, status: "cancelled" })) };
         case "booking.rescheduled":
           return {
-            bookings: s.bookings.map((b) =>
-              b.id === event.bookingId ? { ...b, startMs: event.startMs, endMs: event.endMs, status: "rescheduled" } : b,
-            ),
+            bookings: updateById(s.bookings, event.bookingId, (b) => ({
+              ...b, startMs: event.startMs, endMs: event.endMs, status: "rescheduled",
+            })),
           };
         default:
           // reminder.scheduled / slot.held → store durumunu etkilemez (no-op).

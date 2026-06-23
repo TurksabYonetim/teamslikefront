@@ -1,10 +1,7 @@
 import { createStore, useStore } from "@/lib/createStore";
 import type { Story } from "./types";
 
-const uid = () =>
-  typeof crypto !== "undefined" && "randomUUID" in crypto
-    ? crypto.randomUUID()
-    : Math.random().toString(36).slice(2);
+import { uid } from "@/lib/uid";
 
 const SEED: Story[] = [
   { id: "st_1", authorId: "usr_2", kind: "text", text: "Yeni sürüm yayında! 🚀", seenBy: [], tMinutes: 40 },

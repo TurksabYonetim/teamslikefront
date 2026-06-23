@@ -3,12 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Modal, Button, useToast } from "@/components/ui";
 import { Icon } from "@/components/Icon";
 import type { AuditLog } from "./admin.types";
-
-function fmtDate(iso: string | null): string {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return Number.isNaN(d.getTime()) ? "—" : d.toLocaleString();
-}
+import { formatDateTime as fmtDate } from "@/lib/dateFormat";
 
 interface Row {
   label: string;

@@ -29,11 +29,6 @@ export function isValidVideoUrl(raw: string): boolean {
   }
 }
 
-/** URL'in görsel/video uzantısı için ipucu — önizleme hata yönetimi yardımcısı. */
-export function looksLikeImageUrl(raw: string): boolean {
-  return /\.(png|jpe?g|gif|webp|avif|svg)(\?.*)?$/i.test(raw.trim());
-}
-
 export type ClipSort = "newest" | "oldest" | "longest" | "shortest" | "title";
 
 export const CLIP_SORTS: ClipSort[] = [

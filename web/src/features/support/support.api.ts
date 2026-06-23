@@ -1,7 +1,5 @@
 // web/src/features/support/support.api.ts
-import { CONVERSATIONS, KB_ARTICLES } from "./support.data";
-import { searchKb } from "./support.dom";
-import type { KbArticle } from "./support.types";
+import { CONVERSATIONS } from "./support.data";
 
 /**
  * Chatwoot-ACL FastAPI sözleşmesinin frontend-only mock'u. Gerçek transport'a
@@ -12,11 +10,6 @@ import type { KbArticle } from "./support.types";
 /** Herhangi bir değeri simüle edilmiş ağ gecikmesiyle (varsayılan 150ms) çözer. */
 export const delay = <T>(value: T, ms = 150): Promise<T> =>
   new Promise((resolve) => setTimeout(() => resolve(value), ms));
-
-/** GET /kb?q= — sorguya göre bilgi bankası makaleleri. */
-export function searchKbRemote(q: string): Promise<KbArticle[]> {
-  return delay(searchKb(KB_ARTICLES, q));
-}
 
 /**
  * POST /ai/suggest — Captain-tarzı taslak yanıt (insan onayından önce).

@@ -5,6 +5,26 @@ import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui";
 import { meetingStore } from "../meetings.store";
 
+// Modül seviyesinde: render-içi tanım her seferinde yeni tip üretip remount/focus
+// kaybına yol açmasın diye component dışında (saf props).
+function Toggle({ on, set, label }: { on: boolean; set: (v: boolean) => void; label: string }) {
+  return (
+    <button
+      type="button"
+      onClick={() => set(!on)}
+      aria-pressed={on}
+      className={clsx(
+        "h-9 rounded-md border px-3 text-sm",
+        on
+          ? "border-primary-500 bg-primary-50 text-primary-700 dark:border-primary-500 dark:bg-gray-700 dark:text-primary-400"
+          : "border-line bg-surface text-muted dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400",
+      )}
+    >
+      {label}
+    </button>
+  );
+}
+
 /** Moderatör tarafından oluşturulan kalıcı görüntülü oda. */
 export function CreateRoomDialog({
   open,
@@ -32,30 +52,6 @@ export function CreateRoomDialog({
     setWaitingRoom(true);
     onClose();
   };
-
-  const Toggle = ({
-    on,
-    set,
-    label,
-  }: {
-    on: boolean;
-    set: (v: boolean) => void;
-    label: string;
-  }) => (
-    <button
-      type="button"
-      onClick={() => set(!on)}
-      aria-pressed={on}
-      className={clsx(
-        "h-9 rounded-md border px-3 text-sm",
-        on
-          ? "border-primary-500 bg-primary-50 text-primary-700 dark:border-primary-500 dark:bg-gray-700 dark:text-primary-400"
-          : "border-line bg-surface text-muted dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400",
-      )}
-    >
-      {label}
-    </button>
-  );
 
   return (
     <Modal open={open} onClose={onClose} title={t("createRoom")}>

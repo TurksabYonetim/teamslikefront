@@ -87,4 +87,25 @@ Ayrıca **yüksek hacimli ölü kod** (~1.826 satır import edilmeyen mail dosya
 
 ---
 
+## Uygulama Durumu (`/loop` ile uygulandı)
+
+Aşağıdaki düzeltmeler davranış korunarak uygulandı; **her adımda `tsc --noEmit` temiz** ve test suite'i **baseline'a göre (56 failed / 32 files — önceden mevcut, test-ortamı/localStorage kaynaklı) yeni hata eklemeden** geçti.
+
+### ✅ Uygulandı
+- **Ölü kod:** `MailRead`/`MailReply`/`Notifications` silindi (~1.826 satır); `searchKbRemote`, `looksLikeImageUrl`, `webinar.api.ts`(+test) silindi.
+- **lib altyapısı (gerçek copy-paste boilerplate):** `lib/uid.ts` (7 kopya), `lib/dateFormat.ts` (Admin×2 `fmtDate` + 3 `fmtTime`), `lib/persist.ts` (5 store load/save try-catch), `lib/storeArray.ts` (+appointments.store), `lib/clone.ts` (phone×2); `conversation.store` `capArray` → `lib/capArray`.
+- **`usePopover` headless hook:** DateField + TimeField (~90 satır dedup).
+- **Token/CONTROL_HEIGHT tutarlılığı:** DateField/TimeField trigger'ları Select'e hizalandı (dark-mode token); ölü `CONTROL_PAD_X` kaldırıldı.
+- **2 gerçek bug:** `useToast` Rules-of-Hooks ihlali (`useOptionalToast` + 3 dosya); Sidebar frozen-badge (render-zamanı `unread`).
+- **Performans:** 8 `useMemo` (VoicemailInbox, SavedDrawer Map'leri, ConversationList, KanbanBoard bucket, DashboardPage derive'ler, AvailabilityEditor, MessageComposer, TableGridView); 3 render-içi alt-bileşen → modül seviyesi (remount/focus bug'ı: CreatePollDialog/CreateRoomDialog `Toggle`, ShortcutsHelpDialog `Group`).
+- **Paylaşılan komponent:** `ui/Card.tsx` (3 kopya → tek + ölü StatCard silindi); `ui/CollapsibleSection.tsx` (IVRBuilder + RoutingRuleBuilder).
+
+### ⏭️ Bilinçli ertelendi / yapılmadı (gerekçeyle)
+- **"Duplikasyon" sanılan idiomlar (gerçek kopya değil):** `initials` (locale `tr`/`lang` + algoritma + fallback farkları), tarih formatlayıcıların çoğu (divergent), `map-by-id` store kalıbı (~95 satır, idiom; util eklendi ama kütle-migrasyon yapılmadı), `escapeRe`/`delay`/`download*` (tek kopya veya farklı imza).
+- **Görsel JSX-restructure refactor'lar (kullanıcı kararı: yalnız düşük-riskli):** SearchField (birebir-aynı çift yok — CSS-hook/transition farkları), AsyncListState (sayfa başına çok farklı), ModalForm footer (parametrik), ReceptionistBuilder/EventManager CollapsibleSection (farklı button/varyant), **Görev 13 primitive geçişi** (per-site restructure). Görsel test olmadığından regresyon otomatik yakalanamıyor → insan/branch QA önerilir.
+- **Jitsi `MeetingRoomPage` ikiliği (rank #2, ~1.074 satır):** kullanıcı kararı **"şimdilik dokunma"**. İleride ürün kararıyla: ya sil ya `/room-jitsi`'yi gerçek akış yap (`joinUrl` bağla + `createBreakouts` guard).
+- **Codex'in `ContactsPanel:463` "ulaşılamaz return" bulgusu: FALSE POSITIVE** (`renderContacts` bir ok-fonksiyonu; return erişilebilir).
+
+---
+
 *Ham veri: Claude bulguları workflow `wf_3f311e15-1f2` çıktısında; Codex tam raporu `CODE_QUALITY_CODEX.md`.*

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { HiOutlineTrash, HiOutlinePlus, HiOutlineChevronDown } from "react-icons/hi2";
-import clsx from "clsx";
-import { Badge, Button, EmptyState, Input, Select } from "@/components/ui";
+import { HiOutlineTrash, HiOutlinePlus } from "react-icons/hi2";
+import { Badge, Button, CollapsibleSection, EmptyState, Input, Select } from "@/components/ui";
 import { usePbx, pbxStore } from "./pbxStore";
 import { isWithinHours } from "./pbx";
 import type { IVROptionAction } from "./phone.types";
@@ -85,33 +84,16 @@ export function IVRBuilder() {
 
         {/* Yeni seçenek — açılır kapanır inset kart (impeccable accordion) */}
         <div className="rounded-lg border border-line bg-surface-2 p-3 sm:p-4">
-          <button
-            type="button"
-            onClick={() => setFormOpen((o) => !o)}
-            aria-expanded={formOpen}
-            aria-controls="ivr-new-option"
-            className="flex w-full items-center justify-between gap-2 rounded-lg text-sm font-semibold text-brand transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-          >
-            <span className="flex items-center gap-1.5">
-              <HiOutlinePlus size={16} aria-hidden /> {t("ivr.newOption")}
-            </span>
-            <HiOutlineChevronDown
-              size={16}
-              aria-hidden
-              className={clsx(
-                "shrink-0 transition-transform duration-200 ease-out motion-reduce:transition-none",
-                formOpen && "rotate-180",
-              )}
-            />
-          </button>
-          <div
+          <CollapsibleSection
+            open={formOpen}
+            onToggle={() => setFormOpen((o) => !o)}
             id="ivr-new-option"
-            className={clsx(
-              "grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none",
-              formOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
-            )}
+            title={
+              <span className="flex items-center gap-1.5">
+                <HiOutlinePlus size={16} aria-hidden /> {t("ivr.newOption")}
+              </span>
+            }
           >
-            <div className="overflow-hidden">
               <div className="grid grid-cols-1 gap-3 pt-3 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
               <span className="text-xs font-medium text-ink-2">{t("ivr.key")}</span>
@@ -141,8 +123,7 @@ export function IVRBuilder() {
             </label>
               </div>
               <Button size="sm" onClick={addOption} disabled={!key.trim()} className="mt-3 w-full">{t("ivr.addOption")}</Button>
-            </div>
-          </div>
+          </CollapsibleSection>
         </div>
       </div>
 

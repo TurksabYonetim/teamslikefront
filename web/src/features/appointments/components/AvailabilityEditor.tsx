@@ -8,6 +8,7 @@ import { generateSlots } from "../slots";
 import { TimezonePicker } from "./TimezonePicker";
 import { Card } from "./Card";
 import type { HoursRule } from "../appointments.types";
+import { formatTime } from "@/lib/dateFormat";
 
 // Pzt→Paz sırası (görsel); 0=Paz JS ile uyumlu kalır.
 const WEEKDAYS = [1, 2, 3, 4, 5, 6, 0];
@@ -78,18 +79,22 @@ export function AvailabilityEditor() {
     </>
   );
 
-  const fmtTime = (ms: number) => new Date(ms).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
-  const morningSlots = slots.filter((s) => new Date(s.startMs).getHours() < 12);
-  const afternoonSlots = slots.filter((s) => new Date(s.startMs).getHours() >= 12);
+  const fmtTime = (ms: number) => formatTime(ms, { locale: "tr-TR" });
+  const { morningSlots, afternoonSlots } = useMemo(() => {
+    const morning: typeof slots = [];
+    const afternoon: typeof slots = [];
+    for (const s of slots) (new Date(s.startMs).getHours() < 12 ? morning : afternoon).push(s);
+    return { morningSlots: morning, afternoonSlots: afternoon };
+  }, [slots]);
   const stepDay = (delta: number) => {
     const [y, mo, d] = previewDate.split("-").map(Number);
     const dt = new Date(y, mo - 1, d + delta);
     setPreviewDate(`${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`);
   };
-  const prettyDate = (() => {
+  const prettyDate = useMemo(() => {
     const [y, mo, d] = previewDate.split("-").map(Number);
     return new Date(y, mo - 1, d).toLocaleDateString("tr-TR", { day: "numeric", month: "long", weekday: "short" });
-  })();
+  }, [previewDate]);
   const navBtn =
     "inline-flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-[transform,border-color,background-color] duration-[var(--dur-press)] ease-[var(--ease-out)] hover:border-gray-400 hover:bg-surface-2 motion-safe:active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-500";
 

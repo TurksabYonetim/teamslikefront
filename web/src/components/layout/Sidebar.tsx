@@ -11,15 +11,15 @@ import { listFor, type Section } from "@/features/messaging/messaging.mock";
 /* ---- veri (etiketler i18n anahtarı olarak) ---------------------------- */
 const unread = (s: Section) => listFor(s).reduce((n, c) => n + (c.unread ?? 0), 0);
 
-interface Item { to: string; labelKey: string; icon: string; badge?: number }
+interface Item { to: string; labelKey: string; icon: string; section?: Section }
 const GROUPS: { labelKey: string; icon: string; items: Item[] }[] = [
   {
     labelKey: "nav.messaging",
     icon: "chat",
     items: [
-      { to: "/channels", labelKey: "nav.channels", icon: "hash", badge: unread("channels") },
-      { to: "/dm", labelKey: "nav.dm", icon: "chat", badge: unread("dm") },
-      { to: "/inbox", labelKey: "nav.inbox", icon: "inbox", badge: unread("inbox") },
+      { to: "/channels", labelKey: "nav.channels", icon: "hash", section: "channels" },
+      { to: "/dm", labelKey: "nav.dm", icon: "chat", section: "dm" },
+      { to: "/inbox", labelKey: "nav.inbox", icon: "inbox", section: "inbox" },
     ],
   },
   {
@@ -146,7 +146,7 @@ function Group({ labelKey, icon, items, collapsed, onExpand }: { labelKey: strin
                     <>
                       <Icon name={i.icon} aria-hidden className={iconCls(isActive)} />
                       <span className="flex-1 ml-3 whitespace-nowrap">{t(i.labelKey)}</span>
-                      <Badge n={i.badge} />
+                      <Badge n={i.section ? unread(i.section) : undefined} />
                     </>
                   )}
                 </NavLink>

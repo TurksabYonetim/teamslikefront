@@ -12,6 +12,7 @@ import {
   POLICIES,
   QUOTAS,
 } from "./governance.data";
+import { loadJson, saveJson } from "@/lib/persist";
 import type {
   AdminEvent,
   AuditEvent,
@@ -56,42 +57,28 @@ function defaults(): PersistShape {
 }
 
 function load(): PersistShape {
-  if (typeof window === "undefined") return defaults();
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return defaults();
-    const parsed = JSON.parse(raw) as Partial<PersistShape>;
-    const d = defaults();
-    return {
-      audit: Array.isArray(parsed.audit) ? parsed.audit : d.audit,
-      policies: Array.isArray(parsed.policies) ? parsed.policies : d.policies,
-      federation: Array.isArray(parsed.federation) ? parsed.federation : d.federation,
-      billing: parsed.billing ?? d.billing,
-      invoices: Array.isArray(parsed.invoices) ? parsed.invoices : d.invoices,
-      quotas: Array.isArray(parsed.quotas) ? parsed.quotas : d.quotas,
-    };
-  } catch {
-    return defaults();
-  }
+  const parsed = loadJson<Partial<PersistShape> | null>(STORAGE_KEY, null);
+  const d = defaults();
+  if (!parsed) return d;
+  return {
+    audit: Array.isArray(parsed.audit) ? parsed.audit : d.audit,
+    policies: Array.isArray(parsed.policies) ? parsed.policies : d.policies,
+    federation: Array.isArray(parsed.federation) ? parsed.federation : d.federation,
+    billing: parsed.billing ?? d.billing,
+    invoices: Array.isArray(parsed.invoices) ? parsed.invoices : d.invoices,
+    quotas: Array.isArray(parsed.quotas) ? parsed.quotas : d.quotas,
+  };
 }
 
 function persist(s: PersistShape): void {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({
-        audit: s.audit,
-        policies: s.policies,
-        federation: s.federation,
-        billing: s.billing,
-        invoices: s.invoices,
-        quotas: s.quotas,
-      }),
-    );
-  } catch {
-    /* kota dolu / private mode — sessizce yoksay */
-  }
+  saveJson(STORAGE_KEY, {
+    audit: s.audit,
+    policies: s.policies,
+    federation: s.federation,
+    billing: s.billing,
+    invoices: s.invoices,
+    quotas: s.quotas,
+  });
 }
 
 export interface AdminState extends PersistShape {

@@ -12,10 +12,7 @@ import type {
 /** Birincil hat — canlı çağrıların yereli (mock; gerçek hat seçimi Faz 4). */
 const PRIMARY_LINE = LINES[0];
 
-const uid = () =>
-  typeof crypto !== "undefined" && "randomUUID" in crypto
-    ? crypto.randomUUID()
-    : Math.random().toString(36).slice(2);
+import { uid } from "@/lib/uid";
 
 /** Sonlanmış, henüz /v1/call-logs'a yazılmamış çağrı (ActiveCallBar tüketir). */
 export interface PendingLog {

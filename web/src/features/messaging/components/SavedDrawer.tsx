@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { HiOutlineBookmark } from "react-icons/hi2";
 import { Modal, EmptyState } from "@/components/ui";
@@ -10,7 +11,9 @@ export function SavedDrawer({ open, onClose }: { open: boolean; onClose: () => v
   const messages = useMessaging((s) => s.messages);
   const channels = useMessaging((s) => s.channels);
   const topics = useMessaging((s) => s.topics);
-  const saved = messages.filter((m) => m.saved && !m.deleted);
+  const saved = useMemo(() => messages.filter((m) => m.saved && !m.deleted), [messages]);
+  const channelById = useMemo(() => new Map(channels.map((c) => [c.id, c])), [channels]);
+  const topicById = useMemo(() => new Map(topics.map((x) => [x.id, x])), [topics]);
 
   const goto = (channelId: string, topicId: string) => {
     const s = messagingStore.getState();
@@ -29,8 +32,8 @@ export function SavedDrawer({ open, onClose }: { open: boolean; onClose: () => v
       ) : (
         <ul className="space-y-2">
           {saved.map((m) => {
-            const ch = channels.find((c) => c.id === m.channelId);
-            const tp = topics.find((x) => x.id === m.topicId);
+            const ch = channelById.get(m.channelId);
+            const tp = topicById.get(m.topicId);
             return (
               <li key={m.id}>
                 <button

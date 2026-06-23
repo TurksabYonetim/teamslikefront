@@ -1,6 +1,8 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
+import { usePopover } from "./usePopover";
+import { CONTROL_HEIGHT } from "./controlSize";
 
 /**
  * Özel, marka-tutarlı tarih seçici (Flowbite datepicker görünümünde).
@@ -82,7 +84,6 @@ export function DateField({
   className,
 }: DateFieldProps) {
   const [open, setOpen] = React.useState(false);
-  const [coords, setCoords] = React.useState<{ left: number; top: number; placement: "top" | "bottom" } | null>(null);
 
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
   const panelRef = React.useRef<HTMLDivElement | null>(null);
@@ -107,49 +108,7 @@ export function DateField({
   const PANEL_W = 296;
   const PANEL_H = 340;
 
-  const computeCoords = React.useCallback(() => {
-    const el = triggerRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const margin = 8;
-    const spaceBelow = window.innerHeight - r.bottom - margin;
-    const placement: "top" | "bottom" = spaceBelow < PANEL_H && r.top - margin > spaceBelow ? "top" : "bottom";
-    const left = Math.max(margin, Math.min(r.left, window.innerWidth - PANEL_W - margin));
-    setCoords({ left, top: placement === "bottom" ? r.bottom + 4 : r.top - 4, placement });
-  }, []);
-
-  React.useLayoutEffect(() => {
-    if (!open) return;
-    computeCoords();
-    const onScroll = () => computeCoords();
-    window.addEventListener("scroll", onScroll, true);
-    window.addEventListener("resize", computeCoords);
-    return () => {
-      window.removeEventListener("scroll", onScroll, true);
-      window.removeEventListener("resize", computeCoords);
-    };
-  }, [open, computeCoords]);
-
-  React.useEffect(() => {
-    if (!open) return;
-    const onDown = (e: PointerEvent) => {
-      const t = e.target as Node;
-      if (triggerRef.current?.contains(t) || panelRef.current?.contains(t)) return;
-      setOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setOpen(false);
-        triggerRef.current?.focus();
-      }
-    };
-    document.addEventListener("pointerdown", onDown, true);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("pointerdown", onDown, true);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
+  const coords = usePopover({ open, onClose: () => setOpen(false), triggerRef, panelRef, panelW: PANEL_W, panelH: PANEL_H });
 
   // Açılınca seçili/bugün hücresine odaklan.
   React.useEffect(() => {
@@ -231,7 +190,7 @@ export function DateField({
         aria-expanded={open}
         onClick={() => !disabled && setOpen((v) => !v)}
         className={clsx(
-          "inline-flex h-10 w-full items-center justify-between gap-2 rounded-lg border bg-gray-50 px-3 text-sm text-gray-900",
+          `inline-flex ${CONTROL_HEIGHT} w-full items-center justify-between gap-2 rounded-lg border bg-surface px-3 text-sm text-ink`,
           "transition-[transform,border-color,box-shadow] duration-[var(--dur-press)] ease-[var(--ease-out)]",
           "motion-safe:active:scale-[0.99] focus:outline-none focus-visible:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500",
           open ? "border-blue-500 ring-1 ring-blue-500" : "border-gray-300 hover:border-gray-400",
@@ -239,7 +198,7 @@ export function DateField({
           className,
         )}
       >
-        <span className={value ? "text-ink tabular-nums" : "text-gray-500"}>{value ? fmtDisplay(value) : placeholder}</span>
+        <span className={value ? "text-ink tabular-nums" : "text-ink-3"}>{value ? fmtDisplay(value) : placeholder}</span>
         {CalendarIcon}
       </button>
 

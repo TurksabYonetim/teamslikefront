@@ -5,6 +5,7 @@
  * temizleme tamamen UI akışıdır. Yürütme simülasyonu `botflow.dom.ts`'tedir.
  */
 import { createStore, useStore } from "@/lib/createStore";
+import { loadJson, saveJson } from "@/lib/persist";
 import { SEED_FLOWS } from "./support.data";
 import type { BotFlow, BotNodeKind } from "./support.types";
 
@@ -38,27 +39,16 @@ function defaults(): PersistShape {
 }
 
 function load(): PersistShape {
-  if (typeof window === "undefined") return defaults();
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return defaults();
-    const parsed = JSON.parse(raw) as Partial<PersistShape>;
-    const d = defaults();
-    const flows = Array.isArray(parsed.flows) && parsed.flows.length > 0 ? parsed.flows : d.flows;
-    const activeFlowId = flows.some((f) => f.id === parsed.activeFlowId) ? parsed.activeFlowId! : flows[0].id;
-    return { flows, activeFlowId };
-  } catch {
-    return defaults();
-  }
+  const parsed = loadJson<Partial<PersistShape> | null>(STORAGE_KEY, null);
+  const d = defaults();
+  if (!parsed) return d;
+  const flows = Array.isArray(parsed.flows) && parsed.flows.length > 0 ? parsed.flows : d.flows;
+  const activeFlowId = flows.some((f) => f.id === parsed.activeFlowId) ? parsed.activeFlowId! : flows[0].id;
+  return { flows, activeFlowId };
 }
 
 function persist(s: PersistShape): void {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ flows: s.flows, activeFlowId: s.activeFlowId }));
-  } catch {
-    /* kota dolu / private mode — sessizce yoksay */
-  }
+  saveJson(STORAGE_KEY, { flows: s.flows, activeFlowId: s.activeFlowId });
 }
 
 export interface BotflowState extends PersistShape {

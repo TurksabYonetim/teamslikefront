@@ -58,18 +58,26 @@ export function MessageComposer() {
   const taRef = React.useRef<HTMLTextAreaElement>(null);
 
   // @mention: son kelime "@" ile başlıyorsa filtreli üye önerileri.
-  const mentionToken = (() => {
+  const mentionToken = React.useMemo(() => {
     const m = text.match(/(^|\s)@([^\s@]*)$/);
     return m ? m[2] : null;
-  })();
-  const mentionMatches =
-    mentionToken !== null
-      ? MEMBERS.filter((mm) => mm.name.toLowerCase().includes(mentionToken.toLowerCase())).slice(0, 6)
-      : [];
+  }, [text]);
+  const mentionMatches = React.useMemo(
+    () =>
+      mentionToken !== null
+        ? MEMBERS.filter((mm) => mm.name.toLowerCase().includes(mentionToken.toLowerCase())).slice(0, 6)
+        : [],
+    [mentionToken],
+  );
   // /slash: metin "/" ile başlıyorsa komut önerileri.
-  const slashToken = text.startsWith("/") && !text.includes(" ") ? text.slice(1) : null;
-  const slashMatches =
-    slashToken !== null ? SLASH_COMMANDS.filter((c) => c.startsWith(slashToken.toLowerCase())) : [];
+  const slashToken = React.useMemo(
+    () => (text.startsWith("/") && !text.includes(" ") ? text.slice(1) : null),
+    [text],
+  );
+  const slashMatches = React.useMemo(
+    () => (slashToken !== null ? SLASH_COMMANDS.filter((c) => c.startsWith(slashToken.toLowerCase())) : []),
+    [slashToken],
+  );
 
   // Auto-grow: tek satırdan başlar, içeriğe göre büyür (minimal/sade composer; tavan 160px).
   React.useLayoutEffect(() => {
@@ -86,8 +94,14 @@ export function MessageComposer() {
 
   const setText = (v: string) => messagingStore.getState().setDraft(activeTopicId, v);
 
-  const replyTarget = replyTargetId ? messages.find((m) => m.id === replyTargetId) : undefined;
-  const scheduledCount = messages.filter((m) => m.topicId === activeTopicId && m.scheduled).length;
+  const replyTarget = React.useMemo(
+    () => (replyTargetId ? messages.find((m) => m.id === replyTargetId) : undefined),
+    [messages, replyTargetId],
+  );
+  const scheduledCount = React.useMemo(
+    () => messages.filter((m) => m.topicId === activeTopicId && m.scheduled).length,
+    [messages, activeTopicId],
+  );
 
   const placeholder = mode === "note" ? t("composer.placeholderNote") : t("composer.placeholderReply");
 

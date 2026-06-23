@@ -1,4 +1,5 @@
 // web/src/features/support/components/ConversationList.tsx
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { Icon } from "@/components/Icon";
@@ -27,11 +28,15 @@ export function ConversationList() {
   const query = useStore(inboxStore, (s) => s.query);
 
   const q = query.trim().toLowerCase();
-  const list = conversations
-    .filter((c) => !activeInboxId || c.inboxId === activeInboxId)
-    .filter((c) => filterStatus === "all" || c.status === filterStatus)
-    .filter((c) => assignee === "all" || (assignee === "mine" ? c.assigneeId === ME_ID : !c.assigneeId))
-    .filter((c) => !q || contactName(c.contactId).toLowerCase().includes(q) || c.messages.some((m) => m.body.toLowerCase().includes(q)));
+  const list = useMemo(
+    () =>
+      conversations
+        .filter((c) => !activeInboxId || c.inboxId === activeInboxId)
+        .filter((c) => filterStatus === "all" || c.status === filterStatus)
+        .filter((c) => assignee === "all" || (assignee === "mine" ? c.assigneeId === ME_ID : !c.assigneeId))
+        .filter((c) => !q || contactName(c.contactId).toLowerCase().includes(q) || c.messages.some((m) => m.body.toLowerCase().includes(q))),
+    [conversations, activeInboxId, filterStatus, assignee, q],
+  );
 
   return (
     <div className="flex min-h-0 flex-col rounded-xl border border-line bg-surface">

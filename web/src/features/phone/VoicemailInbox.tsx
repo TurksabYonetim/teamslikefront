@@ -30,8 +30,8 @@ export function VoicemailInbox() {
       return next;
     });
 
-  const sorted = [...voicemails].sort((a, b) => b.receivedAt - a.receivedAt);
-  const unheard = voicemails.filter((v) => !v.heard).length;
+  const sorted = useMemo(() => [...voicemails].sort((a, b) => b.receivedAt - a.receivedAt), [voicemails]);
+  const unheard = useMemo(() => voicemails.filter((v) => !v.heard).length, [voicemails]);
   const dateFmt = useMemo(
     () => new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short" }),
     [i18n.language],

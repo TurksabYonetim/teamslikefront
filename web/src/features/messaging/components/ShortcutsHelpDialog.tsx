@@ -19,10 +19,9 @@ const MESSAGE: Row[] = [
   { keys: "1–6", labelKey: "shortcuts.react" },
 ];
 
-export function ShortcutsHelpDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const { t } = useTranslation("messaging");
-
-  const Group = ({ title, rows }: { title: string; rows: Row[] }) => (
+// Modül seviyesinde (render-içi tanım remount/focus kaybına yol açmasın); `t` prop ile.
+function Group({ title, rows, t }: { title: string; rows: Row[]; t: (key: string) => string }) {
+  return (
     <div>
       <h3 className="mb-2 text-sm font-semibold text-muted">{title}</h3>
       <ul className="space-y-1">
@@ -37,12 +36,16 @@ export function ShortcutsHelpDialog({ open, onClose }: { open: boolean; onClose:
       </ul>
     </div>
   );
+}
+
+export function ShortcutsHelpDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { t } = useTranslation("messaging");
 
   return (
     <Modal open={open} onClose={onClose} title={t("shortcuts.title")}>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <Group title={t("shortcuts.navGroup")} rows={NAV} />
-        <Group title={t("shortcuts.messageGroup")} rows={MESSAGE} />
+        <Group title={t("shortcuts.navGroup")} rows={NAV} t={t} />
+        <Group title={t("shortcuts.messageGroup")} rows={MESSAGE} t={t} />
       </div>
     </Modal>
   );

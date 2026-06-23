@@ -34,10 +34,7 @@ import type {
   VideoRoom,
 } from "./meetings.store.types";
 
-const uid = () =>
-  typeof crypto !== "undefined" && "randomUUID" in crypto
-    ? crypto.randomUUID()
-    : Math.random().toString(36).slice(2);
+import { uid } from "@/lib/uid";
 
 /** Floating reaction buffer is capped so a reaction spam never unbounds memory/DOM. */
 const REACTION_CAP = 50;

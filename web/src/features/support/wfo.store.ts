@@ -5,6 +5,7 @@
  * Gereken-temsilci hesabı `wfo.dom.ts` saf motorunda yapılır.
  */
 import { createStore, useStore } from "@/lib/createStore";
+import { saveJson } from "@/lib/persist";
 import {
   ADHERENCE, QA_EVALUATIONS, SCORECARD, SHIFTS, STAFFING, WFO_AHT_SEC, WFO_INTERVAL_SEC, WFO_OCCUPANCY,
 } from "./support.data";
@@ -58,15 +59,7 @@ function load(): PersistShape {
 }
 
 function persist(s: PersistShape): void {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({ intervals: s.intervals, shifts: s.shifts, adherence: s.adherence, criteria: s.criteria, evaluations: s.evaluations }),
-    );
-  } catch {
-    /* yoksay */
-  }
+  saveJson(STORAGE_KEY, { intervals: s.intervals, shifts: s.shifts, adherence: s.adherence, criteria: s.criteria, evaluations: s.evaluations });
 }
 
 export interface WfoState extends PersistShape {
